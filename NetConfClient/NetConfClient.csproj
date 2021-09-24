@@ -194,8 +194,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SSH.NET-2020.0.1\src\Renci.SshNet\Renci.SshNet.csproj">
-      <Project>{136cd405-92d6-47db-8637-31b46e0600d9}</Project>
+    <ProjectReference Include="Renci.SshNet\Renci.SshNet.csproj">
+      <Project>{0c01e343-5e94-42b7-b312-02699befa506}</Project>
       <Name>Renci.SshNet</Name>
     </ProjectReference>
   </ItemGroup>

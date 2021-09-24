@@ -702,7 +702,7 @@ namespace NetConfClientSoftware
             // ButSend
             // 
             this.ButSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButSend.Location = new System.Drawing.Point(631, 350);
+            this.ButSend.Location = new System.Drawing.Point(631, 353);
             this.ButSend.Name = "ButSend";
             this.ButSend.Size = new System.Drawing.Size(127, 30);
             this.ButSend.TabIndex = 0;
@@ -731,10 +731,10 @@ namespace NetConfClientSoftware
             this.RichTextReq.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RichTextReq.Location = new System.Drawing.Point(3, 37);
+            this.RichTextReq.Location = new System.Drawing.Point(3, 39);
             this.RichTextReq.Name = "RichTextReq";
             this.RichTextReq.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RichTextReq.Size = new System.Drawing.Size(755, 307);
+            this.RichTextReq.Size = new System.Drawing.Size(755, 314);
             this.RichTextReq.TabIndex = 13;
             this.RichTextReq.Text = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<rpc xmlns=\"urn:ietf:params:xml:ns:netconf" +
     ":base:1.0\" message-id=\"6\">\n    <get>\n        <filter />\n    </get>\n</rpc>";
@@ -742,8 +742,7 @@ namespace NetConfClientSoftware
             // 
             // label5
             // 
-            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(200, 17);
             this.label5.Name = "label5";
@@ -753,8 +752,7 @@ namespace NetConfClientSoftware
             // 
             // ComXml
             // 
-            this.ComXml.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComXml.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ComXml.IntegralHeight = false;
             this.ComXml.ItemHeight = 12;
             this.ComXml.Location = new System.Drawing.Point(337, 14);
