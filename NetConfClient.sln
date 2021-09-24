@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1525
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetConfClient", "NetConfClient\NetConfClient.csproj", "{23E2D8C4-4D81-4DD6-9AD3-169C877955BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Renci.SshNet", "..\SSH.NET-2020.0.1\src\Renci.SshNet\Renci.SshNet.csproj", "{136CD405-92D6-47DB-8637-31B46E0600D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{23E2D8C4-4D81-4DD6-9AD3-169C877955BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23E2D8C4-4D81-4DD6-9AD3-169C877955BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23E2D8C4-4D81-4DD6-9AD3-169C877955BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23E2D8C4-4D81-4DD6-9AD3-169C877955BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{136CD405-92D6-47DB-8637-31B46E0600D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{136CD405-92D6-47DB-8637-31B46E0600D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{136CD405-92D6-47DB-8637-31B46E0600D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{136CD405-92D6-47DB-8637-31B46E0600D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C8B13D5-E27A-4DB3-AB05-2EC166EB830B}
+	EndGlobalSection
+EndGlobal
