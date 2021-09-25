@@ -2849,7 +2849,7 @@ namespace NetConfClientSoftware
                 gpnport = LoginOn.PORT;
                 gpnuser = LoginOn.USER;
                 gpnpassword = LoginOn.PASSD;
-                gpnnetconfversion = "1.0";
+                gpnnetconfversion = LoginOn.VER;
                 Gpnsetini();
                 TextIP.Text = gpnip;
                 Thread thread = new Thread(() => LoginNetconfService(LoginOn.IP, LoginOn.PORT, LoginOn.USER, LoginOn.PASSD));

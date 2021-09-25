@@ -371,9 +371,12 @@ namespace NetConfClientSoftware
             XmlElement ptp = commonXml.CreateElement("ptp");
             ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
             ptps.AppendChild(ptp);
-            XmlElement name = commonXml.CreateElement("name");
-            name.InnerText = _name;
-            ptp.AppendChild(name);
+            if (!_name.Contains("无")) {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ptp.AppendChild(name);
+            }
+
 
             return commonXml;
 

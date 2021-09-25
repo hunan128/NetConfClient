@@ -237,18 +237,22 @@ namespace Renci.SshNet
                 case 0:
                     throw _exception;
                 case 1:
-                    throw new SshException("Connection was closed by the server.");
+                    throw new SshException("Connection was closed by the server.（连接已被服务器关闭）");
                 case 2:
-                    throw new SshException("Channel was closed.");
+                    throw new SshException("Channel was closed.（通道已被关闭）");
                 case 3:
                     break;
                 case WaitHandle.WaitTimeout:
-                    throw new SshOperationTimeoutException("Operation has timed out.");
+                    throw new SshOperationTimeoutException("Operation has timed out.（操作超时了，请检查后再次尝试！）超时了：" + millisecondsTimeout / 1000 + "S");
                 default:
-                    throw new NotImplementedException(string.Format(CultureInfo.InvariantCulture, "WaitAny return value '{0}' is not implemented.", result));
+                    throw new NotImplementedException(string.Format(CultureInfo.InvariantCulture, "WaitAny return value '{0}' is not implemented.（返回值还未定位和实现）", result));
             }
         }
-
+        /// <summary>
+        /// 通知事件的监听等待
+        /// </summary>
+        /// <param name="waitHandle"></param>
+        /// <param name="millisecondsTimeout"></param>
         public void WaitOnHandleNotification(WaitHandle waitHandle, int millisecondsTimeout)
         {
             var waitHandles = new[]
@@ -265,18 +269,17 @@ namespace Renci.SshNet
                 case 0:
                     throw _exception;
                 case 1:
-                    throw new SshException("Connection was closed by the server.");
+                    throw new SshException("Connection was closed by the server.（连接已被服务器关闭）");
                 case 2:
-                    throw new SshException("Channel was closed.");
+                    throw new SshException("Channel was closed.（通道已被关闭）");
                 case 3:
                     break;
                 case WaitHandle.WaitTimeout:
-                    throw new SshOperationTimeoutException("Operation has timed out.");
+                    throw new SshOperationTimeoutException("Operation has timed out.（操作超时了，请检查后再次尝试！）超时了：" + millisecondsTimeout / 1000 + "S");
                 default:
-                    throw new NotImplementedException(string.Format(CultureInfo.InvariantCulture, "WaitAny return value '{0}' is not implemented.", result));
+                    throw new NotImplementedException(string.Format(CultureInfo.InvariantCulture, "WaitAny return value '{0}' is not implemented.（返回值还未定位和实现）", result));
             }
         }
-
         /// <summary>
         /// Blocks the current thread until the specified <see cref="WaitHandle"/> gets signaled, using a
         /// 32-bit signed integer to specify the time interval in milliseconds.

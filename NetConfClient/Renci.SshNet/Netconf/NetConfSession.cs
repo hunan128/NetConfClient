@@ -34,6 +34,8 @@ namespace Renci.SshNet.NetConf
         /// </summary>
         public XmlDocument ClientCapabilities { get; private set; }
 
+
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="NetConfSession"/> class.
         /// </summary>
@@ -42,14 +44,35 @@ namespace Renci.SshNet.NetConf
         public NetConfSession(ISession session, int operationTimeout): base(session, "netconf", operationTimeout)
         {
             ClientCapabilities = new XmlDocument();
-            ClientCapabilities.LoadXml("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                                                "<hello xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\">" +
-                                                    "<capabilities>" +
-                                                        "<capability>" +
-                                                            "urn:ietf:params:netconf:base:1.0" +
-                                                        "</capability>" +
-                                                    "</capabilities>" +
-                                                "</hello>");
+            string xml1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                                    "<hello xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\">" +
+                                                        "<capabilities>" +
+                                                            "<capability>" +
+                                                                "urn:ietf:params:netconf:base:1.0" +
+                                                            "</capability>" +
+                                                        "</capabilities>" +
+                                                    "</hello>";
+            string xml2 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                                        "<hello xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\">" +
+                                            "<capabilities>" +
+                                                "<capability>" +
+                                                    "urn:ietf:params:netconf:base:1.0" +
+                                                "</capability>" +
+                                              "<capability>" +
+                                                "urn:ietf:params:netconf:base:1.1" +
+                                            "</capability>" +
+                                            "</capabilities>" +
+                                        "</hello>";
+            if (_usingFramingProtocol)
+            {
+                ClientCapabilities.LoadXml(xml2);
+
+            }
+            else {
+                ClientCapabilities.LoadXml(xml1);
+            }
+
+
 
         }
         static string PrettyXml(string xml)
@@ -91,25 +114,33 @@ namespace Renci.SshNet.NetConf
             //_usingFramingProtocol = false;
             if (_usingFramingProtocol)
             {
-                var command = PrettyXml(rpc.OuterXml);
-                string End = "\n<!-- RPC End -->\n";
-               // commandstr.Clear();
-                //sw.Flush();
-                if (!command.ToString().Contains("rpc") & !command.ToString().Contains("encoding"))
-                {
-                    string RpcTop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"4\">\r\n";
-                    string RpcEnd = "</rpc>";
-                    SendData(Encoding.UTF8.GetBytes("\r\n" + RpcTop + command.ToString() + RpcEnd + End + Prompt));
-                }
-                if (command.ToString().Contains("rpc") & !command.ToString().Contains("encoding"))
-                {
-                    string RpcTop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";
-                    SendData(Encoding.UTF8.GetBytes("\r\n" + RpcTop + command.ToString() + End + Prompt));
-                }
-                if (command.ToString().Contains("rpc") & command.ToString().Contains("encoding"))
-                {
-                    SendData(Encoding.UTF8.GetBytes("\r\n" + command.ToString() + End + Prompt));
-                }
+                //var command = PrettyXml(rpc.OuterXml);
+
+
+                var command = new StringBuilder(PrettyXml(rpc.OuterXml).Length );
+                command.AppendFormat("\n#{0}\n", PrettyXml(rpc.OuterXml).Length);
+                command.Append(PrettyXml(rpc.OuterXml));
+                command.Append("\n##\n");
+                SendData(Encoding.UTF8.GetBytes(command.ToString()));
+                System.Diagnostics.Debug.WriteLine("1.1版本+RPC请求打印日志：\r\n" + command);
+
+                //string End = "\n<!-- RPC End -->\n";
+
+                //if (!command.ToString().Contains("rpc") & !command.ToString().Contains("encoding"))
+                //{
+                //    string RpcTop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"4\">\r\n";
+                //    string RpcEnd = "</rpc>";
+                //    SendData(Encoding.UTF8.GetBytes("\r\n" + RpcTop + command.ToString() + RpcEnd + End + Prompt));
+                //}
+                //if (command.ToString().Contains("rpc") & !command.ToString().Contains("encoding"))
+                //{
+                //    string RpcTop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";
+                //    SendData(Encoding.UTF8.GetBytes("\r\n" + RpcTop + command.ToString() + End + Prompt));
+                //}
+                //if (command.ToString().Contains("rpc") & command.ToString().Contains("encoding"))
+                //{
+                //    SendData(Encoding.UTF8.GetBytes("\r\n" + command.ToString() + End + Prompt));
+                //}
                 WaitOnHandle(_rpcReplyReceived, Timeout);
                 for (int i = 0; i < 5; i++) {
                     if (!_rpcReply.ToString().Contains("rpc"))
@@ -129,7 +160,9 @@ namespace Renci.SshNet.NetConf
             }
             else
             {
-                SendData(Encoding.UTF8.GetBytes(rpc.InnerXml + Prompt));
+                SendData(Encoding.UTF8.GetBytes(PrettyXml(rpc.OuterXml) + Prompt));
+                System.Diagnostics.Debug.WriteLine("1.0版本+RPC请求打印日志：\r\n" + PrettyXml(rpc.OuterXml) + Prompt);
+
                 WaitOnHandle(_rpcReplyReceived, Timeout);
                 for (int i = 0; i < 5; i++)
                 {
@@ -181,9 +214,11 @@ namespace Renci.SshNet.NetConf
         {
             _data.Clear();
             _datanotification.Clear();
-            var message = string.Format("{0}{1}", ClientCapabilities.InnerXml, Prompt);
+           // var message = string.Format("{0}{1}", ClientCapabilities.InnerXml, Prompt);
+            var command = PrettyXml(ClientCapabilities.InnerXml);
+            SendData(Encoding.UTF8.GetBytes(command.ToString()+ Prompt));
+           // SendData(Encoding.UTF8.GetBytes(message));
 
-            SendData(Encoding.UTF8.GetBytes(message));
 
             WaitOnHandle(_serverCapabilitiesConfirmed, OperationTimeout);
         }
@@ -216,29 +251,40 @@ namespace Renci.SshNet.NetConf
                 var nsMgr = new XmlNamespaceManager(ServerCapabilities.NameTable);
                 nsMgr.AddNamespace("nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
 
-                //_usingFramingProtocol = (ServerCapabilities.SelectSingleNode("/nc:hello/nc:capabilities/nc:capability[text()='urn:ietf:params:netconf:base:1.1']", nsMgr) != null);
+                _usingFramingProtocol = (ServerCapabilities.SelectSingleNode("/nc:hello/nc:capabilities/nc:capability[text()='urn:ietf:params:netconf:base:1.1']", nsMgr) != null);
 
                 _serverCapabilitiesConfirmed.Set();
             }
-            else if (!_usingFramingProtocol)
+            else 
+            if (_usingFramingProtocol)
             {
-                var position = 0;
+                _data.Append(chunk);
+                _datanotification.Append(chunknotfication);
 
-                for (; ; )
+                if (!chunk.Contains("##"))
                 {
-                    var match = Regex.Match(chunk.Substring(position), @"\n#(?<length>\d+)\n");
-                    if (!match.Success)
-                    {
-                        break;
-                    }
-                    var fractionLength = Convert.ToInt32(match.Groups["length"].Value);
-                    _rpcReply.Append(chunk, position + match.Index + match.Length, fractionLength);
-                    position += match.Index + match.Length + fractionLength;
+                    System.Diagnostics.Debug.WriteLine(chunk);
+                    return;
+                    //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
                 }
-                if (Regex.IsMatch(chunk.Substring(position), @"\n##\n"))
+
+                if (!chunknotfication.Contains("##"))
                 {
-                    _rpcReplyReceived.Set();
+                    return;
+                    //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
                 }
+                System.Diagnostics.Debug.WriteLine(chunk);
+                System.Diagnostics.Debug.WriteLine("\r\n 1.1版本服务器回复打印完毕");
+
+                chunk = _data.ToString();
+                chunknotfication = _datanotification.ToString();
+                _data.Clear();
+                _datanotification.Clear();
+                _rpcReply.Append(Regex.Replace(chunk, @"\n#([\d\n\#]*)", ""));
+                chunknotfication =Regex.Replace(chunknotfication, @"\n#([\d\n\#]*)", "");
+                _rpcReplyNotification.Append(chunknotfication);
+                _rpcReplyReceived.Set();
+                _rpcReplyReceivedNotificaton.Set();
             }
             else  // Old protocol
             {
@@ -258,6 +304,8 @@ namespace Renci.SshNet.NetConf
                     //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
                 }
                 System.Diagnostics.Debug.WriteLine(chunk);
+                System.Diagnostics.Debug.WriteLine("\r\n 1.0版本服务器回复打印完毕");
+
                 chunk = _data.ToString();
                 chunknotfication = _datanotification.ToString();
                 _data.Clear();

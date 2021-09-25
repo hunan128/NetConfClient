@@ -192,21 +192,21 @@
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 30);
             this.label5.TabIndex = 8;
-            this.label5.Text = "版本";
+            this.label5.Text = "NetConf版本";
             // 
             // ComVersion
             // 
             this.ComVersion.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComVersion.FormattingEnabled = true;
             this.ComVersion.Items.AddRange(new object[] {
-            "auto",
+            "Auto",
             "1.0",
             "1.1"});
             this.ComVersion.Location = new System.Drawing.Point(80, 123);
             this.ComVersion.Name = "ComVersion";
             this.ComVersion.Size = new System.Drawing.Size(163, 20);
             this.ComVersion.TabIndex = 9;
-            this.ComVersion.Text = "1.0";
+            this.ComVersion.Text = "Auto";
             // 
             // LoginOn
             // 
