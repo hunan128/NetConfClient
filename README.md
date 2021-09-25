@@ -29,7 +29,8 @@
 连接页面：
 ![image](https://user-images.githubusercontent.com/59459264/134663857-d1178673-a923-4d78-9786-5728aa74d0fd.png)
 脚本执行页面：
-![image](https://user-images.githubusercontent.com/59459264/134661566-7cd65308-5eb3-43e6-b9d5-3d304ea8af39.png)
+![image](https://user-images.githubusercontent.com/59459264/134770811-24f7a836-3d17-41c7-b4e2-344793088d14.png)
+
 保护倒换通知页面：
 ![image](https://user-images.githubusercontent.com/59459264/134770450-328ea051-5add-467d-918a-a5199f48cec7.png)
 LOG信息日志页面：
