@@ -197,6 +197,7 @@
             // ComVersion
             // 
             this.ComVersion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComVersion.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ComVersion.FormattingEnabled = true;
             this.ComVersion.Items.AddRange(new object[] {
             "Auto",

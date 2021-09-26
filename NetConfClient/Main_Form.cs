@@ -309,7 +309,7 @@ namespace NetConfClientSoftware
             {
                 // SECTION 2. Initialize the TreeView control.
                 // SECTION 3. Populate the TreeView with the DOM nodes.
-                foreach (XmlNode node in dom.DocumentElement.ChildNodes)
+                foreach (XmlNode node in dom.ChildNodes)
                 {
                     if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name")))
                         continue;
@@ -335,7 +335,7 @@ namespace NetConfClientSoftware
                 // SECTION 2. Initialize the TreeView control.
                 TreeReq.Nodes.Clear();
                 // SECTION 3. Populate the TreeView with the DOM nodes.
-                foreach (XmlNode node in dom.DocumentElement.ChildNodes)
+                foreach (XmlNode node in dom.ChildNodes)
                 {
                     if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name")))
                         continue;
@@ -365,6 +365,11 @@ namespace NetConfClientSoftware
                 string text = GetAttributeText(inXmlNode, "name");
                 if (string.IsNullOrEmpty(text))
                     text = inXmlNode.Name;
+                    for (int i = 0; i < inXmlNode.Attributes.Count; i++)
+                    {
+                        text = text +" "+ inXmlNode.Attributes[i].OuterXml;
+
+                    }
                 TreeNode newNode = null;
                 XmlNodeList nodeList = inXmlNode.ChildNodes;
                 for (int i = 0; i <= nodeList.Count - 1; i++)
@@ -377,7 +382,7 @@ namespace NetConfClientSoftware
                         if (string.IsNullOrEmpty(value))
                             value = (xNode.OuterXml).Trim();
                         //nodes.Remove(newNode);
-                        nodes.Add(text + "(" + value + ")");
+                        nodes.Add(inXmlNode.Name + "(" + value + ")");
                     }
                     else {
                         if (newNode == null) {
@@ -1041,6 +1046,7 @@ namespace NetConfClientSoftware
         {
             try
             {
+                dataGridView_EQ.Rows.Clear();
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
@@ -1098,7 +1104,6 @@ namespace NetConfClientSoftware
         {
             try
             {
-                dataGridView_EQ.Rows.Clear();
                 ComClientSideNni_UNI_A.Items.Clear();
                 ComClientSideNni_UNI_B.Items.Clear();
                 ComOduNniPtpName_NNI_A.Items.Clear();
