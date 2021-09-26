@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Netconf")]
 [assembly: AssemblyDescription("" +
     "未来：告警模块、TCA模块、接口模块、业务关联查询。在未来将会支持脚本自动化测试功能" + "\r\n" +
+        "2021.09.25 支持NetConf协议版本1.1与1.0自动模式" + "\r\n" +
+
     "2021.09.23 修改了登录BUG以及异常报错" + "\r\n" +
     "2021.09.20 支持SDH业务创建、保护组查询和操作" + "\r\n" +
     "2021.09.19 支持EOS业务创建（VC4、VC3、VC12）" + "\r\n" +
@@ -19,8 +21,8 @@ using System.Runtime.InteropServices;
     "2021.09.05 支持订阅功能" + "\r\n" +
     "2021.09.03 支持netconf客户端工具调试窗口" + "\r\n" +
 "")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyConfiguration("小兔兔配置")]
+[assembly: AssemblyCompany("小可爱公司")]
 [assembly: AssemblyProduct("Netconf客户端")]
 [assembly: AssemblyCopyright("版权所有  ©  胡楠 2021.09.02")]
 [assembly: AssemblyTrademark("")]
@@ -44,5 +46,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2021.9.19.2")]
-[assembly: AssemblyFileVersion("2021.9.19.2")]
+[assembly: AssemblyVersion("2021.9.19.8")]
+[assembly: AssemblyFileVersion("2021.9.19.8")]

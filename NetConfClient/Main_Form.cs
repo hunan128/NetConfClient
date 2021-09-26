@@ -314,6 +314,7 @@ namespace NetConfClientSoftware
                     if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name")))
                         continue;
                     AddNode(TreeReP.Nodes, node);
+
                 }
 
                 TreeReP.ExpandAll();
@@ -336,8 +337,10 @@ namespace NetConfClientSoftware
                 // SECTION 3. Populate the TreeView with the DOM nodes.
                 foreach (XmlNode node in dom.DocumentElement.ChildNodes)
                 {
-                    if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name"))) continue;
+                    if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name")))
+                        continue;
                     AddNode(TreeReq.Nodes, node);
+
                 }
 
                 TreeReq.ExpandAll();
@@ -356,26 +359,46 @@ namespace NetConfClientSoftware
 
         private void AddNode(TreeNodeCollection nodes, XmlNode inXmlNode)
         {
+             
             if (inXmlNode.HasChildNodes)
             {
                 string text = GetAttributeText(inXmlNode, "name");
                 if (string.IsNullOrEmpty(text))
                     text = inXmlNode.Name;
-                TreeNode newNode = nodes.Add(text);
+                TreeNode newNode = null;
                 XmlNodeList nodeList = inXmlNode.ChildNodes;
                 for (int i = 0; i <= nodeList.Count - 1; i++)
                 {
                     XmlNode xNode = inXmlNode.ChildNodes[i];
-                    AddNode(newNode.Nodes, xNode);
+                    if (!xNode.HasChildNodes)
+                    {
+                        // If the node has an attribute "name", use that.  Otherwise display the entire text of the node.
+                        string value = GetAttributeText(xNode, "name");
+                        if (string.IsNullOrEmpty(value))
+                            value = (xNode.OuterXml).Trim();
+                        //nodes.Remove(newNode);
+                        nodes.Add(text + "(" + value + ")");
+                    }
+                    else {
+                        if (newNode == null) {
+                            newNode = nodes.Add(text);
+
+                        }
+
+                    }
+                    if (newNode != null)
+                        AddNode(newNode.Nodes, xNode);
                 }
+
             }
             else
             {
-                // If the node has an attribute "name", use that.  Otherwise display the entire text of the node.
-                string text = GetAttributeText(inXmlNode, "name");
-                if (string.IsNullOrEmpty(text))
-                    text = (inXmlNode.OuterXml).Trim();
-                TreeNode newNode = nodes.Add(text);
+
+                //// If the node has an attribute "name", use that.  Otherwise display the entire text of the node.
+                //string text = GetAttributeText(inXmlNode, "name");
+                //if (string.IsNullOrEmpty(text))
+                //    text = (inXmlNode.OuterXml).Trim();
+                //TreeNode newNode = nodes.Add(text);
             }
         }
         /// <summary>
@@ -2952,5 +2975,40 @@ namespace NetConfClientSoftware
             getxmlall.Start();
         }
 
+        private void TreeReP_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            int t = e.Node.Text.IndexOf('(');
+            if (t > 0)
+            {
+                string s1 = e.Node.Text.Substring(0, t);
+                string s2 = e.Node.Text.Substring(t);
+                SizeF s = e.Graphics.MeasureString(s1, this.Font);
+
+                e.Graphics.DrawString(s1, this.Font, Brushes.Magenta, e.Bounds.X, e.Bounds.Y);
+                e.Graphics.DrawString(s2, this.Font, Brushes.Blue, e.Bounds.X + s.Width, e.Bounds.Y);
+            }
+            else {
+                e.Graphics.DrawString(e.Node.Text, this.Font, Brushes.Magenta, e.Bounds.X, e.Bounds.Y);
+            }
+
+        }
+
+        private void TreeReq_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            int t = e.Node.Text.IndexOf('(');
+            if (t > 0)
+            {
+                string s1 = e.Node.Text.Substring(0, t);
+                string s2 = e.Node.Text.Substring(t);
+                SizeF s = e.Graphics.MeasureString(s1, this.Font);
+
+                e.Graphics.DrawString(s1, this.Font, Brushes.Magenta, e.Bounds.X, e.Bounds.Y);
+                e.Graphics.DrawString(s2, this.Font, Brushes.Blue, e.Bounds.X + s.Width, e.Bounds.Y);
+            }
+            else
+            {
+                e.Graphics.DrawString(e.Node.Text, this.Font, Brushes.Magenta, e.Bounds.X, e.Bounds.Y);
+            }
+        }
     }
 }
