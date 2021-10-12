@@ -16,7 +16,7 @@ namespace Renci.SshNet.NetConf
 
         private readonly StringBuilder _data = new StringBuilder();
         private readonly StringBuilder _datanotification = new StringBuilder();
-        private bool _usingFramingProtocol =true;
+        public  bool _usingFramingProtocol =true;
         private EventWaitHandle _serverCapabilitiesConfirmed = new AutoResetEvent(false);
         private EventWaitHandle _rpcReplyReceived = new AutoResetEvent(false);
         private EventWaitHandle _rpcReplyReceivedNotificaton = new AutoResetEvent(false);
@@ -63,6 +63,7 @@ namespace Renci.SshNet.NetConf
                                             "</capability>" +
                                             "</capabilities>" +
                                         "</hello>";
+
             if (_usingFramingProtocol)
             {
                 ClientCapabilities.LoadXml(xml2);
@@ -71,9 +72,6 @@ namespace Renci.SshNet.NetConf
             else {
                 ClientCapabilities.LoadXml(xml1);
             }
-
-
-
         }
         static string PrettyXml(string xml)
         {
@@ -85,7 +83,8 @@ namespace Renci.SshNet.NetConf
             {
                 Indent = true,
                 IndentChars = "    ",
-                NewLineChars = "\r\n",
+                NewLineChars = "\n",
+                //Encoding = Encoding.UTF8,
                 NewLineHandling = System.Xml.NewLineHandling.Replace,
                 OmitXmlDeclaration = true,
                 ConformanceLevel = System.Xml.ConformanceLevel.Document
@@ -117,30 +116,22 @@ namespace Renci.SshNet.NetConf
                 //var command = PrettyXml(rpc.OuterXml);
 
 
-                var command = new StringBuilder(PrettyXml(rpc.OuterXml).Length );
-                command.AppendFormat("\n#{0}\n", PrettyXml(rpc.OuterXml).Length);
-                command.Append(PrettyXml(rpc.OuterXml));
-                command.Append("\n##\n");
-                SendData(Encoding.UTF8.GetBytes(command.ToString()));
-                System.Diagnostics.Debug.WriteLine("1.1版本+RPC请求打印日志：\r\n" + command);
+                //var command = new StringBuilder();
+                //command.AppendFormat("\n#{0}\n", PrettyXml(rpc.OuterXml).Length);
+                //string top = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+                //command.Append(PrettyXml(rpc.OuterXml));
+                //command.Append("\n##\n");
+                //SendData(Encoding.UTF8.GetBytes(command.ToString()));
+                //System.Diagnostics.Debug.WriteLine("1.1版本+RPC请求打印日志：\r\n" + command);
 
-                //string End = "\n<!-- RPC End -->\n";
-
-                //if (!command.ToString().Contains("rpc") & !command.ToString().Contains("encoding"))
-                //{
-                //    string RpcTop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"4\">\r\n";
-                //    string RpcEnd = "</rpc>";
-                //    SendData(Encoding.UTF8.GetBytes("\r\n" + RpcTop + command.ToString() + RpcEnd + End + Prompt));
-                //}
-                //if (command.ToString().Contains("rpc") & !command.ToString().Contains("encoding"))
-                //{
-                //    string RpcTop = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";
-                //    SendData(Encoding.UTF8.GetBytes("\r\n" + RpcTop + command.ToString() + End + Prompt));
-                //}
-                //if (command.ToString().Contains("rpc") & command.ToString().Contains("encoding"))
-                //{
-                //    SendData(Encoding.UTF8.GetBytes("\r\n" + command.ToString() + End + Prompt));
-                //}
+                string rpcsend1 = rpc.OuterXml;
+                //int size = PrettyXml(rpcsend1).Length;
+                int size = Encoding.UTF8.GetByteCount(PrettyXml(rpcsend1));
+                string rpctop = "\n#" + size.ToString() + "\n";
+                string end = "\n##\n";
+                string rpcsend = rpctop + PrettyXml(rpcsend1) + end;
+                SendData(Encoding.UTF8.GetBytes(rpcsend));
+                System.Diagnostics.Debug.WriteLine("1.1版本+RPC请求打印日志：\r\n" + rpcsend);
                 WaitOnHandle(_rpcReplyReceived, Timeout);
                 for (int i = 0; i < 5; i++) {
                     if (!_rpcReply.ToString().Contains("rpc"))
@@ -250,7 +241,6 @@ namespace Renci.SshNet.NetConf
 
                 var nsMgr = new XmlNamespaceManager(ServerCapabilities.NameTable);
                 nsMgr.AddNamespace("nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
-
                 _usingFramingProtocol = (ServerCapabilities.SelectSingleNode("/nc:hello/nc:capabilities/nc:capability[text()='urn:ietf:params:netconf:base:1.1']", nsMgr) != null);
 
                 _serverCapabilitiesConfirmed.Set();
@@ -335,6 +325,12 @@ namespace Renci.SshNet.NetConf
                     _rpcReplyReceived = null;
                 }
             }
+        }
+
+        public bool Netconf_version(bool _netconf_version)
+        {
+            _usingFramingProtocol = _netconf_version;
+            throw new NotImplementedException();
         }
     }
 }

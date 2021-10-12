@@ -22,6 +22,8 @@ namespace Renci.SshNet.NetConf
 
         XmlDocument SendReceiveRpc(XmlDocument rpc, bool automaticMessageIdHandling,int Timeout);
         string SendReceiveRpcSub(int Timeout);
+        bool Netconf_version(bool _netconf_version);
+
         void SendReceiveRpcKeepLive();
     }
 }

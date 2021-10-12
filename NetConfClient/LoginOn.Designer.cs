@@ -197,17 +197,15 @@
             // ComVersion
             // 
             this.ComVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComVersion.Font = new System.Drawing.Font("黑体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.ComVersion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComVersion.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.ComVersion.FormattingEnabled = true;
             this.ComVersion.Items.AddRange(new object[] {
-            "Auto",
-            "1.0",
-            "1.1"});
+            "Auto"});
             this.ComVersion.Location = new System.Drawing.Point(80, 123);
             this.ComVersion.Name = "ComVersion";
             this.ComVersion.Size = new System.Drawing.Size(163, 20);
             this.ComVersion.TabIndex = 9;
-            this.ComVersion.Text = "Auto";
             // 
             // LoginOn
             // 

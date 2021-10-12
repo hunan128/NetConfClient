@@ -14,6 +14,7 @@ namespace NetConfClientSoftware
         public LoginOn()
         {
             InitializeComponent();
+            ComVersion.Text = "Auto";
         }
 
         /// <summary>

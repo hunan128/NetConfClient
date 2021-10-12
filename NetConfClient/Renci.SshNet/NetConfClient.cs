@@ -220,6 +220,18 @@ namespace Renci.SshNet
             return _netConfSession.SendReceiveRpcSub(TimeOut);
         }
 
+
+
+        /// <summary>
+        /// Netconf版本设置
+        /// </summary>
+        /// <param name="_Netconf_version"></param>
+        /// <returns>FALSE为1。0旧版本，true为1.1新版本</returns>
+
+        public  bool Netconf_version(bool _Netconf_version)
+        {
+            return _netConfSession.Netconf_version(_Netconf_version);
+        }
         /// <summary>
         /// Sends the receive RPC.
         /// </summary>

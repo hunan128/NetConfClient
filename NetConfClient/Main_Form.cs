@@ -160,16 +160,27 @@ namespace NetConfClientSoftware
             {
                 DateTime dTimeEnd = System.DateTime.Now;
                 DateTime dTimeServer = System.DateTime.Now;
-
                 netConfClient = new NetConfClient(ip, port, user, passd);
+
                 LabConncet.Text = "连接中";
                 连接设备ToolStripMenuItem.Enabled = false;
                 netConfClient.Connect();
 
                 if (netConfClient.IsConnected)
                 {
+
                     BeginInvoke(new MethodInvoker(delegate () {
                         LabConncet.Text = "已连接";
+                        //if (gpnnetconfversion == "Auto" || gpnnetconfversion == "1.1")
+                        //{
+                        //    netConfClient.SendCloseRpc(true);
+
+                        //}
+                        //else
+                        //{
+                        //    netConfClient.SendCloseRpc(false);
+
+                        //}
                         dTimeServer = System.DateTime.Now;
                         TimeSpan ts = dTimeServer - dTimeEnd;
                         LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
@@ -3013,6 +3024,54 @@ namespace NetConfClientSoftware
             else
             {
                 e.Graphics.DrawString(e.Node.Text, this.Font, Brushes.Magenta, e.Bounds.X, e.Bounds.Y);
+            }
+        }
+
+        private void oAM创建ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string allconnection = "";
+                string connection = "";
+                foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        connection = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();       //设备IP地址
+                        allconnection = allconnection + "\r\n" + connection;
+                    }
+                }
+                if (MessageBox.Show("正在配置当前业务:\r\n" + allconnection + "\r\n是否删除？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+
+                    foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            connection = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();
+                            var doc = Sendrpc(DeleteODU.Delete(connection));//设备IP地址
+                            if (doc.OuterXml.Contains("error"))
+                            {
+                                MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                            }
+                            else
+                            {
+                                this.dataGridViewEth.Rows.Remove(row);
+                            }
+
+                        }
+                    }
+                    MessageBox.Show(allconnection + "\r\n已成功删除，重新点击在线查询即可更新。");
+
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
     }
