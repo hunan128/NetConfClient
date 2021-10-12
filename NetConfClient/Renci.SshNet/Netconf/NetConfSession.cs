@@ -195,9 +195,22 @@ namespace Renci.SshNet.NetConf
         }
         public void SendReceiveRpcKeepLive()
         {
-            var rpc = new XmlDocument();
-            rpc.LoadXml("<?xml version=\"1.0\" encoding=\"utf-8\"?><rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"6\"><get ><filter/></get ></rpc>");
-            SendData(Encoding.UTF8.GetBytes(rpc.InnerXml + Prompt));
+            if (_usingFramingProtocol)
+            {
+                string rpcsend1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"6\"><get ><filter/></get ></rpc>";
+                //int size = PrettyXml(rpcsend1).Length;
+                int size = Encoding.UTF8.GetByteCount(PrettyXml(rpcsend1));
+                string rpctop = "\n#" + size.ToString() + "\n";
+                string end = "\n##\n";
+                string rpcsend = rpctop + PrettyXml(rpcsend1) + end;
+                SendData(Encoding.UTF8.GetBytes(rpcsend));
+            }
+            else {
+                string rpcsend1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"6\"><get ><filter/></get ></rpc>";
+
+                SendData(Encoding.UTF8.GetBytes(PrettyXml(rpcsend1) + Prompt));
+            }
+
         }
 
 

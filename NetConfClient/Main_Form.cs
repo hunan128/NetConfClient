@@ -805,8 +805,9 @@ namespace NetConfClientSoftware
             Mesg.Location = p;
             Mesg.ShowIcon = false;// 设置窗口的lcon是否显示
             Mesg.Show();
-             Application.DoEvents();
-
+            Mesg.TopMost = true;
+            Application.DoEvents();
+            //Mesg.ShowDialog();
             for (int i = 0; i <= Mesg.Height; i++)
             {
                 Mesg.Location = new Point(p.X, p.Y - i);
