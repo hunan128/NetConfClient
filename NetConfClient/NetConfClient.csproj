@@ -104,12 +104,18 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Find.cs" />
+    <Compile Include="FormOAM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormOAM.Designer.cs">
+      <DependentUpon>FormOAM.cs</DependentUpon>
+    </Compile>
     <Compile Include="OAM.cs" />
     <Compile Include="CreateSDH.cs" />
     <Compile Include="CreatETH.cs" />
     <Compile Include="CreatODU.cs" />
     <Compile Include="DeleteODU.cs" />
-    <Compile Include="FindPath.cs" />
     <Compile Include="FormInfo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormInfo.resx">
       <DependentUpon>FormInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormOAM.resx">
+      <DependentUpon>FormOAM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginOn.resx">
       <DependentUpon>LoginOn.cs</DependentUpon>

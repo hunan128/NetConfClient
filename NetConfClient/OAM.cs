@@ -94,7 +94,7 @@ namespace NetConfClientSoftware
             //cc_interval
             XmlElement dm_interval = commonXml.CreateElement("dm-interval");
             dm_interval.InnerText = _dm_interval;
-            oam_config.AppendChild(cc_interval);
+            oam_config.AppendChild(dm_interval);
 
             return commonXml;
 

@@ -939,7 +939,7 @@ namespace NetConfClientSoftware
             {
                 上载全部XMLToolStripMenuItem.Enabled = false;
                 XmlDocument doc = new XmlDocument();
-                doc = Sendrpc(FindPath.FindGetAll());
+                doc = Sendrpc(Find.FindGetAll());
                 doc.Save(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 MessageBox.Show("上载成功！");
                 上载全部XMLToolStripMenuItem.Enabled = true;
@@ -964,7 +964,7 @@ namespace NetConfClientSoftware
                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.ME());
+                xmlDoc = Sendrpc(Find.ME());
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("me", "urn:ccsa:yang:acc-devm");
@@ -1063,7 +1063,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.EQS());
+                xmlDoc = Sendrpc(Find.EQS());
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("eqsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1125,7 +1125,7 @@ namespace NetConfClientSoftware
                 //// XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PtpsFtpsCtps(true,false,false));
+                xmlDoc = Sendrpc(Find.PtpsFtpsCtps(true,false,false));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1180,7 +1180,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PTP(ComClientSideNni_UNI_A.Text));
+                xmlDoc = Sendrpc(Find.PTPS(ComClientSideNni_UNI_A.Text));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1268,7 +1268,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PTP(ComOduNniPtpName_NNI_A.Text));
+                xmlDoc = Sendrpc(Find.PTPS(ComOduNniPtpName_NNI_A.Text));
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1364,7 +1364,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PTP(ComOduNniPtpName_NNI_B.Text));
+                xmlDoc = Sendrpc(Find.PTPS(ComOduNniPtpName_NNI_B.Text));
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1449,7 +1449,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PTP(ComClientSideNni_UNI_B.Text));
+                xmlDoc = Sendrpc(Find.PTPS(ComClientSideNni_UNI_B.Text));
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1818,7 +1818,7 @@ namespace NetConfClientSoftware
                 //// XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PtpsFtpsCtps(true, false, false));
+                xmlDoc = Sendrpc(Find.PtpsFtpsCtps(true, false, false));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1875,7 +1875,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PTP(ComEthPrimayNniPtpName.Text));
+                xmlDoc = Sendrpc(Find.PTPS(ComEthPrimayNniPtpName.Text));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1965,7 +1965,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PTP(ComEthSecNniPtpName.Text));
+                xmlDoc = Sendrpc(Find.PTPS(ComEthSecNniPtpName.Text));
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -2067,7 +2067,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindPath.Find();
+                xmlDoc1 = Find.Connections();
                 var xmlDoc = Sendrpc(xmlDoc1);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -2110,7 +2110,9 @@ namespace NetConfClientSoftware
                         {
                             XmlNode _ctp = itemNode.SelectSingleNode("connectionsxmlns:ctp[" + i + "]", root);
                             CTPAll = CTPAll+"\r\n" + _ctp.InnerText;
-                            dataGridViewEth.Rows[index].Cells["CTP端口2"].Value = _ctp.InnerText;
+                            if (_ctp.InnerText.Contains("PTP")) {
+                                dataGridViewEth.Rows[index].Cells["CTP端口2"].Value = _ctp.InnerText;
+                            }
 
                         }
                         dataGridViewEth.Rows[index].Cells["CTP端口1"].Value = CTPAll;
@@ -2193,7 +2195,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindPath.FindPerformances();
+                xmlDoc1 = Find.FindPerformances();
                 var xmlDoc = Sendrpc(xmlDoc1);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -2246,7 +2248,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PtpsFtpsCtps(true, true, true));
+                xmlDoc = Sendrpc(Find.PtpsFtpsCtps(true, true, true));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -2282,7 +2284,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindPath.FindPerformance(ComCurPerObjectName.Text,ComCurPerGranularity.Text);
+                xmlDoc1 = Find.FindPerformance(ComCurPerObjectName.Text,ComCurPerGranularity.Text);
                 var xmlDoc = Sendrpc(xmlDoc1);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -2334,7 +2336,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindPath.FindHisPerformance(dateTimePickerStartime.Text, dateTimePickerEndtime.Text,ComCurPerGranularity.Text, ComCurPerObjectName.Text,"");
+                xmlDoc1 = Find.FindHisPerformance(dateTimePickerStartime.Text, dateTimePickerEndtime.Text,ComCurPerGranularity.Text, ComCurPerObjectName.Text,"");
                 var xmlDoc = Sendrpc(xmlDoc1);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -2418,7 +2420,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PtpsFtpsCtps(true, false, false));
+                xmlDoc = Sendrpc(Find.PtpsFtpsCtps(true, false, false));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -2473,7 +2475,7 @@ namespace NetConfClientSoftware
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PTP(ComSdhNniPtp_A.Text));
+                xmlDoc = Sendrpc(Find.PTPS(ComSdhNniPtp_A.Text));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -2555,7 +2557,7 @@ namespace NetConfClientSoftware
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(FindPath.PTP(ComSdhNniPtp_B.Text));
+                xmlDoc = Sendrpc(Find.PTPS(ComSdhNniPtp_B.Text));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -2688,7 +2690,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindPath.FindPgs();
+                xmlDoc1 = Find.FindPgs();
                 var xmlDoc = Sendrpc(xmlDoc1);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -3032,37 +3034,162 @@ namespace NetConfClientSoftware
         {
             try
             {
+                string _server_tp="", _vlan_id="", _vlan_type = "", _dm_state = "", _tm_state = "", _lm_state = "", _cc_state = "", _mep_id = "", _remote_mep_id = "", _meg_id = "",
+                    _md_name = "", _mel = "", _cc_interval = "", _lm_interval = "", _dm_interval = "",
+    _delay = "", _near_loss = "", _far_loss = "", _tx_bytes = "", _rx_bytes = "";
                 string allconnection = "";
-                string connection = "";
+                string _name = "";
                 foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
                 {
                     if (!row.IsNewRow)
                     {
-                        connection = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();       //设备IP地址
-                        allconnection = allconnection + "\r\n" + connection;
+                        _name = dataGridViewEth.Rows[row.Index].Cells["CTP端口2"].Value.ToString();       //设备IP地址
+                        allconnection = allconnection + "\r\n" + _name;
                     }
                 }
-                if (MessageBox.Show("正在配置当前业务:\r\n" + allconnection + "\r\n是否删除？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MessageBox.Show("正在配置当前业务:\r\n" + allconnection + "\r\n是否查询？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
 
                     foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
                     {
                         if (!row.IsNewRow)
                         {
-                            connection = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();
-                            var doc = Sendrpc(DeleteODU.Delete(connection));//设备IP地址
-                            if (doc.OuterXml.Contains("error"))
+                            _name = dataGridViewEth.Rows[row.Index].Cells["CTP端口2"].Value.ToString();
+
+                            try
                             {
-                                MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                                XmlDocument xmlDoc = new XmlDocument();
+                                //xmlDoc.Load(filename);
+                                xmlDoc = Sendrpc(Find.CTP(_name));
+
+                                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                                root.AddNamespace("ctpxmlns", "urn:ccsa:yang:acc-eth");
+
+                                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ctps//ptpsxmlns:ctp", root);
+                                foreach (XmlNode itemNode in itemNodes)
+                                {
+                                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+                                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
+                                    XmlNode server_tp = itemNode.SelectSingleNode("ptpsxmlns:server-tp", root);
+
+                                    if (layer_protocol_name != null && server_tp != null)
+                                    {
+                                        _server_tp = server_tp.InnerText;
+                                        if (layer_protocol_name.InnerText == "acc-eth:ETH")
+                                        {
+                                            if (name != null)
+                                            {
+                                                if (_name == name.InnerText)
+                                                {
+                                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("ctpxmlns:eth-ctp-pac", root);
+                                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
+                                                    {
+                                                        XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
+                                                        XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
+                                                        XmlNode dm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-state", root);
+                                                        XmlNode tm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:tm-state", root);
+                                                        XmlNode lm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-state", root);
+                                                        XmlNode cc_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-state", root);
+                                                        XmlNode mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:mep-id", root);
+                                                        XmlNode meg_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:meg-id", root);
+                                                        XmlNode mel = itemNodeOdu.SelectSingleNode("//ctpxmlns:mel", root);
+                                                        XmlNode remote_mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:remote-mep-id", root);
+                                                        XmlNode md_name = itemNodeOdu.SelectSingleNode("//ctpxmlns:md-name", root);
+                                                        XmlNode cc_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-interval", root);
+                                                        XmlNode lm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-interval", root);
+                                                        XmlNode dm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-interval", root);
+                                                        XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
+                                                        XmlNode near_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:near-packet-loss-rate", root);
+                                                        XmlNode far_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:far-packet-loss-rate", root);
+                                                        XmlNode tx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:tx-bytes", root);
+                                                        XmlNode rx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:rx-bytes", root);
+
+                                                        if (vlan_id != null) { _vlan_id = vlan_id.InnerText; }
+                                                        if (vlan_type != null) { _vlan_type = vlan_type.InnerText; }
+                                                        if (dm_state != null) { _dm_state = dm_state.InnerText; }
+                                                        if (tm_state != null) { _tm_state = tm_state.InnerText; }
+                                                        if (lm_state != null) { _lm_state = lm_state.InnerText; }
+                                                        if (cc_state != null) { _cc_state = cc_state.InnerText; }
+                                                        if (mep_id != null) { _mep_id = mep_id.InnerText; }
+                                                        if (meg_id != null) { _meg_id = meg_id.InnerText; }
+                                                        if (mel != null) { _mel = mel.InnerText; }
+                                                        if (remote_mep_id != null) { _remote_mep_id = remote_mep_id.InnerText; }
+                                                        if (md_name != null) { _md_name = md_name.InnerText; }
+                                                        if (cc_interval != null) { _cc_interval = cc_interval.InnerText; }
+                                                        if (lm_interval != null) { _lm_interval = lm_interval.InnerText; }
+                                                        if (dm_interval != null) { _dm_interval = dm_interval.InnerText; }
+                                                        if (delay != null) { _delay = delay.InnerText; }
+                                                        if (near_packet_loss_rate != null) { _near_loss = near_packet_loss_rate.InnerText; }
+                                                        if (far_packet_loss_rate != null) { _far_loss = far_packet_loss_rate.InnerText; }
+                                                        if (tx_bytes != null) { _tx_bytes = tx_bytes.InnerText; }
+                                                        if (rx_bytes != null) { _rx_bytes = rx_bytes.InnerText; }
+
+
+                                                    }
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                                // Console.Read();
+
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                this.dataGridViewEth.Rows.Remove(row);
+                                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
                             }
+
+                            // 实例化FormInfo，并传入待修改初值  
+                            var Formoam = new FormOAM(_name, _server_tp, _vlan_id, _vlan_type, _dm_state, _tm_state, _lm_state, _cc_state, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval,
+    _delay, _near_loss, _far_loss, _tx_bytes, _rx_bytes);
+                            // 以对话框方式显示FormInfo  
+                            if (Formoam.ShowDialog() == DialogResult.OK)
+                            {
+                                //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
+                                _name = Formoam._name;
+                                _mep_id = Formoam._mep_id;
+                                _remote_mep_id = Formoam._remote_mep_id;
+                                _meg_id = Formoam._meg_id;
+                                _md_name = Formoam._md_name;
+                                _mel = Formoam._mel;
+                                _cc_interval = Formoam._cc_interval;
+                                _lm_interval = Formoam._lm_interval;
+                                _dm_interval = Formoam._dm_interval;
+
+                                Creat(OAM.Create(_name, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval));
+                                MessageBox.Show("正在配置OAM状态，请稍等片刻！");
+                                _name = Formoam._name;
+                                _dm_state = Formoam._dm_state;
+                                _tm_state = Formoam._tm_state;
+                                _lm_state = Formoam._lm_state;
+                                _cc_state = Formoam._cc_state;
+
+                                Creat(OAM.State(_name, _dm_state, _tm_state, _lm_state, _cc_state));
+
+                            }
+
+
+
+
+                            //var doc = Sendrpc(DeleteODU.Delete(_name));//设备IP地址
+                            //if (doc.OuterXml.Contains("error"))
+                            //{
+                            //    MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                            //}
+                            //else
+                            //{
+                            //    //this.dataGridViewEth.Rows.Remove(row);
+                            //}
 
                         }
                     }
-                    MessageBox.Show(allconnection + "\r\n已成功删除，重新点击在线查询即可更新。");
+                   // MessageBox.Show(allconnection + "\r\n已成功删除，重新点击在线查询即可更新。");
 
                 }
                 // 保存在实体类属性中

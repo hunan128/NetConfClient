@@ -252,6 +252,7 @@ namespace NetConfClientSoftware
             this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_ODU = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除业务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OAM配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ButFindEth_online = new System.Windows.Forms.Button();
             this.透传业务 = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
@@ -624,7 +625,6 @@ namespace NetConfClientSoftware
             this.LabResponsTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.TextSub = new System.Windows.Forms.ToolStripStatusLabel();
-            this.OAM配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2640,14 +2640,14 @@ namespace NetConfClientSoftware
             // 
             // CTP端口1
             // 
-            this.CTP端口1.HeaderText = "CTP端口";
+            this.CTP端口1.HeaderText = "所有CTP端口";
             this.CTP端口1.Name = "CTP端口1";
             this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.CTP端口1.Width = 300;
             // 
             // CTP端口2
             // 
-            this.CTP端口2.HeaderText = "CTP端口";
+            this.CTP端口2.HeaderText = "PTP-CTP端口";
             this.CTP端口2.Name = "CTP端口2";
             this.CTP端口2.Width = 300;
             // 
@@ -2665,6 +2665,13 @@ namespace NetConfClientSoftware
             this.删除业务ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.删除业务ToolStripMenuItem.Text = "删除业务";
             this.删除业务ToolStripMenuItem.Click += new System.EventHandler(this.删除业务ToolStripMenuItem_Click);
+            // 
+            // OAM配置ToolStripMenuItem
+            // 
+            this.OAM配置ToolStripMenuItem.Name = "OAM配置ToolStripMenuItem";
+            this.OAM配置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.OAM配置ToolStripMenuItem.Text = "OAM查询或配置";
+            this.OAM配置ToolStripMenuItem.Click += new System.EventHandler(this.oAM创建ToolStripMenuItem_Click);
             // 
             // ButFindEth_online
             // 
@@ -6379,13 +6386,6 @@ namespace NetConfClientSoftware
             this.TextSub.Size = new System.Drawing.Size(44, 17);
             this.TextSub.Text = "未订阅";
             // 
-            // OAM配置ToolStripMenuItem
-            // 
-            this.OAM配置ToolStripMenuItem.Name = "OAM配置ToolStripMenuItem";
-            this.OAM配置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.OAM配置ToolStripMenuItem.Text = "OAM配置";
-            this.OAM配置ToolStripMenuItem.Click += new System.EventHandler(this.oAM创建ToolStripMenuItem_Click);
-            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -6892,19 +6892,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.ComboBox ComEthFtpVlanPriority;
         private System.Windows.Forms.ComboBox ComEthFtpVlanAccess;
         private System.Windows.Forms.TabPage 业务查询;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 标签别名;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 当前状态;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 管理状态;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 当前层协议;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 服务类型;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 业务总带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺突发;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
         private System.Windows.Forms.Label label89;
         private System.Windows.Forms.ComboBox ComEthUniVlanType;
         private System.Windows.Forms.Label label90;
@@ -7088,6 +7075,19 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn 端口占用率;
         private System.Windows.Forms.DataGridViewButtonColumn 操作;
         private System.Windows.Forms.ToolStripMenuItem OAM配置ToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 标签别名;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 当前状态;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 管理状态;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 当前层协议;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 服务类型;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 业务总带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺突发;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
     }
 }
 
