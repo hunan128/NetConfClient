@@ -3047,7 +3047,7 @@ namespace NetConfClientSoftware
                         allconnection = allconnection + "\r\n" + _name;
                     }
                 }
-                if (MessageBox.Show("正在配置当前业务:\r\n" + allconnection + "\r\n是否查询？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MessageBox.Show("正在配置当前业务的OAM:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
 
                     foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)

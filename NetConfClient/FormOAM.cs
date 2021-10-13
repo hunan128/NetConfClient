@@ -30,6 +30,8 @@ namespace NetConfClientSoftware
             if (true)
             {
                 ComName.Text = _name;
+                comPtp.Text = _server_tp;
+
                 comVlan.Text = _vlan_id;
                 comVlantype.Text = _vlan_type;
                 comMepid.Text = _mep_id;
