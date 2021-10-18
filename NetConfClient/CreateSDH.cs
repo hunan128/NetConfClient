@@ -8,7 +8,7 @@ namespace NetConfClientSoftware
 {
     class CreateSDH
     {
-        public static XmlDocument Common(string _label, string _service_type, string _layer_protoco_name, string _total_size, string _nni_protection_type, string _service_mapping_mode,
+        public static XmlDocument Common(string ips,string _label, string _service_type, string _layer_protoco_name, string _total_size, string _nni_protection_type, string _service_mapping_mode,
 string _uni_ptp_name,string _uni_vc_type,string _uni_mapping_path,
 string _primary_nni_name, string _primary_ts, string _primary_ada, string _primary_odu, string _primary_switch,string _sdh_signal_type_A,string _vc_type_A,string _mapping_path_A,
 string _secondary_nni_name, string _secondary_ts, string _secondary_ada, string _secondary_odu, string _secondary_switch, string _sdh_signal_type_B, string _vc_type_B, string _mapping_path_B
@@ -31,11 +31,31 @@ string _secondary_nni_name, string _secondary_ts, string _secondary_ada, string 
             create_sdh_connection.SetAttribute("xmlns", "urn:ccsa:yang:acc-sdh");
             rpc.AppendChild(create_sdh_connection);
 
+            if (ips.Contains("移动"))
+            {
+                //lable
+                XmlElement label = commonXml.CreateElement("label");
+                label.InnerText = _label;
+                create_sdh_connection.AppendChild(label);
+                //服务映射模式
+                XmlElement service_mapping_mode = commonXml.CreateElement("service-mapping-mode");
+                service_mapping_mode.InnerText = _service_mapping_mode;
+                create_sdh_connection.AppendChild(service_mapping_mode);
+            }
+            if (ips.Contains("联通"))
+            {
+                //lable
+                XmlElement connection = commonXml.CreateElement("connection-name");
+                connection.InnerText = "CONNECTION=" + _label;
+                create_sdh_connection.AppendChild(connection);
+            }
+            if (ips == "")
+            {
 
-            //lable
-            XmlElement label = commonXml.CreateElement("label");
-            label.InnerText = _label;
-            create_sdh_connection.AppendChild(label);
+                return commonXml;
+
+            }
+
             //服务类型
             XmlElement service_type = commonXml.CreateElement("service-type");
             service_type.InnerText = _service_type;
@@ -64,10 +84,7 @@ string _secondary_nni_name, string _secondary_ts, string _secondary_ada, string 
                 nni_protection_type.InnerText = _nni_protection_type;
                 create_sdh_connection.AppendChild(nni_protection_type);
             }
-            //服务映射模式
-            XmlElement service_mapping_mode = commonXml.CreateElement("service-mapping-mode");
-            service_mapping_mode.InnerText = _service_mapping_mode;
-            create_sdh_connection.AppendChild(service_mapping_mode);
+
 
             //客户侧配置
             XmlElement sdh_uni = commonXml.CreateElement("sdh-uni");

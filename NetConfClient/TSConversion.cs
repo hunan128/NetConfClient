@@ -10,17 +10,17 @@ namespace NetConfClientSoftware
         public static string Ts (string OtuRate, string Oduk,string TsInt){
             string ts_detai = "";
 
-            if (OtuRate == "acc-otn-types:OTU0") {
+            if (OtuRate == "OTU0") {
                 ts_detai = "1-80";
             }
-            if (OtuRate == "acc-otn-types:OTU1")
+            if (OtuRate.Contains("OTU1")|| OtuRate.Contains("ODU1"))
             {
                 string oturate = "2-";
-                if (Oduk == "acc-otn-types:ODU1") {
+                if (Oduk.Contains("ODU1")) {
                     ts_detai = oturate +"C0";
 
                 }
-                if (Oduk == "acc-otn-types:ODU0")
+                if (Oduk.Contains("ODU0"))
                 {
                     switch (TsInt) {
                         case "1":
@@ -33,15 +33,15 @@ namespace NetConfClientSoftware
                 }
             }
 
-            if (OtuRate == "acc-otn-types:OTU2")
+            if (OtuRate == "OTU2"|| OtuRate.Contains("ODU2"))
             {
                 string oturate = "8-";
-                if (Oduk == "acc-otn-types:ODU2" || Oduk == "acc-otn-types:ODU2e")
+                if (Oduk.Contains("ODU2") || Oduk.Contains("ODU2e"))
                 {
                     ts_detai = oturate + "FF";
 
                 }
-                if (Oduk == "acc-otn-types:ODU1")
+                if (Oduk.Contains("ODU1"))
                 {
                     switch (TsInt)
                     {
@@ -59,7 +59,7 @@ namespace NetConfClientSoftware
                             break;
                     }
                 }
-                if (Oduk == "acc-otn-types:ODU0")
+                if (Oduk.Contains("ODU0"))
                 {
                     switch (TsInt)
                     {
@@ -89,7 +89,7 @@ namespace NetConfClientSoftware
                             break;
                     }
                 }
-                if (Oduk == "acc-otn-types:ODUflex-GFP")
+                if (Oduk.Contains("ODUflex-GFP"))
                 {
                     switch (TsInt)
                     {
@@ -121,7 +121,7 @@ namespace NetConfClientSoftware
                 }
             }
             if (OtuRate.Contains("STM-16")) { ts_detai = "2-C0"; }
-            if (OtuRate.Contains("STM-1")|| OtuRate.Contains("STM-4")|| OtuRate.Contains("GE") || OtuRate.Contains("FE")) { ts_detai = "1-80"; }
+            if (OtuRate.Contains("STM-1")|| OtuRate.Contains("STM-4")|| OtuRate.Contains("GE") || OtuRate.Contains("ETH-1Gb") || OtuRate.Contains("FE")) { ts_detai = "1-80"; }
             if (OtuRate.Contains("10GE")) { ts_detai = "8-FF"; }
 
             return ts_detai;

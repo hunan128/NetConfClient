@@ -8,7 +8,7 @@ namespace NetConfClientSoftware
 {
     class CreatODU
     {
-        public static XmlDocument Common(string _label,string _service_type,string _layer_protoco_name,string _total_size,string _nni_protection_type,
+        public static XmlDocument Common(string IPS,string _label,string _service_type,string _layer_protoco_name,string _total_size,string _nni_protection_type,
             string _client_nni_name,string _client_ts,string _client_ada,string _client_odu,string _client_switch,
             string _primary_nni_name,string _primary_ts,string _primary_ada,string _primary_odu,string _primary_switch,
             string _secondary_nni_name, string _secondary_ts, string _secondary_ada, string _secondary_odu, string _secondary_switch) {
@@ -27,11 +27,24 @@ namespace NetConfClientSoftware
             XmlElement create_odu_connection = commonXml.CreateElement("create-odu-connection");
             create_odu_connection.SetAttribute("xmlns", "urn:ccsa:yang:acc-otn");
             rpc.AppendChild(create_odu_connection);
+            if (IPS.Contains("移动")) {
+                //lable
+                XmlElement label = commonXml.CreateElement("label");
+                label.InnerText = _label;
+                create_odu_connection.AppendChild(label);
+            }
+            if (IPS.Contains("联通"))
+            {
+                //lable
+                XmlElement connection = commonXml.CreateElement("connection-name");
+                connection.InnerText = "CONNECTION="+_label;
+                create_odu_connection.AppendChild(connection);
+            }
+            if (IPS == "") {
+                
+                return commonXml;
 
-            //lable
-            XmlElement label = commonXml.CreateElement("label");
-            label.InnerText = _label;
-            create_odu_connection.AppendChild(label);
+            }
             //服务类型
             XmlElement service_type = commonXml.CreateElement("service-type");
             service_type.InnerText = _service_type;

@@ -35,6 +35,7 @@ namespace NetConfClientSoftware
         public string gpnuser = "";//设备用户名
         public string gpnpassword = "";//设备密码
         public string gpnnetconfversion = "";//设备版本
+        public string ips = "";
 
         Thread t ;   //订阅功能线程
         #region 声明ini变量
@@ -193,6 +194,7 @@ namespace NetConfClientSoftware
                         netConfClient.TimeOut = int.Parse(ComTimeOut.Text) * 1000;
                         订阅ToolStripMenuItem.Enabled = true;
                         MessageBox.Show(gpnip + "：连接成功！");
+                        订阅ToolStripMenuItem.PerformClick();
 
 
                     }));
@@ -452,6 +454,7 @@ namespace NetConfClientSoftware
                     gpnuser = ContentValue(strSec, "user");
                     gpnpassword = ContentValue(strSec, "password");
                     gpnnetconfversion = ContentValue(strSec, "ver");
+                    ips = ContentValue(strSec, "ips");
 
                     Readfile(defaultfilePath);
                 }
@@ -480,6 +483,7 @@ namespace NetConfClientSoftware
                 WritePrivateProfileString(strSec, "user", gpnuser, strFilePath);
                 WritePrivateProfileString(strSec, "password", gpnpassword, strFilePath);
                 WritePrivateProfileString(strSec, "ver", gpnnetconfversion, strFilePath);
+                WritePrivateProfileString(strSec, "ips", ips, strFilePath);
 
 
             }
@@ -1079,20 +1083,21 @@ namespace NetConfClientSoftware
                     XmlNode software_version = itemNode.SelectSingleNode("eqsxmlns:software-version", root);
                     XmlNode hardware_version = itemNode.SelectSingleNode("eqsxmlns:hardware-version", root);
                     int index = dataGridView_EQ.Rows.Add();
-                    dataGridView_EQ.Rows[index].Cells["单板名称"].Value = name.InnerText;
-                    dataGridView_EQ.Rows[index].Cells["是否在位"].Value = plug_sate.InnerText;
-                    dataGridView_EQ.Rows[index].Cells["状态"].Value = woking_date.InnerText;
+                    if (name != null){dataGridView_EQ.Rows[index].Cells["单板名称"].Value = name.InnerText; }
+                    if (woking_date != null) { dataGridView_EQ.Rows[index].Cells["状态"].Value = woking_date.InnerText; }
+                    if(plug_sate != null){ dataGridView_EQ.Rows[index].Cells["是否在位"].Value = plug_sate.InnerText; }
                     if (eq_type != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText;
                     if (eq_type2 != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText + "和"  +eq_type2.InnerText;
-                    dataGridView_EQ.Rows[index].Cells["XC能力"].Value = xc_capability.InnerText;
-                    dataGridView_EQ.Rows[index].Cells["软件版本"].Value = software_version.InnerText;
-                    dataGridView_EQ.Rows[index].Cells["硬件版本"].Value = hardware_version.InnerText;
+                    if (xc_capability != null) { dataGridView_EQ.Rows[index].Cells["XC能力"].Value = xc_capability.InnerText; }
+                    if (software_version != null) { dataGridView_EQ.Rows[index].Cells["软件版本"].Value = software_version.InnerText; }
+                    if (hardware_version != null) { dataGridView_EQ.Rows[index].Cells["硬件版本"].Value = hardware_version.InnerText; }
+                    
                     dataGridView_EQ.Rows[index].Cells["操作"].Value ="硬复位";
 
 
                     XmlNodeList net = itemNode.SelectNodes("eqsxmlns:ptp", root);
-
-                    dataGridView_EQ.Rows[index].Cells["端口数量"].Value = net.Count.ToString();
+                    if (net != null) { dataGridView_EQ.Rows[index].Cells["端口数量"].Value = net.Count.ToString(); }
+                   
 
                     //XmlNode product-name = itemNode.SelectSingleNode("//me:name", root);
                     //XmlNode software-version = itemNode.SelectSingleNode("//me:status", root);
@@ -1539,7 +1544,7 @@ namespace NetConfClientSoftware
         private void ButCreatODU_Click(object sender, EventArgs e)
         {
             
-            Creat(CreatODU.Common(TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
+            Creat(CreatODU.Common(ips,TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
                     ComClientSideNni_UNI_A.Text, TSConversion.Ts(ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,ComOduNniTsDetailClient_UNI_A.Text),ComOduAdapataionType_UNI_A.Text, ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,
     ComOduNniPtpName_NNI_A.Text, TSConversion.Ts(ComOduOdusignalType_NNI_A.Text, ComOduSwitchCapability_NNI_A.Text, ComOduNniTsDetail_NNI_A.Text), ComOduAdapatationType_NNI_A.Text, ComOduOdusignalType_NNI_A.Text, ComOduSwitchCapability_NNI_A.Text,
         ComOduNniPtpName_NNI_B.Text, TSConversion.Ts(ComOduOdusignalType_NNI_B.Text, ComOduSwitchCapability_NNI_B.Text, ComOduNniTsDetail_NNI_B.Text) , ComOduAdapatationType_NNI_B.Text, ComOduOdusignalType_NNI_B.Text, ComOduSwitchCapability_NNI_B.Text
@@ -2049,7 +2054,7 @@ namespace NetConfClientSoftware
 
         private void ButCreatEoO_Click(object sender, EventArgs e)
         {
-            Creat(CreatETH.Common(ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_nni_protection_type.Text, ComEthServiceMappingMode.Text,
+            Creat(CreatETH.Common(ips,ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_nni_protection_type.Text, ComEthServiceMappingMode.Text,
                     ComEthUniPtpName.Text, ComEthClientVlanId.Text, ComEthVlanPriority.Text, ComEthVlanAccessAction.Text, ComEthVlanType.Text, ComEthUniVlanId.Text, ComEthUniVlanPriority.Text, ComEthUniVlanAccessAction.Text, ComEthUniVlanType.Text,
     ComEthPrimayNniPtpName.Text, TSConversion.Ts(ComEthPrimayOduType.Text, ComEthPrimarySwitch.Text, ComEthPrimayTs.Text), ComEthPrimayAdaType.Text, ComEthPrimayOduType.Text, ComEthPrimarySwitch.Text, ComEthFtpVlanID.Text, ComEthFtpVlanPriority.Text, ComEthFtpVlanAccess.Text, ComEthFtpVlanType.Text,
         ComEthSecNniPtpName.Text, TSConversion.Ts(ComEthSecOduType.Text, ComEthSecSwitch.Text, ComEthSecNniTs.Text), ComEthSecAdaType.Text, ComEthSecOduType.Text, ComEthSecSwitch.Text,
@@ -2671,7 +2676,7 @@ namespace NetConfClientSoftware
         private void ButCreatSDH_Click(object sender, EventArgs e)
         {
 
-            Creat(CreateSDH.Common(TextSdhlabel.Text, ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
+            Creat(CreateSDH.Common(ips,TextSdhlabel.Text, ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
                     ComSdhUniPtp.Text, ComSdhUniSdhType.Text, TextSdhUniTs.Text,
     ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniTs_A.Text), ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, TextSdhNniTs_A.Text,
         ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, TextSdhNniTs_B.Text
@@ -2687,6 +2692,7 @@ namespace NetConfClientSoftware
             {
 
                 dataGridViewPGS.Rows.Clear();
+                dataGridViewPGS_Not.Rows.Clear();
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
@@ -2735,6 +2741,10 @@ namespace NetConfClientSoftware
         private void Pgnot(XmlDocument xmlDoc) {
             try
             {
+                if (!xmlDoc.OuterXml.Contains("notification"))
+                {
+                    return;
+                }
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("pgsxmlns", "urn:ccsa:yang:acc-protection-group");
@@ -2882,7 +2892,7 @@ namespace NetConfClientSoftware
         private void 连接设备ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // 实例化FormInfo，并传入待修改初值  
-            var LoginOn = new LoginOn(gpnip,830,gpnuser,gpnpassword,gpnnetconfversion);
+            var LoginOn = new LoginOn(gpnip,830,gpnuser,gpnpassword,gpnnetconfversion,ips);
             // 以对话框方式显示FormInfo  
             if (LoginOn.ShowDialog() == DialogResult.OK)
             {
@@ -2892,6 +2902,7 @@ namespace NetConfClientSoftware
                 gpnuser = LoginOn.USER;
                 gpnpassword = LoginOn.PASSD;
                 gpnnetconfversion = LoginOn.VER;
+                ips = LoginOn.IPS;
                 Gpnsetini();
                 TextIP.Text = gpnip;
                 Thread thread = new Thread(() => LoginNetconfService(LoginOn.IP, LoginOn.PORT, LoginOn.USER, LoginOn.PASSD));

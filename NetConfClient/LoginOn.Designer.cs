@@ -32,6 +32,7 @@
             this.ButCenter = new System.Windows.Forms.Button();
             this.ButOk = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.Comips = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Comip = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,6 +43,7 @@
             this.TextPort = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ComVersion = new System.Windows.Forms.ComboBox();
+            this.运营商 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +55,7 @@
             this.groupBox1.Controls.Add(this.tableLayoutPanel1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(294, 227);
+            this.groupBox1.Size = new System.Drawing.Size(294, 255);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "连接设备";
@@ -61,7 +63,7 @@
             // ButCenter
             // 
             this.ButCenter.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.ButCenter.Location = new System.Drawing.Point(200, 187);
+            this.ButCenter.Location = new System.Drawing.Point(200, 226);
             this.ButCenter.Name = "ButCenter";
             this.ButCenter.Size = new System.Drawing.Size(75, 23);
             this.ButCenter.TabIndex = 2;
@@ -71,7 +73,7 @@
             // ButOk
             // 
             this.ButOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButOk.Location = new System.Drawing.Point(119, 187);
+            this.ButOk.Location = new System.Drawing.Point(130, 226);
             this.ButOk.Name = "ButOk";
             this.ButOk.Size = new System.Drawing.Size(75, 23);
             this.ButOk.TabIndex = 1;
@@ -87,6 +89,7 @@
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.35593F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.64407F));
+            this.tableLayoutPanel1.Controls.Add(this.Comips, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.Comip, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -97,17 +100,34 @@
             this.tableLayoutPanel1.Controls.Add(this.TextPort, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.ComVersion, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.运营商, 0, 5);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(29, 30);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 5;
+            this.tableLayoutPanel1.RowCount = 6;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(246, 150);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(246, 178);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // Comips
+            // 
+            this.Comips.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Comips.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Comips.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Comips.FormattingEnabled = true;
+            this.Comips.Items.AddRange(new object[] {
+            "移动",
+            "联通",
+            "电信"});
+            this.Comips.Location = new System.Drawing.Point(80, 158);
+            this.Comips.Name = "Comips";
+            this.Comips.Size = new System.Drawing.Size(163, 20);
+            this.Comips.TabIndex = 11;
             // 
             // label1
             // 
@@ -115,7 +135,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(71, 30);
+            this.label1.Size = new System.Drawing.Size(71, 31);
             this.label1.TabIndex = 0;
             this.label1.Text = "设备IP";
             // 
@@ -132,16 +152,16 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 30);
+            this.label2.Location = new System.Drawing.Point(3, 31);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(71, 30);
+            this.label2.Size = new System.Drawing.Size(71, 31);
             this.label2.TabIndex = 2;
             this.label2.Text = "用户名";
             // 
             // TextUser
             // 
             this.TextUser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextUser.Location = new System.Drawing.Point(80, 33);
+            this.TextUser.Location = new System.Drawing.Point(80, 34);
             this.TextUser.Name = "TextUser";
             this.TextUser.Size = new System.Drawing.Size(163, 21);
             this.TextUser.TabIndex = 3;
@@ -150,16 +170,16 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 60);
+            this.label3.Location = new System.Drawing.Point(3, 62);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 30);
+            this.label3.Size = new System.Drawing.Size(71, 31);
             this.label3.TabIndex = 4;
             this.label3.Text = "密码";
             // 
             // Textpasd
             // 
             this.Textpasd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Textpasd.Location = new System.Drawing.Point(80, 63);
+            this.Textpasd.Location = new System.Drawing.Point(80, 65);
             this.Textpasd.Name = "Textpasd";
             this.Textpasd.PasswordChar = '*';
             this.Textpasd.Size = new System.Drawing.Size(163, 21);
@@ -169,16 +189,16 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(3, 90);
+            this.label4.Location = new System.Drawing.Point(3, 93);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(71, 30);
+            this.label4.Size = new System.Drawing.Size(71, 31);
             this.label4.TabIndex = 6;
             this.label4.Text = "端口";
             // 
             // TextPort
             // 
             this.TextPort.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextPort.Location = new System.Drawing.Point(80, 93);
+            this.TextPort.Location = new System.Drawing.Point(80, 96);
             this.TextPort.Name = "TextPort";
             this.TextPort.Size = new System.Drawing.Size(163, 21);
             this.TextPort.TabIndex = 7;
@@ -188,9 +208,9 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(3, 120);
+            this.label5.Location = new System.Drawing.Point(3, 124);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 30);
+            this.label5.Size = new System.Drawing.Size(71, 31);
             this.label5.TabIndex = 8;
             this.label5.Text = "NetConf版本";
             // 
@@ -202,16 +222,25 @@
             this.ComVersion.FormattingEnabled = true;
             this.ComVersion.Items.AddRange(new object[] {
             "Auto"});
-            this.ComVersion.Location = new System.Drawing.Point(80, 123);
+            this.ComVersion.Location = new System.Drawing.Point(80, 127);
             this.ComVersion.Name = "ComVersion";
             this.ComVersion.Size = new System.Drawing.Size(163, 20);
             this.ComVersion.TabIndex = 9;
+            // 
+            // 运营商
+            // 
+            this.运营商.AutoSize = true;
+            this.运营商.Location = new System.Drawing.Point(3, 155);
+            this.运营商.Name = "运营商";
+            this.运营商.Size = new System.Drawing.Size(41, 12);
+            this.运营商.TabIndex = 10;
+            this.运营商.Text = "运营商";
             // 
             // LoginOn
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(332, 251);
+            this.ClientSize = new System.Drawing.Size(332, 279);
             this.Controls.Add(this.groupBox1);
             this.Name = "LoginOn";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -239,5 +268,7 @@
         private System.Windows.Forms.TextBox TextPort;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox ComVersion;
+        private System.Windows.Forms.ComboBox Comips;
+        private System.Windows.Forms.Label 运营商;
     }
 }

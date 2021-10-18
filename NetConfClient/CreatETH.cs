@@ -8,7 +8,7 @@ namespace NetConfClientSoftware
 {
     class CreatETH
     {
-        public static XmlDocument Common(string _Create_Connection,string _label, string _service_type, string _layer_protoco_name,string _cir, string _pir, string _cbs, string _pbs, string _nni_protection_type,string _service_mapping_mode,
+        public static XmlDocument Common(string ips,string _Create_Connection,string _label, string _service_type, string _layer_protoco_name,string _cir, string _pir, string _cbs, string _pbs, string _nni_protection_type,string _service_mapping_mode,
     string _uni_ptp_name, string _vlan_id, string _vlan_priority, string _access_action, string _vlan_type, string _uni_vlan_id, string _uni_vlan_priority, string _uni_access_action, string _uni_vlan_type,
     string _primary_nni_name, string _primary_ts, string _primary_ada, string _primary_odu, string _primary_switch, string _primary_vlan_id, string _primary_vlan_priority, string _primary_access_action, string _primary_vlan_type,
     string _secondary_nni_name, string _secondary_ts, string _secondary_ada, string _secondary_odu, string _secondary_switch,
@@ -40,11 +40,30 @@ namespace NetConfClientSoftware
                 rpc.AppendChild(create_eth_connection);
             }
 
+            if (ips.Contains("移动"))
+            {
+                //lable
+                XmlElement label = commonXml.CreateElement("label");
+                label.InnerText = _label;
+                create_eth_connection.AppendChild(label);
+                //服务映射模式
+                XmlElement service_mapping_mode = commonXml.CreateElement("service-mapping-mode");
+                service_mapping_mode.InnerText = _service_mapping_mode;
+                create_eth_connection.AppendChild(service_mapping_mode);
+            }
+            if (ips.Contains("联通"))
+            {
+                //lable
+                XmlElement connection = commonXml.CreateElement("connection-name");
+                connection.InnerText = "CONNECTION=" + _label;
+                create_eth_connection.AppendChild(connection);
+            }
+            if (ips == "")
+            {
 
-            //lable
-            XmlElement label = commonXml.CreateElement("label");
-            label.InnerText = _label;
-            create_eth_connection.AppendChild(label);
+                return commonXml;
+
+            }
             //服务类型
             XmlElement service_type = commonXml.CreateElement("service-type");
             service_type.InnerText = _service_type;
@@ -84,10 +103,7 @@ namespace NetConfClientSoftware
                 nni_protection_type.InnerText = _nni_protection_type;
                 create_eth_connection.AppendChild(nni_protection_type);
             }
-            //服务映射模式
-            XmlElement service_mapping_mode = commonXml.CreateElement("service-mapping-mode");
-            service_mapping_mode.InnerText = _service_mapping_mode;
-            create_eth_connection.AppendChild(service_mapping_mode);
+
 
             //客户侧配置
             XmlElement eth_uni = commonXml.CreateElement("eth-uni");
