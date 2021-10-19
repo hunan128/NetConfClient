@@ -43,7 +43,6 @@ namespace NetConfClientSoftware
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ButSend = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.RichTextReq = new System.Windows.Forms.RichTextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.ComXml = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -439,12 +438,12 @@ namespace NetConfClientSoftware
             this.label128 = new System.Windows.Forms.Label();
             this.label124 = new System.Windows.Forms.Label();
             this.label129 = new System.Windows.Forms.Label();
+            this.ComSdhNniAda_B = new System.Windows.Forms.ComboBox();
             this.ComSdhNniVcType_B = new System.Windows.Forms.ComboBox();
             this.label130 = new System.Windows.Forms.Label();
             this.label125 = new System.Windows.Forms.Label();
             this.label131 = new System.Windows.Forms.Label();
             this.TextSdhNniTs_B = new System.Windows.Forms.TextBox();
-            this.ComSdhNniAda_B = new System.Windows.Forms.ComboBox();
             this.ComSdhNniOdu_B = new System.Windows.Forms.ComboBox();
             this.ComSdhNniSwitch_B = new System.Windows.Forms.ComboBox();
             this.ComSdhNniTs_B = new System.Windows.Forms.ComboBox();
@@ -457,13 +456,13 @@ namespace NetConfClientSoftware
             this.label133 = new System.Windows.Forms.Label();
             this.ButSdhNniTs_A = new System.Windows.Forms.Button();
             this.label134 = new System.Windows.Forms.Label();
+            this.ComSdhNniAda_A = new System.Windows.Forms.ComboBox();
             this.ComSdhNniVcType_A = new System.Windows.Forms.ComboBox();
             this.label116 = new System.Windows.Forms.Label();
             this.label135 = new System.Windows.Forms.Label();
             this.TextSdhNniTs_A = new System.Windows.Forms.TextBox();
             this.ComSdhNniPtp_A = new System.Windows.Forms.ComboBox();
             this.label136 = new System.Windows.Forms.Label();
-            this.ComSdhNniAda_A = new System.Windows.Forms.ComboBox();
             this.label137 = new System.Windows.Forms.Label();
             this.ComSdhNniTs_A = new System.Windows.Forms.ComboBox();
             this.ComSdhNniSwitch_A = new System.Windows.Forms.ComboBox();
@@ -619,6 +618,9 @@ namespace NetConfClientSoftware
             this.LabResponsTime = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
             this.TextSub = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelips = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.RichTextReq = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -699,7 +701,7 @@ namespace NetConfClientSoftware
             this.ButSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButSend.BackColor = System.Drawing.Color.Transparent;
             this.ButSend.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.ButSend.Location = new System.Drawing.Point(574, 413);
+            this.ButSend.Location = new System.Drawing.Point(590, 413);
             this.ButSend.Name = "ButSend";
             this.ButSend.Size = new System.Drawing.Size(127, 30);
             this.ButSend.TabIndex = 0;
@@ -718,24 +720,10 @@ namespace NetConfClientSoftware
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(707, 446);
+            this.groupBox1.Size = new System.Drawing.Size(723, 446);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "请求(Rpc)";
-            // 
-            // RichTextReq
-            // 
-            this.RichTextReq.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.RichTextReq.Location = new System.Drawing.Point(3, 39);
-            this.RichTextReq.Name = "RichTextReq";
-            this.RichTextReq.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedBoth;
-            this.RichTextReq.Size = new System.Drawing.Size(698, 374);
-            this.RichTextReq.TabIndex = 13;
-            this.RichTextReq.Text = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<rpc xmlns=\"urn:ietf:params:xml:ns:netconf" +
-    ":base:1.0\" message-id=\"6\">\n    <get>\n        <filter />\n    </get>\n</rpc>";
-            this.RichTextReq.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextReq_KeyDown);
             // 
             // label5
             // 
@@ -758,7 +746,7 @@ namespace NetConfClientSoftware
             this.ComXml.MaxDropDownItems = 50;
             this.ComXml.MaxLength = 100;
             this.ComXml.Name = "ComXml";
-            this.ComXml.Size = new System.Drawing.Size(364, 20);
+            this.ComXml.Size = new System.Drawing.Size(380, 20);
             this.ComXml.TabIndex = 9;
             this.ComXml.SelectedIndexChanged += new System.EventHandler(this.ComXml_SelectedIndexChanged);
             // 
@@ -1053,7 +1041,7 @@ namespace NetConfClientSoftware
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox4);
             this.splitContainer1.Size = new System.Drawing.Size(1250, 585);
-            this.splitContainer1.SplitterDistance = 707;
+            this.splitContainer1.SplitterDistance = 723;
             this.splitContainer1.TabIndex = 13;
             // 
             // splitContainer2
@@ -1070,7 +1058,7 @@ namespace NetConfClientSoftware
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(707, 585);
+            this.splitContainer2.Size = new System.Drawing.Size(723, 585);
             this.splitContainer2.SplitterDistance = 135;
             this.splitContainer2.TabIndex = 13;
             // 
@@ -1080,7 +1068,7 @@ namespace NetConfClientSoftware
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(0, 0);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(707, 135);
+            this.groupBox3.Size = new System.Drawing.Size(723, 135);
             this.groupBox3.TabIndex = 13;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "请求(Rpc)树状图";
@@ -1091,7 +1079,7 @@ namespace NetConfClientSoftware
             this.TreeReq.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.TreeReq.Location = new System.Drawing.Point(3, 17);
             this.TreeReq.Name = "TreeReq";
-            this.TreeReq.Size = new System.Drawing.Size(701, 115);
+            this.TreeReq.Size = new System.Drawing.Size(717, 115);
             this.TreeReq.TabIndex = 11;
             this.TreeReq.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.TreeReq_DrawNode);
             // 
@@ -1101,7 +1089,7 @@ namespace NetConfClientSoftware
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(539, 585);
+            this.groupBox4.Size = new System.Drawing.Size(523, 585);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "答复(Rpc-reply)树状图";
@@ -1116,7 +1104,7 @@ namespace NetConfClientSoftware
             this.TreeReP.ItemHeight = 14;
             this.TreeReP.Location = new System.Drawing.Point(6, 20);
             this.TreeReP.Name = "TreeReP";
-            this.TreeReP.Size = new System.Drawing.Size(527, 559);
+            this.TreeReP.Size = new System.Drawing.Size(511, 559);
             this.TreeReP.TabIndex = 10;
             this.TreeReP.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.TreeReP_DrawNode);
             // 
@@ -4735,6 +4723,15 @@ namespace NetConfClientSoftware
             this.label129.TabIndex = 27;
             this.label129.Text = "适配类型";
             // 
+            // ComSdhNniAda_B
+            // 
+            this.ComSdhNniAda_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniAda_B.FormattingEnabled = true;
+            this.ComSdhNniAda_B.Location = new System.Drawing.Point(350, 38);
+            this.ComSdhNniAda_B.Name = "ComSdhNniAda_B";
+            this.ComSdhNniAda_B.Size = new System.Drawing.Size(153, 20);
+            this.ComSdhNniAda_B.TabIndex = 21;
+            // 
             // ComSdhNniVcType_B
             // 
             this.ComSdhNniVcType_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4781,15 +4778,6 @@ namespace NetConfClientSoftware
             this.TextSdhNniTs_B.Name = "TextSdhNniTs_B";
             this.TextSdhNniTs_B.Size = new System.Drawing.Size(120, 21);
             this.TextSdhNniTs_B.TabIndex = 47;
-            // 
-            // ComSdhNniAda_B
-            // 
-            this.ComSdhNniAda_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniAda_B.FormattingEnabled = true;
-            this.ComSdhNniAda_B.Location = new System.Drawing.Point(350, 38);
-            this.ComSdhNniAda_B.Name = "ComSdhNniAda_B";
-            this.ComSdhNniAda_B.Size = new System.Drawing.Size(153, 20);
-            this.ComSdhNniAda_B.TabIndex = 21;
             // 
             // ComSdhNniOdu_B
             // 
@@ -4934,6 +4922,15 @@ namespace NetConfClientSoftware
             this.label134.TabIndex = 18;
             this.label134.Text = "主用NNI端口";
             // 
+            // ComSdhNniAda_A
+            // 
+            this.ComSdhNniAda_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniAda_A.FormattingEnabled = true;
+            this.ComSdhNniAda_A.Location = new System.Drawing.Point(350, 38);
+            this.ComSdhNniAda_A.Name = "ComSdhNniAda_A";
+            this.ComSdhNniAda_A.Size = new System.Drawing.Size(153, 20);
+            this.ComSdhNniAda_A.TabIndex = 18;
+            // 
             // ComSdhNniVcType_A
             // 
             this.ComSdhNniVcType_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4990,15 +4987,6 @@ namespace NetConfClientSoftware
             this.label136.Size = new System.Drawing.Size(53, 12);
             this.label136.TabIndex = 23;
             this.label136.Text = "交换能力";
-            // 
-            // ComSdhNniAda_A
-            // 
-            this.ComSdhNniAda_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniAda_A.FormattingEnabled = true;
-            this.ComSdhNniAda_A.Location = new System.Drawing.Point(350, 38);
-            this.ComSdhNniAda_A.Name = "ComSdhNniAda_A";
-            this.ComSdhNniAda_A.Size = new System.Drawing.Size(153, 20);
-            this.ComSdhNniAda_A.TabIndex = 18;
             // 
             // label137
             // 
@@ -6268,7 +6256,9 @@ namespace NetConfClientSoftware
             this.toolStripStatusLabel1,
             this.LabResponsTime,
             this.toolStripStatusLabel6,
-            this.TextSub});
+            this.TextSub,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabelips});
             this.statusStrip.Location = new System.Drawing.Point(0, 651);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(1273, 22);
@@ -6277,6 +6267,7 @@ namespace NetConfClientSoftware
             // 
             // toolStripStatusLabel3
             // 
+            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.DimGray;
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(55, 17);
             this.toolStripStatusLabel3.Text = "设备IP：";
@@ -6289,6 +6280,7 @@ namespace NetConfClientSoftware
             // 
             // toolStripStatusLabel2
             // 
+            this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.DimGray;
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
             this.toolStripStatusLabel2.Size = new System.Drawing.Size(68, 17);
             this.toolStripStatusLabel2.Text = "连接状态：";
@@ -6301,6 +6293,7 @@ namespace NetConfClientSoftware
             // 
             // toolStripStatusLabel1
             // 
+            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.DimGray;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(68, 17);
             this.toolStripStatusLabel1.Text = "响应时间：";
@@ -6313,6 +6306,7 @@ namespace NetConfClientSoftware
             // 
             // toolStripStatusLabel6
             // 
+            this.toolStripStatusLabel6.ForeColor = System.Drawing.Color.DimGray;
             this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
             this.toolStripStatusLabel6.Size = new System.Drawing.Size(44, 17);
             this.toolStripStatusLabel6.Text = "订阅：";
@@ -6322,6 +6316,32 @@ namespace NetConfClientSoftware
             this.TextSub.Name = "TextSub";
             this.TextSub.Size = new System.Drawing.Size(44, 17);
             this.TextSub.Text = "未订阅";
+            // 
+            // toolStripStatusLabelips
+            // 
+            this.toolStripStatusLabelips.Name = "toolStripStatusLabelips";
+            this.toolStripStatusLabelips.Size = new System.Drawing.Size(32, 17);
+            this.toolStripStatusLabelips.Text = "未知";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.DimGray;
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(56, 17);
+            this.toolStripStatusLabel4.Text = "运营商：";
+            // 
+            // RichTextReq
+            // 
+            this.RichTextReq.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RichTextReq.ForeColor = System.Drawing.Color.Blue;
+            this.RichTextReq.Location = new System.Drawing.Point(3, 36);
+            this.RichTextReq.Multiline = true;
+            this.RichTextReq.Name = "RichTextReq";
+            this.RichTextReq.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.RichTextReq.Size = new System.Drawing.Size(714, 375);
+            this.RichTextReq.TabIndex = 21;
             // 
             // Main_Form
             // 
@@ -6476,7 +6496,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.ComboBox ComTimeOut;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.RichTextBox RichTextReq;
         private System.Windows.Forms.TabPage 当前性能;
         private System.Windows.Forms.TabPage 保护组创建;
         private System.Windows.Forms.TabPage 通知;
@@ -7019,6 +7038,9 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelips;
+        private System.Windows.Forms.TextBox RichTextReq;
     }
 }
 

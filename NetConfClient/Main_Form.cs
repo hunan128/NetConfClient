@@ -172,6 +172,7 @@ namespace NetConfClientSoftware
 
                     BeginInvoke(new MethodInvoker(delegate () {
                         LabConncet.Text = "已连接";
+                        toolStripStatusLabelips.Text = ips;
                         //if (gpnnetconfversion == "Auto" || gpnnetconfversion == "1.1")
                         //{
                         //    netConfClient.SendCloseRpc(true);
@@ -2937,6 +2938,8 @@ namespace NetConfClientSoftware
         {
             try
             {
+                toolStripStatusLabelips.Text = "未连接";
+
                 订阅ToolStripMenuItem.Enabled = false;
                 订阅监听禁止ToolStripMenuItem.Enabled = false;
                 LabConncet.Text = "连接断开";
