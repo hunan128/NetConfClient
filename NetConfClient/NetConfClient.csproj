@@ -31,7 +31,7 @@
     <PublisherName>NetConfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>24</ApplicationRevision>
     <ApplicationVersion>2021.9.19.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -105,6 +105,12 @@
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="Find.cs" />
+    <Compile Include="FormAutoRunningNetconf.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAutoRunningNetconf.Designer.cs">
+      <DependentUpon>FormAutoRunningNetconf.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormOAM.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -143,6 +149,9 @@
     <Compile Include="XmlFormat.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAutoRunningNetconf.resx">
+      <DependentUpon>FormAutoRunningNetconf.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormInfo.resx">
       <DependentUpon>FormInfo.cs</DependentUpon>

@@ -3216,5 +3216,28 @@ namespace NetConfClientSoftware
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void ButAddTest_Click(object sender, EventArgs e)
+        {
+            // 实例化FormInfo，并传入待修改初值  
+            var AutoXml = new FormAutoRunningNetconf();
+            // 以对话框方式显示FormInfo  
+            if (AutoXml.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                //gpnip = AutoXml.IP;
+                //gpnport = AutoXml.PORT;
+                //gpnuser = AutoXml.USER;
+                //gpnpassword = AutoXml.PASSD;
+                //gpnnetconfversion = AutoXml.VER;
+                //ips = AutoXml.IPS;
+                //Gpnsetini();
+                //TextIP.Text = gpnip;
+                //Thread thread = new Thread(() => LoginNetconfService(AutoXml.IP, AutoXml.PORT, AutoXml.USER, AutoXml.PASSD));
+                //thread.Start();
+
+
+            }
+        }
     }
 }
