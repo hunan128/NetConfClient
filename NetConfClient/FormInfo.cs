@@ -105,7 +105,7 @@ namespace NetConfClientSoftware
                     //textBox.Text = a.Text.Trim() + "未选中";
                 }
             }
-            catch (Exception ex)
+            catch 
             {
 
             }

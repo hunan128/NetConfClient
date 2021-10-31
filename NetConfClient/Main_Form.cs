@@ -3220,23 +3220,145 @@ namespace NetConfClientSoftware
         private void ButAddTest_Click(object sender, EventArgs e)
         {
             // 实例化FormInfo，并传入待修改初值  
-            var AutoXml = new FormAutoRunningNetconf();
+            var AutoXml = new FormAutoRunningNetconf(gpnip);
             // 以对话框方式显示FormInfo  
             if (AutoXml.ShowDialog() == DialogResult.OK)
             {
-                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
-                //gpnip = AutoXml.IP;
-                //gpnport = AutoXml.PORT;
-                //gpnuser = AutoXml.USER;
-                //gpnpassword = AutoXml.PASSD;
-                //gpnnetconfversion = AutoXml.VER;
-                //ips = AutoXml.IPS;
-                //Gpnsetini();
-                //TextIP.Text = gpnip;
-                //Thread thread = new Thread(() => LoginNetconfService(AutoXml.IP, AutoXml.PORT, AutoXml.USER, AutoXml.PASSD));
-                //thread.Start();
+                int index = dataGridViewAuto.Rows.Add();
+                dataGridViewAuto.Rows[index].Cells["Auto编号"].Value = index;
+                dataGridViewAuto.Rows[index].Cells["Autoip地址"].Value = AutoXml.Ip;
+                dataGridViewAuto.Rows[index].Cells["Auto功能模块"].Value = AutoXml.Mode;
+                dataGridViewAuto.Rows[index].Cells["Auto用例标题"].Value = AutoXml.Title;
+                dataGridViewAuto.Rows[index].Cells["Auto运营商"].Value = AutoXml.Ips;
+                dataGridViewAuto.Rows[index].Cells["Auto用例脚本"].Value = AutoXml.Xml;
+                dataGridViewAuto.Rows[index].Cells["Auto预期"].Value = AutoXml.Result;
+                dataGridViewAuto.Rows[index].Cells["Auto问题定位建议"].Value = AutoXml.Req;
+
+            }
+        }
+
+        private void ButStartAutoRunningXML_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < dataGridViewAuto.RowCount -1 ; i++)
+            {
+                DateTime startTime = System.DateTime.Now;
+                dataGridViewAuto.Rows[i].Cells["Auto开始时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                if (!string.IsNullOrEmpty(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString()) && !string.IsNullOrEmpty(dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString()))
+                {
+                    XmlDocument xmlDoc = new XmlDocument();
+                    xmlDoc.LoadXml(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString());
+                    var result = Sendrpc(xmlDoc);
+                    dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                    DateTime endTime = System.DateTime.Now;
+                    TimeSpan ts = endTime - startTime;
+                    dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
+                    //时隙
+                    string[] strArrayP = dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString().Split(',');
+                    string end = "";
+                    foreach (var item in strArrayP)
+                    {
+                        if (item != "")
+                        {
+                            if (result.OuterXml.Contains(item))
+                            {
+                                end = end + item + "=OK," +"\n";
+                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Style.BackColor = Color.GreenYellow;
+
+                            }
+                            else {
+
+                                end = end + item + "=NOK," + "\n";
+                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+
+                            }
+
+                        }
+
+                    }
+                    if (end.Contains("NOK"))
+                    {
+                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Style.BackColor = Color.Yellow;
+                    }
+                    dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = XmlFormat.Xml(result.OuterXml);
 
 
+                }
+                else {
+                    
+                    dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
+                    dataGridViewAuto.Rows[i].Cells["Auto结果"].Style.BackColor = Color.Yellow;
+                    dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                    DateTime endTime = System.DateTime.Now;
+                    TimeSpan ts = endTime - startTime;
+                    dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min:" + ts.Seconds.ToString() + "s:" + ts.Milliseconds.ToString() + "ms";
+                }
+
+
+            }
+        }
+
+        private void ToolStripMenuItemAUto_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("需要导入指定格式的excel格式文本");
+           // dataGridViewAuto.DataSource = null;
+           // dataGridViewAuto.Columns.Clear();
+            OpenFileDialog ofd = new OpenFileDialog();
+            string strPath;//完整的路径名
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+
+                    strPath = ofd.FileName;
+                    DataTable dataTable = null;
+                    dataTable = ExcelUtility.ExcelToDataTable(strPath, true);
+                    for (int i = 0; i < dataTable.Rows.Count; i++)
+                    {
+                        int index = dataGridViewAuto.Rows.Add();
+                        dataGridViewAuto.Rows[index].Cells["Auto编号"].Value = index;
+                        dataGridViewAuto.Rows[index].Cells["Autoip地址"].Value = dataTable.Rows[index]["ip地址"].ToString();
+                        dataGridViewAuto.Rows[index].Cells["Auto功能模块"].Value = dataTable.Rows[index]["功能模块"].ToString();
+                        dataGridViewAuto.Rows[index].Cells["Auto用例标题"].Value = dataTable.Rows[index]["用例标题"].ToString();
+                        dataGridViewAuto.Rows[index].Cells["Auto运营商"].Value = dataTable.Rows[index]["运营商"].ToString();
+                        dataGridViewAuto.Rows[index].Cells["Auto用例脚本"].Value = dataTable.Rows[index]["用例脚本"].ToString();
+                        dataGridViewAuto.Rows[index].Cells["Auto预期"].Value = dataTable.Rows[index]["预期"].ToString();
+                        dataGridViewAuto.Rows[index].Cells["Auto问题定位建议"].Value = dataTable.Rows[index]["问题定位建议"].ToString();
+                    } 
+
+                    //DataView dv = ds.Tables[0].DefaultView;
+                    //dataTable.DefaultView.RowFilter = "类型 = '" + comtype.Text + "'";
+                 //   dataGridViewAuto.DataSource = dataTable;
+                    //if (dataGridViewAuto.Columns["开始时间"] == null)
+                    //{
+
+                    //    this.dataGridView1.Columns.Add("开始时间", "开始时间");
+                    //    this.dataGridView1.Columns["开始时间"].FillWeight = 150;
+                    //}
+                    //else
+                    //{
+                    //    this.dataGridView1.Columns.Remove("开始时间");
+                    //    this.dataGridView1.Columns.Add("开始时间", "开始时间");
+                    //    this.dataGridView1.Columns["开始时间"].FillWeight = 150;
+                    //}
+
+
+
+
+
+                    //this.dataGridViewAuto.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+                    //foreach (DataGridViewColumn column in dataGridViewAuto.Columns)
+                    //{
+                    //    column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                    //}
+                  //  toolStripStatusLabelzonggong.Text = (dataGridView1.Rows.Count - 1).ToString();
+                  //  toolStripStatusLabelshengyu.Text = toolStripStatusLabelzonggong.Text;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);//捕捉异常
+                    MessageBox.Show("请使用Office2003或者更新版本格式内容，如.xls或者.xlsx格式");
+                }
             }
         }
     }

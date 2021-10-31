@@ -73,7 +73,7 @@
             // ButOk
             // 
             this.ButOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButOk.Location = new System.Drawing.Point(130, 226);
+            this.ButOk.Location = new System.Drawing.Point(109, 226);
             this.ButOk.Name = "ButOk";
             this.ButOk.Size = new System.Drawing.Size(75, 23);
             this.ButOk.TabIndex = 1;
