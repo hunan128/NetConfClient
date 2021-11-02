@@ -622,17 +622,6 @@ namespace NetConfClientSoftware
             this.ButStartAutoRunningXML = new System.Windows.Forms.Button();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.dataGridViewAuto = new System.Windows.Forms.DataGridView();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TextIP = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.LabConncet = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.LabResponsTime = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TextSub = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelips = new System.Windows.Forms.ToolStripStatusLabel();
             this.Auto编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Autoip地址 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Auto功能模块 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -646,6 +635,17 @@ namespace NetConfClientSoftware
             this.Auto结束时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Auto耗时 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Auto问题定位建议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TextIP = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LabConncet = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.LabResponsTime = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TextSub = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelips = new System.Windows.Forms.ToolStripStatusLabel();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1750,7 +1750,7 @@ namespace NetConfClientSoftware
             this.tabPage23.Location = new System.Drawing.Point(4, 22);
             this.tabPage23.Name = "tabPage23";
             this.tabPage23.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage23.Size = new System.Drawing.Size(1249, 565);
+            this.tabPage23.Size = new System.Drawing.Size(1390, 565);
             this.tabPage23.TabIndex = 1;
             this.tabPage23.Text = "板卡信息";
             this.tabPage23.UseVisualStyleBackColor = true;
@@ -1763,7 +1763,7 @@ namespace NetConfClientSoftware
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox10.Location = new System.Drawing.Point(3, 3);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(1243, 559);
+            this.groupBox10.Size = new System.Drawing.Size(1384, 559);
             this.groupBox10.TabIndex = 0;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "板卡信息";
@@ -1771,7 +1771,7 @@ namespace NetConfClientSoftware
             // button7
             // 
             this.button7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button7.Location = new System.Drawing.Point(1146, 522);
+            this.button7.Location = new System.Drawing.Point(1287, 522);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(87, 31);
             this.button7.TabIndex = 122;
@@ -1802,7 +1802,7 @@ namespace NetConfClientSoftware
             this.dataGridView_EQ.Location = new System.Drawing.Point(6, 20);
             this.dataGridView_EQ.Name = "dataGridView_EQ";
             this.dataGridView_EQ.RowTemplate.Height = 23;
-            this.dataGridView_EQ.Size = new System.Drawing.Size(1231, 496);
+            this.dataGridView_EQ.Size = new System.Drawing.Size(1372, 496);
             this.dataGridView_EQ.TabIndex = 0;
             // 
             // 单板名称
@@ -1886,7 +1886,7 @@ namespace NetConfClientSoftware
             // ButFindEq
             // 
             this.ButFindEq.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.ButFindEq.Location = new System.Drawing.Point(1054, 522);
+            this.ButFindEq.Location = new System.Drawing.Point(1195, 522);
             this.ButFindEq.Name = "ButFindEq";
             this.ButFindEq.Size = new System.Drawing.Size(86, 31);
             this.ButFindEq.TabIndex = 121;
@@ -1905,7 +1905,7 @@ namespace NetConfClientSoftware
             this.tabPage24.Location = new System.Drawing.Point(4, 22);
             this.tabPage24.Name = "tabPage24";
             this.tabPage24.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage24.Size = new System.Drawing.Size(1249, 565);
+            this.tabPage24.Size = new System.Drawing.Size(1390, 565);
             this.tabPage24.TabIndex = 2;
             this.tabPage24.Text = "ETH端口";
             this.tabPage24.UseVisualStyleBackColor = true;
@@ -2520,7 +2520,7 @@ namespace NetConfClientSoftware
             this.tabPage25.Location = new System.Drawing.Point(4, 22);
             this.tabPage25.Name = "tabPage25";
             this.tabPage25.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage25.Size = new System.Drawing.Size(1249, 565);
+            this.tabPage25.Size = new System.Drawing.Size(1390, 565);
             this.tabPage25.TabIndex = 3;
             this.tabPage25.Text = "SDH端口";
             this.tabPage25.UseVisualStyleBackColor = true;
@@ -2530,7 +2530,7 @@ namespace NetConfClientSoftware
             this.tabPage26.Location = new System.Drawing.Point(4, 22);
             this.tabPage26.Name = "tabPage26";
             this.tabPage26.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage26.Size = new System.Drawing.Size(1249, 565);
+            this.tabPage26.Size = new System.Drawing.Size(1390, 565);
             this.tabPage26.TabIndex = 4;
             this.tabPage26.Text = "OTN端口";
             this.tabPage26.UseVisualStyleBackColor = true;
@@ -3366,7 +3366,7 @@ namespace NetConfClientSoftware
             this.tabPage20.Location = new System.Drawing.Point(4, 22);
             this.tabPage20.Name = "tabPage20";
             this.tabPage20.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage20.Size = new System.Drawing.Size(1251, 559);
+            this.tabPage20.Size = new System.Drawing.Size(1392, 559);
             this.tabPage20.TabIndex = 1;
             this.tabPage20.Text = "业务查询";
             this.tabPage20.UseVisualStyleBackColor = true;
@@ -4427,7 +4427,7 @@ namespace NetConfClientSoftware
             this.tabPage28.Location = new System.Drawing.Point(4, 22);
             this.tabPage28.Name = "tabPage28";
             this.tabPage28.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage28.Size = new System.Drawing.Size(1251, 559);
+            this.tabPage28.Size = new System.Drawing.Size(1392, 559);
             this.tabPage28.TabIndex = 1;
             this.tabPage28.Text = "业务查询";
             this.tabPage28.UseVisualStyleBackColor = true;
@@ -4558,7 +4558,7 @@ namespace NetConfClientSoftware
             this.TextSdhlabel.Name = "TextSdhlabel";
             this.TextSdhlabel.Size = new System.Drawing.Size(186, 21);
             this.TextSdhlabel.TabIndex = 0;
-            this.TextSdhlabel.Text = "SDH1";
+            this.TextSdhlabel.Text = "SDH";
             // 
             // ComSdhSer
             // 
@@ -5099,7 +5099,7 @@ namespace NetConfClientSoftware
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1251, 559);
+            this.tabPage2.Size = new System.Drawing.Size(1392, 559);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "业务查询";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -5822,7 +5822,7 @@ namespace NetConfClientSoftware
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(1254, 565);
+            this.tabPage11.Size = new System.Drawing.Size(1395, 565);
             this.tabPage11.TabIndex = 1;
             this.tabPage11.Text = "TCA告警";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -5850,7 +5850,7 @@ namespace NetConfClientSoftware
             this.ListViewTcaAlarm.HideSelection = false;
             this.ListViewTcaAlarm.Location = new System.Drawing.Point(6, 6);
             this.ListViewTcaAlarm.Name = "ListViewTcaAlarm";
-            this.ListViewTcaAlarm.Size = new System.Drawing.Size(1242, 553);
+            this.ListViewTcaAlarm.Size = new System.Drawing.Size(1383, 553);
             this.ListViewTcaAlarm.TabIndex = 1;
             this.ListViewTcaAlarm.UseCompatibleStateImageBehavior = false;
             this.ListViewTcaAlarm.View = System.Windows.Forms.View.Details;
@@ -5914,7 +5914,7 @@ namespace NetConfClientSoftware
             this.tabPage12.Controls.Add(this.listViewProtection);
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(1254, 565);
+            this.tabPage12.Size = new System.Drawing.Size(1395, 565);
             this.tabPage12.TabIndex = 2;
             this.tabPage12.Text = "保护倒换";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -5944,7 +5944,7 @@ namespace NetConfClientSoftware
             this.listViewProtection.HideSelection = false;
             this.listViewProtection.Location = new System.Drawing.Point(6, 6);
             this.listViewProtection.Name = "listViewProtection";
-            this.listViewProtection.Size = new System.Drawing.Size(1242, 553);
+            this.listViewProtection.Size = new System.Drawing.Size(1383, 553);
             this.listViewProtection.TabIndex = 1;
             this.listViewProtection.UseCompatibleStateImageBehavior = false;
             this.listViewProtection.View = System.Windows.Forms.View.Details;
@@ -6021,7 +6021,7 @@ namespace NetConfClientSoftware
             this.tabPage13.Controls.Add(this.listViewAttribute);
             this.tabPage13.Location = new System.Drawing.Point(4, 22);
             this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Size = new System.Drawing.Size(1254, 565);
+            this.tabPage13.Size = new System.Drawing.Size(1395, 565);
             this.tabPage13.TabIndex = 3;
             this.tabPage13.Text = "对象变更";
             this.tabPage13.UseVisualStyleBackColor = true;
@@ -6045,7 +6045,7 @@ namespace NetConfClientSoftware
             this.listViewAttribute.HideSelection = false;
             this.listViewAttribute.Location = new System.Drawing.Point(6, 6);
             this.listViewAttribute.Name = "listViewAttribute";
-            this.listViewAttribute.Size = new System.Drawing.Size(1242, 553);
+            this.listViewAttribute.Size = new System.Drawing.Size(1383, 553);
             this.listViewAttribute.TabIndex = 1;
             this.listViewAttribute.UseCompatibleStateImageBehavior = false;
             this.listViewAttribute.View = System.Windows.Forms.View.Details;
@@ -6095,7 +6095,7 @@ namespace NetConfClientSoftware
             this.tabPage14.Controls.Add(this.listViewLLDP);
             this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
-            this.tabPage14.Size = new System.Drawing.Size(1254, 565);
+            this.tabPage14.Size = new System.Drawing.Size(1395, 565);
             this.tabPage14.TabIndex = 4;
             this.tabPage14.Text = "LLDP链路信息";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -6116,7 +6116,7 @@ namespace NetConfClientSoftware
             this.listViewLLDP.HideSelection = false;
             this.listViewLLDP.Location = new System.Drawing.Point(6, 6);
             this.listViewLLDP.Name = "listViewLLDP";
-            this.listViewLLDP.Size = new System.Drawing.Size(1242, 553);
+            this.listViewLLDP.Size = new System.Drawing.Size(1383, 553);
             this.listViewLLDP.TabIndex = 1;
             this.listViewLLDP.UseCompatibleStateImageBehavior = false;
             this.listViewLLDP.View = System.Windows.Forms.View.Details;
@@ -6151,7 +6151,7 @@ namespace NetConfClientSoftware
             this.tabPage15.Controls.Add(this.listViewPeer);
             this.tabPage15.Location = new System.Drawing.Point(4, 22);
             this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Size = new System.Drawing.Size(1254, 565);
+            this.tabPage15.Size = new System.Drawing.Size(1395, 565);
             this.tabPage15.TabIndex = 5;
             this.tabPage15.Text = "Peer链路信息";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -6171,7 +6171,7 @@ namespace NetConfClientSoftware
             this.listViewPeer.HideSelection = false;
             this.listViewPeer.Location = new System.Drawing.Point(6, 6);
             this.listViewPeer.Name = "listViewPeer";
-            this.listViewPeer.Size = new System.Drawing.Size(1242, 553);
+            this.listViewPeer.Size = new System.Drawing.Size(1383, 553);
             this.listViewPeer.TabIndex = 2;
             this.listViewPeer.UseCompatibleStateImageBehavior = false;
             this.listViewPeer.View = System.Windows.Forms.View.Details;
@@ -6200,7 +6200,7 @@ namespace NetConfClientSoftware
             // 
             this.tabPage16.Location = new System.Drawing.Point(4, 22);
             this.tabPage16.Name = "tabPage16";
-            this.tabPage16.Size = new System.Drawing.Size(1254, 565);
+            this.tabPage16.Size = new System.Drawing.Size(1395, 565);
             this.tabPage16.TabIndex = 6;
             this.tabPage16.Text = "G.Hao带宽调整";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -6211,7 +6211,7 @@ namespace NetConfClientSoftware
             this.tabPage18.Location = new System.Drawing.Point(4, 22);
             this.tabPage18.Name = "tabPage18";
             this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage18.Size = new System.Drawing.Size(1254, 565);
+            this.tabPage18.Size = new System.Drawing.Size(1395, 565);
             this.tabPage18.TabIndex = 8;
             this.tabPage18.Text = "一般配置通知";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -6232,7 +6232,7 @@ namespace NetConfClientSoftware
             this.listViewCommon.HideSelection = false;
             this.listViewCommon.Location = new System.Drawing.Point(6, 6);
             this.listViewCommon.Name = "listViewCommon";
-            this.listViewCommon.Size = new System.Drawing.Size(1242, 553);
+            this.listViewCommon.Size = new System.Drawing.Size(1383, 553);
             this.listViewCommon.TabIndex = 2;
             this.listViewCommon.UseCompatibleStateImageBehavior = false;
             this.listViewCommon.View = System.Windows.Forms.View.Details;
@@ -6266,7 +6266,7 @@ namespace NetConfClientSoftware
             this.tabPageAllNotificontion.Location = new System.Drawing.Point(4, 22);
             this.tabPageAllNotificontion.Name = "tabPageAllNotificontion";
             this.tabPageAllNotificontion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAllNotificontion.Size = new System.Drawing.Size(1254, 565);
+            this.tabPageAllNotificontion.Size = new System.Drawing.Size(1395, 565);
             this.tabPageAllNotificontion.TabIndex = 7;
             this.tabPageAllNotificontion.Text = "所有通知";
             this.tabPageAllNotificontion.UseVisualStyleBackColor = true;
@@ -6421,90 +6421,6 @@ namespace NetConfClientSoftware
             this.dataGridViewAuto.Size = new System.Drawing.Size(1394, 521);
             this.dataGridViewAuto.TabIndex = 0;
             // 
-            // statusStrip
-            // 
-            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel3,
-            this.TextIP,
-            this.toolStripStatusLabel2,
-            this.LabConncet,
-            this.toolStripStatusLabel1,
-            this.LabResponsTime,
-            this.toolStripStatusLabel6,
-            this.TextSub,
-            this.toolStripStatusLabel4,
-            this.toolStripStatusLabelips});
-            this.statusStrip.Location = new System.Drawing.Point(0, 651);
-            this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1414, 22);
-            this.statusStrip.TabIndex = 23;
-            this.statusStrip.Text = "statusStrip1";
-            // 
-            // toolStripStatusLabel3
-            // 
-            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.DimGray;
-            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(55, 17);
-            this.toolStripStatusLabel3.Text = "设备IP：";
-            // 
-            // TextIP
-            // 
-            this.TextIP.Name = "TextIP";
-            this.TextIP.Size = new System.Drawing.Size(45, 17);
-            this.TextIP.Text = "0.0.0.0";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.DimGray;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(68, 17);
-            this.toolStripStatusLabel2.Text = "连接状态：";
-            // 
-            // LabConncet
-            // 
-            this.LabConncet.Name = "LabConncet";
-            this.LabConncet.Size = new System.Drawing.Size(44, 17);
-            this.LabConncet.Text = "已断开";
-            // 
-            // toolStripStatusLabel1
-            // 
-            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.DimGray;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(68, 17);
-            this.toolStripStatusLabel1.Text = "响应时间：";
-            // 
-            // LabResponsTime
-            // 
-            this.LabResponsTime.Name = "LabResponsTime";
-            this.LabResponsTime.Size = new System.Drawing.Size(15, 17);
-            this.LabResponsTime.Text = "0";
-            // 
-            // toolStripStatusLabel6
-            // 
-            this.toolStripStatusLabel6.ForeColor = System.Drawing.Color.DimGray;
-            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
-            this.toolStripStatusLabel6.Size = new System.Drawing.Size(44, 17);
-            this.toolStripStatusLabel6.Text = "订阅：";
-            // 
-            // TextSub
-            // 
-            this.TextSub.Name = "TextSub";
-            this.TextSub.Size = new System.Drawing.Size(44, 17);
-            this.TextSub.Text = "未订阅";
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.DimGray;
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(56, 17);
-            this.toolStripStatusLabel4.Text = "运营商：";
-            // 
-            // toolStripStatusLabelips
-            // 
-            this.toolStripStatusLabelips.Name = "toolStripStatusLabelips";
-            this.toolStripStatusLabelips.Size = new System.Drawing.Size(32, 17);
-            this.toolStripStatusLabelips.Text = "未知";
-            // 
             // Auto编号
             // 
             this.Auto编号.HeaderText = "编号";
@@ -6590,6 +6506,90 @@ namespace NetConfClientSoftware
             this.Auto问题定位建议.Name = "Auto问题定位建议";
             this.Auto问题定位建议.ReadOnly = true;
             this.Auto问题定位建议.Width = 120;
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel3,
+            this.TextIP,
+            this.toolStripStatusLabel2,
+            this.LabConncet,
+            this.toolStripStatusLabel1,
+            this.LabResponsTime,
+            this.toolStripStatusLabel6,
+            this.TextSub,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabelips});
+            this.statusStrip.Location = new System.Drawing.Point(0, 651);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1414, 22);
+            this.statusStrip.TabIndex = 23;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.ForeColor = System.Drawing.Color.DimGray;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(55, 17);
+            this.toolStripStatusLabel3.Text = "设备IP：";
+            // 
+            // TextIP
+            // 
+            this.TextIP.Name = "TextIP";
+            this.TextIP.Size = new System.Drawing.Size(45, 17);
+            this.TextIP.Text = "0.0.0.0";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.ForeColor = System.Drawing.Color.DimGray;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(68, 17);
+            this.toolStripStatusLabel2.Text = "连接状态：";
+            // 
+            // LabConncet
+            // 
+            this.LabConncet.Name = "LabConncet";
+            this.LabConncet.Size = new System.Drawing.Size(44, 17);
+            this.LabConncet.Text = "已断开";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.ForeColor = System.Drawing.Color.DimGray;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(68, 17);
+            this.toolStripStatusLabel1.Text = "响应时间：";
+            // 
+            // LabResponsTime
+            // 
+            this.LabResponsTime.Name = "LabResponsTime";
+            this.LabResponsTime.Size = new System.Drawing.Size(15, 17);
+            this.LabResponsTime.Text = "0";
+            // 
+            // toolStripStatusLabel6
+            // 
+            this.toolStripStatusLabel6.ForeColor = System.Drawing.Color.DimGray;
+            this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+            this.toolStripStatusLabel6.Size = new System.Drawing.Size(44, 17);
+            this.toolStripStatusLabel6.Text = "订阅：";
+            // 
+            // TextSub
+            // 
+            this.TextSub.Name = "TextSub";
+            this.TextSub.Size = new System.Drawing.Size(44, 17);
+            this.TextSub.Text = "未订阅";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.ForeColor = System.Drawing.Color.DimGray;
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(56, 17);
+            this.toolStripStatusLabel4.Text = "运营商：";
+            // 
+            // toolStripStatusLabelips
+            // 
+            this.toolStripStatusLabelips.Name = "toolStripStatusLabelips";
+            this.toolStripStatusLabelips.Size = new System.Drawing.Size(32, 17);
+            this.toolStripStatusLabelips.Text = "未知";
             // 
             // Main_Form
             // 

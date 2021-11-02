@@ -195,7 +195,7 @@ namespace NetConfClientSoftware
                         netConfClient.TimeOut = int.Parse(ComTimeOut.Text) * 1000;
                         订阅ToolStripMenuItem.Enabled = true;
                         MessageBox.Show(gpnip + "：连接成功！");
-                        订阅ToolStripMenuItem.PerformClick();
+                        //订阅ToolStripMenuItem.PerformClick();
 
 
                     }));
@@ -2677,12 +2677,40 @@ namespace NetConfClientSoftware
         private void ButCreatSDH_Click(object sender, EventArgs e)
         {
 
-            Creat(CreateSDH.Common(ips,TextSdhlabel.Text, ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
-                    ComSdhUniPtp.Text, ComSdhUniSdhType.Text, TextSdhUniTs.Text,
-    ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniTs_A.Text), ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, TextSdhNniTs_A.Text,
-        ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, TextSdhNniTs_B.Text
 
-    ));
+            string sdhunits = "";   //TextSdhUniTs
+            string sdhnnits_a = "";  //TextSdhNniTs_A
+            string sdhnnits_b = "";    //TextSdhNniTs_B
+            string[] sdhunitsbyte = TextSdhUniTs.Text.Split(',');
+            string[] sdhnnits_abyte = TextSdhNniTs_A.Text.Split(',');
+            string[] sdhnnits_bbyte = TextSdhNniTs_B.Text.Split(',');
+            if (sdhunitsbyte.Length == sdhnnits_abyte.Length) {
+                
+                for (int i = 0; i < sdhunitsbyte.Length; i++)
+                {
+                    sdhunits = sdhunitsbyte[i];
+                    sdhnnits_a = sdhnnits_abyte[i];
+                    if (sdhnnits_bbyte.Length > 1) {
+                        sdhnnits_b = sdhnnits_bbyte[i];
+                    }
+
+                    Creat(CreateSDH.Common(ips, TextSdhlabel.Text + (i+1).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
+        ComSdhUniPtp.Text, ComSdhUniSdhType.Text, sdhunits,
+ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniTs_A.Text), ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, sdhnnits_a,
+ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, sdhnnits_a
+
+));
+
+                }
+            }
+
+
+    //        Creat(CreateSDH.Common(ips,TextSdhlabel.Text, ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
+    //                ComSdhUniPtp.Text, ComSdhUniSdhType.Text, TextSdhUniTs.Text,
+    //ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniTs_A.Text), ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, TextSdhNniTs_A.Text,
+    //    ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, TextSdhNniTs_B.Text
+
+    //));
 
                
         }
