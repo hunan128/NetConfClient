@@ -3267,8 +3267,44 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         private void ButStartAutoRunningXML_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < dataGridViewAuto.RowCount -1 ; i++)
+            if (ButStartAutoRunningXML.Text == "开始")
             {
+                stop = false;
+                CycleThread = new Thread(AutoRunningXml)
+                {
+                    IsBackground = true
+                };
+                CycleThread.Start();
+                ButStartAutoRunningXML.Text = "停止";
+            }
+            else
+            {
+                stop = true;
+                ButStartAutoRunningXML.Text = "开始";
+            }
+        }
+
+        bool stop = false;
+        bool on_off = false;
+        ManualResetEvent ma;
+        Thread CycleThread;
+        private void AutoRunningXml() {
+
+            for (int i = 0; i < dataGridViewAuto.RowCount - 1; i++)
+            {
+                dataGridViewAuto.CurrentCell = dataGridViewAuto.Rows[i].Cells[0];
+
+                if (stop)
+                {
+                    MessageBox.Show("\r\n已经停止！");
+                    return;
+                }
+                if (on_off)
+                {
+                    MessageBox.Show("暂停中！\r\n");
+                    ma = new ManualResetEvent(false);
+                    ma.WaitOne();
+                }
                 DateTime startTime = System.DateTime.Now;
                 dataGridViewAuto.Rows[i].Cells["Auto开始时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                 if (!string.IsNullOrEmpty(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString()) && !string.IsNullOrEmpty(dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString()))
@@ -3289,12 +3325,13 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         {
                             if (result.OuterXml.Contains(item))
                             {
-                                end = end + item + "=OK," +"\n";
+                                end = end + item + "=OK," + "\n";
                                 dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
                                 dataGridViewAuto.Rows[i].Cells["Auto结果"].Style.BackColor = Color.GreenYellow;
 
                             }
-                            else {
+                            else
+                            {
 
                                 end = end + item + "=NOK," + "\n";
                                 dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
@@ -3312,8 +3349,9 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
 
                 }
-                else {
-                    
+                else
+                {
+
                     dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
                     dataGridViewAuto.Rows[i].Cells["Auto结果"].Style.BackColor = Color.Yellow;
                     dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
@@ -3321,9 +3359,10 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     TimeSpan ts = endTime - startTime;
                     dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min:" + ts.Seconds.ToString() + "s:" + ts.Milliseconds.ToString() + "ms";
                 }
-
-
             }
+            ButStartAutoRunningXML.Text = "开始";
+            butCycleSuspend.Text = "暂停";
+            MessageBox.Show("运行完成");
         }
 
         private void ToolStripMenuItemAUto_Click(object sender, EventArgs e)
@@ -3401,41 +3440,29 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         {
             try
             {
-                string connection = "";
                 foreach (DataGridViewRow row in this.dataGridViewAuto.SelectedRows)
                 {
                     if (!row.IsNewRow)
                     {
-                        connection = dataGridViewAuto.Rows[row.Index].Cells["Auto用例标题"].Value.ToString();       //设备IP地址
+                        string ipadd = dataGridViewAuto.Rows[row.Index].Cells["Autoip地址"].Value.ToString();
+                        string Model = dataGridViewAuto.Rows[row.Index].Cells["Auto功能模块"].Value.ToString();
+                        string Title = dataGridViewAuto.Rows[row.Index].Cells["Auto用例标题"].Value.ToString();
+                        string IPS = dataGridViewAuto.Rows[row.Index].Cells["Auto运营商"].Value.ToString();
+                        string RPC = dataGridViewAuto.Rows[row.Index].Cells["Auto用例脚本"].Value.ToString();
+                        string Exp = dataGridViewAuto.Rows[row.Index].Cells["Auto预期"].Value.ToString();
+                        string Rx = dataGridViewAuto.Rows[row.Index].Cells["Auto结果"].Value.ToString();
+                        string Reply = dataGridViewAuto.Rows[row.Index].Cells["Auto日志信息"].Value.ToString();
+                        string StartTime = dataGridViewAuto.Rows[row.Index].Cells["Auto开始时间"].Value.ToString();
+                        string StopTime = dataGridViewAuto.Rows[row.Index].Cells["Auto结束时间"].Value.ToString();
+                        string Dtime = dataGridViewAuto.Rows[row.Index].Cells["Auto耗时"].Value.ToString();
+                        string Recommend = dataGridViewAuto.Rows[row.Index].Cells["Auto问题定位建议"].Value.ToString();
+
+                        // 实例化FormInfo，并传入待修改初值  
+                        var Info = new Form_AutoXmlInfo(ipadd,Model, Title, IPS, RPC, Exp, Rx, Reply, StartTime, StopTime, Dtime, Recommend);
+
+                        Info.ShowDialog();
+
                     }
-                }
-                if (MessageBox.Show("用例详细信息:\r\n" + connection + "\r\n是否查询？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                {
-
-                    foreach (DataGridViewRow row in this.dataGridViewAuto.SelectedRows)
-                    {
-                        if (!row.IsNewRow)
-                        {
-                            string Model = dataGridViewAuto.Rows[row.Index].Cells["Auto功能模块"].Value.ToString();
-                            string Title = dataGridViewAuto.Rows[row.Index].Cells["Auto用例标题"].Value.ToString();
-                            string IPS = dataGridViewAuto.Rows[row.Index].Cells["Auto运营商"].Value.ToString();
-                            string RPC = dataGridViewAuto.Rows[row.Index].Cells["Auto用例脚本"].Value.ToString();
-                            string Exp = dataGridViewAuto.Rows[row.Index].Cells["Auto预期"].Value.ToString();
-                            string Rx = dataGridViewAuto.Rows[row.Index].Cells["Auto结果"].Value.ToString();
-                            string Reply = dataGridViewAuto.Rows[row.Index].Cells["Auto日志信息"].Value.ToString();
-                            string StartTime = dataGridViewAuto.Rows[row.Index].Cells["Auto开始时间"].Value.ToString();
-                            string StopTime = dataGridViewAuto.Rows[row.Index].Cells["Auto结束时间"].Value.ToString();
-                            string Dtime = dataGridViewAuto.Rows[row.Index].Cells["Auto耗时"].Value.ToString();
-                            string Recommend = dataGridViewAuto.Rows[row.Index].Cells["Auto问题定位建议"].Value.ToString();
-
-                            // 实例化FormInfo，并传入待修改初值  
-                            var Info = new Form_AutoXmlInfo(Model, Title, IPS, RPC, Exp, Rx, Reply, StartTime, StopTime, Dtime, Recommend);
-
-                            Info.ShowDialog();
-
-                        }
-                    }
-
                 }
                 // 保存在实体类属性中
                 //保存密码选中状态
@@ -3445,6 +3472,24 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void butCycleSuspend_Click(object sender, EventArgs e)
+        {
+            if (butCycleSuspend.Text == "暂停")
+            {
+                on_off = true;
+                butCycleSuspend.Text = "继续";
+            }
+            else
+            {
+                on_off = false;
+                if (ma != null)
+                {
+                    ma.Set();
+                }
+                butCycleSuspend.Text = "暂停";
             }
         }
     }

@@ -617,8 +617,7 @@ namespace NetConfClientSoftware
             this.TextLog = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.ButAddTest = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
-            this.button8 = new System.Windows.Forms.Button();
+            this.butCycleSuspend = new System.Windows.Forms.Button();
             this.ButStartAutoRunningXML = new System.Windows.Forms.Button();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.dataGridViewAuto = new System.Windows.Forms.DataGridView();
@@ -635,6 +634,8 @@ namespace NetConfClientSoftware
             this.Auto结束时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Auto耗时 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Auto问题定位建议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStripAuto = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.详细信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.TextIP = new System.Windows.Forms.ToolStripStatusLabel();
@@ -646,8 +647,6 @@ namespace NetConfClientSoftware
             this.TextSub = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelips = new System.Windows.Forms.ToolStripStatusLabel();
-            this.contextMenuStripAuto = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.详细信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -723,8 +722,8 @@ namespace NetConfClientSoftware
             this.tabPage3.SuspendLayout();
             this.groupBox28.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAuto)).BeginInit();
-            this.statusStrip.SuspendLayout();
             this.contextMenuStripAuto.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButSend
@@ -854,14 +853,14 @@ namespace NetConfClientSoftware
             // 连接设备ToolStripMenuItem
             // 
             this.连接设备ToolStripMenuItem.Name = "连接设备ToolStripMenuItem";
-            this.连接设备ToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.连接设备ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.连接设备ToolStripMenuItem.Text = "连接设备";
             this.连接设备ToolStripMenuItem.Click += new System.EventHandler(this.连接设备ToolStripMenuItem_Click);
             // 
             // 断开连接ToolStripMenuItem
             // 
             this.断开连接ToolStripMenuItem.Name = "断开连接ToolStripMenuItem";
-            this.断开连接ToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.断开连接ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.断开连接ToolStripMenuItem.Text = "断开连接";
             this.断开连接ToolStripMenuItem.Click += new System.EventHandler(this.断开连接ToolStripMenuItem_Click);
             // 
@@ -871,7 +870,7 @@ namespace NetConfClientSoftware
             this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(249, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(231, 22);
             this.toolStripMenuItem1.Text = "导入XML目录(&O)";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.打开OToolStripMenuItem_Click);
             // 
@@ -881,38 +880,38 @@ namespace NetConfClientSoftware
             this.ToolStripMenuItemAUto.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.ToolStripMenuItemAUto.Name = "ToolStripMenuItemAUto";
             this.ToolStripMenuItemAUto.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.ToolStripMenuItemAUto.Size = new System.Drawing.Size(249, 22);
-            this.ToolStripMenuItemAUto.Text = "导入自动化脚本用例(&O)";
+            this.ToolStripMenuItemAUto.Size = new System.Drawing.Size(231, 22);
+            this.ToolStripMenuItemAUto.Text = "导入自动化脚本用例";
             this.ToolStripMenuItemAUto.Click += new System.EventHandler(this.ToolStripMenuItemAUto_Click);
             // 
             // 导出用例报表ToolStripMenuItem
             // 
             this.导出用例报表ToolStripMenuItem.Name = "导出用例报表ToolStripMenuItem";
-            this.导出用例报表ToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.导出用例报表ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.导出用例报表ToolStripMenuItem.Text = "导出用例报表";
             this.导出用例报表ToolStripMenuItem.Click += new System.EventHandler(this.导出用例报表ToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(246, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(228, 6);
             // 
             // 保存ToolStripMenuItem
             // 
             this.保存ToolStripMenuItem.Name = "保存ToolStripMenuItem";
-            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.保存ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.保存ToolStripMenuItem.Text = "保存";
             this.保存ToolStripMenuItem.Click += new System.EventHandler(this.保存ToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(246, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(228, 6);
             // 
             // 退出XToolStripMenuItem
             // 
             this.退出XToolStripMenuItem.Name = "退出XToolStripMenuItem";
-            this.退出XToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
+            this.退出XToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
             this.退出XToolStripMenuItem.Text = "退出(&X)";
             // 
             // 编辑EToolStripMenuItem
@@ -6313,8 +6312,7 @@ namespace NetConfClientSoftware
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.ButAddTest);
-            this.tabPage3.Controls.Add(this.button9);
-            this.tabPage3.Controls.Add(this.button8);
+            this.tabPage3.Controls.Add(this.butCycleSuspend);
             this.tabPage3.Controls.Add(this.ButStartAutoRunningXML);
             this.tabPage3.Controls.Add(this.groupBox28);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -6328,7 +6326,7 @@ namespace NetConfClientSoftware
             // ButAddTest
             // 
             this.ButAddTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButAddTest.Location = new System.Drawing.Point(762, 547);
+            this.ButAddTest.Location = new System.Drawing.Point(8, 547);
             this.ButAddTest.Name = "ButAddTest";
             this.ButAddTest.Size = new System.Drawing.Size(125, 43);
             this.ButAddTest.TabIndex = 140;
@@ -6336,30 +6334,21 @@ namespace NetConfClientSoftware
             this.ButAddTest.UseVisualStyleBackColor = true;
             this.ButAddTest.Click += new System.EventHandler(this.ButAddTest_Click);
             // 
-            // button9
+            // butCycleSuspend
             // 
-            this.button9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button9.Location = new System.Drawing.Point(1141, 545);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(118, 45);
-            this.button9.TabIndex = 137;
-            this.button9.Text = "停止";
-            this.button9.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            this.button8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button8.Location = new System.Drawing.Point(1017, 545);
-            this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(118, 45);
-            this.button8.TabIndex = 136;
-            this.button8.Text = "暂停";
-            this.button8.UseVisualStyleBackColor = true;
+            this.butCycleSuspend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.butCycleSuspend.Location = new System.Drawing.Point(1282, 544);
+            this.butCycleSuspend.Name = "butCycleSuspend";
+            this.butCycleSuspend.Size = new System.Drawing.Size(118, 45);
+            this.butCycleSuspend.TabIndex = 136;
+            this.butCycleSuspend.Text = "暂停";
+            this.butCycleSuspend.UseVisualStyleBackColor = true;
+            this.butCycleSuspend.Click += new System.EventHandler(this.butCycleSuspend_Click);
             // 
             // ButStartAutoRunningXML
             // 
-            this.ButStartAutoRunningXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.ButStartAutoRunningXML.Location = new System.Drawing.Point(893, 546);
+            this.ButStartAutoRunningXML.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ButStartAutoRunningXML.Location = new System.Drawing.Point(1158, 545);
             this.ButStartAutoRunningXML.Name = "ButStartAutoRunningXML";
             this.ButStartAutoRunningXML.Size = new System.Drawing.Size(118, 45);
             this.ButStartAutoRunningXML.TabIndex = 135;
@@ -6513,6 +6502,20 @@ namespace NetConfClientSoftware
             this.Auto问题定位建议.ReadOnly = true;
             this.Auto问题定位建议.Width = 120;
             // 
+            // contextMenuStripAuto
+            // 
+            this.contextMenuStripAuto.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.详细信息ToolStripMenuItem});
+            this.contextMenuStripAuto.Name = "contextMenuStrip_ODU";
+            this.contextMenuStripAuto.Size = new System.Drawing.Size(125, 26);
+            // 
+            // 详细信息ToolStripMenuItem
+            // 
+            this.详细信息ToolStripMenuItem.Name = "详细信息ToolStripMenuItem";
+            this.详细信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.详细信息ToolStripMenuItem.Text = "详细信息";
+            this.详细信息ToolStripMenuItem.Click += new System.EventHandler(this.详细信息ToolStripMenuItem_Click);
+            // 
             // statusStrip
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -6596,20 +6599,6 @@ namespace NetConfClientSoftware
             this.toolStripStatusLabelips.Name = "toolStripStatusLabelips";
             this.toolStripStatusLabelips.Size = new System.Drawing.Size(32, 17);
             this.toolStripStatusLabelips.Text = "未知";
-            // 
-            // contextMenuStripAuto
-            // 
-            this.contextMenuStripAuto.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.详细信息ToolStripMenuItem});
-            this.contextMenuStripAuto.Name = "contextMenuStrip_ODU";
-            this.contextMenuStripAuto.Size = new System.Drawing.Size(125, 26);
-            // 
-            // 详细信息ToolStripMenuItem
-            // 
-            this.详细信息ToolStripMenuItem.Name = "详细信息ToolStripMenuItem";
-            this.详细信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
-            this.详细信息ToolStripMenuItem.Text = "详细信息";
-            this.详细信息ToolStripMenuItem.Click += new System.EventHandler(this.详细信息ToolStripMenuItem_Click);
             // 
             // Main_Form
             // 
@@ -6723,9 +6712,9 @@ namespace NetConfClientSoftware
             this.tabPage3.ResumeLayout(false);
             this.groupBox28.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAuto)).EndInit();
+            this.contextMenuStripAuto.ResumeLayout(false);
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
-            this.contextMenuStripAuto.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7319,8 +7308,7 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridView dataGridViewAuto;
         private System.Windows.Forms.ToolStripMenuItem 导出用例报表ToolStripMenuItem;
         private System.Windows.Forms.Button ButAddTest;
-        private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button butCycleSuspend;
         private System.Windows.Forms.Button ButStartAutoRunningXML;
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto编号;
         private System.Windows.Forms.DataGridViewTextBoxColumn Autoip地址;
