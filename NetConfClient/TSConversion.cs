@@ -89,7 +89,7 @@ namespace NetConfClientSoftware
                             break;
                     }
                 }
-                if (Oduk.Contains("ODUflex-GFP"))
+                if (Oduk.Contains("flex")|| Oduk.Contains("Flex"))
                 {
                     switch (TsInt)
                     {

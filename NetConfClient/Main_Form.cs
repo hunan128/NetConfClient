@@ -3329,8 +3329,9 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         private void ToolStripMenuItemAUto_Click(object sender, EventArgs e)
         {
             MessageBox.Show("需要导入指定格式的excel格式文本");
-           // dataGridViewAuto.DataSource = null;
-           // dataGridViewAuto.Columns.Clear();
+            // dataGridViewAuto.DataSource = null;
+            //dataGridViewAuto.Columns.Clear();
+            dataGridViewEth.Rows.Clear();
             OpenFileDialog ofd = new OpenFileDialog();
             string strPath;//完整的路径名
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -3387,6 +3388,63 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     MessageBox.Show(ex.Message);//捕捉异常
                     MessageBox.Show("请使用Office2003或者更新版本格式内容，如.xls或者.xlsx格式");
                 }
+            }
+        }
+
+        private void 导出用例报表ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExcelUtility ET = new ExcelUtility();
+            ET.ExportExcel("sheet1", dataGridViewAuto, 0);
+        }
+
+        private void 详细信息ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string connection = "";
+                foreach (DataGridViewRow row in this.dataGridViewAuto.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        connection = dataGridViewAuto.Rows[row.Index].Cells["Auto用例标题"].Value.ToString();       //设备IP地址
+                    }
+                }
+                if (MessageBox.Show("用例详细信息:\r\n" + connection + "\r\n是否查询？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+
+                    foreach (DataGridViewRow row in this.dataGridViewAuto.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            string Model = dataGridViewAuto.Rows[row.Index].Cells["Auto功能模块"].Value.ToString();
+                            string Title = dataGridViewAuto.Rows[row.Index].Cells["Auto用例标题"].Value.ToString();
+                            string IPS = dataGridViewAuto.Rows[row.Index].Cells["Auto运营商"].Value.ToString();
+                            string RPC = dataGridViewAuto.Rows[row.Index].Cells["Auto用例脚本"].Value.ToString();
+                            string Exp = dataGridViewAuto.Rows[row.Index].Cells["Auto预期"].Value.ToString();
+                            string Rx = dataGridViewAuto.Rows[row.Index].Cells["Auto结果"].Value.ToString();
+                            string Reply = dataGridViewAuto.Rows[row.Index].Cells["Auto日志信息"].Value.ToString();
+                            string StartTime = dataGridViewAuto.Rows[row.Index].Cells["Auto开始时间"].Value.ToString();
+                            string StopTime = dataGridViewAuto.Rows[row.Index].Cells["Auto结束时间"].Value.ToString();
+                            string Dtime = dataGridViewAuto.Rows[row.Index].Cells["Auto耗时"].Value.ToString();
+                            string Recommend = dataGridViewAuto.Rows[row.Index].Cells["Auto问题定位建议"].Value.ToString();
+
+                            // 实例化FormInfo，并传入待修改初值  
+                            var Info = new Form_AutoXmlInfo(Model, Title, IPS, RPC, Exp, Rx, Reply, StartTime, StopTime, Dtime, Recommend);
+
+                            Info.ShowDialog();
+
+                        }
+                    }
+
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
             }
         }
     }

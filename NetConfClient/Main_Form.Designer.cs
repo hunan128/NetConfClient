@@ -646,6 +646,8 @@ namespace NetConfClientSoftware
             this.TextSub = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelips = new System.Windows.Forms.ToolStripStatusLabel();
+            this.contextMenuStripAuto = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.详细信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -722,6 +724,7 @@ namespace NetConfClientSoftware
             this.groupBox28.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAuto)).BeginInit();
             this.statusStrip.SuspendLayout();
+            this.contextMenuStripAuto.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButSend
@@ -887,6 +890,7 @@ namespace NetConfClientSoftware
             this.导出用例报表ToolStripMenuItem.Name = "导出用例报表ToolStripMenuItem";
             this.导出用例报表ToolStripMenuItem.Size = new System.Drawing.Size(249, 22);
             this.导出用例报表ToolStripMenuItem.Text = "导出用例报表";
+            this.导出用例报表ToolStripMenuItem.Click += new System.EventHandler(this.导出用例报表ToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
@@ -5593,8 +5597,7 @@ namespace NetConfClientSoftware
             // 
             // dataGridViewPGS
             // 
-            this.dataGridViewPGS.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewPGS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
@@ -5631,7 +5634,7 @@ namespace NetConfClientSoftware
             this.dataGridViewPGS.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewPGS.RowTemplate.Height = 23;
             this.dataGridViewPGS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPGS.Size = new System.Drawing.Size(1380, 382);
+            this.dataGridViewPGS.Size = new System.Drawing.Size(1380, 269);
             this.dataGridViewPGS.TabIndex = 0;
             // 
             // 保护组ID
@@ -6404,6 +6407,7 @@ namespace NetConfClientSoftware
             this.Auto结束时间,
             this.Auto耗时,
             this.Auto问题定位建议});
+            this.dataGridViewAuto.ContextMenuStrip = this.contextMenuStripAuto;
             this.dataGridViewAuto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewAuto.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewAuto.Name = "dataGridViewAuto";
@@ -6464,11 +6468,13 @@ namespace NetConfClientSoftware
             // Auto预期
             // 
             this.Auto预期.HeaderText = "预期";
+            this.Auto预期.MaxInputLength = 32767000;
             this.Auto预期.Name = "Auto预期";
             // 
             // Auto结果
             // 
             this.Auto结果.HeaderText = "结果";
+            this.Auto结果.MaxInputLength = 32767000;
             this.Auto结果.Name = "Auto结果";
             this.Auto结果.ReadOnly = true;
             // 
@@ -6591,6 +6597,20 @@ namespace NetConfClientSoftware
             this.toolStripStatusLabelips.Size = new System.Drawing.Size(32, 17);
             this.toolStripStatusLabelips.Text = "未知";
             // 
+            // contextMenuStripAuto
+            // 
+            this.contextMenuStripAuto.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.详细信息ToolStripMenuItem});
+            this.contextMenuStripAuto.Name = "contextMenuStrip_ODU";
+            this.contextMenuStripAuto.Size = new System.Drawing.Size(125, 26);
+            // 
+            // 详细信息ToolStripMenuItem
+            // 
+            this.详细信息ToolStripMenuItem.Name = "详细信息ToolStripMenuItem";
+            this.详细信息ToolStripMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.详细信息ToolStripMenuItem.Text = "详细信息";
+            this.详细信息ToolStripMenuItem.Click += new System.EventHandler(this.详细信息ToolStripMenuItem_Click);
+            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -6705,6 +6725,7 @@ namespace NetConfClientSoftware
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAuto)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.contextMenuStripAuto.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7314,6 +7335,8 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto结束时间;
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto耗时;
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto问题定位建议;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripAuto;
+        private System.Windows.Forms.ToolStripMenuItem 详细信息ToolStripMenuItem;
     }
 }
 

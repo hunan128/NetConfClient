@@ -31,7 +31,7 @@
     <PublisherName>NetConfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>27</ApplicationRevision>
+    <ApplicationRevision>29</ApplicationRevision>
     <ApplicationVersion>2021.9.19.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -133,6 +133,12 @@
     <Compile Include="FormOAM.Designer.cs">
       <DependentUpon>FormOAM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_AutoXmlInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_AutoXmlInfo.Designer.cs">
+      <DependentUpon>Form_AutoXmlInfo.cs</DependentUpon>
+    </Compile>
     <Compile Include="OAM.cs" />
     <Compile Include="CreateSDH.cs" />
     <Compile Include="CreatETH.cs" />
@@ -174,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormOAM.resx">
       <DependentUpon>FormOAM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_AutoXmlInfo.resx">
+      <DependentUpon>Form_AutoXmlInfo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginOn.resx">
       <DependentUpon>LoginOn.cs</DependentUpon>
