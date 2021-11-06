@@ -135,9 +135,14 @@ namespace NetConfClientSoftware
 
         private void Form_AutoXmlInfo_Load(object sender, EventArgs e)
         {
-            XmlDocument dom = new XmlDocument();
-            dom.LoadXml(RxXml);
-            LoadTreeFromXmlDocument_TreeReQ(dom);
+            try {
+                XmlDocument dom = new XmlDocument();
+                dom.LoadXml(RxXml);
+                LoadTreeFromXmlDocument_TreeReQ(dom);
+            }catch(Exception ex){
+                MessageBox.Show(ex.ToString());
+            }
+
 
         }
 

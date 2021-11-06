@@ -284,8 +284,7 @@ namespace Renci.SshNet.NetConf
                 _data.Clear();
                 _datanotification.Clear();
                 _rpcReply.Append(Regex.Replace(chunk, @"\n#([\d\n\#]*)", ""));
-                chunknotfication =Regex.Replace(chunknotfication, @"\n#([\d\n\#]*)", "");
-                _rpcReplyNotification.Append(chunknotfication);
+                _rpcReplyNotification.Append(Regex.Replace(chunknotfication, @"\n#([\d\n\#]*)", ""));
                 _rpcReplyReceived.Set();
                 _rpcReplyReceivedNotificaton.Set();
             }

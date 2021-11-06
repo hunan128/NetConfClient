@@ -523,28 +523,119 @@ namespace NetConfClientSoftware
             while (Sub) {
                 try
                 {
-                    XmlDocument notfication = new XmlDocument();
                     rpcResponse = netConfClient.SendReceiveRpcSub();
                     if (rpcResponse != "") {
-                        notfication.LoadXml(rpcResponse);
-                        TextLog.AppendText("Notification服务器：" + netConfClient.ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+
                         if (!rpcResponse.Contains("rpc"))
                         {
+                            XmlDocument notfication = new XmlDocument();
+                            TextLog.AppendText("Notification服务器：" + netConfClient.ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+                            notfication.LoadXml(rpcResponse);
                             TextLog.AppendText(XmlFormat.Xml(rpcResponse) + "\r\n" + FenGeFu + "\r\n");
+                            BeginInvoke(new MethodInvoker(delegate () {
+                                Thread mes = new Thread(() => ShowXML(notfication));
+                                mes.Start();
+                                //ShowXML(notfication);
+                                // Pgnot(notfication);
+                                //LoadNotfication(notfication);
+
+                                Thread pg = new Thread(() => Pgnot(notfication));
+                                pg.Start();
+
+                                Thread loadNotficationg = new Thread(() => LoadNotfication(notfication));
+                                loadNotficationg.Start();
+                            }));
                         }
-                        BeginInvoke(new MethodInvoker(delegate (){
-                            ShowXML(notfication);
-                            Pgnot(notfication);
-                        }));
+
 
                     }
 
-                    Thread.Sleep(100);
+                    //Thread.Sleep(100);
                 }
-                catch {}
+                catch {
+
+                }
             }
             TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
             TextLog.AppendText("订阅监听已经停止，请关注\r\n");
+        }
+
+
+
+        private void LoadNotfication(XmlDocument dom)
+        {
+            try
+            {
+                if (!dom.OuterXml.Contains("notification"))
+                {
+                    return;
+                }
+
+                ListViewItem lvi = listViewAll.Items.Add((listViewAll.Items.Count + 1).ToString());
+                foreach (XmlNode node in dom.ChildNodes)
+                {
+                    if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name")))
+                    {
+                        continue;
+                    }
+                    AddNode1( node, lvi);
+                }
+         
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        static string GetAttributeText1(XmlNode inXmlNode, string name)
+        {
+            XmlAttribute attr = (inXmlNode.Attributes?[name]);
+            return attr?.Value;
+        }
+
+        private void AddNode1( XmlNode inXmlNode,ListViewItem lvi)
+        {
+
+
+            if (inXmlNode.HasChildNodes)
+            {
+                string text = GetAttributeText1(inXmlNode, "name");
+                if (string.IsNullOrEmpty(text))
+                text = inXmlNode.Name;
+                //for (int i = 0; i < inXmlNode.Attributes.Count; i++)
+                //{
+                //    text = text + " " + inXmlNode.Attributes[i].OuterXml;   //显示命名空间
+
+                //}
+                string newNode = null;
+                XmlNodeList nodeList = inXmlNode.ChildNodes;
+                for (int i = 0; i <= nodeList.Count - 1; i++)
+                {
+                    XmlNode xNode = inXmlNode.ChildNodes[i];
+                    if (xNode.HasChildNodes)
+                    {
+                        if (newNode == null)
+                        {
+                            newNode = text;
+                            lvi.SubItems.Add(text);
+                        }
+                    }
+                    else
+                    {
+                        string value = GetAttributeText1(xNode, "name");
+                        if (string.IsNullOrEmpty(value))
+                            value = (xNode.OuterXml).Trim();
+                        lvi.SubItems.Add(inXmlNode.Name + "(" + value + ")");
+                    }
+
+                    if (newNode != null) {
+                        AddNode1( xNode, lvi);
+
+                    }
+                }
+            }
+
         }
         /// <summary>
         /// 订阅通知显示
@@ -605,9 +696,9 @@ namespace NetConfClientSoftware
                     }
 
                 }
-                listViewAll.BeginUpdate();//数据更新，UI暂时挂起，直到EndUpdate绘制控件，可以有效避免闪烁并大大提高加载速度
-                listViewAll.Items.Add(item);
-                listViewAll.EndUpdate();  //结束数据处理，UI界面一次性绘制。
+                //listViewAll.BeginUpdate();//数据更新，UI暂时挂起，直到EndUpdate绘制控件，可以有效避免闪烁并大大提高加载速度
+                //listViewAll.Items.Add(item);
+                //listViewAll.EndUpdate();  //结束数据处理，UI界面一次性绘制。
                 string Alarm = "alarm-notification";
                 foreach (var type in item.SubItems)
                 {
@@ -657,8 +748,8 @@ namespace NetConfClientSoftware
 
                         }
                         ListViewAlarm.Items.Add(alarmlog);
-                        Thread mes = new Thread(() => CreatMesg(alarmlog, Alarm));
-                        mes.Start();
+                        //Thread mes = new Thread(() => CreatMesg(alarmlog, Alarm));
+                        //mes.Start();
                     }
 
                 }
@@ -691,8 +782,8 @@ namespace NetConfClientSoftware
                             alarmlog.SubItems.Add("未清除");
                         }
                         ListViewTcaAlarm.Items.Add(alarmlog);
-                        Thread mes = new Thread(() => CreatMesg(alarmlog, tca));
-                        mes.Start();
+                        //Thread mes = new Thread(() => CreatMesg(alarmlog, tca));
+                        //mes.Start();
                     }
 
                 }
@@ -721,8 +812,8 @@ namespace NetConfClientSoftware
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(1);
                         listViewCommon.Items.Add(alarmlog);
-                        Thread mes = new Thread(() => CreatMesg(alarmlog, common));
-                        mes.Start();
+                        //Thread mes = new Thread(() => CreatMesg(alarmlog, common));
+                        //mes.Start();
                     }
 
                 }
@@ -736,8 +827,8 @@ namespace NetConfClientSoftware
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(1);
                         listViewPeer.Items.Add(alarmlog);
-                        Thread mes = new Thread(() => CreatMesg(alarmlog, peer));
-                        mes.Start();
+                        //Thread mes = new Thread(() => CreatMesg(alarmlog, peer));
+                        //mes.Start();
                     }
 
                 }
@@ -766,8 +857,25 @@ namespace NetConfClientSoftware
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(1);
                         listViewProtection.Items.Add(alarmlog);
-                        Thread mes = new Thread(() => CreatMesg(alarmlog, protection));
-                        mes.Start();
+                        //Thread mes = new Thread(() => CreatMesg(alarmlog, protection));
+                        //mes.Start();
+
+                    }
+
+
+                }
+                string GHao = "g-hao-notification";
+                foreach (var type in item.SubItems)
+                {
+                    if (type.ToString().Contains(GHao))
+                    {
+                        ListViewItem alarmlog = (ListViewItem)item.Clone();
+                        //alarmlog.SubItems.RemoveAt(0);
+                        //alarmlog.SubItems.RemoveAt(0);
+                        //alarmlog.SubItems.RemoveAt(1);
+                        listViewGhao.Items.Add(alarmlog);
+                        //Thread mes = new Thread(() => CreatMesg(alarmlog, protection));
+                        //mes.Start();
 
                     }
 
@@ -882,9 +990,9 @@ namespace NetConfClientSoftware
             Readini();
             Gpnurlupdate();
             this.listViewAll.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right);
-            for (int i = 0; i < 20; i++)
+            for (int i = 0; i < 30; i++)
             {
-                listViewAll.Columns.Add("类型");
+                listViewAll.Columns.Add("通知");
             }
 
             this.listViewAll.FullRowSelect = true;
@@ -892,8 +1000,9 @@ namespace NetConfClientSoftware
             this.listViewAll.HideSelection = false;
             this.listViewAll.Location = new System.Drawing.Point(6, 6);
             this.listViewAll.Name = "listViewAll";
-             this.listViewAll.Size = new System.Drawing.Size(1251, 499);
+            this.listViewAll.Size = new System.Drawing.Size(1251, 499);
             this.listViewAll.TabIndex = 2;
+            this.listViewAll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewAll.UseCompatibleStateImageBehavior = false;
             this.listViewAll.View = System.Windows.Forms.View.Details;
 
@@ -3307,58 +3416,84 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 }
                 DateTime startTime = System.DateTime.Now;
                 dataGridViewAuto.Rows[i].Cells["Auto开始时间"].Value = DateTime.Now.ToString("HH:mm:ss");
-                if (!string.IsNullOrEmpty(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString()) && !string.IsNullOrEmpty(dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString()))
-                {
-                    XmlDocument xmlDoc = new XmlDocument();
-                    xmlDoc.LoadXml(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString());
-                    var result = Sendrpc(xmlDoc);
-                    dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
-                    DateTime endTime = System.DateTime.Now;
-                    TimeSpan ts = endTime - startTime;
-                    dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
-                    //时隙
-                    string[] strArrayP = dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString().Split(',');
-                    string end = "";
-                    foreach (var item in strArrayP)
+                if (dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value != null && dataGridViewAuto.Rows[i].Cells["Auto预期"].Value != null) {
+                    if ((dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString() != "") && (dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString() != ""))
                     {
-                        if (item != "")
+                        try
                         {
-                            if (result.OuterXml.Contains(item))
+                            XmlDocument xmlDoc = new XmlDocument();
+                            xmlDoc.LoadXml(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString());
+                            var result = Sendrpc(xmlDoc);
+                            dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                            DateTime endTime = System.DateTime.Now;
+                            TimeSpan ts = endTime - startTime;
+                            dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
+                            //时隙
+                            string[] strArrayP = dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString().Split(',');
+                            string end = "";
+                            foreach (var item in strArrayP)
                             {
-                                end = end + item + "=OK," + "\n";
-                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Style.BackColor = Color.GreenYellow;
+                                if (item != "")
+                                {
+                                    if (result.OuterXml.Contains(item))
+                                    {
+                                        end = end + item + "=OK," + "\n";
+                                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                        dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
+
+                                    }
+                                    else
+                                    {
+
+                                        end = end + item + "=NOK," + "\n";
+                                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+
+                                    }
+
+                                }
 
                             }
-                            else
+                            if (end.Contains("NOK"))
                             {
-
-                                end = end + item + "=NOK," + "\n";
-                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-
+                                dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
                             }
+                            dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = XmlFormat.Xml(result.OuterXml);
+                        }
+                        catch (Exception ex) {
 
+                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
+                            dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = ex.ToString();
+                            dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                            dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                            DateTime endTime = System.DateTime.Now;
+                            TimeSpan ts = endTime - startTime;
+                            dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min:" + ts.Seconds.ToString() + "s:" + ts.Milliseconds.ToString() + "ms";
                         }
 
+
                     }
-                    if (end.Contains("NOK"))
+                    else
                     {
-                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Style.BackColor = Color.Yellow;
+                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
+                        dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = "空字符";
+                        dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                        DateTime endTime = System.DateTime.Now;
+                        TimeSpan ts = endTime - startTime;
+                        dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min:" + ts.Seconds.ToString() + "s:" + ts.Milliseconds.ToString() + "ms";
                     }
-                    dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = XmlFormat.Xml(result.OuterXml);
-
-
                 }
                 else
                 {
-
                     dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
-                    dataGridViewAuto.Rows[i].Cells["Auto结果"].Style.BackColor = Color.Yellow;
+                    dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = "Null值";
+                    dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
                     dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                     DateTime endTime = System.DateTime.Now;
                     TimeSpan ts = endTime - startTime;
                     dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min:" + ts.Seconds.ToString() + "s:" + ts.Milliseconds.ToString() + "ms";
                 }
+
             }
             ButStartAutoRunningXML.Text = "开始";
             butCycleSuspend.Text = "暂停";
@@ -3370,7 +3505,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             MessageBox.Show("需要导入指定格式的excel格式文本");
             // dataGridViewAuto.DataSource = null;
             //dataGridViewAuto.Columns.Clear();
-            dataGridViewEth.Rows.Clear();
+            dataGridViewAuto.Rows.Clear();
             OpenFileDialog ofd = new OpenFileDialog();
             string strPath;//完整的路径名
             if (ofd.ShowDialog() == DialogResult.OK)
