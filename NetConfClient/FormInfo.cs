@@ -25,12 +25,12 @@ namespace NetConfClientSoftware
             // 在TextBox中显示信息初值  
             //textBoxInfo.Text = info;
             this.Text = info;
-                if (true)
-                {
+            if (true)
+            {
                 int count = 0;
-                if (info.Contains("VC-4")) { count = 17; }
-                if (info.Contains("VC-3")) { count = 4; }
-                if (info.Contains("VC-12")) { count = 64; }
+                if (info.Contains("VC-4") || info.Contains("VC4")) { count = 17; }
+                if (info.Contains("VC-3")|| info.Contains("VC3")) { count = 4; }
+                if (info.Contains("VC-12") || info.Contains("VC12")) { count = 64; }
                 if (!info.Contains("VC")) { return; }
                 CheckBox[] n = new CheckBox[count];
                     for (int i = 1; i < count; i++)
@@ -59,18 +59,18 @@ namespace NetConfClientSoftware
                 CheckBox a = sender as CheckBox;
                 if (a.CheckState == CheckState.Checked)
                 {
-                    if (this.Text.Contains("VC-12")) {
+                    if (this.Text.Contains("VC-12")|| this.Text.Contains("VC12")) {
                         //textBox.Text = textBox.Text + VC12(a.Text.Trim()) + ",";
                         list.Add(VC12(a.Text.Trim()));
                         textBox.Text = string.Join(",", (string[])list.ToArray(typeof(string)));
                     }
-                    if (this.Text.Contains("VC-3"))
+                    if (this.Text.Contains("VC-3") || this.Text.Contains("VC3"))
                     {
                         //textBox.Text = textBox.Text +comboBox.Text+"-"+ a.Text.Trim() + ",";
                         list.Add(comboBox.Text + "-" + a.Text.Trim());
                         textBox.Text = string.Join(",", (string[])list.ToArray(typeof(string)));
                     }
-                    if (this.Text.Contains("VC-4"))
+                    if (this.Text.Contains("VC-4") || this.Text.Contains("VC4"))
                     {
                         list.Add(a.Text.Trim());
                         textBox.Text = string.Join(",", (string[])list.ToArray(typeof(string)));
@@ -81,20 +81,20 @@ namespace NetConfClientSoftware
                 else if (a.CheckState == CheckState.Unchecked)
                 {
 
-                    if (this.Text.Contains("VC-12"))
+                    if (this.Text.Contains("VC-12") || this.Text.Contains("VC12"))
                     {
                         //textBox.Text = textBox.Text.Replace(VC12(a.Text.Trim()) + ",", "");
                         list.Remove(VC12(a.Text.Trim()));
                         textBox.Text = string.Join(",", (string[])list.ToArray(typeof(string)));
                     }
-                    if (this.Text.Contains("VC-3"))
+                    if (this.Text.Contains("VC-3") || this.Text.Contains("VC3"))
                     {
                         //textBox.Text = textBox.Text.Replace(comboBox.Text + "-" + a.Text.Trim() + ",", "");
                         list.Remove(comboBox.Text + "-" + a.Text.Trim());
                         textBox.Text = string.Join(",", (string[])list.ToArray(typeof(string)));
 
                     }
-                    if (this.Text.Contains("VC-4"))
+                    if (this.Text.Contains("VC-4") || this.Text.Contains("VC4"))
                     {
                         list.Remove(a.Text.Trim());
                         textBox.Text = string.Join(",", (string[])list.ToArray(typeof(string)));

@@ -75,6 +75,8 @@
             this.label19 = new System.Windows.Forms.Label();
             this.comVlan = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.textBoxccstate = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -93,7 +95,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(488, 342);
+            this.groupBox1.Size = new System.Drawing.Size(521, 391);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "OAM配置与状态";
@@ -129,7 +131,7 @@
             // button1
             // 
             this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button1.Location = new System.Drawing.Point(382, 307);
+            this.button1.Location = new System.Drawing.Point(386, 339);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(94, 23);
             this.button1.TabIndex = 6;
@@ -141,6 +143,7 @@
             this.tableLayoutPanel2.ColumnCount = 2;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 44F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 56F));
+            this.tableLayoutPanel2.Controls.Add(this.label22, 0, 9);
             this.tableLayoutPanel2.Controls.Add(this.comdelay, 1, 8);
             this.tableLayoutPanel2.Controls.Add(this.comnearloss, 1, 7);
             this.tableLayoutPanel2.Controls.Add(this.comfarloss, 1, 6);
@@ -159,9 +162,10 @@
             this.tableLayoutPanel2.Controls.Add(this.label15, 0, 6);
             this.tableLayoutPanel2.Controls.Add(this.label16, 0, 7);
             this.tableLayoutPanel2.Controls.Add(this.label17, 0, 8);
+            this.tableLayoutPanel2.Controls.Add(this.textBoxccstate, 1, 9);
             this.tableLayoutPanel2.Location = new System.Drawing.Point(254, 64);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-            this.tableLayoutPanel2.RowCount = 9;
+            this.tableLayoutPanel2.RowCount = 10;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -171,7 +175,8 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(226, 237);
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(226, 266);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // comdelay
@@ -182,7 +187,7 @@
             this.comdelay.FormattingEnabled = true;
             this.comdelay.Location = new System.Drawing.Point(102, 211);
             this.comdelay.Name = "comdelay";
-            this.comdelay.Size = new System.Drawing.Size(121, 23);
+            this.comdelay.Size = new System.Drawing.Size(121, 20);
             this.comdelay.TabIndex = 22;
             // 
             // comnearloss
@@ -375,7 +380,7 @@
             this.label17.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label17.Location = new System.Drawing.Point(3, 208);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(93, 29);
+            this.label17.Size = new System.Drawing.Size(93, 26);
             this.label17.TabIndex = 17;
             this.label17.Text = "时延";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -383,7 +388,7 @@
             // ButSetconfig
             // 
             this.ButSetconfig.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.ButSetconfig.Location = new System.Drawing.Point(258, 307);
+            this.ButSetconfig.Location = new System.Drawing.Point(271, 339);
             this.ButSetconfig.Name = "ButSetconfig";
             this.ButSetconfig.Size = new System.Drawing.Size(96, 23);
             this.ButSetconfig.TabIndex = 5;
@@ -667,15 +672,36 @@
             this.label18.Text = "vlan";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label22.Location = new System.Drawing.Point(3, 234);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(93, 32);
+            this.label22.TabIndex = 24;
+            this.label22.Text = "CC状态";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBoxccstate
+            // 
+            this.textBoxccstate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxccstate.Location = new System.Drawing.Point(102, 237);
+            this.textBoxccstate.Name = "textBoxccstate";
+            this.textBoxccstate.ReadOnly = true;
+            this.textBoxccstate.Size = new System.Drawing.Size(121, 21);
+            this.textBoxccstate.TabIndex = 25;
+            // 
             // FormOAM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(488, 342);
+            this.ClientSize = new System.Drawing.Size(521, 391);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormOAM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormOAM";
+            this.Load += new System.EventHandler(this.FormOAM_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -735,5 +761,7 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox comPtp;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.TextBox textBoxccstate;
     }
 }

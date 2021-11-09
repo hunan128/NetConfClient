@@ -173,16 +173,6 @@ namespace NetConfClientSoftware
                     BeginInvoke(new MethodInvoker(delegate () {
                         LabConncet.Text = "已连接";
                         toolStripStatusLabelips.Text = ips;
-                        //if (gpnnetconfversion == "Auto" || gpnnetconfversion == "1.1")
-                        //{
-                        //    netConfClient.SendCloseRpc(true);
-
-                        //}
-                        //else
-                        //{
-                        //    netConfClient.SendCloseRpc(false);
-
-                        //}
                         dTimeServer = System.DateTime.Now;
                         TimeSpan ts = dTimeServer - dTimeEnd;
                         LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
@@ -194,8 +184,12 @@ namespace NetConfClientSoftware
                         netConfClient.OperationTimeout = TimeSpan.FromSeconds(15);
                         netConfClient.TimeOut = int.Parse(ComTimeOut.Text) * 1000;
                         订阅ToolStripMenuItem.Enabled = true;
-                        MessageBox.Show(gpnip + "：连接成功！");
-                        //订阅ToolStripMenuItem.PerformClick();
+                        DialogResult dr1 = MessageBox.Show(gpnip + "：连接成功！"+ "是否 订阅 此设备?", "提示", MessageBoxButtons.YesNo);
+                        if (dr1 == DialogResult.Yes)
+                        {
+                            订阅ToolStripMenuItem.PerformClick();
+
+                        }
 
 
                     }));
@@ -3185,7 +3179,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         {
             try
             {
-                string _server_tp="", _vlan_id="", _vlan_type = "", _dm_state = "", _tm_state = "", _lm_state = "", _cc_state = "", _mep_id = "", _remote_mep_id = "", _meg_id = "",
+                string _server_tp="", _vlan_id="", _vlan_type = "", _dm_state = "", _tm_state = "", _lm_state = "", _cc_state = "", _cc_state1 = "",_mep_id = "", _remote_mep_id = "", _meg_id = "",
                     _md_name = "", _mel = "", _cc_interval = "", _lm_interval = "", _dm_interval = "",
     _delay = "", _near_loss = "", _far_loss = "", _tx_bytes = "", _rx_bytes = "";
                 string allconnection = "";
@@ -3239,45 +3233,92 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("ctpxmlns:eth-ctp-pac", root);
                                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                                     {
-                                                        XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
-                                                        XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
-                                                        XmlNode dm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-state", root);
-                                                        XmlNode tm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:tm-state", root);
-                                                        XmlNode lm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-state", root);
-                                                        XmlNode cc_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-state", root);
-                                                        XmlNode mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:mep-id", root);
-                                                        XmlNode meg_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:meg-id", root);
-                                                        XmlNode mel = itemNodeOdu.SelectSingleNode("//ctpxmlns:mel", root);
-                                                        XmlNode remote_mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:remote-mep-id", root);
-                                                        XmlNode md_name = itemNodeOdu.SelectSingleNode("//ctpxmlns:md-name", root);
-                                                        XmlNode cc_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-interval", root);
-                                                        XmlNode lm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-interval", root);
-                                                        XmlNode dm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-interval", root);
-                                                        XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
-                                                        XmlNode near_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:near-packet-loss-rate", root);
-                                                        XmlNode far_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:far-packet-loss-rate", root);
-                                                        XmlNode tx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:tx-bytes", root);
-                                                        XmlNode rx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:rx-bytes", root);
+                                                        if (ips.Contains("移动")) {
+                                                            XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
+                                                            XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
+                                                            XmlNode dm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-state", root);
+                                                            XmlNode tm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:tm-state", root);
+                                                            XmlNode lm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-state", root);
+                                                            XmlNode cc_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-state", root);
+                                                            XmlNode mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:mep-id", root);
+                                                            XmlNode meg_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:meg-id", root);
+                                                            XmlNode mel = itemNodeOdu.SelectSingleNode("//ctpxmlns:mel", root);
+                                                            XmlNode remote_mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:remote-mep-id", root);
+                                                            XmlNode md_name = itemNodeOdu.SelectSingleNode("//ctpxmlns:md-name", root);
+                                                            XmlNode cc_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-interval", root);
+                                                            XmlNode lm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-interval", root);
+                                                            XmlNode dm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-interval", root);
+                                                            XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
+                                                            XmlNode near_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:near-packet-loss-rate", root);
+                                                            XmlNode far_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:far-packet-loss-rate", root);
+                                                            XmlNode tx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:tx-bytes", root);
+                                                            XmlNode rx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:rx-bytes", root);
 
-                                                        if (vlan_id != null) { _vlan_id = vlan_id.InnerText; }
-                                                        if (vlan_type != null) { _vlan_type = vlan_type.InnerText; }
-                                                        if (dm_state != null) { _dm_state = dm_state.InnerText; }
-                                                        if (tm_state != null) { _tm_state = tm_state.InnerText; }
-                                                        if (lm_state != null) { _lm_state = lm_state.InnerText; }
-                                                        if (cc_state != null) { _cc_state = cc_state.InnerText; }
-                                                        if (mep_id != null) { _mep_id = mep_id.InnerText; }
-                                                        if (meg_id != null) { _meg_id = meg_id.InnerText; }
-                                                        if (mel != null) { _mel = mel.InnerText; }
-                                                        if (remote_mep_id != null) { _remote_mep_id = remote_mep_id.InnerText; }
-                                                        if (md_name != null) { _md_name = md_name.InnerText; }
-                                                        if (cc_interval != null) { _cc_interval = cc_interval.InnerText; }
-                                                        if (lm_interval != null) { _lm_interval = lm_interval.InnerText; }
-                                                        if (dm_interval != null) { _dm_interval = dm_interval.InnerText; }
-                                                        if (delay != null) { _delay = delay.InnerText; }
-                                                        if (near_packet_loss_rate != null) { _near_loss = near_packet_loss_rate.InnerText; }
-                                                        if (far_packet_loss_rate != null) { _far_loss = far_packet_loss_rate.InnerText; }
-                                                        if (tx_bytes != null) { _tx_bytes = tx_bytes.InnerText; }
-                                                        if (rx_bytes != null) { _rx_bytes = rx_bytes.InnerText; }
+                                                            if (vlan_id != null) { _vlan_id = vlan_id.InnerText; }
+                                                            if (vlan_type != null) { _vlan_type = vlan_type.InnerText; }
+                                                            if (dm_state != null) { _dm_state = dm_state.InnerText; }
+                                                            if (tm_state != null) { _tm_state = tm_state.InnerText; }
+                                                            if (lm_state != null) { _lm_state = lm_state.InnerText; }
+                                                            if (cc_state != null) { _cc_state = cc_state.InnerText; }
+                                                            if (mep_id != null) { _mep_id = mep_id.InnerText; }
+                                                            if (meg_id != null) { _meg_id = meg_id.InnerText; }
+                                                            if (mel != null) { _mel = mel.InnerText; }
+                                                            if (remote_mep_id != null) { _remote_mep_id = remote_mep_id.InnerText; }
+                                                            if (md_name != null) { _md_name = md_name.InnerText; }
+                                                            if (cc_interval != null) { _cc_interval = cc_interval.InnerText; }
+                                                            if (lm_interval != null) { _lm_interval = lm_interval.InnerText; }
+                                                            if (dm_interval != null) { _dm_interval = dm_interval.InnerText; }
+                                                            if (delay != null) { _delay = delay.InnerText; }
+                                                            if (near_packet_loss_rate != null) { _near_loss = near_packet_loss_rate.InnerText; }
+                                                            if (far_packet_loss_rate != null) { _far_loss = far_packet_loss_rate.InnerText; }
+                                                            if (tx_bytes != null) { _tx_bytes = tx_bytes.InnerText; }
+                                                            if (rx_bytes != null) { _rx_bytes = rx_bytes.InnerText; }
+                                                        }
+                                                        if (ips.Contains("联通"))
+                                                        {
+                                                            XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
+                                                            XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
+                                                            XmlNode dm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-enable", root);
+                                                            XmlNode tm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:tm-enable", root);
+                                                            XmlNode lm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-enable", root);
+                                                            XmlNode cc_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-enable", root);
+                                                            XmlNode cc_state1 = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-state", root);
+                                                            XmlNode mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:mep-id", root);
+                                                            XmlNode meg_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:meg-id", root);
+                                                            XmlNode mel = itemNodeOdu.SelectSingleNode("//ctpxmlns:mel", root);
+                                                            XmlNode remote_mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:remote-mep-id", root);
+                                                            XmlNode md_name = itemNodeOdu.SelectSingleNode("//ctpxmlns:md-name", root);
+                                                            XmlNode cc_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-interval", root);
+                                                            XmlNode lm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-interval", root);
+                                                            XmlNode dm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-interval", root);
+                                                            XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
+                                                            XmlNode near_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:near-packet-loss-rate", root);
+                                                            XmlNode far_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:far-packet-loss-rate", root);
+                                                            XmlNode tx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:tx-bytes", root);
+                                                            XmlNode rx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:rx-bytes", root);
+
+                                                            if (vlan_id != null) { _vlan_id = vlan_id.InnerText; }
+                                                            if (vlan_type != null) { _vlan_type = vlan_type.InnerText; }
+                                                            if (dm_state != null) { _dm_state = dm_state.InnerText; }
+                                                            if (tm_state != null) { _tm_state = tm_state.InnerText; }
+                                                            if (lm_state != null) { _lm_state = lm_state.InnerText; }
+                                                            if (cc_state != null) { _cc_state = cc_state.InnerText; }
+                                                            if (cc_state1 != null) { _cc_state1 = cc_state1.InnerText; }
+
+                                                            if (mep_id != null) { _mep_id = mep_id.InnerText; }
+                                                            if (meg_id != null) { _meg_id = meg_id.InnerText; }
+                                                            if (mel != null) { _mel = mel.InnerText; }
+                                                            if (remote_mep_id != null) { _remote_mep_id = remote_mep_id.InnerText; }
+                                                            if (md_name != null) { _md_name = md_name.InnerText; }
+                                                            if (cc_interval != null) { _cc_interval = cc_interval.InnerText; }
+                                                            if (lm_interval != null) { _lm_interval = lm_interval.InnerText; }
+                                                            if (dm_interval != null) { _dm_interval = dm_interval.InnerText; }
+                                                            if (delay != null) { _delay = delay.InnerText; }
+                                                            if (near_packet_loss_rate != null) { _near_loss = near_packet_loss_rate.InnerText; }
+                                                            if (far_packet_loss_rate != null) { _far_loss = far_packet_loss_rate.InnerText; }
+                                                            if (tx_bytes != null) { _tx_bytes = tx_bytes.InnerText; }
+                                                            if (rx_bytes != null) { _rx_bytes = rx_bytes.InnerText; }
+                                                        }
 
 
                                                     }
@@ -3297,7 +3338,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             }
 
                             // 实例化FormInfo，并传入待修改初值  
-                            var Formoam = new FormOAM(_name, _server_tp, _vlan_id, _vlan_type, _dm_state, _tm_state, _lm_state, _cc_state, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval,
+                            var Formoam = new FormOAM(_name, _server_tp, _vlan_id, _vlan_type, _dm_state, _tm_state, _lm_state, _cc_state, _cc_state1, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval,
     _delay, _near_loss, _far_loss, _tx_bytes, _rx_bytes);
                             // 以对话框方式显示FormInfo  
                             if (Formoam.ShowDialog() == DialogResult.OK)
@@ -3313,7 +3354,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _lm_interval = Formoam._lm_interval;
                                 _dm_interval = Formoam._dm_interval;
 
-                                Creat(OAM.Create(_name, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval));
+                                Creat(OAM.Create(_name, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval,ips));
                                 MessageBox.Show("正在配置OAM状态，请稍等片刻！");
                                 _name = Formoam._name;
                                 _dm_state = Formoam._dm_state;
@@ -3321,7 +3362,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _lm_state = Formoam._lm_state;
                                 _cc_state = Formoam._cc_state;
 
-                                Creat(OAM.State(_name, _dm_state, _tm_state, _lm_state, _cc_state));
+                                Creat(OAM.State(_name, _dm_state, _tm_state, _lm_state, _cc_state,ips));
 
                             }
 
@@ -3626,6 +3667,23 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 }
                 butCycleSuspend.Text = "暂停";
             }
+        }
+
+        private void ButUTC_Click(object sender, EventArgs e)
+        {
+            if (ButUTC.Text.Contains("UTC"))
+            {
+                dateTimePickerStartime.Value.AddHours(-8);
+                dateTimePickerStartime.CustomFormat = "yyyy-MM-ddTHH:mm:ss.000Z";
+                dateTimePickerEndtime.CustomFormat = "yyyy-MM-ddTHH:mm:ss.000Z";
+                ButUTC.Text = "北京时间";
+            }
+            else {
+                dateTimePickerStartime.CustomFormat = "yyyy-MM-ddTHH:mm:ss+08:00";
+                dateTimePickerEndtime.CustomFormat = "yyyy-MM-ddTHH:mm:ss+08:00";
+                ButUTC.Text = "UTC时间";
+            }
+            
         }
     }
 }

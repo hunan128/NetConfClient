@@ -20,7 +20,7 @@ namespace NetConfClientSoftware
         ///     构造函数
         /// </summary>
         /// <param name="name">待修改的信息</param>
-        public FormOAM(string _name, string _server_tp, string _vlan_id, string _vlan_type, string _dm_state, string _tm_state, string _lm_state, string _cc_state,
+        public FormOAM(string _name, string _server_tp, string _vlan_id, string _vlan_type, string _dm_state, string _tm_state, string _lm_state, string _cc_state, string _cc_state1,
             string _mep_id, string _remote_mep_id, string _meg_id, string _md_name, string _mel, string _cc_interval, string _lm_interval, string _dm_interval,
     string _delay, string _near_loss, string _far_loss, string _tx_bytes, string _rx_bytes) : this()
         {
@@ -46,6 +46,7 @@ namespace NetConfClientSoftware
                 comTmstate.Text = _tm_state;
                 comLmstate.Text = _lm_state;
                 comCcstate.Text = _cc_state;
+                textBoxccstate.Text = _cc_state1;
                 comtxbtye.Text = _tx_bytes;
                 comRxbyte.Text = _rx_bytes;
                 comfarloss.Text = _far_loss;
@@ -104,6 +105,11 @@ namespace NetConfClientSoftware
         public string _cc_state
         {
             get { return comCcstate.Text; }
+        }
+
+        private void FormOAM_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

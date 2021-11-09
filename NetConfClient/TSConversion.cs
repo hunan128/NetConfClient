@@ -123,7 +123,7 @@ namespace NetConfClientSoftware
             if (OtuRate.Contains("STM-16")) { ts_detai = "2-C0"; }
             if (OtuRate.Contains("STM-1")|| OtuRate.Contains("STM-4")|| OtuRate.Contains("GE") || OtuRate.Contains("ETH-1Gb") || OtuRate.Contains("FE")) { ts_detai = "1-80"; }
             if (OtuRate.Contains("10GE")) { ts_detai = "8-FF"; }
-
+            if (OtuRate.Contains("10Gb")) { ts_detai = "8-FF"; }
             return ts_detai;
 
 
