@@ -568,7 +568,7 @@ namespace NetConfClientSoftware
                 ListViewItem lvi = listViewAll.Items.Add((listViewAll.Items.Count + 1).ToString());
                 foreach (XmlNode node in dom.ChildNodes)
                 {
-                    if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name")))
+                    if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText1(node, "name")))
                     {
                         continue;
                     }
@@ -3476,7 +3476,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             {
                                 if (item != "")
                                 {
-                                    if (result.OuterXml.Contains(item))
+                                    if (Element.Element_Value(result, item,"") == true)
                                     {
                                         end = end + item + "=OK," + "\n";
                                         dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
@@ -3673,12 +3673,16 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         {
             if (ButUTC.Text.Contains("UTC"))
             {
-                dateTimePickerStartime.Value.AddHours(-8);
+               
+                dateTimePickerStartime.Value = DateTime.UtcNow;
+                dateTimePickerEndtime.Value = DateTime.UtcNow;
                 dateTimePickerStartime.CustomFormat = "yyyy-MM-ddTHH:mm:ss.000Z";
                 dateTimePickerEndtime.CustomFormat = "yyyy-MM-ddTHH:mm:ss.000Z";
                 ButUTC.Text = "北京时间";
             }
             else {
+                dateTimePickerStartime.Value = DateTime.Now;
+                dateTimePickerEndtime.Value = DateTime.Now;
                 dateTimePickerStartime.CustomFormat = "yyyy-MM-ddTHH:mm:ss+08:00";
                 dateTimePickerEndtime.CustomFormat = "yyyy-MM-ddTHH:mm:ss+08:00";
                 ButUTC.Text = "UTC时间";

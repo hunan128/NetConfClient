@@ -629,19 +629,6 @@ namespace NetConfClientSoftware
             this.ButStartAutoRunningXML = new System.Windows.Forms.Button();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.dataGridViewAuto = new System.Windows.Forms.DataGridView();
-            this.Auto编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Autoip地址 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto功能模块 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto用例标题 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto运营商 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto用例脚本 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto预期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto日志信息 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto开始时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto结束时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto耗时 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Auto问题定位建议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStripAuto = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.详细信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
@@ -656,6 +643,19 @@ namespace NetConfClientSoftware
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabelips = new System.Windows.Forms.ToolStripStatusLabel();
             this.ButUTC = new System.Windows.Forms.Button();
+            this.Auto编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Autoip地址 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto功能模块 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto用例标题 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto运营商 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto用例脚本 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto预期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto日志信息 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto开始时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto结束时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto耗时 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Auto问题定位建议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -5229,6 +5229,7 @@ namespace NetConfClientSoftware
             this.dateTimePickerStartime.Name = "dateTimePickerStartime";
             this.dateTimePickerStartime.Size = new System.Drawing.Size(200, 21);
             this.dateTimePickerStartime.TabIndex = 135;
+            this.dateTimePickerStartime.Value = new System.DateTime(2021, 11, 10, 0, 0, 0, 0);
             // 
             // ButHisPerFind
             // 
@@ -6495,94 +6496,6 @@ namespace NetConfClientSoftware
             this.dataGridViewAuto.Size = new System.Drawing.Size(1394, 521);
             this.dataGridViewAuto.TabIndex = 0;
             // 
-            // Auto编号
-            // 
-            this.Auto编号.HeaderText = "编号";
-            this.Auto编号.Name = "Auto编号";
-            this.Auto编号.ReadOnly = true;
-            this.Auto编号.Width = 40;
-            // 
-            // Autoip地址
-            // 
-            this.Autoip地址.HeaderText = "ip地址";
-            this.Autoip地址.Name = "Autoip地址";
-            this.Autoip地址.ReadOnly = true;
-            // 
-            // Auto功能模块
-            // 
-            this.Auto功能模块.HeaderText = "功能模块";
-            this.Auto功能模块.Name = "Auto功能模块";
-            this.Auto功能模块.ReadOnly = true;
-            // 
-            // Auto用例标题
-            // 
-            this.Auto用例标题.HeaderText = "用例标题";
-            this.Auto用例标题.Name = "Auto用例标题";
-            this.Auto用例标题.ReadOnly = true;
-            // 
-            // Auto运营商
-            // 
-            this.Auto运营商.HeaderText = "运营商";
-            this.Auto运营商.Name = "Auto运营商";
-            this.Auto运营商.ReadOnly = true;
-            this.Auto运营商.Width = 80;
-            // 
-            // Auto用例脚本
-            // 
-            this.Auto用例脚本.HeaderText = "用例脚本";
-            this.Auto用例脚本.MaxInputLength = 3276700;
-            this.Auto用例脚本.Name = "Auto用例脚本";
-            this.Auto用例脚本.ReadOnly = true;
-            this.Auto用例脚本.Width = 200;
-            // 
-            // Auto预期
-            // 
-            this.Auto预期.HeaderText = "预期";
-            this.Auto预期.MaxInputLength = 32767000;
-            this.Auto预期.Name = "Auto预期";
-            // 
-            // Auto结果
-            // 
-            this.Auto结果.HeaderText = "结果";
-            this.Auto结果.MaxInputLength = 32767000;
-            this.Auto结果.Name = "Auto结果";
-            this.Auto结果.ReadOnly = true;
-            // 
-            // Auto日志信息
-            // 
-            this.Auto日志信息.HeaderText = "日志信息";
-            this.Auto日志信息.MaxInputLength = 927670000;
-            this.Auto日志信息.Name = "Auto日志信息";
-            this.Auto日志信息.ReadOnly = true;
-            this.Auto日志信息.Width = 200;
-            // 
-            // Auto开始时间
-            // 
-            this.Auto开始时间.HeaderText = "开始时间";
-            this.Auto开始时间.Name = "Auto开始时间";
-            this.Auto开始时间.ReadOnly = true;
-            this.Auto开始时间.Width = 80;
-            // 
-            // Auto结束时间
-            // 
-            this.Auto结束时间.HeaderText = "结束时间";
-            this.Auto结束时间.Name = "Auto结束时间";
-            this.Auto结束时间.ReadOnly = true;
-            this.Auto结束时间.Width = 80;
-            // 
-            // Auto耗时
-            // 
-            this.Auto耗时.HeaderText = "耗时";
-            this.Auto耗时.Name = "Auto耗时";
-            this.Auto耗时.ReadOnly = true;
-            // 
-            // Auto问题定位建议
-            // 
-            this.Auto问题定位建议.HeaderText = "问题定位建议";
-            this.Auto问题定位建议.Name = "Auto问题定位建议";
-            this.Auto问题定位建议.ReadOnly = true;
-            this.Auto问题定位建议.Width = 120;
-            // 
             // contextMenuStripAuto
             // 
             this.contextMenuStripAuto.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -6683,6 +6596,7 @@ namespace NetConfClientSoftware
             // 
             // ButUTC
             // 
+            this.ButUTC.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButUTC.Location = new System.Drawing.Point(1289, 547);
             this.ButUTC.Name = "ButUTC";
             this.ButUTC.Size = new System.Drawing.Size(109, 43);
@@ -6690,6 +6604,94 @@ namespace NetConfClientSoftware
             this.ButUTC.Text = "UTC时间切换";
             this.ButUTC.UseVisualStyleBackColor = true;
             this.ButUTC.Click += new System.EventHandler(this.ButUTC_Click);
+            // 
+            // Auto编号
+            // 
+            this.Auto编号.HeaderText = "编号";
+            this.Auto编号.Name = "Auto编号";
+            this.Auto编号.ReadOnly = true;
+            this.Auto编号.Width = 40;
+            // 
+            // Autoip地址
+            // 
+            this.Autoip地址.HeaderText = "ip地址";
+            this.Autoip地址.Name = "Autoip地址";
+            this.Autoip地址.ReadOnly = true;
+            // 
+            // Auto功能模块
+            // 
+            this.Auto功能模块.HeaderText = "功能模块";
+            this.Auto功能模块.Name = "Auto功能模块";
+            this.Auto功能模块.ReadOnly = true;
+            // 
+            // Auto用例标题
+            // 
+            this.Auto用例标题.HeaderText = "用例标题";
+            this.Auto用例标题.Name = "Auto用例标题";
+            this.Auto用例标题.ReadOnly = true;
+            // 
+            // Auto运营商
+            // 
+            this.Auto运营商.HeaderText = "运营商";
+            this.Auto运营商.Name = "Auto运营商";
+            this.Auto运营商.ReadOnly = true;
+            this.Auto运营商.Width = 80;
+            // 
+            // Auto用例脚本
+            // 
+            this.Auto用例脚本.HeaderText = "用例脚本";
+            this.Auto用例脚本.MaxInputLength = 3276700;
+            this.Auto用例脚本.Name = "Auto用例脚本";
+            this.Auto用例脚本.ReadOnly = true;
+            this.Auto用例脚本.Width = 200;
+            // 
+            // Auto预期
+            // 
+            this.Auto预期.HeaderText = "预期节点";
+            this.Auto预期.MaxInputLength = 32767000;
+            this.Auto预期.Name = "Auto预期";
+            // 
+            // Auto结果
+            // 
+            this.Auto结果.HeaderText = "结果";
+            this.Auto结果.MaxInputLength = 32767000;
+            this.Auto结果.Name = "Auto结果";
+            this.Auto结果.ReadOnly = true;
+            // 
+            // Auto日志信息
+            // 
+            this.Auto日志信息.HeaderText = "日志信息";
+            this.Auto日志信息.MaxInputLength = 927670000;
+            this.Auto日志信息.Name = "Auto日志信息";
+            this.Auto日志信息.ReadOnly = true;
+            this.Auto日志信息.Width = 200;
+            // 
+            // Auto开始时间
+            // 
+            this.Auto开始时间.HeaderText = "开始时间";
+            this.Auto开始时间.Name = "Auto开始时间";
+            this.Auto开始时间.ReadOnly = true;
+            this.Auto开始时间.Width = 80;
+            // 
+            // Auto结束时间
+            // 
+            this.Auto结束时间.HeaderText = "结束时间";
+            this.Auto结束时间.Name = "Auto结束时间";
+            this.Auto结束时间.ReadOnly = true;
+            this.Auto结束时间.Width = 80;
+            // 
+            // Auto耗时
+            // 
+            this.Auto耗时.HeaderText = "耗时";
+            this.Auto耗时.Name = "Auto耗时";
+            this.Auto耗时.ReadOnly = true;
+            // 
+            // Auto问题定位建议
+            // 
+            this.Auto问题定位建议.HeaderText = "问题定位建议";
+            this.Auto问题定位建议.Name = "Auto问题定位建议";
+            this.Auto问题定位建议.ReadOnly = true;
+            this.Auto问题定位建议.Width = 120;
             // 
             // Main_Form
             // 
@@ -7402,6 +7404,17 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.Button ButAddTest;
         private System.Windows.Forms.Button butCycleSuspend;
         private System.Windows.Forms.Button ButStartAutoRunningXML;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripAuto;
+        private System.Windows.Forms.ToolStripMenuItem 详细信息ToolStripMenuItem;
+        private System.Windows.Forms.ListView listViewGhao;
+        private System.Windows.Forms.ColumnHeader columnHeader24;
+        private System.Windows.Forms.ColumnHeader columnHeader25;
+        private System.Windows.Forms.ColumnHeader columnHeader27;
+        private System.Windows.Forms.ColumnHeader columnHeader26;
+        private System.Windows.Forms.ColumnHeader columnHeader28;
+        private System.Windows.Forms.ColumnHeader columnHeader29;
+        private System.Windows.Forms.ColumnHeader columnHeader30;
+        private System.Windows.Forms.Button ButUTC;
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto编号;
         private System.Windows.Forms.DataGridViewTextBoxColumn Autoip地址;
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto功能模块;
@@ -7415,17 +7428,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto结束时间;
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto耗时;
         private System.Windows.Forms.DataGridViewTextBoxColumn Auto问题定位建议;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStripAuto;
-        private System.Windows.Forms.ToolStripMenuItem 详细信息ToolStripMenuItem;
-        private System.Windows.Forms.ListView listViewGhao;
-        private System.Windows.Forms.ColumnHeader columnHeader24;
-        private System.Windows.Forms.ColumnHeader columnHeader25;
-        private System.Windows.Forms.ColumnHeader columnHeader27;
-        private System.Windows.Forms.ColumnHeader columnHeader26;
-        private System.Windows.Forms.ColumnHeader columnHeader28;
-        private System.Windows.Forms.ColumnHeader columnHeader29;
-        private System.Windows.Forms.ColumnHeader columnHeader30;
-        private System.Windows.Forms.Button ButUTC;
     }
 }
 
