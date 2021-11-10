@@ -2837,32 +2837,61 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 foreach (XmlNode itemNode in itemNodes)
                 {
                     int index = dataGridViewPGS.Rows.Add();
+                    if (ips.Contains("移动")) {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-direction", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
 
-                    XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
-                    XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
-                    XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
-                    XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-direction", root);
-                    XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
-                    XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
-                    XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
-                    XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
-                    XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
-                    XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
-                    XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
-                    XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
+                        if (pg_id != null) { dataGridViewPGS.Rows[index].Cells["保护组ID"].Value = pg_id.InnerText; }
+                        if (protection_type != null) { dataGridViewPGS.Rows[index].Cells["保护类型"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS.Rows[index].Cells["还原模式"].Value = reversion_mode.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS.Rows[index].Cells["开关方向"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS.Rows[index].Cells["SD触发器"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS.Rows[index].Cells["恢复等待时间"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS.Rows[index].Cells["拖延时间"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS.Rows[index].Cells["主要端口"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS.Rows[index].Cells["次要端口"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS.Rows[index].Cells["倒换原因"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS.Rows[index].Cells["保护方向"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS.Rows[index].Cells["选择端口"].Value = selected_port.InnerText; }
+                    }
+                    if (ips.Contains("联通"))
+                    {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-type", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
 
-                    if (pg_id != null) { dataGridViewPGS.Rows[index].Cells["保护组ID"].Value = pg_id.InnerText; }
-                    if (protection_type != null) { dataGridViewPGS.Rows[index].Cells["保护类型"].Value = protection_type.InnerText; }
-                    if (reversion_mode != null) { dataGridViewPGS.Rows[index].Cells["还原模式"].Value = reversion_mode.InnerText; }
-                    if (switch_direction != null) { dataGridViewPGS.Rows[index].Cells["开关方向"].Value = switch_direction.InnerText; }
-                    if (sd_trigger != null) { dataGridViewPGS.Rows[index].Cells["SD触发器"].Value = sd_trigger.InnerText; }
-                    if (WTR != null) { dataGridViewPGS.Rows[index].Cells["恢复等待时间"].Value = WTR.InnerText; }
-                    if (hold_off != null) { dataGridViewPGS.Rows[index].Cells["拖延时间"].Value = hold_off.InnerText; }
-                    if (primary_port != null) { dataGridViewPGS.Rows[index].Cells["主要端口"].Value = primary_port.InnerText; }
-                    if (secondary_port != null) { dataGridViewPGS.Rows[index].Cells["次要端口"].Value = secondary_port.InnerText; }
-                    if (switch_reason != null) { dataGridViewPGS.Rows[index].Cells["倒换原因"].Value = switch_reason.InnerText; }
-                    if (protection_direction != null) { dataGridViewPGS.Rows[index].Cells["保护方向"].Value = protection_direction.InnerText; }
-                    if (selected_port != null) { dataGridViewPGS.Rows[index].Cells["选择端口"].Value = selected_port.InnerText; }
+                        if (pg_id != null) { dataGridViewPGS.Rows[index].Cells["保护组ID"].Value = pg_id.InnerText; }
+                        if (protection_type != null) { dataGridViewPGS.Rows[index].Cells["保护类型"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS.Rows[index].Cells["还原模式"].Value = reversion_mode.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS.Rows[index].Cells["开关方向"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS.Rows[index].Cells["SD触发器"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS.Rows[index].Cells["恢复等待时间"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS.Rows[index].Cells["拖延时间"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS.Rows[index].Cells["主要端口"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS.Rows[index].Cells["次要端口"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS.Rows[index].Cells["倒换原因"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS.Rows[index].Cells["保护方向"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS.Rows[index].Cells["选择端口"].Value = selected_port.InnerText; }
+                    }
                 }
             }
             catch (Exception ex)
@@ -2884,32 +2913,62 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 foreach (XmlNode itemNode in itemNodes)
                 {
                     int index = dataGridViewPGS_Not.Rows.Add();
+                    if (ips.Contains("移动")) {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-direction", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
 
-                    XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
-                    XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
-                    XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
-                    XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-direction", root);
-                    XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
-                    XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
-                    XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
-                    XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
-                    XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
-                    XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
-                    XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
-                    XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
+                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
+                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["开关方向N"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
+                    }
+                    if (ips.Contains("联通"))
+                    {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-type", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
 
-                    if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
-                    if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
-                    if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
-                    if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["开关方向N"].Value = switch_direction.InnerText; }
-                    if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
-                    if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
-                    if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
-                    if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
-                    if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
-                    if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
-                    if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
-                    if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
+                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
+                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["开关方向N"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
+                    }
+
                 }
             }
             catch (Exception ex)

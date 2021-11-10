@@ -451,66 +451,138 @@ namespace NetConfClientSoftware
                     uni_vlan_spec.AppendChild(uni_vlan_type);
 
                 }
+                if (_Create_Connection == "EOS") {
 
 
-                //线路侧配置
-                XmlElement primary_nni = commonXml.CreateElement("primary-nni-1");
-                create_eth_connection.AppendChild(primary_nni);
-                //PTP接口配置
-                XmlElement _nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
-                _nni_ptp_name.InnerText = _primary_nni_name;
-                primary_nni.AppendChild(_nni_ptp_name);
+                    if (_primary_vlan_id != "")
+                    {
+                        //VLan属性
+                        XmlElement ftp_vlan_spec = commonXml.CreateElement("ftp-vlan-spec");
+                        eth_uni.AppendChild(ftp_vlan_spec);
 
-                //时隙配置
-                XmlElement _nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
-                _nni_ts_detail.InnerText = _primary_ts;
-                primary_nni.AppendChild(_nni_ts_detail);
 
-                //净荷类型
-                XmlElement _adaptation_type = commonXml.CreateElement("adaptation-type");
-                _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
-                _adaptation_type.InnerText = _primary_ada;
-                primary_nni.AppendChild(_adaptation_type);
+                        //VLanID 
+                        XmlElement primary_vlan_id = commonXml.CreateElement("vlan-id");
+                        primary_vlan_id.InnerText = _primary_vlan_id;
+                        ftp_vlan_spec.AppendChild(primary_vlan_id);
 
-                //ODU类型
-                XmlElement _odu_signal_type = commonXml.CreateElement("client-signal-type");
-                _odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
-                _odu_signal_type.InnerText = _primary_odu;
-                primary_nni.AppendChild(_odu_signal_type);
 
-                //交换类型
-                XmlElement _switch_capability = commonXml.CreateElement("switch-capability");
-                _switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
-                _switch_capability.InnerText = _primary_switch;
-                primary_nni.AppendChild(_switch_capability);
+                        //VLan优先级 
+                        XmlElement primary_vlan_priority = commonXml.CreateElement("vlan-priority");
+                        primary_vlan_priority.InnerText = _primary_vlan_priority;
+                        ftp_vlan_spec.AppendChild(primary_vlan_priority);
 
-                if (_primary_vlan_id != "")
+                        //VLan动作 
+                        XmlElement primary_access_action = commonXml.CreateElement("access-action");
+                        primary_access_action.InnerText = _primary_access_action;
+                        ftp_vlan_spec.AppendChild(primary_access_action);
+
+                        //VLan类型
+                        XmlElement primary_vlan_type = commonXml.CreateElement("vlan-type");
+                        primary_vlan_type.InnerText = _primary_vlan_type;
+                        ftp_vlan_spec.AppendChild(primary_vlan_type);
+
+                    }
+                }
+                if (_Create_Connection == "ETH")
                 {
-                    //VLan属性
-                    XmlElement ftp_vlan_spec = commonXml.CreateElement("ftp-vlan-spec");
-                    primary_nni.AppendChild(ftp_vlan_spec);
+                    //线路侧配置
+                    XmlElement primary_nni = commonXml.CreateElement("primary-nni-1");
+                    create_eth_connection.AppendChild(primary_nni);
+                    //PTP接口配置
+                    XmlElement _nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
+                    _nni_ptp_name.InnerText = _primary_nni_name;
+                    primary_nni.AppendChild(_nni_ptp_name);
+
+                    //时隙配置
+                    XmlElement _nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
+                    _nni_ts_detail.InnerText = _primary_ts;
+                    primary_nni.AppendChild(_nni_ts_detail);
+
+                    //净荷类型
+                    XmlElement _adaptation_type = commonXml.CreateElement("adaptation-type");
+                    _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _adaptation_type.InnerText = _primary_ada;
+                    primary_nni.AppendChild(_adaptation_type);
+
+                    //ODU类型
+                    XmlElement _odu_signal_type = commonXml.CreateElement("client-signal-type");
+                    _odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _odu_signal_type.InnerText = _primary_odu;
+                    primary_nni.AppendChild(_odu_signal_type);
+
+                    //交换类型
+                    XmlElement _switch_capability = commonXml.CreateElement("switch-capability");
+                    _switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _switch_capability.InnerText = _primary_switch;
+                    primary_nni.AppendChild(_switch_capability);
+
+                    if (_primary_vlan_id != "")
+                    {
+                        //VLan属性
+                        XmlElement ftp_vlan_spec = commonXml.CreateElement("ftp-vlan-spec");
+                        primary_nni.AppendChild(ftp_vlan_spec);
 
 
-                    //VLanID 
-                    XmlElement primary_vlan_id = commonXml.CreateElement("vlan-id");
-                    primary_vlan_id.InnerText = _primary_vlan_id;
-                    ftp_vlan_spec.AppendChild(primary_vlan_id);
+                        //VLanID 
+                        XmlElement primary_vlan_id = commonXml.CreateElement("vlan-id");
+                        primary_vlan_id.InnerText = _primary_vlan_id;
+                        ftp_vlan_spec.AppendChild(primary_vlan_id);
 
 
-                    //VLan优先级 
-                    XmlElement primary_vlan_priority = commonXml.CreateElement("vlan-priority");
-                    primary_vlan_priority.InnerText = _primary_vlan_priority;
-                    ftp_vlan_spec.AppendChild(primary_vlan_priority);
+                        //VLan优先级 
+                        XmlElement primary_vlan_priority = commonXml.CreateElement("vlan-priority");
+                        primary_vlan_priority.InnerText = _primary_vlan_priority;
+                        ftp_vlan_spec.AppendChild(primary_vlan_priority);
 
-                    //VLan动作 
-                    XmlElement primary_access_action = commonXml.CreateElement("access-action");
-                    primary_access_action.InnerText = _primary_access_action;
-                    ftp_vlan_spec.AppendChild(primary_access_action);
+                        //VLan动作 
+                        XmlElement primary_access_action = commonXml.CreateElement("access-action");
+                        primary_access_action.InnerText = _primary_access_action;
+                        ftp_vlan_spec.AppendChild(primary_access_action);
 
-                    //VLan类型
-                    XmlElement primary_vlan_type = commonXml.CreateElement("vlan-type");
-                    primary_vlan_type.InnerText = _primary_vlan_type;
-                    ftp_vlan_spec.AppendChild(primary_vlan_type);
+                        //VLan类型
+                        XmlElement primary_vlan_type = commonXml.CreateElement("vlan-type");
+                        primary_vlan_type.InnerText = _primary_vlan_type;
+                        ftp_vlan_spec.AppendChild(primary_vlan_type);
+
+                    }
+
+                }
+
+                if (_Create_Connection == "EOS")
+                {
+                    //线路侧配置
+                    XmlElement primary_nni = commonXml.CreateElement("primary-nni");
+                    create_eth_connection.AppendChild(primary_nni);
+                    //PTP接口配置
+                    XmlElement _nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
+                    _nni_ptp_name.InnerText = _primary_nni_name;
+                    primary_nni.AppendChild(_nni_ptp_name);
+
+                    //时隙配置
+                    XmlElement _nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
+                    _nni_ts_detail.InnerText = _primary_ts;
+                    primary_nni.AppendChild(_nni_ts_detail);
+
+                    //净荷类型
+                    XmlElement _adaptation_type = commonXml.CreateElement("adaptation-type");
+                    _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _adaptation_type.InnerText = _primary_ada;
+                    primary_nni.AppendChild(_adaptation_type);
+
+                    //ODU类型
+                    XmlElement _odu_signal_type = commonXml.CreateElement("client-signal-type");
+                    _odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _odu_signal_type.InnerText = _primary_odu;
+                    primary_nni.AppendChild(_odu_signal_type);
+
+                    //交换类型
+                    XmlElement _switch_capability = commonXml.CreateElement("switch-capability");
+                    _switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _switch_capability.InnerText = _primary_switch;
+                    primary_nni.AppendChild(_switch_capability);
+
+
 
                 }
                 if (_Create_Connection == "EOS")
@@ -586,39 +658,76 @@ namespace NetConfClientSoftware
 
                 }
 
-
+                ///备用接口
                 if (_secondary_nni_name != "无")
                 {
-                    //线路侧配置 备接口
-                    XmlElement secondary_nni = commonXml.CreateElement("secondary-nni-1");
-                    create_eth_connection.AppendChild(secondary_nni);
-                    //PTP接口配置
-                    XmlElement _secondary_nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
-                    _secondary_nni_ptp_name.InnerText = _secondary_nni_name;
-                    secondary_nni.AppendChild(_secondary_nni_ptp_name);
+                    if (_Create_Connection == "ETH")
+                    {
+                        //线路侧配置 备接口
+                        XmlElement secondary_nni = commonXml.CreateElement("secondary-nni-1");
+                        create_eth_connection.AppendChild(secondary_nni);
+                        //PTP接口配置
+                        XmlElement _secondary_nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
+                        _secondary_nni_ptp_name.InnerText = _secondary_nni_name;
+                        secondary_nni.AppendChild(_secondary_nni_ptp_name);
 
-                    //时隙配置
-                    XmlElement _secondary_nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
-                    _secondary_nni_ts_detail.InnerText = _secondary_ts;
-                    secondary_nni.AppendChild(_secondary_nni_ts_detail);
+                        //时隙配置
+                        XmlElement _secondary_nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
+                        _secondary_nni_ts_detail.InnerText = _secondary_ts;
+                        secondary_nni.AppendChild(_secondary_nni_ts_detail);
 
-                    //净荷类型
-                    XmlElement _secondary_adaptation_type = commonXml.CreateElement("adaptation-type");
-                    _secondary_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
-                    _secondary_adaptation_type.InnerText = _secondary_ada;
-                    secondary_nni.AppendChild(_secondary_adaptation_type);
+                        //净荷类型
+                        XmlElement _secondary_adaptation_type = commonXml.CreateElement("adaptation-type");
+                        _secondary_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _secondary_adaptation_type.InnerText = _secondary_ada;
+                        secondary_nni.AppendChild(_secondary_adaptation_type);
 
-                    //ODU类型
-                    XmlElement _secondary_odu_signal_type = commonXml.CreateElement("client-signal-type");
-                    _secondary_odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
-                    _secondary_odu_signal_type.InnerText = _secondary_odu;
-                    secondary_nni.AppendChild(_secondary_odu_signal_type);
+                        //ODU类型
+                        XmlElement _secondary_odu_signal_type = commonXml.CreateElement("client-signal-type");
+                        _secondary_odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _secondary_odu_signal_type.InnerText = _secondary_odu;
+                        secondary_nni.AppendChild(_secondary_odu_signal_type);
 
-                    //交换类型
-                    XmlElement _secondary_switch_capability = commonXml.CreateElement("switch-capability");
-                    _secondary_switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
-                    _secondary_switch_capability.InnerText = _secondary_switch;
-                    secondary_nni.AppendChild(_secondary_switch_capability);
+                        //交换类型
+                        XmlElement _secondary_switch_capability = commonXml.CreateElement("switch-capability");
+                        _secondary_switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _secondary_switch_capability.InnerText = _secondary_switch;
+                        secondary_nni.AppendChild(_secondary_switch_capability);
+                    }
+                    if (_Create_Connection == "EOS")
+                    {
+                        //线路侧配置 备接口
+                        XmlElement secondary_nni = commonXml.CreateElement("secondary-nni");
+                        create_eth_connection.AppendChild(secondary_nni);
+                        //PTP接口配置
+                        XmlElement _secondary_nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
+                        _secondary_nni_ptp_name.InnerText = _secondary_nni_name;
+                        secondary_nni.AppendChild(_secondary_nni_ptp_name);
+
+                        //时隙配置
+                        XmlElement _secondary_nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
+                        _secondary_nni_ts_detail.InnerText = _secondary_ts;
+                        secondary_nni.AppendChild(_secondary_nni_ts_detail);
+
+                        //净荷类型
+                        XmlElement _secondary_adaptation_type = commonXml.CreateElement("adaptation-type");
+                        _secondary_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _secondary_adaptation_type.InnerText = _secondary_ada;
+                        secondary_nni.AppendChild(_secondary_adaptation_type);
+
+                        //ODU类型
+                        XmlElement _secondary_odu_signal_type = commonXml.CreateElement("client-signal-type");
+                        _secondary_odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _secondary_odu_signal_type.InnerText = _secondary_odu;
+                        secondary_nni.AppendChild(_secondary_odu_signal_type);
+
+                        //交换类型
+                        XmlElement _secondary_switch_capability = commonXml.CreateElement("switch-capability");
+                        _secondary_switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _secondary_switch_capability.InnerText = _secondary_switch;
+                        secondary_nni.AppendChild(_secondary_switch_capability);
+                    }
+
                 }
             }
 
