@@ -3868,6 +3868,33 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 return;
             }
             LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
+            ButFind.PerformClick();
+        }
+
+        private void ButDelay_Click(object sender, EventArgs e)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                return;
+            }
+            if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                return;
+            }
+            if (ComPtpCtpFtp.Text.Contains("PTP") && ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                xmlDoc = Sendrpc(Modify.Odu_ctp_delay(ComPtpCtpFtp.Text, "true"));
+
+
+            }
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
+            Thread.Sleep(3000);
+            ButFind.PerformClick();
         }
     }
 }

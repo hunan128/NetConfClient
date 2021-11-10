@@ -60,6 +60,62 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
+        public static XmlDocument Odu_ctp_delay(string _name, string _odu_ctp_delay)
+        {
 
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement ptps = commonXml.CreateElement("ctps");
+            ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            config.AppendChild(ptps);
+
+            //CTP
+            XmlElement ptp = commonXml.CreateElement("ctp");
+            ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            ptps.AppendChild(ptp);
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ptp.AppendChild(name);
+                XmlElement odu_ctp_pac = commonXml.CreateElement("odu-ctp-pac");
+                odu_ctp_pac.SetAttribute("xmlns", "urn:ccsa:yang:acc-otn");
+                ptp.AppendChild(odu_ctp_pac);
+                XmlElement odu_delay_enable = commonXml.CreateElement("odu-delay-enable");
+                odu_ctp_pac.AppendChild(odu_delay_enable);
+                XmlElement odu_ctp_delay_enable = commonXml.CreateElement("odu-ctp-delay-enable");
+                odu_ctp_delay_enable.InnerText = _odu_ctp_delay;
+                odu_delay_enable.AppendChild(odu_ctp_delay_enable);
+            }
+
+            return commonXml;
+
+        }
     }
 }
