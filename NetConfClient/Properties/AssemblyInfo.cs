@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Netconf")]
 [assembly: AssemblyDescription("" +
     "未来：告警模块、TCA模块、接口模块、业务关联查询。在未来将会支持脚本自动化测试功能" + "\r\n" +
+    "2021.11.10 支持联通yang下的业务创建于查询" + "\r\n" +
     "2021.11.4 支持自动化测试功能，导入导出，详细信息查看" + "\r\n" +
     "2021.10.13 支持以太网OAM配置" + "\r\n"+
     "2021.10.12 解决自动模式1.1版本下包含中文计算字节数错误问题" + "\r\n" +
@@ -48,5 +49,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2021.9.19.30")]
-[assembly: AssemblyFileVersion("2021.9.19.30")]
+[assembly: AssemblyVersion("2021.11.10.1")]
+[assembly: AssemblyFileVersion("2021.11.10.1")]

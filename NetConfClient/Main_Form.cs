@@ -1289,7 +1289,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(Find.PTPS(ComClientSideNni_UNI_A.Text));
+                xmlDoc = Sendrpc(Find.PTP(ComClientSideNni_UNI_A.Text));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1377,7 +1377,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(Find.PTPS(ComOduNniPtpName_NNI_A.Text));
+                xmlDoc = Sendrpc(Find.PTP(ComOduNniPtpName_NNI_A.Text));
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1473,7 +1473,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(Find.PTPS(ComOduNniPtpName_NNI_B.Text));
+                xmlDoc = Sendrpc(Find.PTP(ComOduNniPtpName_NNI_B.Text));
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1558,7 +1558,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(Find.PTPS(ComClientSideNni_UNI_B.Text));
+                xmlDoc = Sendrpc(Find.PTP(ComClientSideNni_UNI_B.Text));
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1984,7 +1984,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(Find.PTPS(ComEthPrimayNniPtpName.Text));
+                xmlDoc = Sendrpc(Find.PTP(ComEthPrimayNniPtpName.Text));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -2074,7 +2074,7 @@ namespace NetConfClientSoftware
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(Find.PTPS(ComEthSecNniPtpName.Text));
+                xmlDoc = Sendrpc(Find.PTP(ComEthSecNniPtpName.Text));
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -2584,7 +2584,7 @@ namespace NetConfClientSoftware
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(Find.PTPS(ComSdhNniPtp_A.Text));
+                xmlDoc = Sendrpc(Find.PTP(ComSdhNniPtp_A.Text));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -2666,7 +2666,7 @@ namespace NetConfClientSoftware
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 XmlDocument xmlDoc = new XmlDocument();
                 //xmlDoc.Load(filename);
-                xmlDoc = Sendrpc(Find.PTPS(ComSdhNniPtp_B.Text));
+                xmlDoc = Sendrpc(Find.PTP(ComSdhNniPtp_B.Text));
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -3747,6 +3747,127 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 ButUTC.Text = "UTC时间";
             }
             
+        }
+
+        private void ButQeqPort_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                ComPtpCtpFtp.Items.Clear();
+
+                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                XmlDocument xmlDoc = new XmlDocument();
+                //xmlDoc.Load(filename);
+                xmlDoc = Sendrpc(Find.PtpsFtpsCtps(true, true, true));
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                //  root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
+
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp|//ptpsxmlns:ftps//ptpsxmlns:ftp|//ptpsxmlns:ctps//ptpsxmlns:ctp", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+
+                    if (name != null)
+                    {
+                        ComPtpCtpFtp.Items.Add(name.InnerText);
+                        ComPtpCtpFtp.SelectedIndex = 0;
+                    }
+                }
+                // Console.Read();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+            }
+        }
+
+        private void ButFind_Click(object sender, EventArgs e)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP")) {
+                xmlDoc = Sendrpc(Find.PTP(ComPtpCtpFtp.Text));
+            }
+            if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                xmlDoc = Sendrpc(Find.FTP(ComPtpCtpFtp.Text));
+            }
+            if (ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                xmlDoc = Sendrpc(Find.CTP(ComPtpCtpFtp.Text));
+            }
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                xmlDoc = Sendrpc(Find.PtpsFtpsCtps(true,true,true));
+            }
+            LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
+
+        }
+        private void LoadTreeFromXmlDocument_TreePtpCtpFtp(XmlDocument dom)
+        {
+            try
+            {
+                // SECTION 2. Initialize the TreeView control.
+                treeViewPtpCtpFtp.Nodes.Clear();
+                // SECTION 3. Populate the TreeView with the DOM nodes.
+                foreach (XmlNode node in dom.ChildNodes)
+                {
+                    if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name")))
+                        continue;
+                    AddNode(treeViewPtpCtpFtp.Nodes, node);
+
+                }
+
+                treeViewPtpCtpFtp.ExpandAll();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void treeViewPtpCtpFtp_DrawNode(object sender, DrawTreeNodeEventArgs e)
+        {
+            int t = e.Node.Text.IndexOf('(');
+            if (t > 0)
+            {
+                string s1 = e.Node.Text.Substring(0, t);
+                string s2 = e.Node.Text.Substring(t);
+                SizeF s = e.Graphics.MeasureString(s1, this.Font);
+
+                e.Graphics.DrawString(s1, this.Font, Brushes.Magenta, e.Bounds.X, e.Bounds.Y);
+                e.Graphics.DrawString(s2, this.Font, Brushes.Blue, e.Bounds.X + s.Width, e.Bounds.Y);
+            }
+            else
+            {
+                e.Graphics.DrawString(e.Node.Text, this.Font, Brushes.Magenta, e.Bounds.X, e.Bounds.Y);
+            }
+        }
+
+        private void ButModifyLayer_Click(object sender, EventArgs e)
+        {
+            XmlDocument xmlDoc = new XmlDocument();
+            if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                xmlDoc = Sendrpc(Modify.Layer_protocal_name(ComPtpCtpFtp.Text,ComLayer.Text));
+            }
+            if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                return;
+            }
+            if (ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
         }
     }
 }

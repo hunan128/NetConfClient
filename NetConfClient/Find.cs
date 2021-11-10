@@ -339,7 +339,7 @@ namespace NetConfClientSoftware
 
         }
 
-        public static XmlDocument PTPS(string _name)
+        public static XmlDocument PTP(string _name)
         {
 
             XmlDocument commonXml = new XmlDocument();
@@ -426,5 +426,48 @@ namespace NetConfClientSoftware
 
         }
 
+        public static XmlDocument FTP(string _name)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement get = commonXml.CreateElement("get");
+            rpc.AppendChild(get);
+            //创建条件
+            XmlElement filter = commonXml.CreateElement("filter");
+            filter.SetAttribute("type", "subtree");
+            get.AppendChild(filter);
+
+
+            //CTP
+            XmlElement ftps = commonXml.CreateElement("ftps");
+            ftps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            filter.AppendChild(ftps);
+
+            //CTP
+            XmlElement ftp = commonXml.CreateElement("ftp");
+            ftp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            ftps.AppendChild(ftp);
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ftp.AppendChild(name);
+            }
+
+
+            return commonXml;
+
+        }
     }
 }
