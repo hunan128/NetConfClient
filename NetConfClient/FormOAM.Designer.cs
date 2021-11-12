@@ -34,6 +34,7 @@
             this.label20 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.label22 = new System.Windows.Forms.Label();
             this.comdelay = new System.Windows.Forms.ComboBox();
             this.comnearloss = new System.Windows.Forms.ComboBox();
             this.comfarloss = new System.Windows.Forms.ComboBox();
@@ -52,6 +53,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.textBoxccstate = new System.Windows.Forms.TextBox();
             this.ButSetconfig = new System.Windows.Forms.Button();
             this.ComName = new System.Windows.Forms.ComboBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -75,8 +77,6 @@
             this.label19 = new System.Windows.Forms.Label();
             this.comVlan = new System.Windows.Forms.ComboBox();
             this.label18 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.textBoxccstate = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
@@ -178,6 +178,17 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel2.Size = new System.Drawing.Size(226, 266);
             this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label22.Location = new System.Drawing.Point(3, 234);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(93, 32);
+            this.label22.TabIndex = 24;
+            this.label22.Text = "CC状态";
+            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // comdelay
             // 
@@ -384,6 +395,15 @@
             this.label17.TabIndex = 17;
             this.label17.Text = "时延";
             this.label17.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBoxccstate
+            // 
+            this.textBoxccstate.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxccstate.Location = new System.Drawing.Point(102, 237);
+            this.textBoxccstate.Name = "textBoxccstate";
+            this.textBoxccstate.ReadOnly = true;
+            this.textBoxccstate.Size = new System.Drawing.Size(121, 21);
+            this.textBoxccstate.TabIndex = 25;
             // 
             // ButSetconfig
             // 
@@ -671,26 +691,6 @@
             this.label18.TabIndex = 17;
             this.label18.Text = "vlan";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label22.Location = new System.Drawing.Point(3, 234);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(93, 32);
-            this.label22.TabIndex = 24;
-            this.label22.Text = "CC状态";
-            this.label22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBoxccstate
-            // 
-            this.textBoxccstate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxccstate.Location = new System.Drawing.Point(102, 237);
-            this.textBoxccstate.Name = "textBoxccstate";
-            this.textBoxccstate.ReadOnly = true;
-            this.textBoxccstate.Size = new System.Drawing.Size(121, 21);
-            this.textBoxccstate.TabIndex = 25;
             // 
             // FormOAM
             // 

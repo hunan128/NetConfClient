@@ -2213,12 +2213,15 @@ namespace NetConfClientSoftware
 
                     XmlNodeList ctp = itemNode.SelectNodes("connectionsxmlns:ctp", root);
                     string CTPAll = "";
+                    ArrayList list = new ArrayList();
                     if (ctp != null)
                     {
                         for (int i = 1; i <= ctp.Count; i++)
                         {
                             XmlNode _ctp = itemNode.SelectSingleNode("connectionsxmlns:ctp[" + i + "]", root);
-                            CTPAll = CTPAll+"\r\n" + _ctp.InnerText;
+                            //  CTPAll = CTPAll+"," + _ctp.InnerText;
+                            list.Add(_ctp.InnerText);
+                            CTPAll = string.Join(",", (string[])list.ToArray(typeof(string)));
                             if (_ctp.InnerText.Contains("PTP")) {
                                 dataGridViewEth.Rows[index].Cells["CTP端口2"].Value = _ctp.InnerText;
                             }
@@ -3895,6 +3898,61 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
             Thread.Sleep(3000);
             ButFind.PerformClick();
+        }
+
+        private void oDUFlex带宽调整ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string _odu__ctp_name = "",_position = "", _action = "", _current_number_of_tributary_slots = "", _ts_detail = "", _timeout = "";
+                string allconnection = "";
+                string connection = "";
+                foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        connection = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();       //设备IP地址
+                        allconnection = allconnection + "\r\n" + connection;
+                    }
+                }
+                if (MessageBox.Show("正在配置当前业务的OAM:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+
+                    foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            _odu__ctp_name = dataGridViewEth.Rows[row.Index].Cells["CTP端口1"].Value.ToString();
+                            // 实例化FormInfo，并传入待修改初值  
+                            var FormModifyOdu = new Form_Modify_Odu(_odu__ctp_name);
+                            // 以对话框方式显示FormInfo  
+                            if (FormModifyOdu.ShowDialog() == DialogResult.OK)
+                            {
+                                //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
+                                _odu__ctp_name = FormModifyOdu._odu__ctp_name;
+                                _position = FormModifyOdu._position;
+                                _action = FormModifyOdu._action;
+                                _current_number_of_tributary_slots = FormModifyOdu._current_number_of_tributary_slots;
+                                _ts_detail = FormModifyOdu._ts_detail;
+                                _timeout = FormModifyOdu._timeout;
+
+                                Creat(CreatODU.Modify_Odu_Connection(_odu__ctp_name, _position, _action, _current_number_of_tributary_slots, _ts_detail, _timeout,ips));
+
+                            }
+
+                        }
+                    }
+
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

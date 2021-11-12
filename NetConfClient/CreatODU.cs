@@ -322,5 +322,105 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
+        public static XmlDocument Modify_Odu_Connection(string _odu__ctp_name, string _position, string _action, string _current_number_of_tributary_slots, string _ts_detail, string _timeout,string IPS)
+        {
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement modify_odu_connection_capacity = commonXml.CreateElement("modify-odu-connection-capacity");
+            modify_odu_connection_capacity.SetAttribute("xmlns", "urn:ccsa:yang:acc-otn");
+            rpc.AppendChild(modify_odu_connection_capacity);
+            if (IPS.Contains("移动"))
+            {
+
+                //CTP端口
+                XmlElement odu_ctp_name = commonXml.CreateElement("odu-ctp-name");
+                odu_ctp_name.InnerText = _odu__ctp_name;
+                modify_odu_connection_capacity.AppendChild(odu_ctp_name);
+                //端口类型
+                XmlElement position = commonXml.CreateElement("position");
+                position.InnerText = _position;
+                modify_odu_connection_capacity.AppendChild(position);
+
+                //动作
+                XmlElement action = commonXml.CreateElement("action");
+                action.InnerText = _action;
+                modify_odu_connection_capacity.AppendChild(action);
+                if (_current_number_of_tributary_slots != "") {
+                    //当前支路板卡时隙数量
+                    XmlElement current_number_of_tributary_slots = commonXml.CreateElement("current-number-of-tributary-slots");
+                    current_number_of_tributary_slots.InnerText = _current_number_of_tributary_slots;
+                    modify_odu_connection_capacity.AppendChild(current_number_of_tributary_slots);
+                }
+                if (_ts_detail != "") {
+
+                    //线路时隙
+
+                    XmlElement ts_detail = commonXml.CreateElement("ts-detail");
+                    ts_detail.InnerText = _ts_detail;
+                    modify_odu_connection_capacity.AppendChild(ts_detail);
+                }
+
+                //超时时间
+                XmlElement timeout = commonXml.CreateElement("timeout");
+                timeout.InnerText = _timeout;
+                modify_odu_connection_capacity.AppendChild(timeout);
+
+               
+            }
+            if (IPS.Contains("联通"))
+            {
+
+                //CTP端口
+                XmlElement odu_ctp_name = commonXml.CreateElement("odu-ctp-name");
+                odu_ctp_name.InnerText = _odu__ctp_name;
+                modify_odu_connection_capacity.AppendChild(odu_ctp_name);
+                //端口类型
+                XmlElement position = commonXml.CreateElement("position");
+                position.InnerText = _position;
+                modify_odu_connection_capacity.AppendChild(position);
+
+                //动作
+                XmlElement action = commonXml.CreateElement("action");
+                action.InnerText = _action;
+                modify_odu_connection_capacity.AppendChild(action);
+                if (_current_number_of_tributary_slots != "")
+                {
+                    //当前支路板卡时隙数量
+                    XmlElement current_number_of_tributary_slots = commonXml.CreateElement("current-number-of-tributary-slots");
+                    current_number_of_tributary_slots.InnerText = _current_number_of_tributary_slots;
+                    modify_odu_connection_capacity.AppendChild(current_number_of_tributary_slots);
+                }
+                if (_ts_detail != "")
+                {
+
+                    //线路时隙
+
+                    XmlElement ts_detail = commonXml.CreateElement("ts-detail");
+                    ts_detail.InnerText = _ts_detail;
+                    modify_odu_connection_capacity.AppendChild(ts_detail);
+                }
+
+                //超时时间
+                XmlElement timeout = commonXml.CreateElement("timeout");
+                timeout.InnerText = _timeout;
+                modify_odu_connection_capacity.AppendChild(timeout);
+
+
+            }
+
+            return commonXml;
+
+        }
     }
+
 }
