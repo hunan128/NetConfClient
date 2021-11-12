@@ -3954,5 +3954,148 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void oDUK在线时延测量ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                
+                string _name = "", _odu_delay_enable = "", _delay = "", _last_update_time = "", _server_tp = "", _odu_signal_type="", _adaptation_type="", _switch_capability="",_pmtx="",_pmexp="",_pmrx="";
+                string allconnection = "";
+                string connection = "";
+                foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        connection = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();       //设备IP地址
+                        allconnection = allconnection + "\r\n" + connection;
+                    }
+                }
+                if (MessageBox.Show("正在配置当前业务的OAM:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+
+                    foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            _name = dataGridViewEth.Rows[row.Index].Cells["CTP端口1"].Value.ToString();
+
+                            string[] strArray = _name.Split(',');
+                            foreach (var item in strArray)
+                            {
+                                if (item != "")
+                                {
+                                    if (!item.Contains("FTP")&&!(item.Contains("port=10")))
+                                        _name = item;
+                                    }
+
+                            }
+
+
+                            try
+                            {
+                                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                                XmlDocument xmlDoc = new XmlDocument();
+                                //xmlDoc.Load(filename);
+                                xmlDoc = Sendrpc(Find.CTP(_name));
+
+                                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                                root.AddNamespace("ctpxmlns", "urn:ccsa:yang:acc-otn");
+
+                                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ctps//ptpsxmlns:ctp", root);
+                                foreach (XmlNode itemNode in itemNodes)
+                                {
+                                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+                                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
+                                    XmlNode server_tp = itemNode.SelectSingleNode("ptpsxmlns:server-tp", root);
+
+                                    if (layer_protocol_name != null && server_tp != null)
+                                    {
+                                        _server_tp = server_tp.InnerText;
+                                        if (layer_protocol_name.InnerText.Contains("ODU"))
+                                        {
+                                            if (name != null)
+                                            {
+                                                if (_name == name.InnerText)
+                                                {
+                                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("ctpxmlns:odu-ctp-pac", root);
+                                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
+                                                    {
+                                                        if (ips.Contains("移动"))
+                                                        {
+                                                            return;
+                                                                    //移动不支持
+                                                        }
+                                                        if (ips.Contains("联通"))
+                                                        {
+                                                            XmlNode odu_signal_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:odu-signal-type", root);
+                                                            XmlNode adaptation_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:adaptation-type", root);
+                                                            XmlNode switch_capability = itemNodeOdu.SelectSingleNode("//ctpxmlns:switch-capability", root);
+                                                            XmlNode odu_ctp_delay_enable = itemNodeOdu.SelectSingleNode("//ctpxmlns:odu-ctp-delay-enable", root);
+                                                            XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
+                                                            XmlNode last_update_time = itemNodeOdu.SelectSingleNode("//ctpxmlns:last-update-time", root);
+                                                            XmlNode pmtrail_trace_actual_tx = itemNodeOdu.SelectSingleNode("//ctpxmlns:pmtrail-trace-actual-tx", root);
+                                                            XmlNode pmtrail_trace_actual_rx = itemNodeOdu.SelectSingleNode("//ctpxmlns:pmtrail-trace-actual-rx", root);
+                                                            XmlNode pmtrail_trace_expected_rx = itemNodeOdu.SelectSingleNode("//ctpxmlns:pmtrail-trace-expected-rx", root);
+                                                            if (odu_signal_type != null) { _odu_signal_type = odu_signal_type.InnerText; }
+                                                            if (adaptation_type != null) { _adaptation_type = adaptation_type.InnerText; }
+                                                            if (switch_capability != null) { _switch_capability = switch_capability.InnerText; }
+                                                            if (odu_ctp_delay_enable != null) { _odu_delay_enable = odu_ctp_delay_enable.InnerText; }
+                                                            if (delay != null) { _delay = delay.InnerText; }
+                                                            if (last_update_time != null) { _last_update_time = last_update_time.InnerText; }
+                                                            if (pmtrail_trace_actual_tx != null) { _pmtx = pmtrail_trace_actual_tx.InnerText; }
+                                                            if (pmtrail_trace_actual_rx != null) { _pmrx = pmtrail_trace_actual_rx.InnerText; }
+                                                            if (pmtrail_trace_expected_rx != null) { _pmexp = pmtrail_trace_expected_rx.InnerText; }
+                                                        }
+
+
+                                                    }
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                                // Console.Read();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+                            }
+
+
+
+                            // 实例化FormInfo，并传入待修改初值  
+                            var FormODUkDelay = new Form_ODUk_Delay(_name,_odu_delay_enable,_delay,_last_update_time,_odu_signal_type,_adaptation_type,_switch_capability,_pmtx,_pmexp,_pmrx);
+                            // 以对话框方式显示FormInfo  
+                            if (FormODUkDelay.ShowDialog() == DialogResult.OK)
+                            {
+                                //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
+                                _name = FormODUkDelay._name;
+                                _odu_delay_enable = FormODUkDelay._odu_delay_enable;
+
+                                Creat(Modify.Odu_ctp_delay(_name, _odu_delay_enable));
+
+                            }
+
+                        }
+                    }
+
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }

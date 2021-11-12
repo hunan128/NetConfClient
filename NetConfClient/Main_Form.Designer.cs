@@ -593,6 +593,7 @@ namespace NetConfClientSoftware
             this.toolStripStatusLabelips = new System.Windows.Forms.ToolStripStatusLabel();
             this.ButDelay = new System.Windows.Forms.Button();
             this.oDUFlex带宽调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.oDUK在线时延测量ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2077,21 +2078,22 @@ namespace NetConfClientSoftware
             this.contextMenuStrip_ODU.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.删除业务ToolStripMenuItem,
             this.OAM配置ToolStripMenuItem,
-            this.oDUFlex带宽调整ToolStripMenuItem});
+            this.oDUFlex带宽调整ToolStripMenuItem,
+            this.oDUK在线时延测量ToolStripMenuItem});
             this.contextMenuStrip_ODU.Name = "contextMenuStrip_ODU";
-            this.contextMenuStrip_ODU.Size = new System.Drawing.Size(181, 92);
+            this.contextMenuStrip_ODU.Size = new System.Drawing.Size(185, 114);
             // 
             // 删除业务ToolStripMenuItem
             // 
             this.删除业务ToolStripMenuItem.Name = "删除业务ToolStripMenuItem";
-            this.删除业务ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.删除业务ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.删除业务ToolStripMenuItem.Text = "删除业务";
             this.删除业务ToolStripMenuItem.Click += new System.EventHandler(this.删除业务ToolStripMenuItem_Click);
             // 
             // OAM配置ToolStripMenuItem
             // 
             this.OAM配置ToolStripMenuItem.Name = "OAM配置ToolStripMenuItem";
-            this.OAM配置ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.OAM配置ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.OAM配置ToolStripMenuItem.Text = "OAM查询或配置";
             this.OAM配置ToolStripMenuItem.Click += new System.EventHandler(this.oAM创建ToolStripMenuItem_Click);
             // 
@@ -6072,9 +6074,16 @@ namespace NetConfClientSoftware
             // oDUFlex带宽调整ToolStripMenuItem
             // 
             this.oDUFlex带宽调整ToolStripMenuItem.Name = "oDUFlex带宽调整ToolStripMenuItem";
-            this.oDUFlex带宽调整ToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.oDUFlex带宽调整ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.oDUFlex带宽调整ToolStripMenuItem.Text = "ODUFlex带宽调整";
             this.oDUFlex带宽调整ToolStripMenuItem.Click += new System.EventHandler(this.oDUFlex带宽调整ToolStripMenuItem_Click);
+            // 
+            // oDUK在线时延测量ToolStripMenuItem
+            // 
+            this.oDUK在线时延测量ToolStripMenuItem.Name = "oDUK在线时延测量ToolStripMenuItem";
+            this.oDUK在线时延测量ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.oDUK在线时延测量ToolStripMenuItem.Text = "ODUK在线时延测量";
+            this.oDUK在线时延测量ToolStripMenuItem.Click += new System.EventHandler(this.oDUK在线时延测量ToolStripMenuItem_Click);
             // 
             // Main_Form
             // 
@@ -6747,6 +6756,7 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button ButDelay;
         private System.Windows.Forms.ToolStripMenuItem oDUFlex带宽调整ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem oDUK在线时延测量ToolStripMenuItem;
     }
 }
 
