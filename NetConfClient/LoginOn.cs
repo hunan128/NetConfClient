@@ -21,7 +21,7 @@ namespace NetConfClientSoftware
         ///     构造函数
         /// </summary>
         /// <param name="ip">待修改的信息</param>
-        public LoginOn(string ip,int port,string user,string passd,string version,string ips) : this()
+        public LoginOn(string ip,int port,string user,string passd,string version,string ips,string gpnname) : this()
         {
             // 在TextBox中显示信息初值  
             //textBoxInfo.Text = info;
@@ -34,6 +34,7 @@ namespace NetConfClientSoftware
                 Textpasd.Text = passd;
                 ComVersion.Text = version;
                 Comips.Text = ips;
+                TextNeName.Text = gpnname;
 
             }
         }
@@ -63,6 +64,10 @@ namespace NetConfClientSoftware
         public string IPS
         {
             get { return Comips.Text; }
+        }
+        public string NeName
+        {
+            get { return TextNeName.Text; }
         }
     }
 }
