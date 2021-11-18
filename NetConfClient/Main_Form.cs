@@ -39,7 +39,9 @@ namespace NetConfClientSoftware
         public string ips = "联通";
         public string gpnname = "GPN";
         public static string neinfopath = @"C:\netconf\neinfo.xml";
+        
         #region 声明ini变量
+
         /// <summary>
         /// 写入INI文件
         /// </summary>
@@ -530,6 +532,22 @@ namespace NetConfClientSoftware
             {
                 Gpnsetini();
                 Sub = false;
+                for (int i = 0; i < dataGridViewNeInformation.RowCount-1; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["订阅"].Value != null)
+                    {
+                        if (dataGridViewNeInformation.Rows[i].Cells["订阅"].Value.ToString() == "已开启")
+                        {
+                            Sub = false;
+                            int id = int.Parse(dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString());
+                            netConfClient[id].SendReceiveRpcKeepLive();
+                            Thread.Sleep(3000);
+                        }
+                    }
+                   
+
+                }
+                
 
             }
             catch {
@@ -584,8 +602,8 @@ namespace NetConfClientSoftware
 
                 }
             }
-            TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-            TextLog.AppendText("订阅监听已经停止，请关注\r\n");
+            //TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+            //TextLog.AppendText("订阅监听已经停止，请关注\r\n");
         }
 
 
@@ -1134,7 +1152,7 @@ namespace NetConfClientSoftware
                 上载全部XMLToolStripMenuItem.Enabled = false;
                 XmlDocument doc = new XmlDocument();
                 doc = Sendrpc(Find.FindGetAll(),id,ip);
-                doc.Save(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                doc.Save(@"C:\netconf\" + ip + "_XmlAll.xml");
                 MessageBox.Show("上载成功！");
                 上载全部XMLToolStripMenuItem.Enabled = true;
             }
@@ -4384,6 +4402,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         netConfClient[id].OperationTimeout = TimeSpan.FromSeconds(15);
                         netConfClient[id].TimeOut = int.Parse(ComTimeOut.Text) * 1000;
                         dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接成功";
+                        dataGridViewNeInformation.Rows[rowindex].DefaultCellStyle.BackColor = Color.GreenYellow;
+
                         for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                         {
                             if (treeViewNEID.Nodes[i].Name == id.ToString()) {
@@ -4421,13 +4441,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 XmlNodeList eq = itemNode.SelectNodes("me:eq", root);
                                 XmlNode ntp_state = itemNode.SelectSingleNode("me:ntp-state", root);
 
-                                string layer_protocol_name_eth = layer_protocol_nameeth.InnerText;
-                                string layer_protocol_name_sdh = layer_protocol_namesdh.InnerText;
-                                string layer_protocol_name_otn = layer_protocol_nameotn.InnerText;
-                                string layer_protocol_name_all = layer_protocol_name_eth + layer_protocol_name_sdh + layer_protocol_name_otn;
-                                layer_protocol_name_all = layer_protocol_name_all.Replace("acc-eth:", "");
-                                layer_protocol_name_all = layer_protocol_name_all.Replace("acc-sdh", "");
-                                layer_protocol_name_all = layer_protocol_name_all.Replace("acc-otn", "");
+ 
 
                                 if (name != null)
                                 {
@@ -4495,8 +4509,30 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                     dataGridViewNeInformation.Rows[rowindex].Cells["设备类型"].Value = device_type.InnerText;
 
                                 }
+                                string layer_protocol_name_eth = "";
+                                string layer_protocol_name_sdh = "";
+                                string layer_protocol_name_otn = "";
+                                string layer_protocol_name_all = "";
+                                if (layer_protocol_nameeth != null) {
+                                    layer_protocol_name_eth = layer_protocol_nameeth.InnerText;
+                                }
+                                if (layer_protocol_namesdh != null)
+                                {
+                                    layer_protocol_name_sdh = layer_protocol_namesdh.InnerText;
+                                }
+                                if (layer_protocol_nameotn != null)
+                                {
+                                    layer_protocol_name_otn = layer_protocol_nameotn.InnerText;
+                                }
+                                layer_protocol_name_all = layer_protocol_name_eth + layer_protocol_name_sdh + layer_protocol_name_otn;
+                                layer_protocol_name_all = layer_protocol_name_all.Replace("acc-eth:", "");
+                                layer_protocol_name_all = layer_protocol_name_all.Replace("acc-sdh", "");
+                                layer_protocol_name_all = layer_protocol_name_all.Replace("acc-otn", "");
+                                if (layer_protocol_name_all != null) {
 
-                                if (layer_protocol_name_all != null) textBox_me_protocol_name.Text = layer_protocol_name_all;
+                                    textBox_me_protocol_name.Text = layer_protocol_name_all;
+                                }
+                                
                                 if (eq != null) textBox_me_eq.Text = eq.Count.ToString();
 
 
@@ -4529,6 +4565,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 else
                 {
                     dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接失败";
+                    dataGridViewNeInformation.Rows[rowindex].DefaultCellStyle.BackColor = Color.Yellow;
                     for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                     {
                         if (treeViewNEID.Nodes[i].Name == id.ToString())
@@ -4548,6 +4585,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             {
                 TextLog.AppendText(ex.Message + "\r\n");
                 dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接失败";
+                dataGridViewNeInformation.Rows[rowindex].DefaultCellStyle.BackColor = Color.Yellow;
                 for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                 {
                     if (treeViewNEID.Nodes[i].Name == id.ToString())
@@ -4575,6 +4613,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     {
                         neip = dataGridViewNeInformation.Rows[row.Index].Cells["网元ip"].Value.ToString();       //设备IP地址
                         neipall = neipall + "\r\n" + neip;
+
                     }
                 }
                 if (MessageBox.Show("正在上线当前设备:" + neipall + "\r\n是否上线？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -4584,6 +4623,15 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     {
                         if (!row.IsNewRow)
                         {
+                            dataGridViewNeInformation.Rows[row.Index].DefaultCellStyle.BackColor = Color.White;
+                            dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["设备名称"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["设备类型"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["网元软件版本"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["网元硬件版本"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["UUID"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["NTP"].Value = "";
+
                             neip = dataGridViewNeInformation.Rows[row.Index].Cells["网元ip"].Value.ToString();
                             id = int.Parse(dataGridViewNeInformation.Rows[row.Index].Cells["SSH_ID"].Value.ToString());
                             port = 830;
@@ -4594,10 +4642,10 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
 
                         }
-                        Thread.Sleep(500);
+                        Thread.Sleep(2000);
 
                     }
-                    MessageBox.Show(neipall + "\r\n上线准备就绪！");
+              //      MessageBox.Show(neipall + "\r\n上线准备就绪！");
 
                 }
                 // 保存在实体类属性中
@@ -4661,7 +4709,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
                                 }
                             }
-
+                            Thread.Sleep(3000);
                             if (netConfClient[id] != null)
                             {
                                 if (netConfClient[id].IsConnected)
@@ -4669,8 +4717,14 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                     netConfClient[id].Disconnect();
                                 }
                             }
-                            dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value="连接已断开";
-                            dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "已关闭";
+                            dataGridViewNeInformation.Rows[row.Index].DefaultCellStyle.BackColor = Color.White;
+                            dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value="已断开";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["设备名称"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["设备类型"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["网元软件版本"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["网元硬件版本"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["UUID"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["NTP"].Value = "";
                             for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                             {
                                 if (treeViewNEID.Nodes[i].Name == id.ToString())
@@ -4683,7 +4737,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                        
 
                     }
-                    MessageBox.Show(neipall+"\r\n已离线！");
+                  //  MessageBox.Show(neipall+"\r\n已离线！");
 
                 }
                 // 保存在实体类属性中
@@ -4802,6 +4856,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         {
             try
             {
+
                 string neipall = "";
                 string neip = "";
                 int id = 1;
@@ -4822,12 +4877,14 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     {
                         if (!row.IsNewRow)
                         {
+                           
                             neip = dataGridViewNeInformation.Rows[row.Index].Cells["网元ip"].Value.ToString();
                             id = int.Parse(dataGridViewNeInformation.Rows[row.Index].Cells["SSH_ID"].Value.ToString());
                             user = dataGridViewNeInformation.Rows[row.Index].Cells["用户名"].Value.ToString();
                             password = dataGridViewNeInformation.Rows[row.Index].Cells["密码"].Value.ToString();
 
                             if (dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value.ToString() == "连接成功") {
+                                dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "订阅中";
                                 string subscription = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\r\n" +
                     "<rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"7\" >" + "\r\n" +
                     "<create-subscription xmlns=\"urn:ietf:params:xml:ns:netconf:notification:1.0\" />" + "\r\n" +
@@ -4840,12 +4897,12 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 Thread thread = new Thread(() => Subscription(id, neip));
                                 thread.Start();
                                 dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "已开启";
+                                Thread.Sleep(1000);
 
                             }
 
 
                         }
-                        Thread.Sleep(500);
 
 
                     }
@@ -4862,6 +4919,230 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 TextLog.AppendText(ex.Message + "\r\n");
             }
 
+        }
+
+        private void cTP限速调整ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string ip = treeViewNEID.SelectedNode.Text;
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            try
+            {
+                string _server_tp = "", _vlan_id = "", _vlan_type = "", _dm_state = "", _tm_state = "", _lm_state = "", _cc_state = "", _cc_state1 = "", _mep_id = "", _remote_mep_id = "", _meg_id = "",
+                    _md_name = "", _mel = "", _cc_interval = "", _lm_interval = "", _dm_interval = "",
+    _delay = "", _near_loss = "", _far_loss = "", _tx_bytes = "", _rx_bytes = "";
+                string allconnection = "";
+                string _name = "";
+                foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        _name = dataGridViewEth.Rows[row.Index].Cells["CTP端口2"].Value.ToString();       //设备IP地址
+                        allconnection = allconnection + "\r\n" + _name;
+                    }
+                }
+                if (MessageBox.Show("正在配置当前业务的OAM:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+
+                    foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            _name = dataGridViewEth.Rows[row.Index].Cells["CTP端口2"].Value.ToString();
+
+                            try
+                            {
+                                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                                XmlDocument xmlDoc = new XmlDocument();
+                                //xmlDoc.Load(filename);
+
+                                xmlDoc = Sendrpc(Find.CTP(_name), id, ip);
+
+                                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                                root.AddNamespace("ctpxmlns", "urn:ccsa:yang:acc-eth");
+
+                                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ctps//ptpsxmlns:ctp", root);
+                                foreach (XmlNode itemNode in itemNodes)
+                                {
+                                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+                                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
+                                    XmlNode server_tp = itemNode.SelectSingleNode("ptpsxmlns:server-tp", root);
+
+                                    if (layer_protocol_name != null && server_tp != null)
+                                    {
+                                        _server_tp = server_tp.InnerText;
+                                        if (layer_protocol_name.InnerText == "acc-eth:ETH")
+                                        {
+                                            if (name != null)
+                                            {
+                                                if (_name == name.InnerText)
+                                                {
+                                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("ctpxmlns:eth-ctp-pac", root);
+                                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
+                                                    {
+                                                        if (ips.Contains("移动"))
+                                                        {
+                                                            XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
+                                                            XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
+                                                            XmlNode dm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-state", root);
+                                                            XmlNode tm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:tm-state", root);
+                                                            XmlNode lm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-state", root);
+                                                            XmlNode cc_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-state", root);
+                                                            XmlNode mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:mep-id", root);
+                                                            XmlNode meg_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:meg-id", root);
+                                                            XmlNode mel = itemNodeOdu.SelectSingleNode("//ctpxmlns:mel", root);
+                                                            XmlNode remote_mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:remote-mep-id", root);
+                                                            XmlNode md_name = itemNodeOdu.SelectSingleNode("//ctpxmlns:md-name", root);
+                                                            XmlNode cc_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-interval", root);
+                                                            XmlNode lm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-interval", root);
+                                                            XmlNode dm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-interval", root);
+                                                            XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
+                                                            XmlNode near_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:near-packet-loss-rate", root);
+                                                            XmlNode far_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:far-packet-loss-rate", root);
+                                                            XmlNode tx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:tx-bytes", root);
+                                                            XmlNode rx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:rx-bytes", root);
+
+                                                            if (vlan_id != null) { _vlan_id = vlan_id.InnerText; }
+                                                            if (vlan_type != null) { _vlan_type = vlan_type.InnerText; }
+                                                            if (dm_state != null) { _dm_state = dm_state.InnerText; }
+                                                            if (tm_state != null) { _tm_state = tm_state.InnerText; }
+                                                            if (lm_state != null) { _lm_state = lm_state.InnerText; }
+                                                            if (cc_state != null) { _cc_state = cc_state.InnerText; }
+                                                            if (mep_id != null) { _mep_id = mep_id.InnerText; }
+                                                            if (meg_id != null) { _meg_id = meg_id.InnerText; }
+                                                            if (mel != null) { _mel = mel.InnerText; }
+                                                            if (remote_mep_id != null) { _remote_mep_id = remote_mep_id.InnerText; }
+                                                            if (md_name != null) { _md_name = md_name.InnerText; }
+                                                            if (cc_interval != null) { _cc_interval = cc_interval.InnerText; }
+                                                            if (lm_interval != null) { _lm_interval = lm_interval.InnerText; }
+                                                            if (dm_interval != null) { _dm_interval = dm_interval.InnerText; }
+                                                            if (delay != null) { _delay = delay.InnerText; }
+                                                            if (near_packet_loss_rate != null) { _near_loss = near_packet_loss_rate.InnerText; }
+                                                            if (far_packet_loss_rate != null) { _far_loss = far_packet_loss_rate.InnerText; }
+                                                            if (tx_bytes != null) { _tx_bytes = tx_bytes.InnerText; }
+                                                            if (rx_bytes != null) { _rx_bytes = rx_bytes.InnerText; }
+                                                        }
+                                                        if (ips.Contains("联通"))
+                                                        {
+                                                            XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
+                                                            XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
+                                                            XmlNode dm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-enable", root);
+                                                            XmlNode tm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:tm-enable", root);
+                                                            XmlNode lm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-enable", root);
+                                                            XmlNode cc_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-enable", root);
+                                                            XmlNode cc_state1 = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-state", root);
+                                                            XmlNode mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:mep-id", root);
+                                                            XmlNode meg_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:meg-id", root);
+                                                            XmlNode mel = itemNodeOdu.SelectSingleNode("//ctpxmlns:mel", root);
+                                                            XmlNode remote_mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:remote-mep-id", root);
+                                                            XmlNode md_name = itemNodeOdu.SelectSingleNode("//ctpxmlns:md-name", root);
+                                                            XmlNode cc_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-interval", root);
+                                                            XmlNode lm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-interval", root);
+                                                            XmlNode dm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-interval", root);
+                                                            XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
+                                                            XmlNode near_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:near-packet-loss-rate", root);
+                                                            XmlNode far_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:far-packet-loss-rate", root);
+                                                            XmlNode tx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:tx-bytes", root);
+                                                            XmlNode rx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:rx-bytes", root);
+
+                                                            if (vlan_id != null) { _vlan_id = vlan_id.InnerText; }
+                                                            if (vlan_type != null) { _vlan_type = vlan_type.InnerText; }
+                                                            if (dm_state != null) { _dm_state = dm_state.InnerText; }
+                                                            if (tm_state != null) { _tm_state = tm_state.InnerText; }
+                                                            if (lm_state != null) { _lm_state = lm_state.InnerText; }
+                                                            if (cc_state != null) { _cc_state = cc_state.InnerText; }
+                                                            if (cc_state1 != null) { _cc_state1 = cc_state1.InnerText; }
+
+                                                            if (mep_id != null) { _mep_id = mep_id.InnerText; }
+                                                            if (meg_id != null) { _meg_id = meg_id.InnerText; }
+                                                            if (mel != null) { _mel = mel.InnerText; }
+                                                            if (remote_mep_id != null) { _remote_mep_id = remote_mep_id.InnerText; }
+                                                            if (md_name != null) { _md_name = md_name.InnerText; }
+                                                            if (cc_interval != null) { _cc_interval = cc_interval.InnerText; }
+                                                            if (lm_interval != null) { _lm_interval = lm_interval.InnerText; }
+                                                            if (dm_interval != null) { _dm_interval = dm_interval.InnerText; }
+                                                            if (delay != null) { _delay = delay.InnerText; }
+                                                            if (near_packet_loss_rate != null) { _near_loss = near_packet_loss_rate.InnerText; }
+                                                            if (far_packet_loss_rate != null) { _far_loss = far_packet_loss_rate.InnerText; }
+                                                            if (tx_bytes != null) { _tx_bytes = tx_bytes.InnerText; }
+                                                            if (rx_bytes != null) { _rx_bytes = rx_bytes.InnerText; }
+                                                        }
+
+
+                                                    }
+                                                }
+
+                                            }
+
+                                        }
+                                    }
+                                }
+                                // Console.Read();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+                            }
+
+                            // 实例化FormInfo，并传入待修改初值  
+                            var Formoam = new FormOAM(_name, _server_tp, _vlan_id, _vlan_type, _dm_state, _tm_state, _lm_state, _cc_state, _cc_state1, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval,
+    _delay, _near_loss, _far_loss, _tx_bytes, _rx_bytes);
+                            // 以对话框方式显示FormInfo  
+                            if (Formoam.ShowDialog() == DialogResult.OK)
+                            {
+                                //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
+                                _name = Formoam._name;
+                                _mep_id = Formoam._mep_id;
+                                _remote_mep_id = Formoam._remote_mep_id;
+                                _meg_id = Formoam._meg_id;
+                                _md_name = Formoam._md_name;
+                                _mel = Formoam._mel;
+                                _cc_interval = Formoam._cc_interval;
+                                _lm_interval = Formoam._lm_interval;
+                                _dm_interval = Formoam._dm_interval;
+
+                                Creat(OAM.Create(_name, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval, ips), id, ip);
+                                MessageBox.Show("正在配置OAM状态，请稍等片刻！");
+                                _name = Formoam._name;
+                                _dm_state = Formoam._dm_state;
+                                _tm_state = Formoam._tm_state;
+                                _lm_state = Formoam._lm_state;
+                                _cc_state = Formoam._cc_state;
+
+                                Creat(OAM.State(_name, _dm_state, _tm_state, _lm_state, _cc_state, ips), id, ip);
+
+                            }
+
+
+
+
+                            //var doc = Sendrpc(DeleteODU.Delete(_name));//设备IP地址
+                            //if (doc.OuterXml.Contains("error"))
+                            //{
+                            //    MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                            //}
+                            //else
+                            //{
+                            //    //this.dataGridViewEth.Rows.Remove(row);
+                            //}
+
+                        }
+                    }
+                    // MessageBox.Show(allconnection + "\r\n已成功删除，重新点击在线查询即可更新。");
+
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
