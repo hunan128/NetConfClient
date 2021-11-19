@@ -119,6 +119,12 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Connection_Rate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Connection_Rate.Designer.cs">
+      <DependentUpon>Form_Connection_Rate.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocalConnectionXml.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="ExcelUtility.cs" />
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AutoXmlInfo.resx">
       <DependentUpon>Form_AutoXmlInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Connection_Rate.resx">
+      <DependentUpon>Form_Connection_Rate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Modify_Odu.resx">
       <DependentUpon>Form_Modify_Odu.cs</DependentUpon>

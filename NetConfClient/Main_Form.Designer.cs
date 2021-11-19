@@ -37,6 +37,9 @@ namespace NetConfClientSoftware
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -54,9 +57,6 @@ namespace NetConfClientSoftware
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ButSend = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.RichTextReq = new System.Windows.Forms.TextBox();
@@ -99,6 +99,22 @@ namespace NetConfClientSoftware
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.dataGridViewNeInformation = new System.Windows.Forms.DataGridView();
+            this.SSH_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.网元ip = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.子网掩码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.网关1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.网元名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.运营商 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.设备名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.设备类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.连接状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.订阅 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.网元软件版本 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.网元硬件版本 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UUID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.用户名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.密码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ConnectionDevice = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.新增网元ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.删除网元ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -210,6 +226,7 @@ namespace NetConfClientSoftware
             this.OAM配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oDUFlex带宽调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oDUK在线时延测量ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cTP限速调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ButFindEth_online = new System.Windows.Forms.Button();
             this.透传业务 = new System.Windows.Forms.TabPage();
             this.tabControl3 = new System.Windows.Forms.TabControl();
@@ -628,23 +645,6 @@ namespace NetConfClientSoftware
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.treeViewNEID = new System.Windows.Forms.TreeView();
-            this.SSH_ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.网元ip = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.子网掩码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.网关1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.网元名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.运营商 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.设备名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.设备类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.连接状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.订阅 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.网元软件版本 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.网元硬件版本 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NTP = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UUID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.用户名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.密码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cTP限速调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -1187,6 +1187,107 @@ namespace NetConfClientSoftware
             this.dataGridViewNeInformation.Size = new System.Drawing.Size(1207, 602);
             this.dataGridViewNeInformation.TabIndex = 1;
             this.dataGridViewNeInformation.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridViewNeInformation_CellFormatting);
+            // 
+            // SSH_ID
+            // 
+            this.SSH_ID.HeaderText = "ID";
+            this.SSH_ID.Name = "SSH_ID";
+            this.SSH_ID.Width = 40;
+            // 
+            // 网元ip
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.网元ip.DefaultCellStyle = dataGridViewCellStyle3;
+            this.网元ip.HeaderText = "ip地址";
+            this.网元ip.Name = "网元ip";
+            this.网元ip.ReadOnly = true;
+            // 
+            // 子网掩码
+            // 
+            this.子网掩码.HeaderText = "子网掩码";
+            this.子网掩码.Name = "子网掩码";
+            // 
+            // 网关1
+            // 
+            this.网关1.HeaderText = "网关1";
+            this.网关1.Name = "网关1";
+            // 
+            // 网元名称
+            // 
+            this.网元名称.HeaderText = "网元名称";
+            this.网元名称.Name = "网元名称";
+            this.网元名称.ReadOnly = true;
+            this.网元名称.Width = 80;
+            // 
+            // 运营商
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.运营商.DefaultCellStyle = dataGridViewCellStyle4;
+            this.运营商.HeaderText = "运营商";
+            this.运营商.Name = "运营商";
+            this.运营商.Width = 80;
+            // 
+            // 设备名称
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.设备名称.DefaultCellStyle = dataGridViewCellStyle5;
+            this.设备名称.HeaderText = "设备名称";
+            this.设备名称.Name = "设备名称";
+            this.设备名称.Width = 80;
+            // 
+            // 设备类型
+            // 
+            this.设备类型.HeaderText = "设备类型";
+            this.设备类型.Name = "设备类型";
+            this.设备类型.Width = 80;
+            // 
+            // 连接状态
+            // 
+            this.连接状态.HeaderText = "连接状态";
+            this.连接状态.Name = "连接状态";
+            this.连接状态.Width = 80;
+            // 
+            // 订阅
+            // 
+            this.订阅.HeaderText = "订阅";
+            this.订阅.Name = "订阅";
+            this.订阅.Width = 60;
+            // 
+            // 网元软件版本
+            // 
+            this.网元软件版本.HeaderText = "软件版本";
+            this.网元软件版本.Name = "网元软件版本";
+            // 
+            // 网元硬件版本
+            // 
+            this.网元硬件版本.HeaderText = "硬件版本";
+            this.网元硬件版本.Name = "网元硬件版本";
+            this.网元硬件版本.Width = 80;
+            // 
+            // NTP
+            // 
+            this.NTP.HeaderText = "NTP";
+            this.NTP.Name = "NTP";
+            this.NTP.Width = 60;
+            // 
+            // UUID
+            // 
+            this.UUID.HeaderText = "UUID";
+            this.UUID.Name = "UUID";
+            this.UUID.Width = 120;
+            // 
+            // 用户名
+            // 
+            this.用户名.HeaderText = "用户";
+            this.用户名.Name = "用户名";
+            this.用户名.ReadOnly = true;
+            this.用户名.Width = 60;
+            // 
+            // 密码
+            // 
+            this.密码.HeaderText = "密码";
+            this.密码.Name = "密码";
+            this.密码.Width = 60;
             // 
             // ConnectionDevice
             // 
@@ -2182,35 +2283,42 @@ namespace NetConfClientSoftware
             this.oDUK在线时延测量ToolStripMenuItem,
             this.cTP限速调整ToolStripMenuItem});
             this.contextMenuStrip_ODU.Name = "contextMenuStrip_ODU";
-            this.contextMenuStrip_ODU.Size = new System.Drawing.Size(185, 136);
+            this.contextMenuStrip_ODU.Size = new System.Drawing.Size(190, 114);
             // 
             // 删除业务ToolStripMenuItem
             // 
             this.删除业务ToolStripMenuItem.Name = "删除业务ToolStripMenuItem";
-            this.删除业务ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.删除业务ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.删除业务ToolStripMenuItem.Text = "删除业务";
             this.删除业务ToolStripMenuItem.Click += new System.EventHandler(this.删除业务ToolStripMenuItem_Click);
             // 
             // OAM配置ToolStripMenuItem
             // 
             this.OAM配置ToolStripMenuItem.Name = "OAM配置ToolStripMenuItem";
-            this.OAM配置ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.OAM配置ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.OAM配置ToolStripMenuItem.Text = "OAM查询或配置";
             this.OAM配置ToolStripMenuItem.Click += new System.EventHandler(this.oAM创建ToolStripMenuItem_Click);
             // 
             // oDUFlex带宽调整ToolStripMenuItem
             // 
             this.oDUFlex带宽调整ToolStripMenuItem.Name = "oDUFlex带宽调整ToolStripMenuItem";
-            this.oDUFlex带宽调整ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.oDUFlex带宽调整ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.oDUFlex带宽调整ToolStripMenuItem.Text = "ODUFlex带宽调整";
             this.oDUFlex带宽调整ToolStripMenuItem.Click += new System.EventHandler(this.oDUFlex带宽调整ToolStripMenuItem_Click);
             // 
             // oDUK在线时延测量ToolStripMenuItem
             // 
             this.oDUK在线时延测量ToolStripMenuItem.Name = "oDUK在线时延测量ToolStripMenuItem";
-            this.oDUK在线时延测量ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
+            this.oDUK在线时延测量ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
             this.oDUK在线时延测量ToolStripMenuItem.Text = "ODUK在线时延测量";
             this.oDUK在线时延测量ToolStripMenuItem.Click += new System.EventHandler(this.oDUK在线时延测量ToolStripMenuItem_Click);
+            // 
+            // cTP限速调整ToolStripMenuItem
+            // 
+            this.cTP限速调整ToolStripMenuItem.Name = "cTP限速调整ToolStripMenuItem";
+            this.cTP限速调整ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.cTP限速调整ToolStripMenuItem.Text = "Connection限速调整";
+            this.cTP限速调整ToolStripMenuItem.Click += new System.EventHandler(this.cTP限速调整ToolStripMenuItem_Click);
             // 
             // ButFindEth_online
             // 
@@ -6419,114 +6527,6 @@ namespace NetConfClientSoftware
             this.treeViewNEID.Size = new System.Drawing.Size(172, 660);
             this.treeViewNEID.TabIndex = 10;
             this.treeViewNEID.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewNEID_NodeMouseClick);
-            // 
-            // SSH_ID
-            // 
-            this.SSH_ID.HeaderText = "ID";
-            this.SSH_ID.Name = "SSH_ID";
-            this.SSH_ID.Width = 40;
-            // 
-            // 网元ip
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.网元ip.DefaultCellStyle = dataGridViewCellStyle3;
-            this.网元ip.HeaderText = "ip地址";
-            this.网元ip.Name = "网元ip";
-            this.网元ip.ReadOnly = true;
-            // 
-            // 子网掩码
-            // 
-            this.子网掩码.HeaderText = "子网掩码";
-            this.子网掩码.Name = "子网掩码";
-            // 
-            // 网关1
-            // 
-            this.网关1.HeaderText = "网关1";
-            this.网关1.Name = "网关1";
-            // 
-            // 网元名称
-            // 
-            this.网元名称.HeaderText = "网元名称";
-            this.网元名称.Name = "网元名称";
-            this.网元名称.ReadOnly = true;
-            this.网元名称.Width = 80;
-            // 
-            // 运营商
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.运营商.DefaultCellStyle = dataGridViewCellStyle4;
-            this.运营商.HeaderText = "运营商";
-            this.运营商.Name = "运营商";
-            this.运营商.Width = 80;
-            // 
-            // 设备名称
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.设备名称.DefaultCellStyle = dataGridViewCellStyle5;
-            this.设备名称.HeaderText = "设备名称";
-            this.设备名称.Name = "设备名称";
-            this.设备名称.Width = 80;
-            // 
-            // 设备类型
-            // 
-            this.设备类型.HeaderText = "设备类型";
-            this.设备类型.Name = "设备类型";
-            this.设备类型.Width = 80;
-            // 
-            // 连接状态
-            // 
-            this.连接状态.HeaderText = "连接状态";
-            this.连接状态.Name = "连接状态";
-            this.连接状态.Width = 80;
-            // 
-            // 订阅
-            // 
-            this.订阅.HeaderText = "订阅";
-            this.订阅.Name = "订阅";
-            this.订阅.Width = 60;
-            // 
-            // 网元软件版本
-            // 
-            this.网元软件版本.HeaderText = "软件版本";
-            this.网元软件版本.Name = "网元软件版本";
-            // 
-            // 网元硬件版本
-            // 
-            this.网元硬件版本.HeaderText = "硬件版本";
-            this.网元硬件版本.Name = "网元硬件版本";
-            this.网元硬件版本.Width = 80;
-            // 
-            // NTP
-            // 
-            this.NTP.HeaderText = "NTP";
-            this.NTP.Name = "NTP";
-            this.NTP.Width = 60;
-            // 
-            // UUID
-            // 
-            this.UUID.HeaderText = "UUID";
-            this.UUID.Name = "UUID";
-            this.UUID.Width = 120;
-            // 
-            // 用户名
-            // 
-            this.用户名.HeaderText = "用户";
-            this.用户名.Name = "用户名";
-            this.用户名.ReadOnly = true;
-            this.用户名.Width = 60;
-            // 
-            // 密码
-            // 
-            this.密码.HeaderText = "密码";
-            this.密码.Name = "密码";
-            this.密码.Width = 60;
-            // 
-            // cTP限速调整ToolStripMenuItem
-            // 
-            this.cTP限速调整ToolStripMenuItem.Name = "cTP限速调整ToolStripMenuItem";
-            this.cTP限速调整ToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
-            this.cTP限速调整ToolStripMenuItem.Text = "CTP限速调整";
-            this.cTP限速调整ToolStripMenuItem.Click += new System.EventHandler(this.cTP限速调整ToolStripMenuItem_Click);
             // 
             // Main_Form
             // 

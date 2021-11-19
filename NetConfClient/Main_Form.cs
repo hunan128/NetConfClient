@@ -4927,27 +4927,25 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             int id = int.Parse(treeViewNEID.SelectedNode.Name);
             try
             {
-                string _server_tp = "", _vlan_id = "", _vlan_type = "", _dm_state = "", _tm_state = "", _lm_state = "", _cc_state = "", _cc_state1 = "", _mep_id = "", _remote_mep_id = "", _meg_id = "",
-                    _md_name = "", _mel = "", _cc_interval = "", _lm_interval = "", _dm_interval = "",
-    _delay = "", _near_loss = "", _far_loss = "", _tx_bytes = "", _rx_bytes = "";
+                string _total_size = "", _cir = "", _pir = "", _cbs = "", _pbs = "";
                 string allconnection = "";
                 string _name = "";
                 foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
                 {
                     if (!row.IsNewRow)
                     {
-                        _name = dataGridViewEth.Rows[row.Index].Cells["CTP端口2"].Value.ToString();       //设备IP地址
+                        _name = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();       //设备IP地址
                         allconnection = allconnection + "\r\n" + _name;
                     }
                 }
-                if (MessageBox.Show("正在配置当前业务的OAM:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MessageBox.Show("正在配置当前业务的限速:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
 
                     foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
                     {
                         if (!row.IsNewRow)
                         {
-                            _name = dataGridViewEth.Rows[row.Index].Cells["CTP端口2"].Value.ToString();
+                            _name = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();
 
                             try
                             {
@@ -4956,129 +4954,24 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 XmlDocument xmlDoc = new XmlDocument();
                                 //xmlDoc.Load(filename);
 
-                                xmlDoc = Sendrpc(Find.CTP(_name), id, ip);
+                                xmlDoc = Sendrpc(Find.Connection(_name), id, ip);
 
                                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
-                                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
-                                root.AddNamespace("ctpxmlns", "urn:ccsa:yang:acc-eth");
-
-                                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ctps//ptpsxmlns:ctp", root);
-                                foreach (XmlNode itemNode in itemNodes)
-                                {
-                                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
-                                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
-                                    XmlNode server_tp = itemNode.SelectSingleNode("ptpsxmlns:server-tp", root);
-
-                                    if (layer_protocol_name != null && server_tp != null)
-                                    {
-                                        _server_tp = server_tp.InnerText;
-                                        if (layer_protocol_name.InnerText == "acc-eth:ETH")
-                                        {
-                                            if (name != null)
-                                            {
-                                                if (_name == name.InnerText)
-                                                {
-                                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("ctpxmlns:eth-ctp-pac", root);
-                                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
-                                                    {
-                                                        if (ips.Contains("移动"))
-                                                        {
-                                                            XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
-                                                            XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
-                                                            XmlNode dm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-state", root);
-                                                            XmlNode tm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:tm-state", root);
-                                                            XmlNode lm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-state", root);
-                                                            XmlNode cc_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-state", root);
-                                                            XmlNode mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:mep-id", root);
-                                                            XmlNode meg_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:meg-id", root);
-                                                            XmlNode mel = itemNodeOdu.SelectSingleNode("//ctpxmlns:mel", root);
-                                                            XmlNode remote_mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:remote-mep-id", root);
-                                                            XmlNode md_name = itemNodeOdu.SelectSingleNode("//ctpxmlns:md-name", root);
-                                                            XmlNode cc_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-interval", root);
-                                                            XmlNode lm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-interval", root);
-                                                            XmlNode dm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-interval", root);
-                                                            XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
-                                                            XmlNode near_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:near-packet-loss-rate", root);
-                                                            XmlNode far_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:far-packet-loss-rate", root);
-                                                            XmlNode tx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:tx-bytes", root);
-                                                            XmlNode rx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:rx-bytes", root);
-
-                                                            if (vlan_id != null) { _vlan_id = vlan_id.InnerText; }
-                                                            if (vlan_type != null) { _vlan_type = vlan_type.InnerText; }
-                                                            if (dm_state != null) { _dm_state = dm_state.InnerText; }
-                                                            if (tm_state != null) { _tm_state = tm_state.InnerText; }
-                                                            if (lm_state != null) { _lm_state = lm_state.InnerText; }
-                                                            if (cc_state != null) { _cc_state = cc_state.InnerText; }
-                                                            if (mep_id != null) { _mep_id = mep_id.InnerText; }
-                                                            if (meg_id != null) { _meg_id = meg_id.InnerText; }
-                                                            if (mel != null) { _mel = mel.InnerText; }
-                                                            if (remote_mep_id != null) { _remote_mep_id = remote_mep_id.InnerText; }
-                                                            if (md_name != null) { _md_name = md_name.InnerText; }
-                                                            if (cc_interval != null) { _cc_interval = cc_interval.InnerText; }
-                                                            if (lm_interval != null) { _lm_interval = lm_interval.InnerText; }
-                                                            if (dm_interval != null) { _dm_interval = dm_interval.InnerText; }
-                                                            if (delay != null) { _delay = delay.InnerText; }
-                                                            if (near_packet_loss_rate != null) { _near_loss = near_packet_loss_rate.InnerText; }
-                                                            if (far_packet_loss_rate != null) { _far_loss = far_packet_loss_rate.InnerText; }
-                                                            if (tx_bytes != null) { _tx_bytes = tx_bytes.InnerText; }
-                                                            if (rx_bytes != null) { _rx_bytes = rx_bytes.InnerText; }
-                                                        }
-                                                        if (ips.Contains("联通"))
-                                                        {
-                                                            XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
-                                                            XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
-                                                            XmlNode dm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-enable", root);
-                                                            XmlNode tm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:tm-enable", root);
-                                                            XmlNode lm_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-enable", root);
-                                                            XmlNode cc_state = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-enable", root);
-                                                            XmlNode cc_state1 = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-state", root);
-                                                            XmlNode mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:mep-id", root);
-                                                            XmlNode meg_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:meg-id", root);
-                                                            XmlNode mel = itemNodeOdu.SelectSingleNode("//ctpxmlns:mel", root);
-                                                            XmlNode remote_mep_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:remote-mep-id", root);
-                                                            XmlNode md_name = itemNodeOdu.SelectSingleNode("//ctpxmlns:md-name", root);
-                                                            XmlNode cc_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:cc-interval", root);
-                                                            XmlNode lm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:lm-interval", root);
-                                                            XmlNode dm_interval = itemNodeOdu.SelectSingleNode("//ctpxmlns:dm-interval", root);
-                                                            XmlNode delay = itemNodeOdu.SelectSingleNode("//ctpxmlns:delay", root);
-                                                            XmlNode near_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:near-packet-loss-rate", root);
-                                                            XmlNode far_packet_loss_rate = itemNodeOdu.SelectSingleNode("//ctpxmlns:far-packet-loss-rate", root);
-                                                            XmlNode tx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:tx-bytes", root);
-                                                            XmlNode rx_bytes = itemNodeOdu.SelectSingleNode("//ctpxmlns:rx-bytes", root);
-
-                                                            if (vlan_id != null) { _vlan_id = vlan_id.InnerText; }
-                                                            if (vlan_type != null) { _vlan_type = vlan_type.InnerText; }
-                                                            if (dm_state != null) { _dm_state = dm_state.InnerText; }
-                                                            if (tm_state != null) { _tm_state = tm_state.InnerText; }
-                                                            if (lm_state != null) { _lm_state = lm_state.InnerText; }
-                                                            if (cc_state != null) { _cc_state = cc_state.InnerText; }
-                                                            if (cc_state1 != null) { _cc_state1 = cc_state1.InnerText; }
-
-                                                            if (mep_id != null) { _mep_id = mep_id.InnerText; }
-                                                            if (meg_id != null) { _meg_id = meg_id.InnerText; }
-                                                            if (mel != null) { _mel = mel.InnerText; }
-                                                            if (remote_mep_id != null) { _remote_mep_id = remote_mep_id.InnerText; }
-                                                            if (md_name != null) { _md_name = md_name.InnerText; }
-                                                            if (cc_interval != null) { _cc_interval = cc_interval.InnerText; }
-                                                            if (lm_interval != null) { _lm_interval = lm_interval.InnerText; }
-                                                            if (dm_interval != null) { _dm_interval = dm_interval.InnerText; }
-                                                            if (delay != null) { _delay = delay.InnerText; }
-                                                            if (near_packet_loss_rate != null) { _near_loss = near_packet_loss_rate.InnerText; }
-                                                            if (far_packet_loss_rate != null) { _far_loss = far_packet_loss_rate.InnerText; }
-                                                            if (tx_bytes != null) { _tx_bytes = tx_bytes.InnerText; }
-                                                            if (rx_bytes != null) { _rx_bytes = rx_bytes.InnerText; }
-                                                        }
+                                root.AddNamespace("connectionxmlns", "urn:ccsa:yang:acc-connection");
 
 
-                                                    }
-                                                }
-
-                                            }
-
-                                        }
-                                    }
-                                }
+                                XmlNode total_size = xmlDoc.SelectSingleNode("//connectionxmlns:total-size", root);
+                                XmlNode cir = xmlDoc.SelectSingleNode("//connectionxmlns:cir", root);
+                                XmlNode pir = xmlDoc.SelectSingleNode("//connectionxmlns:pir", root);
+                                XmlNode cbs = xmlDoc.SelectSingleNode("//connectionxmlns:cbs", root);
+                                XmlNode pbs = xmlDoc.SelectSingleNode("//connectionxmlns:pbs", root);
+                                if (total_size != null) { _total_size = total_size.InnerText; }
+                                if (cir != null) { _cir = cir.InnerText; }
+                                if (pir != null) { _pir = pir.InnerText; }
+                                if (cbs != null) { _cbs = cbs.InnerText; }
+                                if (pbs != null) { _pbs = pbs.InnerText; }
+                             
                                 // Console.Read();
 
                             }
@@ -5088,31 +4981,20 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             }
 
                             // 实例化FormInfo，并传入待修改初值  
-                            var Formoam = new FormOAM(_name, _server_tp, _vlan_id, _vlan_type, _dm_state, _tm_state, _lm_state, _cc_state, _cc_state1, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval,
-    _delay, _near_loss, _far_loss, _tx_bytes, _rx_bytes);
+                            var Form_Connection_Rate = new Form_Connection_Rate(_name, _total_size, _cir, _pir, _cbs, _pbs);
                             // 以对话框方式显示FormInfo  
-                            if (Formoam.ShowDialog() == DialogResult.OK)
+                            if (Form_Connection_Rate.ShowDialog() == DialogResult.OK)
                             {
                                 //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
-                                _name = Formoam._name;
-                                _mep_id = Formoam._mep_id;
-                                _remote_mep_id = Formoam._remote_mep_id;
-                                _meg_id = Formoam._meg_id;
-                                _md_name = Formoam._md_name;
-                                _mel = Formoam._mel;
-                                _cc_interval = Formoam._cc_interval;
-                                _lm_interval = Formoam._lm_interval;
-                                _dm_interval = Formoam._dm_interval;
+                                _name = Form_Connection_Rate._name;
+                                _total_size = Form_Connection_Rate._total_size;
+                                _cir = Form_Connection_Rate._cir;
+                                _pir = Form_Connection_Rate._pir;
+                                _cbs = Form_Connection_Rate._cbs;
+                                _pbs = Form_Connection_Rate._pbs;
+ 
 
-                                Creat(OAM.Create(_name, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval, ips), id, ip);
-                                MessageBox.Show("正在配置OAM状态，请稍等片刻！");
-                                _name = Formoam._name;
-                                _dm_state = Formoam._dm_state;
-                                _tm_state = Formoam._tm_state;
-                                _lm_state = Formoam._lm_state;
-                                _cc_state = Formoam._cc_state;
-
-                                Creat(OAM.State(_name, _dm_state, _tm_state, _lm_state, _cc_state, ips), id, ip);
+                                Creat(Modify.Connection_Rate(_name, _total_size, _cir, _pir, _cbs, _pbs, ips), id, ip);
 
                             }
 

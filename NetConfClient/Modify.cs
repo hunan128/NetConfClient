@@ -117,5 +117,72 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
+        public static XmlDocument Connection_Rate(string _name, string _total_size,string _cir,string _pir ,string _cbs,string _pbs,string ips)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //connections
+            XmlElement connections = commonXml.CreateElement("connections");
+            connections.SetAttribute("xmlns", "urn:ccsa:yang:acc-connection");
+            config.AppendChild(connections);
+
+            //connection
+            XmlElement connection = commonXml.CreateElement("connection");
+            connections.AppendChild(connection);
+
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                connection.AppendChild(name);
+                XmlElement requested_capacity  = commonXml.CreateElement("requested-capacity");
+                connection.AppendChild(requested_capacity);
+                XmlElement total_size = commonXml.CreateElement("total-size");
+                total_size.InnerText = _total_size;
+                requested_capacity.AppendChild(total_size);
+                XmlElement cir = commonXml.CreateElement("cir");
+                cir.InnerText = _cir;
+                requested_capacity.AppendChild(cir);
+                XmlElement pir = commonXml.CreateElement("pir");
+                pir.InnerText = _pir;
+                requested_capacity.AppendChild(pir);
+                XmlElement cbs = commonXml.CreateElement("cbs");
+                cbs.InnerText = _cbs;
+                requested_capacity.AppendChild(cbs);
+                XmlElement pbs = commonXml.CreateElement("pbs");
+                pbs.InnerText = _pbs;
+                requested_capacity.AppendChild(pbs);
+
+            }
+
+            return commonXml;
+
+        }
     }
 }
