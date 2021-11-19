@@ -226,7 +226,7 @@ namespace NetConfClientSoftware
             performances.AppendChild(performance);
 
             //对象名称
-            if (_object_name != "") {
+            if (_object_name != ""&& _object_name != "全部端口") {
                 XmlElement object_name = commonXml.CreateElement("object-name");
                 object_name.InnerText = _object_name;
                 performance.AppendChild(object_name);
@@ -276,7 +276,7 @@ namespace NetConfClientSoftware
             granularity.InnerText = _granularity;
             get.AppendChild(granularity);
             //对象名称
-            if (_object_name != "") {
+            if (_object_name != "" && _object_name != "全部端口") {
                 XmlElement object_name = commonXml.CreateElement("object-name");
                 object_name.InnerText = _object_name;
                 get.AppendChild(object_name);

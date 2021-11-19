@@ -1005,7 +1005,9 @@ namespace NetConfClientSoftware
             ComOduNniTsDetail_NNI_A.SelectedIndex = 0;
             ComCreatConnection.SelectedIndex = 0;
 
-
+            ComEthUniVlanAccessAction.SelectedIndex = 0;
+            ComEthUniVlanPriority.SelectedIndex = 0;
+            ComEthUniVlanType.SelectedIndex = 0;
             ComEthServiceType.SelectedIndex = 0;
             Com_Eth_nni_protection_type.SelectedIndex = 0;
             ComEthVlanAccessAction.SelectedIndex = 0;
@@ -2073,6 +2075,10 @@ namespace NetConfClientSoftware
                             {
                                 ComEthUniPtpName.Items.Add(name.InnerText);
                                 ComEthUniPtpName.SelectedIndex = 0;
+                                if (ComCreatConnection.Text.Contains("ETH-to-ETH")) {
+                                    ComEthPrimayNniPtpName.Items.Add(name.InnerText);
+                                    ComEthPrimayNniPtpName.SelectedIndex = 0;
+                                }
 
                             }
 
@@ -2124,7 +2130,7 @@ namespace NetConfClientSoftware
 
                     if (layer_protocol_name != null && interface_type != null)
                     {
-                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
+                       if (layer_protocol_name.InnerText == "acc-otn:ODU")
                         {
                             if (name != null)
                             {
@@ -2488,7 +2494,7 @@ namespace NetConfClientSoftware
             {
 
                 ComCurPerObjectName.Items.Clear();
-
+                ComCurPerObjectName.Items.Add("全部端口");
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
