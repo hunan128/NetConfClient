@@ -645,6 +645,16 @@ namespace NetConfClientSoftware
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.treeViewNEID = new System.Windows.Forms.TreeView();
+            this.contextMenuStripParameter = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemPrameters = new System.Windows.Forms.ToolStripMenuItem();
+            this.NEname = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.TCAnename = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader34 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader36 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -735,6 +745,7 @@ namespace NetConfClientSoftware
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             this.groupBox13.SuspendLayout();
+            this.contextMenuStripParameter.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButSend
@@ -4953,6 +4964,7 @@ namespace NetConfClientSoftware
             // 
             // dataGridViewCurrentPerformance
             // 
+            this.dataGridViewCurrentPerformance.AllowUserToResizeRows = false;
             dataGridViewCellStyle11.BackColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridViewCurrentPerformance.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -4975,6 +4987,7 @@ namespace NetConfClientSoftware
             this.平均值,
             this.当前值,
             this.开始时间});
+            this.dataGridViewCurrentPerformance.ContextMenuStrip = this.contextMenuStripParameter;
             this.dataGridViewCurrentPerformance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewCurrentPerformance.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewCurrentPerformance.Name = "dataGridViewCurrentPerformance";
@@ -5446,7 +5459,7 @@ namespace NetConfClientSoftware
             dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridViewAlarm.DefaultCellStyle = dataGridViewCellStyle20;
-            this.dataGridViewAlarm.Location = new System.Drawing.Point(0, 189);
+            this.dataGridViewAlarm.Location = new System.Drawing.Point(0, 471);
             this.dataGridViewAlarm.Name = "dataGridViewAlarm";
             dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
@@ -5461,7 +5474,7 @@ namespace NetConfClientSoftware
             this.dataGridViewAlarm.RowsDefaultCellStyle = dataGridViewCellStyle22;
             this.dataGridViewAlarm.RowTemplate.Height = 23;
             this.dataGridViewAlarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAlarm.Size = new System.Drawing.Size(1225, 439);
+            this.dataGridViewAlarm.Size = new System.Drawing.Size(1225, 157);
             this.dataGridViewAlarm.TabIndex = 2;
             // 
             // 对象网元
@@ -5528,13 +5541,14 @@ namespace NetConfClientSoftware
             this.perceived_severity,
             this.start_time_alarm,
             this.end_time_alarm,
-            this.check});
+            this.check,
+            this.NEname});
             this.ListViewAlarm.FullRowSelect = true;
             this.ListViewAlarm.GridLines = true;
             this.ListViewAlarm.HideSelection = false;
             this.ListViewAlarm.Location = new System.Drawing.Point(6, 6);
             this.ListViewAlarm.Name = "ListViewAlarm";
-            this.ListViewAlarm.Size = new System.Drawing.Size(1213, 177);
+            this.ListViewAlarm.Size = new System.Drawing.Size(1213, 459);
             this.ListViewAlarm.TabIndex = 0;
             this.ListViewAlarm.UseCompatibleStateImageBehavior = false;
             this.ListViewAlarm.View = System.Windows.Forms.View.Details;
@@ -5542,7 +5556,7 @@ namespace NetConfClientSoftware
             // alarm_serial_no
             // 
             this.alarm_serial_no.Text = "告警编号";
-            this.alarm_serial_no.Width = 80;
+            this.alarm_serial_no.Width = 61;
             // 
             // object_name
             // 
@@ -5552,7 +5566,7 @@ namespace NetConfClientSoftware
             // object_type
             // 
             this.object_type.Text = "对象类型";
-            this.object_type.Width = 80;
+            this.object_type.Width = 63;
             // 
             // alarm_code
             // 
@@ -5572,12 +5586,12 @@ namespace NetConfClientSoftware
             // start_time_alarm
             // 
             this.start_time_alarm.Text = "开始时间";
-            this.start_time_alarm.Width = 200;
+            this.start_time_alarm.Width = 180;
             // 
             // end_time_alarm
             // 
             this.end_time_alarm.Text = "结束时间";
-            this.end_time_alarm.Width = 200;
+            this.end_time_alarm.Width = 174;
             // 
             // check
             // 
@@ -5608,7 +5622,8 @@ namespace NetConfClientSoftware
             this.current_value,
             this.start_time,
             this.end_time,
-            this.TCACheck});
+            this.TCACheck,
+            this.TCAnename});
             this.ListViewTcaAlarm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListViewTcaAlarm.FullRowSelect = true;
             this.ListViewTcaAlarm.GridLines = true;
@@ -5627,22 +5642,22 @@ namespace NetConfClientSoftware
             // type
             // 
             this.type.Text = "对象类型";
-            this.type.Width = 82;
+            this.type.Width = 67;
             // 
             // name
             // 
             this.name.Text = "对象名称";
-            this.name.Width = 300;
+            this.name.Width = 242;
             // 
             // pm_parameter_name
             // 
             this.pm_parameter_name.Text = "PM参数名称";
-            this.pm_parameter_name.Width = 100;
+            this.pm_parameter_name.Width = 78;
             // 
             // granularity
             // 
             this.granularity.Text = "分钟粒度";
-            this.granularity.Width = 80;
+            this.granularity.Width = 64;
             // 
             // threshold_type
             // 
@@ -5651,6 +5666,7 @@ namespace NetConfClientSoftware
             // threshold_value
             // 
             this.threshold_value.Text = "阈值";
+            this.threshold_value.Width = 52;
             // 
             // tca_state
             // 
@@ -5659,16 +5675,17 @@ namespace NetConfClientSoftware
             // current_value
             // 
             this.current_value.Text = "当前值";
+            this.current_value.Width = 54;
             // 
             // start_time
             // 
             this.start_time.Text = "开始时间";
-            this.start_time.Width = 180;
+            this.start_time.Width = 167;
             // 
             // end_time
             // 
             this.end_time.Text = "结束时间";
-            this.end_time.Width = 180;
+            this.end_time.Width = 161;
             // 
             // TCACheck
             // 
@@ -5700,7 +5717,8 @@ namespace NetConfClientSoftware
             this.columnHeader14,
             this.columnHeader15,
             this.columnHeader16,
-            this.columnHeader17});
+            this.columnHeader17,
+            this.columnHeader31});
             this.listViewProtection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewProtection.FullRowSelect = true;
             this.listViewProtection.GridLines = true;
@@ -5715,12 +5733,12 @@ namespace NetConfClientSoftware
             // columnHeader18
             // 
             this.columnHeader18.Text = "事件时间";
-            this.columnHeader18.Width = 180;
+            this.columnHeader18.Width = 120;
             // 
             // columnHeader5
             // 
             this.columnHeader5.Text = "保护编号";
-            this.columnHeader5.Width = 40;
+            this.columnHeader5.Width = 59;
             // 
             // columnHeader6
             // 
@@ -5799,7 +5817,8 @@ namespace NetConfClientSoftware
             this.obj_type,
             this.attribute_name,
             this.new_value,
-            this.old_value});
+            this.old_value,
+            this.columnHeader32});
             this.listViewAttribute.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewAttribute.FullRowSelect = true;
             this.listViewAttribute.GridLines = true;
@@ -5868,7 +5887,8 @@ namespace NetConfClientSoftware
             this.PTP_name,
             this.LLDP_peer_chassis_id,
             this.lldp_peer_port_id,
-            this.lldp_peer_system_name});
+            this.lldp_peer_system_name,
+            this.columnHeader33});
             this.listViewLLDP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLLDP.FullRowSelect = true;
             this.listViewLLDP.GridLines = true;
@@ -5921,7 +5941,8 @@ namespace NetConfClientSoftware
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader34});
             this.listViewPeer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewPeer.FullRowSelect = true;
             this.listViewPeer.GridLines = true;
@@ -5972,7 +5993,8 @@ namespace NetConfClientSoftware
             this.columnHeader26,
             this.columnHeader28,
             this.columnHeader29,
-            this.columnHeader30});
+            this.columnHeader30,
+            this.columnHeader35});
             this.listViewGhao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewGhao.FullRowSelect = true;
             this.listViewGhao.GridLines = true;
@@ -6036,7 +6058,8 @@ namespace NetConfClientSoftware
             this.columnHeader20,
             this.columnHeader21,
             this.columnHeader22,
-            this.columnHeader23});
+            this.columnHeader23,
+            this.columnHeader36});
             this.listViewCommon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewCommon.FullRowSelect = true;
             this.listViewCommon.GridLines = true;
@@ -6546,6 +6569,59 @@ namespace NetConfClientSoftware
             this.treeViewNEID.TabIndex = 10;
             this.treeViewNEID.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewNEID_NodeMouseClick);
             // 
+            // contextMenuStripParameter
+            // 
+            this.contextMenuStripParameter.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemPrameters});
+            this.contextMenuStripParameter.Name = "ConnectionDevice";
+            this.contextMenuStripParameter.Size = new System.Drawing.Size(125, 26);
+            // 
+            // toolStripMenuItemPrameters
+            // 
+            this.toolStripMenuItemPrameters.Name = "toolStripMenuItemPrameters";
+            this.toolStripMenuItemPrameters.Size = new System.Drawing.Size(124, 22);
+            this.toolStripMenuItemPrameters.Text = "门限设置";
+            this.toolStripMenuItemPrameters.Click += new System.EventHandler(this.toolStripMenuItemPrameters_Click);
+            // 
+            // NEname
+            // 
+            this.NEname.Text = "网元对象";
+            this.NEname.Width = 100;
+            // 
+            // TCAnename
+            // 
+            this.TCAnename.Text = "网元对象";
+            this.TCAnename.Width = 89;
+            // 
+            // columnHeader31
+            // 
+            this.columnHeader31.Text = "网元对象";
+            // 
+            // columnHeader32
+            // 
+            this.columnHeader32.Text = "网元对象";
+            this.columnHeader32.Width = 103;
+            // 
+            // columnHeader33
+            // 
+            this.columnHeader33.Text = "网元对象";
+            this.columnHeader33.Width = 122;
+            // 
+            // columnHeader34
+            // 
+            this.columnHeader34.Text = "网元对象";
+            this.columnHeader34.Width = 153;
+            // 
+            // columnHeader35
+            // 
+            this.columnHeader35.Text = "网元对象";
+            this.columnHeader35.Width = 120;
+            // 
+            // columnHeader36
+            // 
+            this.columnHeader36.Text = "网元对象";
+            this.columnHeader36.Width = 136;
+            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -6671,6 +6747,7 @@ namespace NetConfClientSoftware
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
+            this.contextMenuStripParameter.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7266,6 +7343,16 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn 用户名;
         private System.Windows.Forms.DataGridViewTextBoxColumn 密码;
         private System.Windows.Forms.ToolStripMenuItem cTP限速调整ToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripParameter;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPrameters;
+        private System.Windows.Forms.ColumnHeader NEname;
+        private System.Windows.Forms.ColumnHeader TCAnename;
+        private System.Windows.Forms.ColumnHeader columnHeader31;
+        private System.Windows.Forms.ColumnHeader columnHeader32;
+        private System.Windows.Forms.ColumnHeader columnHeader33;
+        private System.Windows.Forms.ColumnHeader columnHeader34;
+        private System.Windows.Forms.ColumnHeader columnHeader35;
+        private System.Windows.Forms.ColumnHeader columnHeader36;
     }
 }
 

@@ -601,7 +601,7 @@ namespace NetConfClientSoftware
                             notfication.LoadXml(rpcResponse);
                             TextLog.AppendText(XmlFormat.Xml(rpcResponse) + "\r\n" + FenGeFu + "\r\n");
                             BeginInvoke(new MethodInvoker(delegate () {
-                                Thread mes = new Thread(() => ShowXML(notfication));
+                                Thread mes = new Thread(() => ShowXML(notfication,id));
                                 mes.Start();
                                 //ShowXML(notfication);
                                 // Pgnot(notfication);
@@ -712,7 +712,7 @@ namespace NetConfClientSoftware
         /// 订阅通知显示
         /// </summary>
         /// <param name="xmlDoc">传入进来的XML文件</param>
-        private void ShowXML(XmlDocument xmlDoc) //显示xml数据
+        private void ShowXML(XmlDocument xmlDoc,int id) //显示xml数据
         {
             try
             {
@@ -793,11 +793,28 @@ namespace NetConfClientSoftware
                                 }
                             }
                             alarmlog.SubItems.Add("已清除");
+                            for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                            {
+                                if (treeViewNEID.Nodes[i].Name == id.ToString())
+                                {
+                                    alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                    break;
+                                }
+                            }
+                            
                         }
                         if (alarmlog.SubItems[4].Text == "start")
                         {
                             alarmlog.SubItems.Add("");
                             alarmlog.SubItems.Add("未清除");
+                            for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                            {
+                                if (treeViewNEID.Nodes[i].Name == id.ToString())
+                                {
+                                    alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                    break;
+                                }
+                            }
                         }
                         alarmlog.UseItemStyleForSubItems = false;
                         switch (alarmlog.SubItems[5].Text)
@@ -855,6 +872,14 @@ namespace NetConfClientSoftware
                             alarmlog.SubItems.Add("当前告警");
                             alarmlog.SubItems.Add("未清除");
                         }
+                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                        {
+                            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                            {
+                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                break;
+                            }
+                        }
                         ListViewTcaAlarm.Items.Add(alarmlog);
                         //Thread mes = new Thread(() => CreatMesg(alarmlog, tca));
                         //mes.Start();
@@ -870,9 +895,17 @@ namespace NetConfClientSoftware
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(1);
+                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                        {
+                            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                            {
+                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                break;
+                            }
+                        }
                         listViewLLDP.Items.Add(alarmlog);
-                        Thread mes = new Thread(() => CreatMesg(alarmlog, lldp));
-                        mes.Start();
+                        //Thread mes = new Thread(() => CreatMesg(alarmlog, lldp));
+                        //mes.Start();
                     }
 
                 }
@@ -885,6 +918,14 @@ namespace NetConfClientSoftware
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(1);
+                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                        {
+                            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                            {
+                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                break;
+                            }
+                        }
                         listViewCommon.Items.Add(alarmlog);
                         //Thread mes = new Thread(() => CreatMesg(alarmlog, common));
                         //mes.Start();
@@ -900,6 +941,14 @@ namespace NetConfClientSoftware
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(1);
+                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                        {
+                            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                            {
+                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                break;
+                            }
+                        }
                         listViewPeer.Items.Add(alarmlog);
                         //Thread mes = new Thread(() => CreatMesg(alarmlog, peer));
                         //mes.Start();
@@ -915,9 +964,17 @@ namespace NetConfClientSoftware
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(1);
+                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                        {
+                            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                            {
+                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                break;
+                            }
+                        }
                         listViewAttribute.Items.Add(alarmlog);
-                        Thread mes = new Thread(() => CreatMesg(alarmlog, attribute));
-                        mes.Start();
+                        //Thread mes = new Thread(() => CreatMesg(alarmlog, attribute));
+                        //mes.Start();
                     }
 
                 }
@@ -930,6 +987,14 @@ namespace NetConfClientSoftware
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(0);
                         alarmlog.SubItems.RemoveAt(1);
+                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                        {
+                            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                            {
+                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                break;
+                            }
+                        }
                         listViewProtection.Items.Add(alarmlog);
                         //Thread mes = new Thread(() => CreatMesg(alarmlog, protection));
                         //mes.Start();
@@ -944,6 +1009,14 @@ namespace NetConfClientSoftware
                     if (type.ToString().Contains(GHao))
                     {
                         ListViewItem alarmlog = (ListViewItem)item.Clone();
+                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                        {
+                            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                            {
+                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                                break;
+                            }
+                        }
                         //alarmlog.SubItems.RemoveAt(0);
                         //alarmlog.SubItems.RemoveAt(0);
                         //alarmlog.SubItems.RemoveAt(1);
@@ -5572,6 +5645,11 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         {
             if (treeViewNEID.Nodes.Count > e.RowIndex && e.RowIndex>=0)
                 treeViewNEID.SelectedNode = treeViewNEID.Nodes[e.RowIndex];//选中
+        }
+
+        private void toolStripMenuItemPrameters_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
