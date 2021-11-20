@@ -14,7 +14,6 @@ namespace NetConfClientSoftware
         public LoginOn()
         {
             InitializeComponent();
-            ComVersion.Text = "Auto";
         }
 
         /// <summary>
@@ -28,13 +27,15 @@ namespace NetConfClientSoftware
             this.Text = ip;
             if (true)
             {
+                ComVersion.Text = "Auto";
                 Comip.Text=ip;
                 TextPort.Text = port.ToString();
                 TextUser.Text = user;
                 Textpasd.Text = passd;
                 ComVersion.Text = version;
                 Comips.Text = ips;
-                TextNeName.Text = gpnname;
+                
+
 
             }
         }
