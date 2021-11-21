@@ -5651,8 +5651,28 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         private void dataGridViewNeInformation_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (treeViewNEID.Nodes.Count > e.RowIndex && e.RowIndex>=0)
+            if (treeViewNEID.Nodes.Count > e.RowIndex && e.RowIndex >= 0) {
                 treeViewNEID.SelectedNode = treeViewNEID.Nodes[e.RowIndex];//选中
+                if (dataGridViewNeInformation.Rows[e.RowIndex].Cells["运营商"].Value != null)
+                {
+                    ips = dataGridViewNeInformation.Rows[e.RowIndex].Cells["运营商"].Value.ToString();
+                    toolStripStatusLabelips.Text = ips;
+
+                }
+                if (dataGridViewNeInformation.Rows[e.RowIndex].Cells["连接状态"].Value != null)
+                {
+                    LabConncet.Text = dataGridViewNeInformation.Rows[e.RowIndex].Cells["连接状态"].Value.ToString();
+                }
+                if (dataGridViewNeInformation.Rows[e.RowIndex].Cells["订阅"].Value != null)
+                {
+                    TextSub.Text = dataGridViewNeInformation.Rows[e.RowIndex].Cells["订阅"].Value.ToString();
+                }
+                if (dataGridViewNeInformation.Rows[e.RowIndex].Cells["网元ip"].Value != null)
+                {
+                    TextIP.Text = dataGridViewNeInformation.Rows[e.RowIndex].Cells["网元ip"].Value.ToString();
+                }
+            }
+                
         }
 
         private void toolStripMenuItemPrameters_Click(object sender, EventArgs e)
