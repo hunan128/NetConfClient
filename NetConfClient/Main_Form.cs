@@ -25,9 +25,10 @@ namespace NetConfClientSoftware
     public partial class Main_Form : Form
     {
 
-        NetConfClient[] netConfClient = new NetConfClient[32];
-
-        bool Sub = false;      //订阅开关默认禁止
+         NetConfClient[] netConfClient = new NetConfClient[32];
+        Thread[] ThSub = new Thread[32];
+       // List<NetConfClient> netConfClient = new List<NetConfClient>();
+        bool[] Sub = new bool[32];      //订阅开关默认禁止
         public static string defaultfilePath = "";       //打开文件夹默认路径
         public static string FenGeFu = "----------------------------------------------------------------------------";//分隔符
         public string XML_URL = "http://hunan128.com:888/NetconfXML/";   //XML在线文件地址
@@ -549,23 +550,23 @@ namespace NetConfClientSoftware
             try
             {
                 Gpnsetini();
-                Sub = false;
-                for (int i = 0; i < dataGridViewNeInformation.RowCount - 1; i++)
-                {
-                    if (dataGridViewNeInformation.Rows[i].Cells["订阅"].Value != null)
-                    {
-                        if (dataGridViewNeInformation.Rows[i].Cells["订阅"].Value.ToString() == "已开启")
-                        {
-                            Sub = false;
-                            int id = int.Parse(dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString());
-                            netConfClient[id].SendReceiveRpcKeepLive();
-                            Thread.Sleep(3000);
-                        }
-                    }
+                //Sub = false;
+                //for (int i = 0; i < dataGridViewNeInformation.RowCount - 1; i++)
+                //{
+                //    if (dataGridViewNeInformation.Rows[i].Cells["订阅"].Value != null)
+                //    {
+                //        if (dataGridViewNeInformation.Rows[i].Cells["订阅"].Value.ToString() == "已开启")
+                //        {
+                //            Sub = false;
+                //            int id = int.Parse(dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString());
+                //            netConfClient[id].SendReceiveRpcKeepLive();
+                //            Thread.Sleep(3000);
+                //        }
+                //    }
 
 
-                }
-
+                //}
+                System.Environment.Exit(0);
 
             }
             catch
@@ -580,13 +581,13 @@ namespace NetConfClientSoftware
         /// </summary>
         private void Subscription(int id, string ip)
         {
-            if (Sub)
+            if (Sub[id])
             {
                 TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
                 TextLog.AppendText("订阅监听已经开启，请关注\r\n");
             }
             string rpcResponse = "";
-            while (Sub)
+            while (Sub[id])
             {
                 try
                 {
@@ -3663,7 +3664,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             var sub = netConfClient[id].SendReceiveRpc(subscription);
             TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
             TextLog.AppendText(sub.OuterXml + "\r\n" + FenGeFu + "\r\n");
-            Sub = true;
+            Sub[id] = true;
 
             Thread thread = new Thread(() => Subscription(id, ip));
             thread.Start();
@@ -3745,7 +3746,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
                 if (订阅监听禁止ToolStripMenuItem.Text == "订阅监听禁止")
                 {
-                    Sub = false;
+                    Sub[id] = false;
                     netConfClient[id].SendReceiveRpcKeepLive();
 
                 }
@@ -3784,7 +3785,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
             if (订阅监听禁止ToolStripMenuItem.Text == "订阅监听禁止")
             {
-                Sub = false;
+                Sub[id] = false;
                 netConfClient[id].SendReceiveRpcKeepLive();
                 订阅监听禁止ToolStripMenuItem.Text = "订阅监听使能";
                 TextLog.AppendText("服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
@@ -3795,7 +3796,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             }
             else
             {
-                Sub = true;
+                Sub[id] = true;
 
                 Thread thread = new Thread(() => Subscription(id, ip));
                 thread.Start();
@@ -4851,7 +4852,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         {
             LocalConnectionXml localxml = new LocalConnectionXml();
             // 实例化FormInfo，并传入待修改初值  
-            int ipaddresscunt = 1;
+            int ipaddresscunt = 0;
             int ipaddresscunt1 = 1;
             bool idtf = false;
 
@@ -4869,7 +4870,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 ips = LoginOn.IPS;
                 if (!File.Exists(neinfopath))
                 {
-                    localxml.CreatXmlTree(neinfopath, LoginOn.IP, LoginOn.PORT, LoginOn.USER, LoginOn.PASSD, 1, LoginOn.NeName, LoginOn.IPS);
+                    localxml.CreatXmlTree(neinfopath, LoginOn.IP, LoginOn.PORT, LoginOn.USER, LoginOn.PASSD,  ipaddresscunt, LoginOn.NeName, LoginOn.IPS);
                 }
                 else
                 {
@@ -4887,6 +4888,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         XmlNodeList nodes = root.ChildNodes;
                         if (nodes.Count == 0)
                         {
+                            ipaddresscunt = 0;
                             localxml.Add(neinfopath, LoginOn.IP, LoginOn.PORT, LoginOn.USER, LoginOn.PASSD, ipaddresscunt, LoginOn.NeName, LoginOn.IPS);
 
                         }
@@ -4966,6 +4968,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             {
                 DateTime dTimeEnd = System.DateTime.Now;
                 DateTime dTimeServer = System.DateTime.Now;
+                //netConfClient.Add(new NetConfClient(ip, port, user, passd));
                 netConfClient[id] = new NetConfClient(ip, port, user, passd);
                 netConfClient[id].Connect();
 
@@ -5299,12 +5302,14 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             {
                                 if (dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value.ToString() == "已开启")
                                 {
-                                    Sub = false;
-                                    netConfClient[id].SendReceiveRpcKeepLive();
+                                    ThSub[row.Index].Abort();
+                                    Sub[id] = false;
+                                    //netConfClient[id].SendReceiveRpcKeepLive();
+                                    dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "已关闭";
 
                                 }
                             }
-                            Thread.Sleep(3000);
+                          //  Thread.Sleep(3000);
                             if (netConfClient[id] != null)
                             {
                                 if (netConfClient[id].IsConnected)
@@ -5383,7 +5388,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             {
                                 if (dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value.ToString() == "已开启")
                                 {
-                                    Sub = false;
+                                    Sub[id] = false;
                                     netConfClient[id].SendReceiveRpcKeepLive();
 
                                 }
@@ -5449,7 +5454,10 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 {
                     TextIP.Text = dataGridViewNeInformation.Rows[e.Node.Index].Cells["网元ip"].Value.ToString();
                 }
-                
+
+              //  dataGridViewNeInformation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+             //   dataGridViewNeInformation.Rows[e.Node.Index].Selected = true;
+                dataGridViewNeInformation.CurrentCell = dataGridViewNeInformation.Rows[e.Node.Index].Cells["网元ip"];
             }
         }
 
@@ -5495,9 +5503,9 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 var sub = netConfClient[id].SendReceiveRpc(subscription);
                                 TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
                                 TextLog.AppendText(sub.OuterXml + "\r\n" + FenGeFu + "\r\n");
-                                Sub = true;
-                                Thread thread = new Thread(() => Subscription(id, neip));
-                                thread.Start();
+                                Sub[id] = true;
+                                ThSub[row.Index] = new Thread(() => Subscription(id, neip));
+                                ThSub[row.Index].Start();
                                 dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "已开启";
                                 Thread.Sleep(1000);
 
