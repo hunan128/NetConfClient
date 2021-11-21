@@ -184,5 +184,71 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
+
+
+        public static XmlDocument tca_parameters(string _name, string _pm_parameter_name,string _granularity,string _threshold_type,string _object_type,string _threshold_value,string ips)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement tca_parameters = commonXml.CreateElement("tca-parameters");
+            tca_parameters.SetAttribute("xmlns", "urn:ccsa:yang:acc-alarms");
+            config.AppendChild(tca_parameters);
+
+            //CTP
+            XmlElement tca_parameter = commonXml.CreateElement("tca-parameter");
+            tca_parameter.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            tca_parameters.AppendChild(tca_parameter);
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("object-name");
+                name.InnerText = _name;
+                tca_parameter.AppendChild(name);
+                XmlElement pm_parameter_name = commonXml.CreateElement("pm-parameter-name");
+                pm_parameter_name.InnerText = _pm_parameter_name;
+                tca_parameter.AppendChild(pm_parameter_name);
+                XmlElement granularity = commonXml.CreateElement("granularity");
+                granularity.InnerText = _granularity;
+                tca_parameter.AppendChild(granularity);
+                XmlElement threshold_type = commonXml.CreateElement("threshold-type");
+                threshold_type.InnerText = _threshold_type;
+                tca_parameter.AppendChild(threshold_type);
+                XmlElement object_type = commonXml.CreateElement("object-type");
+                object_type.InnerText = _object_type;
+                tca_parameter.AppendChild(object_type);
+                XmlElement threshold_value = commonXml.CreateElement("threshold-value");
+                threshold_value.InnerText = _threshold_value;
+                tca_parameter.AppendChild(threshold_value);
+            }
+
+            return commonXml;
+
+        }
     }
 }

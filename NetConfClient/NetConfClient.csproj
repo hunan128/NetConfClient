@@ -31,7 +31,7 @@
     <PublisherName>NetConfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>14</ApplicationRevision>
+    <ApplicationRevision>15</ApplicationRevision>
     <ApplicationVersion>2021.11.10.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -125,6 +125,12 @@
     <Compile Include="Form_Connection_Rate.Designer.cs">
       <DependentUpon>Form_Connection_Rate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_Tca_Parameter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Tca_Parameter.Designer.cs">
+      <DependentUpon>Form_Tca_Parameter.cs</DependentUpon>
+    </Compile>
     <Compile Include="LocalConnectionXml.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="ExcelUtility.cs" />
@@ -213,6 +219,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_ODUk_Delay.resx">
       <DependentUpon>Form_ODUk_Delay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Tca_Parameter.resx">
+      <DependentUpon>Form_Tca_Parameter.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoginOn.resx">
       <DependentUpon>LoginOn.cs</DependentUpon>

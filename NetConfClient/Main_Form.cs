@@ -5657,7 +5657,176 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         private void toolStripMenuItemPrameters_Click(object sender, EventArgs e)
         {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewCurrentPerformance.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            try
+            {
+                string _pm_parameter_name = "", _granularity = "", _threshold_type = "", _object_type = "", _threshold_value = "", _input_power = "", _output_power = "",_input_power_upper_threshold ="",_input_power_lower_threshold="";
+                string _name = "";
+                foreach (DataGridViewRow row in this.dataGridViewCurrentPerformance.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        _name = dataGridViewCurrentPerformance.Rows[row.Index].Cells["对象名称"].Value.ToString();       //设备IP地址
+                    }
+                }
+                if (MessageBox.Show("正在配置当接口:\r\n" + _name + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
 
+                    foreach (DataGridViewRow row in this.dataGridViewCurrentPerformance.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            _name = dataGridViewCurrentPerformance.Rows[row.Index].Cells["对象名称"].Value.ToString();
+                            _pm_parameter_name = dataGridViewCurrentPerformance.Rows[row.Index].Cells["参数名称"].Value.ToString();
+                            _granularity = dataGridViewCurrentPerformance.Rows[row.Index].Cells["周期类型"].Value.ToString();
+                            _object_type = dataGridViewCurrentPerformance.Rows[row.Index].Cells["对象类型"].Value.ToString();
+                            _threshold_type = dataGridViewCurrentPerformance.Rows[row.Index].Cells["数字量性能值"].Value.ToString();
+                            _threshold_value = dataGridViewCurrentPerformance.Rows[row.Index].Cells["最大值"].Value.ToString();
+                            try
+                            {
+                                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                                XmlDocument xmlDoc = new XmlDocument();
+                                //xmlDoc.Load(filename);
+
+                                xmlDoc = Sendrpc(Find.PTP(_name), id, ip);
+
+                                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                                root.AddNamespace("ptp", "urn:ccsa:yang:acc-devm");
+
+
+                                XmlNode input_power = xmlDoc.SelectSingleNode("//ptp:input-power", root);
+                                XmlNode output_power = xmlDoc.SelectSingleNode("//ptp:output-power", root);
+                                XmlNode input_power_upper_threshold = xmlDoc.SelectSingleNode("//ptp:input-power-upper-threshold", root);
+                                XmlNode input_power_lower_threshold = xmlDoc.SelectSingleNode("//ptp:input-power-lower-threshold", root);
+                                if (input_power != null) { _input_power = input_power.InnerText; }
+                                if (output_power != null) { _output_power = output_power.InnerText; }
+                                if (input_power_upper_threshold != null) { _input_power_upper_threshold = input_power_upper_threshold.InnerText; }
+                                if (input_power_lower_threshold != null) { _input_power_lower_threshold = input_power_lower_threshold.InnerText;  }
+
+
+                                // Console.Read();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+                            }
+
+                            // 实例化FormInfo，并传入待修改初值  
+                            var Form_Tca_Parameter = new Form_Tca_Parameter(_name, _pm_parameter_name, _granularity, _threshold_type, _object_type, _threshold_value , _input_power , _output_power , _input_power_upper_threshold , _input_power_lower_threshold );
+                            // 以对话框方式显示FormInfo  
+                            if (Form_Tca_Parameter.ShowDialog() == DialogResult.OK)
+                            {
+                                //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
+                                _name = Form_Tca_Parameter._name;
+                                _pm_parameter_name = Form_Tca_Parameter._pm_parameter_name;
+                                _granularity = Form_Tca_Parameter._granularity;
+                                _threshold_type = Form_Tca_Parameter._threshold_type;
+                                _object_type = Form_Tca_Parameter._object_type;
+                                _threshold_value = Form_Tca_Parameter._threshold_value;
+
+
+                                Creat(Modify.tca_parameters(_name, _pm_parameter_name, _granularity, _threshold_type, _object_type, _threshold_value, ips), id, ip);
+
+                            }
+
+
+
+
+                            //var doc = Sendrpc(DeleteODU.Delete(_name));//设备IP地址
+                            //if (doc.OuterXml.Contains("error"))
+                            //{
+                            //    MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                            //}
+                            //else
+                            //{
+                            //    //this.dataGridViewEth.Rows.Remove(row);
+                            //}
+
+                        }
+                    }
+                    // MessageBox.Show(allconnection + "\r\n已成功删除，重新点击在线查询即可更新。");
+
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttontcafind_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                dataGridViewCurrentPerformance.Rows.Clear();
+                // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                XmlDocument xmlDoc1 = new XmlDocument();
+                xmlDoc1 = Find.TCA(ComCurPerObjectName.Text, ComCurPerGranularity.Text);
+
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                var xmlDoc = Sendrpc(xmlDoc1, id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("performancesxmlns", "urn:ccsa:yang:acc-alarms");
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//performancesxmlns:tca-parameters//performancesxmlns:tca-parameter", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    int index = dataGridViewCurrentPerformance.Rows.Add();
+
+                    XmlNode pm_parameter_name = itemNode.SelectSingleNode("performancesxmlns:pm-parameter-name", root);
+                    XmlNode object_name = itemNode.SelectSingleNode("performancesxmlns:object-name", root);
+                    XmlNode object_type = itemNode.SelectSingleNode("performancesxmlns:object-type", root);
+                    XmlNode granularity = itemNode.SelectSingleNode("performancesxmlns:granularity", root);
+                    XmlNode threshold_type = itemNode.SelectSingleNode("performancesxmlns:threshold-type", root);
+                    XmlNode threshold_value = itemNode.SelectSingleNode("performancesxmlns:threshold-value", root);
+
+                    if (pm_parameter_name != null) { dataGridViewCurrentPerformance.Rows[index].Cells["参数名称"].Value = pm_parameter_name.InnerText; }
+                    if (object_name != null) { dataGridViewCurrentPerformance.Rows[index].Cells["对象名称"].Value = object_name.InnerText; }
+                    if (object_type != null) { dataGridViewCurrentPerformance.Rows[index].Cells["对象类型"].Value = object_type.InnerText; }
+                    if (granularity != null) { dataGridViewCurrentPerformance.Rows[index].Cells["周期类型"].Value = granularity.InnerText; }
+                    if (threshold_type != null) { dataGridViewCurrentPerformance.Rows[index].Cells["数字量性能值"].Value = threshold_type.InnerText; }
+                    if (threshold_value != null) { dataGridViewCurrentPerformance.Rows[index].Cells["最大值"].Value = threshold_value.InnerText; }
+                    LabPerCount.Text = (index + 1).ToString();
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

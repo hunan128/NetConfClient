@@ -509,5 +509,59 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
+
+        public static XmlDocument TCA(string _object_name, string _granularity)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement get = commonXml.CreateElement("get");
+            rpc.AppendChild(get);
+            //创建条件
+            XmlElement filter = commonXml.CreateElement("filter");
+            filter.SetAttribute("type", "subtree");
+            get.AppendChild(filter);
+
+
+            //performances
+            XmlElement tca_parameters = commonXml.CreateElement("tca-parameters");
+            tca_parameters.SetAttribute("xmlns", "urn:ccsa:yang:acc-alarms");
+            filter.AppendChild(tca_parameters);
+
+            //performance
+            XmlElement tca_parameter = commonXml.CreateElement("tca-parameter");
+            tca_parameters.AppendChild(tca_parameter);
+
+            //对象名称
+            if (_object_name != "" && _object_name != "全部端口")
+            {
+                XmlElement object_name = commonXml.CreateElement("object-name");
+                object_name.InnerText = _object_name;
+                tca_parameter.AppendChild(object_name);
+            }
+
+            //周期
+            if (_granularity != "")
+            {
+                XmlElement granularity = commonXml.CreateElement("granularity");
+                granularity.InnerText = _granularity;
+                tca_parameter.AppendChild(granularity);
+            }
+
+
+            return commonXml;
+
+        }
+
     }
 }

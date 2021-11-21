@@ -29,16 +29,6 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.lable1 = new System.Windows.Forms.Label();
-            this.ComCTP = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.ComDelay_Enable = new System.Windows.Forms.ComboBox();
-            this.ComDelay = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.Textodu = new System.Windows.Forms.TextBox();
@@ -52,10 +42,20 @@
             this.Textpmtx = new System.Windows.Forms.TextBox();
             this.Textpmexp = new System.Windows.Forms.TextBox();
             this.Textpmrx = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lable1 = new System.Windows.Forms.Label();
+            this.ComCTP = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.ComDelay_Enable = new System.Windows.Forms.ComboBox();
+            this.ComDelay = new System.Windows.Forms.ComboBox();
             this.ComLastUpdateTime = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -70,129 +70,6 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ODUk在线时延测量";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.11521F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.8848F));
-            this.tableLayoutPanel1.Controls.Add(this.lable1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ComCTP, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.ComDelay_Enable, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.ComDelay, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.ComLastUpdateTime, 1, 3);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 20);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(434, 116);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // lable1
-            // 
-            this.lable1.AutoSize = true;
-            this.lable1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lable1.Location = new System.Drawing.Point(3, 0);
-            this.lable1.Name = "lable1";
-            this.lable1.Size = new System.Drawing.Size(103, 26);
-            this.lable1.TabIndex = 0;
-            this.lable1.Text = "CTP端口";
-            this.lable1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // ComCTP
-            // 
-            this.ComCTP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComCTP.FormattingEnabled = true;
-            this.ComCTP.Location = new System.Drawing.Point(112, 3);
-            this.ComCTP.Name = "ComCTP";
-            this.ComCTP.Size = new System.Drawing.Size(319, 20);
-            this.ComCTP.TabIndex = 1;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(3, 26);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(103, 26);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "时延开关";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(3, 52);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 26);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "时延（us）";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(3, 78);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(103, 29);
-            this.label4.TabIndex = 4;
-            this.label4.Text = "最后一次更新时间";
-            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // ComDelay_Enable
-            // 
-            this.ComDelay_Enable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComDelay_Enable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComDelay_Enable.FormattingEnabled = true;
-            this.ComDelay_Enable.Items.AddRange(new object[] {
-            "true",
-            "false"});
-            this.ComDelay_Enable.Location = new System.Drawing.Point(112, 29);
-            this.ComDelay_Enable.Name = "ComDelay_Enable";
-            this.ComDelay_Enable.Size = new System.Drawing.Size(319, 20);
-            this.ComDelay_Enable.TabIndex = 5;
-            // 
-            // ComDelay
-            // 
-            this.ComDelay.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComDelay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.ComDelay.Enabled = false;
-            this.ComDelay.FormattingEnabled = true;
-            this.ComDelay.Location = new System.Drawing.Point(112, 55);
-            this.ComDelay.Name = "ComDelay";
-            this.ComDelay.Size = new System.Drawing.Size(319, 20);
-            this.ComDelay.TabIndex = 6;
-            // 
-            // button1
-            // 
-            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.button1.Location = new System.Drawing.Point(273, 315);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "确定";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(362, 315);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "取消";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel2
             // 
@@ -344,14 +221,137 @@
             this.Textpmrx.Size = new System.Drawing.Size(319, 21);
             this.Textpmrx.TabIndex = 11;
             // 
+            // button2
+            // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button2.Location = new System.Drawing.Point(362, 315);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 2;
+            this.button2.Text = "取消";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.button1.Location = new System.Drawing.Point(273, 315);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 1;
+            this.button1.Text = "确定";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.11521F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.8848F));
+            this.tableLayoutPanel1.Controls.Add(this.lable1, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.ComCTP, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.ComDelay_Enable, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.ComDelay, 1, 2);
+            this.tableLayoutPanel1.Controls.Add(this.ComLastUpdateTime, 1, 3);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(6, 20);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(434, 116);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // lable1
+            // 
+            this.lable1.AutoSize = true;
+            this.lable1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lable1.Location = new System.Drawing.Point(3, 0);
+            this.lable1.Name = "lable1";
+            this.lable1.Size = new System.Drawing.Size(102, 26);
+            this.lable1.TabIndex = 0;
+            this.lable1.Text = "CTP端口";
+            this.lable1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ComCTP
+            // 
+            this.ComCTP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComCTP.FormattingEnabled = true;
+            this.ComCTP.Location = new System.Drawing.Point(111, 3);
+            this.ComCTP.Name = "ComCTP";
+            this.ComCTP.Size = new System.Drawing.Size(320, 20);
+            this.ComCTP.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label2.Location = new System.Drawing.Point(3, 26);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(102, 26);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "时延开关";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label3.Location = new System.Drawing.Point(3, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(102, 26);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "时延（us）";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Location = new System.Drawing.Point(3, 78);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(102, 26);
+            this.label4.TabIndex = 4;
+            this.label4.Text = "最后一次更新时间";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // ComDelay_Enable
+            // 
+            this.ComDelay_Enable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComDelay_Enable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComDelay_Enable.FormattingEnabled = true;
+            this.ComDelay_Enable.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.ComDelay_Enable.Location = new System.Drawing.Point(111, 29);
+            this.ComDelay_Enable.Name = "ComDelay_Enable";
+            this.ComDelay_Enable.Size = new System.Drawing.Size(320, 20);
+            this.ComDelay_Enable.TabIndex = 5;
+            // 
+            // ComDelay
+            // 
+            this.ComDelay.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ComDelay.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.ComDelay.Enabled = false;
+            this.ComDelay.FormattingEnabled = true;
+            this.ComDelay.Location = new System.Drawing.Point(111, 55);
+            this.ComDelay.Name = "ComDelay";
+            this.ComDelay.Size = new System.Drawing.Size(320, 20);
+            this.ComDelay.TabIndex = 6;
+            // 
             // ComLastUpdateTime
             // 
             this.ComLastUpdateTime.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ComLastUpdateTime.Enabled = false;
             this.ComLastUpdateTime.FormattingEnabled = true;
-            this.ComLastUpdateTime.Location = new System.Drawing.Point(112, 81);
+            this.ComLastUpdateTime.Location = new System.Drawing.Point(111, 81);
             this.ComLastUpdateTime.Name = "ComLastUpdateTime";
-            this.ComLastUpdateTime.Size = new System.Drawing.Size(319, 20);
+            this.ComLastUpdateTime.Size = new System.Drawing.Size(320, 20);
             this.ComLastUpdateTime.TabIndex = 7;
             // 
             // Form_ODUk_Delay
@@ -364,10 +364,10 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form_ODUk_Delay";
             this.groupBox1.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
