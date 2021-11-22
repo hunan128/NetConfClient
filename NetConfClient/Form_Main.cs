@@ -238,13 +238,6 @@ namespace NetConfClientSoftware
                         TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ClientCapabilities.OuterXml) + "\r\n" + FenGeFu + "\r\n");
                         netConfClient[id].OperationTimeout = TimeSpan.FromSeconds(15);
                         netConfClient[id].TimeOut = int.Parse(ComTimeOut.Text) * 1000;
-                        订阅ToolStripMenuItem.Enabled = true;
-                        DialogResult dr1 = MessageBox.Show(gpnip + "：连接成功！" + "是否 订阅 此设备?", "提示", MessageBoxButtons.YesNo);
-                        if (dr1 == DialogResult.Yes)
-                        {
-                            订阅ToolStripMenuItem.PerformClick();
-
-                        }
 
 
                     }));
@@ -3668,9 +3661,6 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
             Thread thread = new Thread(() => Subscription(id, ip));
             thread.Start();
-            订阅ToolStripMenuItem.Enabled = false;
-            订阅监听禁止ToolStripMenuItem.Text = "订阅监听禁止";
-            订阅监听禁止ToolStripMenuItem.Enabled = true;
             TextSub.Text = "已订阅";
         }
 
@@ -3738,18 +3728,10 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
                 toolStripStatusLabelips.Text = "未连接";
 
-                订阅ToolStripMenuItem.Enabled = false;
-                订阅监听禁止ToolStripMenuItem.Enabled = false;
                 LabConncet.Text = "连接断开";
                 上载全部XMLToolStripMenuItem.Enabled = false;
                 TextSub.Text = "未订阅";
 
-                if (订阅监听禁止ToolStripMenuItem.Text == "订阅监听禁止")
-                {
-                    Sub[id] = false;
-                    netConfClient[id].SendReceiveRpcKeepLive();
-
-                }
 
                 netConfClient[id].Disconnect();
 
@@ -3762,53 +3744,6 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         }
 
-        private void ButLogin_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void 订阅监听禁止ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            int id = int.Parse(treeViewNEID.SelectedNode.Name);
-            int line = -1;
-            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
-            {
-                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
-                {
-                    line = i;
-                    break;
-                }
-                if (line >= 0)
-                    break;
-            }
-            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-            if (订阅监听禁止ToolStripMenuItem.Text == "订阅监听禁止")
-            {
-                Sub[id] = false;
-                netConfClient[id].SendReceiveRpcKeepLive();
-                订阅监听禁止ToolStripMenuItem.Text = "订阅监听使能";
-                TextLog.AppendText("服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                TextLog.AppendText("订阅监听已经停止，请关注\r\n");
-                TextSub.Text = "未订阅";
-
-
-            }
-            else
-            {
-                Sub[id] = true;
-
-                Thread thread = new Thread(() => Subscription(id, ip));
-                thread.Start();
-                订阅ToolStripMenuItem.Enabled = false;
-                订阅监听禁止ToolStripMenuItem.Text = "订阅监听禁止";
-                TextLog.AppendText("服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                TextLog.AppendText("订阅监听已经开启，请关注\r\n");
-                TextSub.Text = "已订阅";
-
-
-            }
-        }
 
         private void 上载全部XMLToolStripMenuItem_Click(object sender, EventArgs e)
         {
