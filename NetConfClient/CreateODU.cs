@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace NetConfClientSoftware
 {
-    class CreatODU
+    class CreateODU
     {
         public static XmlDocument Common(string IPS,string _label,string _service_type,string _layer_protoco_name,string _total_size,string _nni_protection_type,
             string _client_nni_name,string _client_ts,string _client_ada,string _client_odu,string _client_switch,

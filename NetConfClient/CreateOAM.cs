@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace NetConfClientSoftware
 {
-    class OAM
+    class CreateOAM
     {
         public static XmlDocument Create(string _ctp_name,string _mep_id,string _remote_mep_id,string _meg_id,string _md_name,string _mel,string _cc_interval,string _lm_interval,string _dm_interval,string ips)
         {

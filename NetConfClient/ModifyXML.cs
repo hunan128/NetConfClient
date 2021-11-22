@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace NetConfClientSoftware
 {
-    class Modify
+    class ModifyXML
     {
         public static XmlDocument Layer_protocal_name(string _name,string _layer_protocol_name)
         {

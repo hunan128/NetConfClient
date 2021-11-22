@@ -1,6 +1,6 @@
 ﻿namespace NetConfClientSoftware
 {
-    partial class FormInfo
+    partial class Form_Info
     {
         /// <summary>
         /// Required designer variable.

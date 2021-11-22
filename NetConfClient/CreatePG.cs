@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace NetConfClientSoftware
 {
-    class PG
+    class CreatePG
     {
         public static XmlDocument Command(string _pg_id,string _protection_command,string _protection_direction)
         {

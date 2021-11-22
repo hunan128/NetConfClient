@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace NetConfClientSoftware
 {
-    public partial class LoginOn : Form
+    public partial class Login_On : Form
     {
-        public LoginOn()
+        public Login_On()
         {
             InitializeComponent();
         }
@@ -20,7 +20,7 @@ namespace NetConfClientSoftware
         ///     构造函数
         /// </summary>
         /// <param name="ip">待修改的信息</param>
-        public LoginOn(string ip,int port,string user,string passd,string version,string ips,string gpnname) : this()
+        public Login_On(string ip,int port,string user,string passd,string version,string ips,string gpnname) : this()
         {
             // 在TextBox中显示信息初值  
             //textBoxInfo.Text = info;

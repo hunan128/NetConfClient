@@ -1,6 +1,6 @@
 ﻿namespace NetConfClientSoftware
 {
-    partial class FormOAM
+    partial class Form_OAM
     {
         /// <summary>
         /// Required designer variable.

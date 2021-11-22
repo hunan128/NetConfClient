@@ -1,6 +1,6 @@
 ﻿namespace NetConfClientSoftware
 {
-    partial class FormAutoRunningNetconf
+    partial class Form_AutoRunningNetconf
     {
         /// <summary>
         /// Required designer variable.

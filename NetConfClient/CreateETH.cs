@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace NetConfClientSoftware
 {
-    class CreatETH
+    class CreateETH
     {
         public static XmlDocument Common(string ips,string _Create_Connection,string _label, string _service_type, string _layer_protoco_name,string _cir, string _pir, string _cbs, string _pbs, string _nni_protection_type,string _service_mapping_mode,
     string _uni_ptp_name, string _vlan_id, string _vlan_priority, string _access_action, string _vlan_type, string _uni_vlan_id, string _uni_vlan_priority, string _uni_access_action, string _uni_vlan_type,

@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace NetConfClientSoftware
 {
-    public partial class FormInfo : Form
+    public partial class Form_Info : Form
     {
-        public FormInfo()
+        public Form_Info()
         {
             InitializeComponent();
         }
@@ -20,7 +20,7 @@ namespace NetConfClientSoftware
         ///     构造函数
         /// </summary>
         /// <param name="info">待修改的信息</param>
-        public FormInfo(string info):this()
+        public Form_Info(string info):this()
         {
             // 在TextBox中显示信息初值  
             //textBoxInfo.Text = info;

@@ -6,7 +6,7 @@ using System.Xml;
 
 namespace NetConfClientSoftware
 {
-    class Find
+    class FindXML
     {
         public static XmlDocument Connections()
         {

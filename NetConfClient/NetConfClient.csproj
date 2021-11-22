@@ -134,18 +134,18 @@
     <Compile Include="LocalConnectionXml.cs" />
     <Compile Include="Element.cs" />
     <Compile Include="ExcelUtility.cs" />
-    <Compile Include="Find.cs" />
-    <Compile Include="FormAutoRunningNetconf.cs">
+    <Compile Include="FindXML.cs" />
+    <Compile Include="Form_AutoRunningNetconf.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormAutoRunningNetconf.Designer.cs">
-      <DependentUpon>FormAutoRunningNetconf.cs</DependentUpon>
+    <Compile Include="Form_AutoRunningNetconf.Designer.cs">
+      <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormOAM.cs">
+    <Compile Include="Form_OAM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormOAM.Designer.cs">
-      <DependentUpon>FormOAM.cs</DependentUpon>
+    <Compile Include="Form_OAM.Designer.cs">
+      <DependentUpon>Form_OAM.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_AutoXmlInfo.cs">
       <SubType>Form</SubType>
@@ -165,33 +165,32 @@
     <Compile Include="Form_ODUk_Delay.Designer.cs">
       <DependentUpon>Form_ODUk_Delay.cs</DependentUpon>
     </Compile>
-    <Compile Include="Modify.cs" />
-    <Compile Include="OAM.cs" />
+    <Compile Include="ModifyXML.cs" />
+    <Compile Include="CreateOAM.cs" />
     <Compile Include="CreateSDH.cs" />
-    <Compile Include="CreatETH.cs" />
-    <Compile Include="CreatODU.cs" />
+    <Compile Include="CreateETH.cs" />
+    <Compile Include="CreateODU.cs" />
     <Compile Include="DeleteODU.cs" />
-    <Compile Include="FormInfo.cs">
+    <Compile Include="Form_Info.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormInfo.Designer.cs">
-      <DependentUpon>FormInfo.cs</DependentUpon>
+    <Compile Include="Form_Info.Designer.cs">
+      <DependentUpon>Form_Info.cs</DependentUpon>
     </Compile>
-    <Compile Include="LoginOn.cs">
+    <Compile Include="Login_On.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LoginOn.Designer.cs">
-      <DependentUpon>LoginOn.cs</DependentUpon>
+    <Compile Include="Login_On.Designer.cs">
+      <DependentUpon>Login_On.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main_Form.cs">
+    <Compile Include="Form_Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main_Form.Designer.cs">
-      <DependentUpon>Main_Form.cs</DependentUpon>
+    <Compile Include="Form_Main.Designer.cs">
+      <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="NetConfSend.cs" />
     <Compile Include="NetConfXml.cs" />
-    <Compile Include="PG.cs" />
+    <Compile Include="CreatePG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TSConversion.cs" />
@@ -199,14 +198,14 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormAutoRunningNetconf.resx">
-      <DependentUpon>FormAutoRunningNetconf.cs</DependentUpon>
+    <EmbeddedResource Include="Form_AutoRunningNetconf.resx">
+      <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormInfo.resx">
-      <DependentUpon>FormInfo.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Info.resx">
+      <DependentUpon>Form_Info.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormOAM.resx">
-      <DependentUpon>FormOAM.cs</DependentUpon>
+    <EmbeddedResource Include="Form_OAM.resx">
+      <DependentUpon>Form_OAM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_AutoXmlInfo.resx">
       <DependentUpon>Form_AutoXmlInfo.cs</DependentUpon>
@@ -223,11 +222,11 @@
     <EmbeddedResource Include="Form_Tca_Parameter.resx">
       <DependentUpon>Form_Tca_Parameter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LoginOn.resx">
-      <DependentUpon>LoginOn.cs</DependentUpon>
+    <EmbeddedResource Include="Login_On.resx">
+      <DependentUpon>Login_On.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main_Form.resx">
-      <DependentUpon>Main_Form.cs</DependentUpon>
+    <EmbeddedResource Include="Form_Main.resx">
+      <DependentUpon>Form_Main.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

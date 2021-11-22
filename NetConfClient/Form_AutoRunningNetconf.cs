@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace NetConfClientSoftware
 {
-    public partial class FormAutoRunningNetconf : Form
+    public partial class Form_AutoRunningNetconf : Form
     {
-        public FormAutoRunningNetconf()
+        public Form_AutoRunningNetconf()
         {
             InitializeComponent();
         }
@@ -20,7 +20,7 @@ namespace NetConfClientSoftware
         ///     构造函数
         /// </summary>
         /// <param name="ip">待修改的信息</param>
-        public FormAutoRunningNetconf(string ip) : this()
+        public Form_AutoRunningNetconf(string ip) : this()
         {
             // 在TextBox中显示信息初值  
             //textBoxInfo.Text = info;
