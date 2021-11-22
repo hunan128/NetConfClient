@@ -5211,15 +5211,35 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         neip = dataGridViewNeInformation.Rows[row.Index].Cells["网元ip"].Value.ToString();       //设备IP地址
                         neipall = neipall + "\r\n" + neip;
 
+
                     }
                 }
-                if (MessageBox.Show("正在上线当前设备:" + neipall + "\r\n是否上线？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MessageBox.Show("当前设备:" + neipall + "\r\n是否上线？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
 
                     foreach (DataGridViewRow row in dataGridViewNeInformation.SelectedRows)
                     {
                         if (!row.IsNewRow)
                         {
+                            if (dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value != null)
+                            {
+                                if (dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value.ToString() == "已开启")
+                                {
+                                    ThSub[row.Index].Abort();
+                                    Sub[id] = false;
+                                    //netConfClient[id].SendReceiveRpcKeepLive();
+                                    dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "已关闭";
+
+                                }
+                            }
+                            //  Thread.Sleep(3000);
+                            if (netConfClient[id] != null)
+                            {
+                                if (netConfClient[id].IsConnected)
+                                {
+                                    netConfClient[id].Disconnect();
+                                }
+                            }
                             dataGridViewNeInformation.Rows[row.Index].DefaultCellStyle.BackColor = Color.White;
                             dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value = "";
                             dataGridViewNeInformation.Rows[row.Index].Cells["设备名称"].Value = "";

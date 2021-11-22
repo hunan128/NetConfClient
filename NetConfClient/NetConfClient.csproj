@@ -27,11 +27,11 @@
     <InstallUrl>http://hunan128.com/ftp/netconfclient/</InstallUrl>
     <UpdateUrl>http://hunan128.com/ftp/netconfclient/</UpdateUrl>
     <SupportUrl>http://hunan128.com/ftp/netconfclient/index.html</SupportUrl>
-    <ProductName>SDN客户端</ProductName>
+    <ProductName>NetConfClient</ProductName>
     <PublisherName>NetConfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>15</ApplicationRevision>
+    <ApplicationRevision>17</ApplicationRevision>
     <ApplicationVersion>2021.11.10.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
