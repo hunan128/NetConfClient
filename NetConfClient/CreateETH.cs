@@ -368,6 +368,9 @@ namespace NetConfClientSoftware
                     XmlElement requested_capacity = commonXml.CreateElement("requested-capacity");
                     create_eth_connection.AppendChild(requested_capacity);
 
+                    XmlElement total_size = commonXml.CreateElement("total-size");
+                    total_size.InnerText = _cir;
+                    requested_capacity.AppendChild(total_size);
 
                     XmlElement cir = commonXml.CreateElement("cir");
                     cir.InnerText = _cir;
@@ -767,7 +770,9 @@ namespace NetConfClientSoftware
                 //带宽大小
                 XmlElement requested_capacity = commonXml.CreateElement("requested-capacity");
                 create_eth_connection.AppendChild(requested_capacity);
-
+                XmlElement total_size = commonXml.CreateElement("total-size");
+                total_size.InnerText = _cir;
+                requested_capacity.AppendChild(total_size);
 
                 XmlElement cir = commonXml.CreateElement("cir");
                 cir.InnerText = _cir;

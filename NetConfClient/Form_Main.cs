@@ -1384,7 +1384,8 @@ namespace NetConfClientSoftware
                     //    System.Diagnostics.Debug.WriteLine(dateNode.InnerText + ": " + titleNode.InnerText);
                 }
                 // Console.Read();
-
+                if (xmlDoc.DocumentElement != null)
+                    MessageBox.Show("运行完成");
             }
             catch (Exception ex)
             {
@@ -1458,7 +1459,8 @@ namespace NetConfClientSoftware
                     //    System.Diagnostics.Debug.WriteLine(dateNode.InnerText + ": " + titleNode.InnerText);
                 }
                 // Console.Read();
-
+                if (xmlDoc.DocumentElement != null)
+                    MessageBox.Show("运行完成");
             }
             catch (Exception ex)
             {
@@ -1983,13 +1985,14 @@ namespace NetConfClientSoftware
                     break;
             }
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-            Creat(CreateODU.Common(ips, TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
+            string messg = Creat(CreateODU.Common(ips, TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
                     ComClientSideNni_UNI_A.Text, TSConversion.Ts(ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text, ComOduNniTsDetailClient_UNI_A.Text), ComOduAdapataionType_UNI_A.Text, ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,
     ComOduNniPtpName_NNI_A.Text, TSConversion.Ts(ComOduOdusignalType_NNI_A.Text, ComOduSwitchCapability_NNI_A.Text, ComOduNniTsDetail_NNI_A.Text), ComOduAdapatationType_NNI_A.Text, ComOduOdusignalType_NNI_A.Text, ComOduSwitchCapability_NNI_A.Text,
         ComOduNniPtpName_NNI_B.Text, TSConversion.Ts(ComOduOdusignalType_NNI_B.Text, ComOduSwitchCapability_NNI_B.Text, ComOduNniTsDetail_NNI_B.Text), ComOduAdapatationType_NNI_B.Text, ComOduOdusignalType_NNI_B.Text, ComOduSwitchCapability_NNI_B.Text
 
 
     ), id, ip);
+            MessageBox.Show(messg);
         }
 
         private void ButFindOdu_local_Click(object sender, EventArgs e)
@@ -2200,20 +2203,21 @@ namespace NetConfClientSoftware
         /// 脚本业务的RPC函数，带返回提示
         /// </summary>
         /// <param name="rpc">发送的脚本XML</param>
-        private void Creat(XmlDocument rpc, int id, string ip)
+        private string Creat(XmlDocument rpc, int id, string ip)
         {
+            string Messg = "";
             try
             {
                 if (netConfClient[id] == null)
                 {
-                    MessageBox.Show(ip + "：设备离线");
-                    return;
+                    Messg = ip + "：设备离线";
+                    return Messg;
                 }
                 if (!netConfClient[id].IsConnected)
                 {
                     //断开连接ToolStripMenuItem.PerformClick();
-                    MessageBox.Show(ip + "：设备离线");
-                    return;
+                    Messg = ip + "：设备离线";
+                    return Messg;
                 }
 
                 //TreeReP.Nodes.Clear();
@@ -2234,7 +2238,7 @@ namespace NetConfClientSoftware
                 rpc.LoadXml(rpcxml);
                 DateTime dTimeEnd = System.DateTime.Now;
 
-                TextLog.AppendText("Rpc本机：0.0.0.0" + " " + System.DateTime.Now.ToString() + "请求：\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：\r\n" + FenGeFu + "\r\n");
                 TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + "\r\n" + FenGeFu + "\r\n");
                 // RichTextReq.Text = sb.ToString();
                 DateTime dTimeServer = System.DateTime.Now;
@@ -2248,11 +2252,13 @@ namespace NetConfClientSoftware
                 // BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(rpcResponse); }));
                 if (rpcResponse.OuterXml.Contains("error"))
                 {
-                    MessageBox.Show("运行失败：\r\n" + XmlFormat.Xml(rpcResponse.OuterXml));
+                    // MessageBox.Show("运行失败：\r\n" + XmlFormat.Xml(rpcResponse.OuterXml));
+                    Messg = "运行失败：\r\n" + XmlFormat.Xml(rpcResponse.OuterXml);
                 }
                 else
                 {
-                    MessageBox.Show("运行成功：\r\n" + XmlFormat.Xml(rpcResponse.OuterXml));
+                    // MessageBox.Show("运行成功：\r\n" + XmlFormat.Xml(rpcResponse.OuterXml));
+                    Messg = "配置成功！";
                 }
 
             }
@@ -2260,9 +2266,10 @@ namespace NetConfClientSoftware
             {
                 TextLog.AppendText("Rpc服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
                 TextLog.AppendText(ex.Message + "\r\n");
-                MessageBox.Show("运行失败！原因如下：\r\n" + ex.ToString());
+                // MessageBox.Show("运行失败！原因如下：\r\n" + ex.ToString());
+                Messg = "运行失败！原因如下：\r\n" + ex.ToString();
             }
-
+           return Messg;
         }
 
         private void ButFindEoO_Click(object sender, EventArgs e)
@@ -2569,13 +2576,15 @@ namespace NetConfClientSoftware
                     break;
             }
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-            Creat(CreateETH.Common(ips, ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_nni_protection_type.Text, ComEthServiceMappingMode.Text,
+            string messg = Creat(CreateETH.Common(ips, ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_nni_protection_type.Text, ComEthServiceMappingMode.Text,
                     ComEthUniPtpName.Text, ComEthClientVlanId.Text, ComEthVlanPriority.Text, ComEthVlanAccessAction.Text, ComEthVlanType.Text, ComEthUniVlanId.Text, ComEthUniVlanPriority.Text, ComEthUniVlanAccessAction.Text, ComEthUniVlanType.Text,
     ComEthPrimayNniPtpName.Text, TSConversion.Ts(ComEthPrimayOduType.Text, ComEthPrimarySwitch.Text, ComEthPrimayTs.Text), ComEthPrimayAdaType.Text, ComEthPrimayOduType.Text, ComEthPrimarySwitch.Text, ComEthFtpVlanID.Text, ComEthFtpVlanPriority.Text, ComEthFtpVlanAccess.Text, ComEthFtpVlanType.Text,
         ComEthSecNniPtpName.Text, TSConversion.Ts(ComEthSecOduType.Text, ComEthSecSwitch.Text, ComEthSecNniTs.Text), ComEthSecAdaType.Text, ComEthSecOduType.Text, ComEthSecSwitch.Text,
         ComEosSdhSignalType.Text, ComVCType.Text, TextMappingPath.Text, ComEosSdhSignalTypeProtect.Text, TextMappingPathProtect.Text, ComLCAS.Text, ComHoldOff.Text, ComWTR.Text, ComTSD.Text
 
     ), id, ip);
+
+            MessageBox.Show(messg);
         }
 
         private void ButFindEth_online_Click(object sender, EventArgs e)
@@ -2666,7 +2675,8 @@ namespace NetConfClientSoftware
                     //if ((titleNode != null) && (dateNode != null))
                     //    System.Diagnostics.Debug.WriteLine(dateNode.InnerText + ": " + titleNode.InnerText);
                 }
-                // Console.Read();
+                if (xmlDoc.DocumentElement != null)
+                    MessageBox.Show("运行完成");
 
             }
             catch (Exception ex)
@@ -2829,10 +2839,14 @@ namespace NetConfClientSoftware
                     if (name != null)
                     {
                         ComCurPerObjectName.Items.Add(name.InnerText);
-                        ComCurPerObjectName.SelectedIndex = 0;
+                        if (ComCurPerObjectName.Items.Count > 0)
+                        {
+                            ComCurPerObjectName.SelectedIndex = ComCurPerObjectName.Items.Count - 1;
+                        }
                     }
                 }
-                // Console.Read();
+                if(xmlDoc.DocumentElement !=null)
+                MessageBox.Show("运行完成");
 
             }
             catch (Exception ex)
@@ -3328,6 +3342,7 @@ namespace NetConfClientSoftware
             string[] sdhunitsbyte = TextSdhUniTs.Text.Split(',');
             string[] sdhnnits_abyte = TextSdhNniTs_A.Text.Split(',');
             string[] sdhnnits_bbyte = TextSdhNniTs_B.Text.Split(',');
+            string messg0 = "";
             if (sdhunitsbyte.Length == sdhnnits_abyte.Length)
             {
 
@@ -3340,14 +3355,15 @@ namespace NetConfClientSoftware
                         sdhnnits_b = sdhnnits_bbyte[i];
                     }
 
-                    Creat(CreateSDH.Common(ips, TextSdhlabel.Text + (i + 1).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
+                    string messg1 = Creat(CreateSDH.Common(ips, TextSdhlabel.Text + (i + 1).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
         ComSdhUniPtp.Text, ComSdhUniSdhType.Text, sdhunits,
 ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniTs_A.Text), ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, sdhnnits_a,
 ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, sdhnnits_a
 
 ), id, ip);
-
+                    messg0 = messg0 + "\n" + messg1+i;
                 }
+                MessageBox.Show(messg0);
             }
 
 
@@ -3451,6 +3467,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         if (selected_port != null) { dataGridViewPGS.Rows[index].Cells["选择端口"].Value = selected_port.InnerText; }
                     }
                 }
+                MessageBox.Show("运行完成");
             }
             catch (Exception ex)
             {
@@ -3998,15 +4015,16 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _lm_interval = Formoam._lm_interval;
                                 _dm_interval = Formoam._dm_interval;
 
-                                Creat(CreateOAM.Create(_name, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval, ips), id, ip);
-                                MessageBox.Show("正在配置OAM状态，请稍等片刻！");
+                                string messg = Creat(CreateOAM.Create(_name, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval, ips), id, ip);
+                                MessageBox.Show(messg+"\n正在配置OAM状态，请稍等片刻！");
                                 _name = Formoam._name;
                                 _dm_state = Formoam._dm_state;
                                 _tm_state = Formoam._tm_state;
                                 _lm_state = Formoam._lm_state;
                                 _cc_state = Formoam._cc_state;
 
-                                Creat(CreateOAM.State(_name, _dm_state, _tm_state, _lm_state, _cc_state, ips), id, ip);
+                                messg = Creat(CreateOAM.State(_name, _dm_state, _tm_state, _lm_state, _cc_state, ips), id, ip);
+                                MessageBox.Show(messg);
 
                             }
 
@@ -4137,6 +4155,20 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 if (item != "")
                                 {
                                     if (Element.Element_Value(result, item, "") == true)
+                                    {
+                                        end = end + item + "=OK," + "\n";
+                                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                        dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
+
+                                    }
+                                    else
+                                    {
+
+                                        end = end + item + "=NOK," + "\n";
+                                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+
+                                    }
+                                    if (result.OuterXml.Contains(item))
                                     {
                                         end = end + item + "=OK," + "\n";
                                         dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
@@ -4395,7 +4427,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     }
                 }
                 // Console.Read();
-
+                if (xmlDoc.DocumentElement != null)
+                    MessageBox.Show("运行完成");
             }
             catch (Exception ex)
             {
@@ -4607,8 +4640,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _ts_detail = FormModifyOdu._ts_detail;
                                 _timeout = FormModifyOdu._timeout;
 
-                                Creat(CreateODU.Modify_Odu_Connection(_odu__ctp_name, _position, _action, _current_number_of_tributary_slots, _ts_detail, _timeout, ips), id, ip);
-
+                                string messg = Creat(CreateODU.Modify_Odu_Connection(_odu__ctp_name, _position, _action, _current_number_of_tributary_slots, _ts_detail, _timeout, ips), id, ip);
+                                MessageBox.Show(messg);
                             }
 
                         }
@@ -4764,8 +4797,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _name = FormODUkDelay._name;
                                 _odu_delay_enable = FormODUkDelay._odu_delay_enable;
 
-                                Creat(ModifyXML.Odu_ctp_delay(_name, _odu_delay_enable), id, ip);
-
+                                string messg = Creat(ModifyXML.Odu_ctp_delay(_name, _odu_delay_enable), id, ip);
+                                MessageBox.Show(messg);
                             }
 
                         }
@@ -4921,7 +4954,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         netConfClient[id].OperationTimeout = TimeSpan.FromSeconds(15);
                         netConfClient[id].TimeOut = int.Parse(ComTimeOut.Text) * 1000;
                         dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接成功";
-                        dataGridViewNeInformation.Rows[rowindex].DefaultCellStyle.BackColor = Color.GreenYellow;
+                        dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Style.BackColor = Color.GreenYellow;
 
                         for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                         {
@@ -5097,7 +5130,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 else
                 {
                     dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接失败";
-                    dataGridViewNeInformation.Rows[rowindex].DefaultCellStyle.BackColor = Color.Yellow;
+                    dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Style.BackColor = Color.Yellow;
                     for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                     {
                         if (treeViewNEID.Nodes[i].Name == id.ToString())
@@ -5117,7 +5150,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             {
                 TextLog.AppendText(ex.Message + "\r\n");
                 dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接失败";
-                dataGridViewNeInformation.Rows[rowindex].DefaultCellStyle.BackColor = Color.Yellow;
+                dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Style.BackColor = Color.Yellow;
                 for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                 {
                     if (treeViewNEID.Nodes[i].Name == id.ToString())
@@ -5131,6 +5164,12 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         }
         private void 上线ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Thread thread = new Thread(() => OnLinedevm());
+            thread.Start();
+
+        }
+
+        private void OnLinedevm() {
             try
             {
                 string neipall = "";
@@ -5175,8 +5214,9 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                     netConfClient[id].Disconnect();
                                 }
                             }
-                            dataGridViewNeInformation.Rows[row.Index].DefaultCellStyle.BackColor = Color.White;
-                            dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value = "";
+                            dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Style.BackColor = Color.White;
+                            dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Style.BackColor = Color.White;
+                            dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value = "连接中...";
                             dataGridViewNeInformation.Rows[row.Index].Cells["设备名称"].Value = "";
                             dataGridViewNeInformation.Rows[row.Index].Cells["设备类型"].Value = "";
                             dataGridViewNeInformation.Rows[row.Index].Cells["网元软件版本"].Value = "";
@@ -5191,13 +5231,15 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             password = dataGridViewNeInformation.Rows[row.Index].Cells["密码"].Value.ToString();
                             Thread thread = new Thread(() => LoginNetconf(neip, port, user, password, id, row.Index));
                             thread.Start();
+                            //LoginNetconf(neip, port, user, password, id, row.Index);
+
 
 
                         }
                         Thread.Sleep(2000);
 
                     }
-                    //      MessageBox.Show(neipall + "\r\n上线准备就绪！");
+                          MessageBox.Show(neipall + "\r\n上线完成！");
 
                 }
                 // 保存在实体类属性中
@@ -5209,9 +5251,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             {
                 MessageBox.Show(ex.ToString());
             }
-
         }
-
         private void dataGridViewNeInformation_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.ColumnIndex == 15)
@@ -5272,7 +5312,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                     netConfClient[id].Disconnect();
                                 }
                             }
-                            dataGridViewNeInformation.Rows[row.Index].DefaultCellStyle.BackColor = Color.White;
+                            dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Style.BackColor = Color.White;
+                            dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Style.BackColor = Color.White;
                             dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value = "已断开";
                             dataGridViewNeInformation.Rows[row.Index].Cells["设备名称"].Value = "";
                             dataGridViewNeInformation.Rows[row.Index].Cells["设备类型"].Value = "";
@@ -5462,6 +5503,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 ThSub[row.Index] = new Thread(() => Subscription(id, neip));
                                 ThSub[row.Index].Start();
                                 dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "已开启";
+                                dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Style.BackColor = Color.GreenYellow;
                                 Thread.Sleep(1000);
 
                             }
@@ -5571,8 +5613,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _pbs = Form_Connection_Rate._pbs;
 
 
-                                Creat(ModifyXML.Connection_Rate(_name, _total_size, _cir, _pir, _cbs, _pbs, ips), id, ip);
-
+                                string messg = Creat(ModifyXML.Connection_Rate(_name, _total_size, _cir, _pir, _cbs, _pbs, ips), id, ip);
+                                MessageBox.Show(messg);
                             }
 
 
@@ -5715,8 +5757,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _threshold_value = Form_Tca_Parameter._threshold_value;
 
 
-                                Creat(ModifyXML.tca_parameters(_name, _pm_parameter_name, _granularity, _threshold_type, _object_type, _threshold_value, ips), id, ip);
-
+                                string messg = Creat(ModifyXML.tca_parameters(_name, _pm_parameter_name, _granularity, _threshold_type, _object_type, _threshold_value, ips), id, ip);
+                                MessageBox.Show(messg);
                             }
 
 
@@ -5802,6 +5844,14 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            XmlDocument xml = new XmlDocument();
+            xml.LoadXml(RichTextReq.Text);
+            TreeReP.Nodes.Clear();
+            BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(xml); }));
         }
     }
 }
