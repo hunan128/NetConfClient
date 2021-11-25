@@ -1094,6 +1094,7 @@ namespace NetConfClientSoftware
         /// <param name="e"></param>
         private void Main_Form_Load(object sender, EventArgs e)
         {
+            treeViewNEID.ImageList = imageListTree;
             ComTimeOut.SelectedIndex = 0;
             TextOduService_type.SelectedIndex = 0;
             Com_nni_protection_type.SelectedIndex = 0;
@@ -1182,10 +1183,13 @@ namespace NetConfClientSoftware
                         if (neid != null) { dataGridViewNeInformation.Rows[index].Cells["SSH_ID"].Value = neid.InnerText; }
                         if (nename != null) { dataGridViewNeInformation.Rows[index].Cells["网元名称"].Value = nename.InnerText; }
                         if (neips != null) { dataGridViewNeInformation.Rows[index].Cells["运营商"].Value = neips.InnerText; }
+                        
                         TreeNode node = new TreeNode();
                         node.Tag = neid.InnerText;
                         node.Name = neid.InnerText;
                         node.Text = nename.InnerText;
+                        node.ImageIndex = 0;
+                        node.SelectedImageIndex = 4;
                         treeViewNEID.Nodes.Add(node);
                         for (int i = 0; i < this.dataGridViewNeInformation.Columns.Count; i++)
                             {
@@ -4263,33 +4267,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         dataGridViewAuto.Rows[index].Cells["Auto问题定位建议"].Value = dataTable.Rows[index]["问题定位建议"].ToString();
                     }
 
-                    //DataView dv = ds.Tables[0].DefaultView;
-                    //dataTable.DefaultView.RowFilter = "类型 = '" + comtype.Text + "'";
-                    //   dataGridViewAuto.DataSource = dataTable;
-                    //if (dataGridViewAuto.Columns["开始时间"] == null)
-                    //{
 
-                    //    this.dataGridView1.Columns.Add("开始时间", "开始时间");
-                    //    this.dataGridView1.Columns["开始时间"].FillWeight = 150;
-                    //}
-                    //else
-                    //{
-                    //    this.dataGridView1.Columns.Remove("开始时间");
-                    //    this.dataGridView1.Columns.Add("开始时间", "开始时间");
-                    //    this.dataGridView1.Columns["开始时间"].FillWeight = 150;
-                    //}
-
-
-
-
-
-                    //this.dataGridViewAuto.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-                    //foreach (DataGridViewColumn column in dataGridViewAuto.Columns)
-                    //{
-                    //    column.SortMode = DataGridViewColumnSortMode.NotSortable;
-                    //}
-                    //  toolStripStatusLabelzonggong.Text = (dataGridView1.Rows.Count - 1).ToString();
-                    //  toolStripStatusLabelshengyu.Text = toolStripStatusLabelzonggong.Text;
                 }
                 catch (Exception ex)
                 {
@@ -4925,6 +4903,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     node.Tag = ipaddresscunt.ToString();
                     node.Name = ipaddresscunt.ToString();
                     node.Text = LoginOn.NeName;
+                    node.ImageIndex = 0;
+                    node.SelectedImageIndex = 4;
                     treeViewNEID.Nodes.Add(node);
                 }
             }
@@ -4960,7 +4940,9 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         {
                             if (treeViewNEID.Nodes[i].Name == id.ToString())
                             {
-                                treeViewNEID.Nodes[i].ForeColor = Color.Green;
+                                //treeViewNEID.Nodes[i].ForeColor = Color.Green;
+                                treeViewNEID.Nodes[i].ImageIndex = 2;
+                                treeViewNEID.Nodes[i].SelectedImageIndex = 2;
                                 break;
                             }
                         }
@@ -5135,7 +5117,9 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     {
                         if (treeViewNEID.Nodes[i].Name == id.ToString())
                         {
-                            treeViewNEID.Nodes[i].ForeColor = Color.Red;
+                            //treeViewNEID.Nodes[i].ForeColor = Color.Red;
+                            treeViewNEID.Nodes[i].ImageIndex = 3;
+                            treeViewNEID.Nodes[i].SelectedImageIndex = 3;
                             break;
                         }
                     }
@@ -5155,7 +5139,9 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 {
                     if (treeViewNEID.Nodes[i].Name == id.ToString())
                     {
-                        treeViewNEID.Nodes[i].ForeColor = Color.Red;
+                        //treeViewNEID.Nodes[i].ForeColor = Color.Red;
+                        treeViewNEID.Nodes[i].ImageIndex = 3;
+                        treeViewNEID.Nodes[i].SelectedImageIndex = 3;
                         break;
                     }
                 }
@@ -5326,6 +5312,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 if (treeViewNEID.Nodes[i].Name == id.ToString())
                                 {
                                     treeViewNEID.Nodes[i].ForeColor = Color.Black;
+                                    treeViewNEID.Nodes[i].ImageIndex = 0;
+                                    treeViewNEID.Nodes[i].SelectedImageIndex = 4;
                                     break;
                                 }
                             }
@@ -5400,21 +5388,11 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                     netConfClient[id].Disconnect();
                                 }
                             }
-
-
-
-
                         }
-
-
                     }
-
-
                 }
                 // 保存在实体类属性中
                 //保存密码选中状态
-
-
             }
             catch (Exception ex)
             {
@@ -5422,10 +5400,6 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             }
         }
 
-        private void menuStrip_Winfrom_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
 
         private void treeViewNEID_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -5450,9 +5424,10 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 {
                     TextIP.Text = dataGridViewNeInformation.Rows[e.Node.Index].Cells["网元ip"].Value.ToString();
                 }
-
-              //  dataGridViewNeInformation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-             //   dataGridViewNeInformation.Rows[e.Node.Index].Selected = true;
+               // treeViewNEID.SelectedNode.ImageIndex = 2;
+                //treeViewNEID.SelectedNode.SelectedImageIndex = 2;
+                //  dataGridViewNeInformation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+                //   dataGridViewNeInformation.Rows[e.Node.Index].Selected = true;
                 dataGridViewNeInformation.CurrentCell = dataGridViewNeInformation.Rows[e.Node.Index].Cells["网元ip"];
             }
         }
@@ -5492,9 +5467,9 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             {
                                 dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "订阅中";
                                 string subscription = "<?xml version=\"1.0\" encoding=\"utf-8\"?>" + "\r\n" +
-                    "<rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"7\" >" + "\r\n" +
-                    "<create-subscription xmlns=\"urn:ietf:params:xml:ns:netconf:notification:1.0\" />" + "\r\n" +
-                    "</rpc > ";
+                                                        "<rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"7\" >" + "\r\n" +
+                                                                    "<create-subscription xmlns=\"urn:ietf:params:xml:ns:netconf:notification:1.0\" />" + "\r\n" +
+                                                         "</rpc > ";
 
                                 var sub = netConfClient[id].SendReceiveRpc(subscription);
                                 TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
@@ -5504,6 +5479,16 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 ThSub[row.Index].Start();
                                 dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value = "已开启";
                                 dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Style.BackColor = Color.GreenYellow;
+                                for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                                {
+                                    if (treeViewNEID.Nodes[i].Name == id.ToString())
+                                    {
+                                        //treeViewNEID.Nodes[i].ForeColor = Color.Red;
+                                        treeViewNEID.Nodes[i].ImageIndex = 1;
+                                        treeViewNEID.Nodes[i].SelectedImageIndex = 1;
+                                        break;
+                                    }
+                                }
                                 Thread.Sleep(1000);
 
                             }
