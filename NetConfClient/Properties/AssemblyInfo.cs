@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Netconf")]
 [assembly: AssemblyDescription("" +
-   
+    "2021.11.26 支持最多32个网元同时上线" + "\r\n" +
     "2021.11.21 支持TCA参数设置" + "\r\n" +
     "2021.11.18 支持ETH-to-ETH业务创建，支持CTP限速调整" + "\r\n" +
     "2021.11.14 支持多个网元同时登录创建使用" + "\r\n" +

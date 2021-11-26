@@ -11,6 +11,9 @@ namespace NetConfClientSoftware
     {
         public void CreatXmlTree(string xmlPath,string ip,int port, string user, string password,int id,string name,string ips)
         {
+            if (string.IsNullOrEmpty(name)) {
+                name = ip;
+            }
             XElement xElement = new XElement(
                   new XElement("neinfo",
                     new XElement("ipaddress", new XAttribute("id",id),
@@ -62,7 +65,14 @@ namespace NetConfClientSoftware
             newNodeid.InnerText = id.ToString();
             newNode.AppendChild(newNodeid);
             XmlNode newNodename = xmlDoc.CreateNode("element", "name", "");
-            newNodename.InnerText = name;
+            if (string.IsNullOrEmpty(name))
+            {
+                newNodename.InnerText = ip;
+            }
+            else {
+                newNodename.InnerText = name;
+            }
+            
             newNode.AppendChild(newNodename);
             XmlNode newNodeips = xmlDoc.CreateNode("element", "ips", "");
             newNodeips.InnerText = ips;

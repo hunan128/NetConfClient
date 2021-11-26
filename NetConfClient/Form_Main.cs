@@ -1335,10 +1335,13 @@ namespace NetConfClientSoftware
                     XmlNode layer_protocol_nameotn = itemNode.SelectSingleNode("me:layer-protocol-name[3]/text()[1]", root);
                     XmlNodeList eq = itemNode.SelectNodes("me:eq", root);
                     XmlNode ntp_state = itemNode.SelectSingleNode("me:ntp-state", root);
+                    string layer_protocol_name_eth = "";
+                    string layer_protocol_name_sdh = "";
+                    string layer_protocol_name_otn = "";
 
-                    string layer_protocol_name_eth = layer_protocol_nameeth.InnerText;
-                    string layer_protocol_name_sdh = layer_protocol_namesdh.InnerText;
-                    string layer_protocol_name_otn = layer_protocol_nameotn.InnerText;
+                    if (layer_protocol_nameeth != null) layer_protocol_name_eth = layer_protocol_nameeth.InnerText;
+                    if (layer_protocol_namesdh != null) layer_protocol_name_sdh = layer_protocol_namesdh.InnerText;
+                    if (layer_protocol_nameotn != null) layer_protocol_name_otn = layer_protocol_nameotn.InnerText;
                     string layer_protocol_name_all = layer_protocol_name_eth + layer_protocol_name_sdh + layer_protocol_name_otn;
                     layer_protocol_name_all = layer_protocol_name_all.Replace("acc-eth:", "");
                     layer_protocol_name_all = layer_protocol_name_all.Replace("acc-sdh", "");
@@ -2078,7 +2081,7 @@ namespace NetConfClientSoftware
                     if (!row.IsNewRow)
                     {
                         connection = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();       //设备IP地址
-                        allconnection = allconnection + "\r\n" + connection;
+                        allconnection = allconnection + ", " + connection;
                     }
                 }
                 if (MessageBox.Show("正在删除当前业务:\r\n" + allconnection + "\r\n是否删除？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
@@ -3365,7 +3368,7 @@ ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text
 ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, sdhnnits_a
 
 ), id, ip);
-                    messg0 = messg0 + "\n" + messg1+i;
+                    messg0 = messg0 + "| " + messg1+"="+ (i + 1).ToString();
                 }
                 MessageBox.Show(messg0);
             }
@@ -4172,20 +4175,20 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                         dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
 
                                     }
-                                    if (result.OuterXml.Contains(item))
-                                    {
-                                        end = end + item + "=OK," + "\n";
-                                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-                                        dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
+                                    //if (result.OuterXml.Contains(item))
+                                    //{
+                                    //    end = end + item + "=OK," + "\n";
+                                    //    dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                    //    dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
 
-                                    }
-                                    else
-                                    {
+                                    //}
+                                    //else
+                                    //{
 
-                                        end = end + item + "=NOK," + "\n";
-                                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                    //    end = end + item + "=NOK," + "\n";
+                                    //    dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
 
-                                    }
+                                    //}
 
                                 }
 
@@ -4897,12 +4900,22 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     dataGridViewNeInformation.Rows[index].Cells["用户名"].Value = LoginOn.USER;
                     dataGridViewNeInformation.Rows[index].Cells["密码"].Value = LoginOn.PASSD;
                     dataGridViewNeInformation.Rows[index].Cells["SSH_ID"].Value = ipaddresscunt;
-                    dataGridViewNeInformation.Rows[index].Cells["网元名称"].Value = LoginOn.NeName;
                     dataGridViewNeInformation.Rows[index].Cells["运营商"].Value = LoginOn.IPS;
                     TreeNode node = new TreeNode();
                     node.Tag = ipaddresscunt.ToString();
                     node.Name = ipaddresscunt.ToString();
-                    node.Text = LoginOn.NeName;
+                    if (string.IsNullOrEmpty(LoginOn.NeName))
+                    {
+                        node.Text = LoginOn.IP;
+                        dataGridViewNeInformation.Rows[index].Cells["网元名称"].Value = LoginOn.IP;
+
+                    }
+                    else {
+                        node.Text = LoginOn.NeName;
+                        dataGridViewNeInformation.Rows[index].Cells["网元名称"].Value = LoginOn.NeName;
+
+                    }
+
                     node.ImageIndex = 0;
                     node.SelectedImageIndex = 4;
                     treeViewNEID.Nodes.Add(node);
