@@ -354,7 +354,7 @@
             // 
             this.结果.HeaderText = "结果";
             this.结果.Name = "结果";
-            this.结果.Width = 150;
+            this.结果.Width = 300;
             // 
             // Form_AutoXmlInfo
             // 

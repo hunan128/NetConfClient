@@ -35,7 +35,7 @@ namespace NetConfClientSoftware
                 richTextBoxReply.Text = Reply;
                 RxXml = Reply;
                 string[] ExpByte = Exp.Split(',');
-                string[] RxByte = Rx.Split(',');
+                string[] RxByte = Rx.Split('|');
 
                 for (int i = 0; i < ExpByte.Length; i++)
                 {
@@ -51,7 +51,7 @@ namespace NetConfClientSoftware
                         
                     if (RxByte[i].Contains("NOK")) {
                         dataGridViewExpRx.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
-                        dataGridViewExpRx.Rows[i].Cells["结果"].Value = "匹配节点名称NOK";
+                        dataGridViewExpRx.Rows[i].Cells["结果"].Value = "匹配节点名称:"+ RxByte0[1];
 
                     }
                     else

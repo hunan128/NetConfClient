@@ -243,14 +243,17 @@ namespace NetConfClientSoftware
                         enumname = string.Join(",", (string[])list.ToArray(typeof(string)));
                         string[] en = { typedefname, typename, enumname };
                         if (ips.Contains("联通")) {
+                           // CUCC_Array.Clear();
                             CUCC_Array.Add(en);
                         }
                         if (ips.Contains("移动"))
                         {
+                           // CMCC_Array.Clear();
                             CMCC_Array.Add(en);
                         }
                         if (ips.Contains("电信"))
                         {
+                           // CTCC_Array.Clear();
                             CTCC_Array.Add(en);
                         }
                     }

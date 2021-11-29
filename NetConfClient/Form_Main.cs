@@ -4282,7 +4282,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                             {
                                                 if (Element.CUCC_Array[j][0] == item)
                                                 {
-                                                    end = end + item + "[枚举]=OK," + "\n";
+                                                    end = end + item + "[枚举]=OK|" + "\n";
                                                     key = true;
                                                     break;
                                                 }
@@ -4296,7 +4296,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                 {
                                                     if (Element.CMCC_Array[j][0] == item)
                                                     {
-                                                        end = end + item + "[枚举]=OK," + "\n";
+                                                        end = end + item + "[枚举]=OK|" + "\n";
                                                         key = true;
                                                         break;
                                                     }
@@ -4310,7 +4310,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                 {
                                                     if (Element.CTCC_Array[j][0] == item)
                                                     {
-                                                        end = end + item + "[枚举]=OK," + "\n";
+                                                        end = end + item + "[枚举]=OK|" + "\n";
                                                         key = true;
                                                         break;
                                                     }
@@ -4318,15 +4318,58 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                 }
                                         }
                                         if (!key)
-                                            end = end + item + "=OK," + "\n";
+                                            end = end + item + "=OK|" + "\n";
                                         dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
                                         dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
 
                                     }
                                     else
                                     {
-
-                                        end = end + item + "=NOK," + "\n";
+                                        if (ips.Contains("联通"))
+                                        {
+                                            if (Element.CUCC_Array.Count != 0)
+                                                for (int j = 0; j < Element.CUCC_Array.Count; j++)
+                                                {
+                                                    if (Element.CUCC_Array[j][0] == item)
+                                                    {
+                                                        end = end + item + "[枚举]=NOK参考:"+ Element.CUCC_Array[j][2] + "|" + "\n";
+                                                        key = true;
+                                                        break;
+                                                    }
+                                                    key = false;
+                                                }
+                                        }
+                                        if (ips.Contains("移动"))
+                                        {
+                                            if (Element.CMCC_Array.Count != 0)
+                                                for (int j = 0; j < Element.CMCC_Array.Count; j++)
+                                                {
+                                                    if (Element.CMCC_Array[j][0] == item)
+                                                    {
+                                                        end = end + item + "[枚举]=NOK参考:" + Element.CMCC_Array[j][2] + "|" + "\n";
+                                                        key = true;
+                                                        break;
+                                                    }
+                                                    key = false;
+                                                }
+                                        }
+                                        if (ips.Contains("电信"))
+                                        {
+                                            if (Element.CTCC_Array.Count != 0)
+                                                for (int j = 0; j < Element.CTCC_Array.Count; j++)
+                                                {
+                                                    if (Element.CTCC_Array[j][0] == item)
+                                                    {
+                                                        end = end + item + "[枚举]=NOK参考:" + Element.CTCC_Array[j][2] + "|" + "\n";
+                                                        key = true;
+                                                        break;
+                                                    }
+                                                    key = false;
+                                                }
+                                        }
+                                        if (!key)
+                                            end = end + item + "=NOK|" + "\n";
+                                       
                                         dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
 
                                     }
@@ -6010,23 +6053,136 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         private void 加载联通YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            YIN_XML_URL(CUCC_YIN_URL, "联通");
             if (Element.CUCC_Array.Count != 0)
-                MessageBox.Show("加载联通YIN文件成功");
+            {
+                Element.CUCC_Array.Clear();
+            }
+                if (Directory.Exists(CUCC_YIN))
+            {
+                LoadYIN(CUCC_YIN, "联通");
+            }
+            else {
+                YIN_XML_URL(CUCC_YIN_URL, "联通");
+            }
+
+            if (Element.CUCC_Array.Count != 0)
+            {
+                MessageBox.Show("加载联通YIN文件成功！");
+            }
+            else {
+                MessageBox.Show("加载失败！");
+            }
+               
         }
 
         private void 加载移动YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            YIN_XML_URL(CMCC_YIN_URL, "移动");
             if (Element.CMCC_Array.Count != 0)
+            {
+                Element.CMCC_Array.Clear();
+            }
+            if (Directory.Exists(CMCC_YIN))
+            {
+                LoadYIN(CMCC_YIN, "移动");
+            }
+            else {
+                YIN_XML_URL(CMCC_YIN_URL, "移动");
+            }
+
+            if (Element.CMCC_Array.Count != 0)
+            {
                 MessageBox.Show("加载移动YIN文件成功");
+            }
+            else {
+                MessageBox.Show("加载失败");
+            }
+               
         }
 
         private void 加载电信YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            YIN_XML_URL(CTCC_YIN_URL, "电信");
             if (Element.CTCC_Array.Count != 0)
+            {
+                Element.CTCC_Array.Clear();
+            }
+            if (Directory.Exists(CTCC_YIN))
+            {
+                LoadYIN(CTCC_YIN, "电信");
+            }
+            else {
+
+                YIN_XML_URL(CTCC_YIN_URL, "电信");
+            }
+
+            if (Element.CTCC_Array.Count != 0)
+            {
                 MessageBox.Show("加载电信YIN文件成功");
+            }
+            else {
+                MessageBox.Show("加载失败");
+            }
+               
+        }
+        private void LoadYIN(string path,string ips)
+        {
+
+
+
+            DirectoryInfo dir = new DirectoryInfo(path);
+            if (dir == null)
+            {
+                MessageBox.Show("文件空，请重新选择文件夹！");
+                return;
+            }
+            FileInfo[] fileInfo = dir.GetFiles();
+            List<string> fileNames = new List<string>();
+            foreach (FileInfo item in fileInfo)
+            {
+                fileNames.Add(item.Name);
+            }
+            foreach (string yin in fileNames)
+            {
+               
+                if (yin.Contains("yin"))
+                {
+                    if (ips.Contains("联通"))
+                    {
+                        if (Directory.Exists(CUCC_YIN))
+                        {
+                            XmlDocument doc = new XmlDocument();
+                            doc.Load(path + yin);
+                            Element dos = new Element();
+                            dos.Element_Value_Find(doc, ips);
+
+                        }
+
+                    }
+                    if (ips.Contains("电信"))
+                    {
+                        if (Directory.Exists(CTCC_YIN))
+                        {
+                            XmlDocument doc = new XmlDocument();
+                            doc.Load(path + yin);
+                            Element dos = new Element();
+                            dos.Element_Value_Find(doc, ips);
+
+                        }
+
+                    }
+                    if (ips.Contains("移动"))
+                    {
+                        if (Directory.Exists(CMCC_YIN))
+                        {
+                            XmlDocument doc = new XmlDocument();
+                            doc.Load(path + yin);
+                            Element dos = new Element();
+                            dos.Element_Value_Find(doc, ips);
+
+                        }
+
+                    }
+                }
+            }
         }
     }
 }
