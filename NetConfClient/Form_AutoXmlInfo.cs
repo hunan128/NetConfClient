@@ -40,14 +40,21 @@ namespace NetConfClientSoftware
                 for (int i = 0; i < ExpByte.Length; i++)
                 {
                     int index = dataGridViewExpRx.Rows.Add();
-                    dataGridViewExpRx.Rows[index].Cells["预期"].Value = ExpByte[i];
+                    //dataGridViewExpRx.Rows[index].Cells["预期"].Value = ExpByte[i];
                     string[] RxByte0 = RxByte[i].Split('=');
-
+                    dataGridViewExpRx.Rows[index].Cells["预期"].Value = RxByte0[0];
                     dataGridViewExpRx.Rows[index].Cells["结果"].Value = RxByte0[1];
+                    if (RxByte0[0].Contains("枚举")) {
+                        dataGridViewExpRx.Rows[i].Cells["预期"].Style.ForeColor = Color.Red;
+                        dataGridViewExpRx.Rows[i].Cells["结果"].Style.ForeColor = Color.Red;
+                    }
+                        
                     if (RxByte[i].Contains("NOK")) {
                         dataGridViewExpRx.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        dataGridViewExpRx.Rows[i].Cells["结果"].Value = "匹配节点名称NOK";
+
                     }
-                   else
+                    else
                     {
                         dataGridViewExpRx.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
                     }

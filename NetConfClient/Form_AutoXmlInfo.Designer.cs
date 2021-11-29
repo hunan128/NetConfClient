@@ -29,13 +29,16 @@
         private void InitializeComponent()
         {
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.RPC请求 = new System.Windows.Forms.GroupBox();
             this.richTextBoxRpc = new System.Windows.Forms.RichTextBox();
+            this.RPC = new System.Windows.Forms.GroupBox();
             this.richTextBoxReply = new System.Windows.Forms.RichTextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.treeView = new System.Windows.Forms.TreeView();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewExpRx = new System.Windows.Forms.DataGridView();
-            this.RPC请求 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBoxModel = new System.Windows.Forms.TextBox();
             this.textBoxtitle = new System.Windows.Forms.TextBox();
             this.textBoxips = new System.Windows.Forms.TextBox();
@@ -52,26 +55,23 @@
             this.textBoxRecommod = new System.Windows.Forms.TextBox();
             this.预期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.treeView = new System.Windows.Forms.TreeView();
-            this.RPC = new System.Windows.Forms.GroupBox();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
+            this.RPC请求.SuspendLayout();
+            this.RPC.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExpRx)).BeginInit();
-            this.RPC请求.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.RPC.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // splitContainer2
@@ -88,9 +88,96 @@
             // 
             this.splitContainer2.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer2.Panel2.ForeColor = System.Drawing.Color.Blue;
-            this.splitContainer2.Size = new System.Drawing.Size(907, 663);
-            this.splitContainer2.SplitterDistance = 428;
+            this.splitContainer2.Size = new System.Drawing.Size(856, 663);
+            this.splitContainer2.SplitterDistance = 403;
             this.splitContainer2.TabIndex = 2;
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.RPC请求);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.RPC);
+            this.splitContainer1.Size = new System.Drawing.Size(403, 663);
+            this.splitContainer1.SplitterDistance = 331;
+            this.splitContainer1.TabIndex = 6;
+            // 
+            // RPC请求
+            // 
+            this.RPC请求.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RPC请求.Controls.Add(this.richTextBoxRpc);
+            this.RPC请求.Location = new System.Drawing.Point(12, 9);
+            this.RPC请求.Name = "RPC请求";
+            this.RPC请求.Size = new System.Drawing.Size(378, 309);
+            this.RPC请求.TabIndex = 4;
+            this.RPC请求.TabStop = false;
+            this.RPC请求.Text = "RPC请求";
+            // 
+            // richTextBoxRpc
+            // 
+            this.richTextBoxRpc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxRpc.ForeColor = System.Drawing.Color.Blue;
+            this.richTextBoxRpc.Location = new System.Drawing.Point(3, 17);
+            this.richTextBoxRpc.Name = "richTextBoxRpc";
+            this.richTextBoxRpc.Size = new System.Drawing.Size(372, 289);
+            this.richTextBoxRpc.TabIndex = 1;
+            this.richTextBoxRpc.Text = "";
+            // 
+            // RPC
+            // 
+            this.RPC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RPC.Controls.Add(this.richTextBoxReply);
+            this.RPC.Location = new System.Drawing.Point(12, 12);
+            this.RPC.Name = "RPC";
+            this.RPC.Size = new System.Drawing.Size(378, 303);
+            this.RPC.TabIndex = 5;
+            this.RPC.TabStop = false;
+            this.RPC.Text = "Reply答复";
+            // 
+            // richTextBoxReply
+            // 
+            this.richTextBoxReply.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.richTextBoxReply.ForeColor = System.Drawing.Color.Blue;
+            this.richTextBoxReply.Location = new System.Drawing.Point(3, 17);
+            this.richTextBoxReply.Name = "richTextBoxReply";
+            this.richTextBoxReply.Size = new System.Drawing.Size(372, 283);
+            this.richTextBoxReply.TabIndex = 2;
+            this.richTextBoxReply.Text = "";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.treeView);
+            this.groupBox2.Location = new System.Drawing.Point(12, 9);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(424, 641);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Reply树状图";
+            // 
+            // treeView
+            // 
+            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
+            this.treeView.Location = new System.Drawing.Point(3, 17);
+            this.treeView.Name = "treeView";
+            this.treeView.Size = new System.Drawing.Size(418, 621);
+            this.treeView.TabIndex = 3;
+            this.treeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeView_DrawNode);
             // 
             // splitContainer3
             // 
@@ -108,28 +195,8 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer3.Size = new System.Drawing.Size(1240, 663);
-            this.splitContainer3.SplitterDistance = 329;
+            this.splitContainer3.SplitterDistance = 380;
             this.splitContainer3.TabIndex = 3;
-            // 
-            // richTextBoxRpc
-            // 
-            this.richTextBoxRpc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBoxRpc.ForeColor = System.Drawing.Color.Blue;
-            this.richTextBoxRpc.Location = new System.Drawing.Point(3, 17);
-            this.richTextBoxRpc.Name = "richTextBoxRpc";
-            this.richTextBoxRpc.Size = new System.Drawing.Size(397, 289);
-            this.richTextBoxRpc.TabIndex = 1;
-            this.richTextBoxRpc.Text = "";
-            // 
-            // richTextBoxReply
-            // 
-            this.richTextBoxReply.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBoxReply.ForeColor = System.Drawing.Color.Blue;
-            this.richTextBoxReply.Location = new System.Drawing.Point(3, 17);
-            this.richTextBoxReply.Name = "richTextBoxReply";
-            this.richTextBoxReply.Size = new System.Drawing.Size(397, 283);
-            this.richTextBoxReply.TabIndex = 2;
-            this.richTextBoxReply.Text = "";
             // 
             // groupBox1
             // 
@@ -139,7 +206,7 @@
             this.groupBox1.Controls.Add(this.dataGridViewExpRx);
             this.groupBox1.Location = new System.Drawing.Point(12, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(306, 641);
+            this.groupBox1.Size = new System.Drawing.Size(357, 641);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "预期与结果";
@@ -155,34 +222,8 @@
             this.dataGridViewExpRx.Name = "dataGridViewExpRx";
             this.dataGridViewExpRx.RowHeadersVisible = false;
             this.dataGridViewExpRx.RowTemplate.Height = 23;
-            this.dataGridViewExpRx.Size = new System.Drawing.Size(300, 621);
+            this.dataGridViewExpRx.Size = new System.Drawing.Size(351, 621);
             this.dataGridViewExpRx.TabIndex = 0;
-            // 
-            // RPC请求
-            // 
-            this.RPC请求.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.RPC请求.Controls.Add(this.richTextBoxRpc);
-            this.RPC请求.Location = new System.Drawing.Point(12, 9);
-            this.RPC请求.Name = "RPC请求";
-            this.RPC请求.Size = new System.Drawing.Size(403, 309);
-            this.RPC请求.TabIndex = 4;
-            this.RPC请求.TabStop = false;
-            this.RPC请求.Text = "RPC请求";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.treeView);
-            this.groupBox2.Location = new System.Drawing.Point(12, 9);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(450, 641);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Reply树状图";
             // 
             // textBoxModel
             // 
@@ -313,47 +354,7 @@
             // 
             this.结果.HeaderText = "结果";
             this.结果.Name = "结果";
-            // 
-            // treeView
-            // 
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.treeView.Location = new System.Drawing.Point(3, 17);
-            this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(444, 621);
-            this.treeView.TabIndex = 3;
-            this.treeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeView_DrawNode);
-            // 
-            // RPC
-            // 
-            this.RPC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.RPC.Controls.Add(this.richTextBoxReply);
-            this.RPC.Location = new System.Drawing.Point(12, 12);
-            this.RPC.Name = "RPC";
-            this.RPC.Size = new System.Drawing.Size(403, 303);
-            this.RPC.TabIndex = 5;
-            this.RPC.TabStop = false;
-            this.RPC.Text = "Reply答复";
-            // 
-            // splitContainer1
-            // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.RPC请求);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.RPC);
-            this.splitContainer1.Size = new System.Drawing.Size(428, 663);
-            this.splitContainer1.SplitterDistance = 331;
-            this.splitContainer1.TabIndex = 6;
+            this.结果.Width = 150;
             // 
             // Form_AutoXmlInfo
             // 
@@ -383,19 +384,19 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
+            this.RPC请求.ResumeLayout(false);
+            this.RPC.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExpRx)).EndInit();
-            this.RPC请求.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            this.RPC.ResumeLayout(false);
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -425,10 +426,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox textBoxRecommod;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 预期;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 结果;
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox RPC;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 预期;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 结果;
     }
 }

@@ -30,6 +30,9 @@ namespace NetConfClientSoftware
        // List<NetConfClient> netConfClient = new List<NetConfClient>();
         bool[] Sub = new bool[32];      //订阅开关默认禁止
         public static string defaultfilePath = "";       //打开文件夹默认路径
+        public static string CUCC_YIN = @"C:\netconf\YANG\CUCC\YIN\";       //联通YIN文件
+        public static string CTCC_YIN = @"C:\netconf\YANG\CTCC\YIN\";       //联通YIN文件
+        public static string CMCC_YIN = @"C:\netconf\YANG\CMCC\YIN\";       //联通YIN文件
         public static string FenGeFu = "----------------------------------------------------------------------------";//分隔符
         public string XML_URL = "http://hunan128.com:888/NetconfXML/";   //XML在线文件地址
         public string gpnip = "";//设备IP地址
@@ -40,6 +43,9 @@ namespace NetConfClientSoftware
         public string ips = "联通";
         public string gpnname = "GPN";
         public static string neinfopath = @"C:\netconf\neinfo.xml";
+        public string CUCC_YIN_URL = "http://hunan128.com:888/YANG/CUCC/YIN/";   //XML在线文件地址
+        public string CTCC_YIN_URL = "http://hunan128.com:888/YANG/CTCC/YIN/";   //XML在线文件地址
+        public string CMCC_YIN_URL = "http://hunan128.com:888/YANG/CMCC/YIN/";   //XML在线文件地址
 
         #region 声明ini变量
 
@@ -1134,7 +1140,8 @@ namespace NetConfClientSoftware
 
             Control.CheckForIllegalCrossThreadCalls = false;
             Readini();
-            Gpnurlupdate();
+            XML_URL_COMBOX(XML_URL);
+            
             this.listViewAll.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right);
             for (int i = 0; i < 30; i++)
             {
@@ -2187,7 +2194,8 @@ namespace NetConfClientSoftware
                 //BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(rpcResponse); }));
                 if (rpcResponse.OuterXml.Contains("error-type"))
                 {
-                    MessageBox.Show("运行失败：\r\n" + XmlFormat.Xml(rpcResponse.OuterXml));
+                    //MessageBox.Show("运行失败：\r\n" + XmlFormat.Xml(rpcResponse.OuterXml));
+                    rpcc.LoadXml(XmlFormat.Xml(rpcResponse.OuterXml));
                 }
                 else
                 {
@@ -2692,18 +2700,18 @@ namespace NetConfClientSoftware
             }
         }
 
-        private void Gpnurlupdate()
+        private void XML_URL_COMBOX(string URL)
         {
             try
             {
                 string strCode;
                 ArrayList alLinks;
-                if (XML_URL == "")
+                if (URL == "")
                 {
                     MessageBox.Show("请输入网址");
                     return;
                 }
-                string strURL = XML_URL;
+                string strURL = URL;
                 if (strURL.Substring(0, 7) != @"http://")
                 {
                     //strURL = @"http://" + strURL;
@@ -2716,7 +2724,7 @@ namespace NetConfClientSoftware
                 //textDOS.AppendText("正在提取超链接=============================================OK" + "\r\n");
                 alLinks = NetConfXml.GetHyperLinks(strCode);
                 //textDOS.AppendText("正在写入XML文件============================================OK" + "\r\n");
-                NetConfXml.WriteToXml(strURL, alLinks);
+                NetConfXml.WriteToXml(strURL, alLinks, "HyperLinks");
                 //读取设定档百
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.Load(@"C:\netconf\HyperLinks.xml");
@@ -2741,7 +2749,110 @@ namespace NetConfClientSoftware
             }
 
         }
+        private void YIN_XML_URL(string URL,string ips)
+        {
+            try
+            {
+                string strCode;
+                ArrayList alLinks;
+                if (URL == "")
+                {
+                    MessageBox.Show("请输入网址");
+                    return;
+                }
+                string strURL = URL;
+                if (strURL.Substring(0, 7) != @"http://")
+                {
+                    //strURL = @"http://" + strURL;
+                }
 
+                //判断请求是否超时
+
+                //textDOS.AppendText("正在获取页面代码===========================================OK" + "\r\n");
+                strCode = NetConfXml.GetPageSource(strURL);
+                //textDOS.AppendText("正在提取超链接=============================================OK" + "\r\n");
+                alLinks = NetConfXml.GetHyperLinks(strCode);
+                //textDOS.AppendText("正在写入XML文件============================================OK" + "\r\n");
+                NetConfXml.WriteToXml(strURL, alLinks,ips);
+                //读取设定档百
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.Load(@"C:\netconf\"+ips+".xml");
+                //取得节点专
+                XmlNodeList node = xmlDoc.GetElementsByTagName("other");
+                for (int i = 0; i < node.Count; i++)
+                {
+                    if (ips.Contains("联通")) {
+                        if (!Directory.Exists(CUCC_YIN))
+                        {
+                            Directory.CreateDirectory(CUCC_YIN);
+                        }
+                        if (Directory.Exists(CUCC_YIN))
+                        {
+                            if (node[i].InnerText != null)
+                            {
+                                XmlDocument doc = new XmlDocument();
+                                doc.Load(URL + node[i].InnerText);
+                                Element dos = new Element();
+                                dos.Element_Value_Find(doc, ips);
+                                doc.Save(CUCC_YIN +node[i].InnerText);
+                            }
+
+                        }
+
+                    }
+                    if (ips.Contains("电信"))
+                    {
+                        if (!Directory.Exists(CTCC_YIN))
+                        {
+                            Directory.CreateDirectory(CTCC_YIN);
+                        }
+                        if (Directory.Exists(CTCC_YIN))
+                        {
+                            if (node[i].InnerText != null)
+                            {
+                                XmlDocument doc = new XmlDocument();
+                                doc.Load(URL + node[i].InnerText);
+                                Element dos = new Element();
+                                dos.Element_Value_Find(doc, ips);
+                                doc.Save(CTCC_YIN + node[i].InnerText);
+                            }
+
+                        }
+
+                    }
+                    if (ips.Contains("移动"))
+                    {
+                        if (!Directory.Exists(CMCC_YIN))
+                        {
+                            Directory.CreateDirectory(CMCC_YIN);
+                        }
+                        if (Directory.Exists(CMCC_YIN))
+                        {
+                            if (node[i].InnerText != null)
+                            {
+                                XmlDocument doc = new XmlDocument();
+                                doc.Load(URL + node[i].InnerText);
+                                Element dos = new Element();
+                                dos.Element_Value_Find(doc, ips);
+                                doc.Save(CMCC_YIN + node[i].InnerText);
+                            }
+
+                        }
+
+                    }
+
+                }
+        
+
+                //textDOS.AppendText("从网管服务器获取GPN76模块链接成功==========================OK" + "\r\n");
+            }
+            catch
+            {
+                //   textDOS.AppendText(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " " + "GPN模块获取失败，请链接格林威尔VPN后，再次尝试！" + "\r\n");
+
+            }
+
+        }
         private void ButPerformanceFind_Click(object sender, EventArgs e)
         {
             try
@@ -4149,6 +4260,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                     break;
                             }
                             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                            string ips = dataGridViewAuto.Rows[line].Cells["Auto运营商"].Value.ToString();
                             var result = Sendrpc(xmlDoc, id, ip);
                             dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                             DateTime endTime = System.DateTime.Now;
@@ -4157,13 +4269,56 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             //时隙
                             string[] strArrayP = dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString().Split(',');
                             string end = "";
+                            bool key = false;
                             foreach (var item in strArrayP)
                             {
                                 if (item != "")
                                 {
-                                    if (Element.Element_Value(result, item, "") == true)
+                                    if (Element.Element_Value(result, item, "",ips) == true)
                                     {
-                                        end = end + item + "=OK," + "\n";
+                                        if (ips.Contains("联通")) {
+                                            if(Element.CUCC_Array.Count != 0)
+                                            for (int j = 0; j < Element.CUCC_Array.Count; j++)
+                                            {
+                                                if (Element.CUCC_Array[j][0] == item)
+                                                {
+                                                    end = end + item + "[枚举]=OK," + "\n";
+                                                    key = true;
+                                                    break;
+                                                }
+                                                key = false;
+                                            }
+                                        }
+                                        if (ips.Contains("移动"))
+                                        {
+                                            if (Element.CMCC_Array.Count != 0)
+                                                for (int j = 0; j < Element.CMCC_Array.Count; j++)
+                                                {
+                                                    if (Element.CMCC_Array[j][0] == item)
+                                                    {
+                                                        end = end + item + "[枚举]=OK," + "\n";
+                                                        key = true;
+                                                        break;
+                                                    }
+                                                    key = false;
+                                                }
+                                        }
+                                        if (ips.Contains("电信"))
+                                        {
+                                            if (Element.CTCC_Array.Count != 0)
+                                                for (int j = 0; j < Element.CTCC_Array.Count; j++)
+                                                {
+                                                    if (Element.CTCC_Array[j][0] == item)
+                                                    {
+                                                        end = end + item + "[枚举]=OK," + "\n";
+                                                        key = true;
+                                                        break;
+                                                    }
+                                                    key = false;
+                                                }
+                                        }
+                                        if (!key)
+                                            end = end + item + "=OK," + "\n";
                                         dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
                                         dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
 
@@ -5843,13 +5998,35 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 MessageBox.Show(ex.ToString());
             }
         }
-
+        List<string[]> array = new List<string[]>();
         private void button1_Click(object sender, EventArgs e)
         {
             XmlDocument xml = new XmlDocument();
             xml.LoadXml(RichTextReq.Text);
             TreeReP.Nodes.Clear();
             BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(xml); }));
+
+        }
+
+        private void 加载联通YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            YIN_XML_URL(CUCC_YIN_URL, "联通");
+            if (Element.CUCC_Array.Count != 0)
+                MessageBox.Show("加载联通YIN文件成功");
+        }
+
+        private void 加载移动YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            YIN_XML_URL(CMCC_YIN_URL, "移动");
+            if (Element.CMCC_Array.Count != 0)
+                MessageBox.Show("加载移动YIN文件成功");
+        }
+
+        private void 加载电信YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            YIN_XML_URL(CTCC_YIN_URL, "电信");
+            if (Element.CTCC_Array.Count != 0)
+                MessageBox.Show("加载电信YIN文件成功");
         }
     }
 }

@@ -42,7 +42,7 @@ namespace NetConfClientSoftware
         {
             ArrayList al = new ArrayList();
 
-            string strRegex = @"0([\-\d\.\(\)\（\）\ \w]+)(xml)";
+            string strRegex = @"([\-\d\.\(\)\（\）\ \w]+)(xml|yin)";
 
             Regex r = new Regex(strRegex, RegexOptions.IgnoreCase);
             MatchCollection m = r.Matches(htmlCode);
@@ -70,9 +70,9 @@ namespace NetConfClientSoftware
             return al;
         }
         // 把网址写入xml文件 
-        public static void WriteToXml(string strURL, ArrayList alHyperLinks)
+        public static void WriteToXml(string strURL, ArrayList alHyperLinks,string ips)
         {
-            XmlTextWriter writer = new XmlTextWriter(@"C:\netconf\HyperLinks.xml", Encoding.UTF8);
+            XmlTextWriter writer = new XmlTextWriter(@"C:\netconf\"+ips+".xml", Encoding.UTF8);
 
             writer.Formatting = Formatting.Indented;
             writer.WriteStartDocument(false);
