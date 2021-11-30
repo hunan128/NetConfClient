@@ -43,6 +43,7 @@
 
 2021.09.03 支持netconf客户端工具调试窗口
 
+![image](https://user-images.githubusercontent.com/59459264/144022899-1b9dd707-963e-49de-8767-691ca49d9689.png)
 
 连接页面：
 ![image](https://user-images.githubusercontent.com/59459264/134663857-d1178673-a923-4d78-9786-5728aa74d0fd.png)
