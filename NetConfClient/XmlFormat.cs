@@ -34,7 +34,7 @@ namespace NetConfClientSoftware
             }
             catch {
 
-
+                stringBuilder.Append (xml);
             }
 
             return stringBuilder.ToString();

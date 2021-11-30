@@ -62,5 +62,9 @@ namespace NetConfClientSoftware
         {
             get { return TextReq.Text; }
         }
+        public string Type
+        {
+            get { return comboBoxType.Text; }
+        }
     }
 }

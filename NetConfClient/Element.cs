@@ -12,14 +12,16 @@ namespace NetConfClientSoftware
     {
         public static bool _element_bool = false;
         public static bool _value_bool = false;
-        public static bool Element_Value(XmlDocument dom,string _element,string _vaule,string ips)
+        public static bool Element_Value(string  xml,string _element,string _vaule,string ips)
         {
+
             bool _Element_Value = false;
             _element_bool = false;
             _value_bool = false;
             try
             {
-
+                XmlDocument dom = new XmlDocument();
+                dom.LoadXml(xml);
                 foreach (XmlNode node in dom.ChildNodes)
                 {
                     if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText(node, "name")))

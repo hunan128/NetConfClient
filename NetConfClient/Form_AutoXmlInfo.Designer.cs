@@ -55,6 +55,8 @@
             this.textBoxRecommod = new System.Windows.Forms.TextBox();
             this.预期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxtype = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -356,11 +358,30 @@
             this.结果.Name = "结果";
             this.结果.Width = 300;
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(743, 15);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(53, 12);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "匹配类型";
+            // 
+            // textBoxtype
+            // 
+            this.textBoxtype.Location = new System.Drawing.Point(804, 12);
+            this.textBoxtype.Name = "textBoxtype";
+            this.textBoxtype.ReadOnly = true;
+            this.textBoxtype.Size = new System.Drawing.Size(100, 21);
+            this.textBoxtype.TabIndex = 18;
+            // 
             // Form_AutoXmlInfo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 741);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBoxtype);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.textBoxRecommod);
             this.Controls.Add(this.label6);
@@ -431,5 +452,7 @@
         private System.Windows.Forms.GroupBox RPC;
         private System.Windows.Forms.DataGridViewTextBoxColumn 预期;
         private System.Windows.Forms.DataGridViewTextBoxColumn 结果;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxtype;
     }
 }

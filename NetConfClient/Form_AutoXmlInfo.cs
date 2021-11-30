@@ -17,7 +17,7 @@ namespace NetConfClientSoftware
             InitializeComponent();
         }
         public static string RxXml = "";
-        public Form_AutoXmlInfo(string ip,string Model, string Title, string IPS, string RPC, string Exp, string Rx, string Reply, string StartTime, string StopTime, string Dtime, string Recommend) : this()
+        public Form_AutoXmlInfo(string ip,string Model, string Title, string IPS, string RPC,string ExpType, string Exp, string Rx, string Reply, string StartTime, string StopTime, string Dtime, string Recommend) : this()
         {
             // 在TextBox中显示信息初值  
             //textBoxInfo.Text = info;
@@ -31,6 +31,7 @@ namespace NetConfClientSoftware
                 textBoxstoptime.Text = StopTime;
                 textBoxtime.Text = Dtime;
                 textBoxRecommod.Text = Recommend;
+                textBoxtype.Text = ExpType;
                 richTextBoxRpc.Text = RPC;
                 richTextBoxReply.Text = Reply;
                 RxXml = Reply;

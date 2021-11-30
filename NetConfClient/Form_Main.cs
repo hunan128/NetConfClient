@@ -25,9 +25,9 @@ namespace NetConfClientSoftware
     public partial class Form_Main : Form
     {
 
-         NetConfClient[] netConfClient = new NetConfClient[32];
+        public static NetConfClient[] netConfClient = new NetConfClient[32];
         Thread[] ThSub = new Thread[32];
-       // List<NetConfClient> netConfClient = new List<NetConfClient>();
+        // List<NetConfClient> netConfClient = new List<NetConfClient>();
         bool[] Sub = new bool[32];      //订阅开关默认禁止
         public static string defaultfilePath = "";       //打开文件夹默认路径
         public static string CUCC_YIN = @"C:\netconf\YANG\CUCC\YIN\";       //联通YIN文件
@@ -601,7 +601,7 @@ namespace NetConfClientSoftware
                             notfication.LoadXml(rpcResponse);
                             TextLog.AppendText(XmlFormat.Xml(rpcResponse) + "\r\n" + FenGeFu + "\r\n");
                             BeginInvoke(new MethodInvoker(delegate () {
-                                Thread mes = new Thread(() => ShowXML(notfication,id));
+                                Thread mes = new Thread(() => ShowXML(notfication, id));
                                 mes.Start();
                                 //ShowXML(notfication);
                                 // Pgnot(notfication);
@@ -712,7 +712,7 @@ namespace NetConfClientSoftware
         /// 订阅通知显示
         /// </summary>
         /// <param name="xmlDoc">传入进来的XML文件</param>
-        private void ShowXML(XmlDocument xmlDoc,int id) //显示xml数据
+        private void ShowXML(XmlDocument xmlDoc, int id) //显示xml数据
         {
             try
             {
@@ -801,7 +801,7 @@ namespace NetConfClientSoftware
                                     break;
                                 }
                             }
-                            
+
                         }
                         if (alarmlog.SubItems[4].Text == "start")
                         {
@@ -1141,7 +1141,7 @@ namespace NetConfClientSoftware
             Control.CheckForIllegalCrossThreadCalls = false;
             Readini();
             XML_URL_COMBOX(XML_URL);
-            
+
             this.listViewAll.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right);
             for (int i = 0; i < 30; i++)
             {
@@ -1190,7 +1190,7 @@ namespace NetConfClientSoftware
                         if (neid != null) { dataGridViewNeInformation.Rows[index].Cells["SSH_ID"].Value = neid.InnerText; }
                         if (nename != null) { dataGridViewNeInformation.Rows[index].Cells["网元名称"].Value = nename.InnerText; }
                         if (neips != null) { dataGridViewNeInformation.Rows[index].Cells["运营商"].Value = neips.InnerText; }
-                        
+
                         TreeNode node = new TreeNode();
                         node.Tag = neid.InnerText;
                         node.Name = neid.InnerText;
@@ -1199,9 +1199,13 @@ namespace NetConfClientSoftware
                         node.SelectedImageIndex = 4;
                         treeViewNEID.Nodes.Add(node);
                         for (int i = 0; i < this.dataGridViewNeInformation.Columns.Count; i++)
-                            {
-                              this.dataGridViewNeInformation.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-                            }
+                        {
+                            this.dataGridViewNeInformation.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                        }
+                        for (int i = 0; i < this.dataGridViewAuto.Columns.Count; i++)
+                        {
+                            this.dataGridViewAuto.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                        }
                     }
                     // Console.Read();
 
@@ -2284,7 +2288,7 @@ namespace NetConfClientSoftware
                 // MessageBox.Show("运行失败！原因如下：\r\n" + ex.ToString());
                 Messg = "运行失败！原因如下：\r\n" + ex.ToString();
             }
-           return Messg;
+            return Messg;
         }
 
         private void ButFindEoO_Click(object sender, EventArgs e)
@@ -2749,7 +2753,7 @@ namespace NetConfClientSoftware
             }
 
         }
-        private void YIN_XML_URL(string URL,string ips)
+        private void YIN_XML_URL(string URL, string ips)
         {
             try
             {
@@ -2773,15 +2777,16 @@ namespace NetConfClientSoftware
                 //textDOS.AppendText("正在提取超链接=============================================OK" + "\r\n");
                 alLinks = NetConfXml.GetHyperLinks(strCode);
                 //textDOS.AppendText("正在写入XML文件============================================OK" + "\r\n");
-                NetConfXml.WriteToXml(strURL, alLinks,ips);
+                NetConfXml.WriteToXml(strURL, alLinks, ips);
                 //读取设定档百
                 XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.Load(@"C:\netconf\"+ips+".xml");
+                xmlDoc.Load(@"C:\netconf\" + ips + ".xml");
                 //取得节点专
                 XmlNodeList node = xmlDoc.GetElementsByTagName("other");
                 for (int i = 0; i < node.Count; i++)
                 {
-                    if (ips.Contains("联通")) {
+                    if (ips.Contains("联通"))
+                    {
                         if (!Directory.Exists(CUCC_YIN))
                         {
                             Directory.CreateDirectory(CUCC_YIN);
@@ -2794,7 +2799,7 @@ namespace NetConfClientSoftware
                                 doc.Load(URL + node[i].InnerText);
                                 Element dos = new Element();
                                 dos.Element_Value_Find(doc, ips);
-                                doc.Save(CUCC_YIN +node[i].InnerText);
+                                doc.Save(CUCC_YIN + node[i].InnerText);
                             }
 
                         }
@@ -2842,7 +2847,7 @@ namespace NetConfClientSoftware
                     }
 
                 }
-        
+
 
                 //textDOS.AppendText("从网管服务器获取GPN76模块链接成功==========================OK" + "\r\n");
             }
@@ -2963,8 +2968,8 @@ namespace NetConfClientSoftware
                         }
                     }
                 }
-                if(xmlDoc.DocumentElement !=null)
-                MessageBox.Show("运行完成");
+                if (xmlDoc.DocumentElement != null)
+                    MessageBox.Show("运行完成");
 
             }
             catch (Exception ex)
@@ -3479,7 +3484,7 @@ ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text
 ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, sdhnnits_a
 
 ), id, ip);
-                    messg0 = messg0 + "| " + messg1+"="+ (i + 1).ToString();
+                    messg0 = messg0 + "| " + messg1 + "=" + (i + 1).ToString();
                 }
                 MessageBox.Show(messg0);
             }
@@ -4134,7 +4139,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _dm_interval = Formoam._dm_interval;
 
                                 string messg = Creat(CreateOAM.Create(_name, _mep_id, _remote_mep_id, _meg_id, _md_name, _mel, _cc_interval, _lm_interval, _dm_interval, ips), id, ip);
-                                MessageBox.Show(messg+"\n正在配置OAM状态，请稍等片刻！");
+                                MessageBox.Show(messg + "\n正在配置OAM状态，请稍等片刻！");
                                 _name = Formoam._name;
                                 _dm_state = Formoam._dm_state;
                                 _tm_state = Formoam._tm_state;
@@ -4189,6 +4194,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 dataGridViewAuto.Rows[index].Cells["Auto用例标题"].Value = AutoXml.Title;
                 dataGridViewAuto.Rows[index].Cells["Auto运营商"].Value = AutoXml.Ips;
                 dataGridViewAuto.Rows[index].Cells["Auto用例脚本"].Value = AutoXml.Xml;
+                dataGridViewAuto.Rows[index].Cells["Auto匹配类型"].Value = AutoXml.Result;
                 dataGridViewAuto.Rows[index].Cells["Auto预期"].Value = AutoXml.Result;
                 dataGridViewAuto.Rows[index].Cells["Auto问题定位建议"].Value = AutoXml.Req;
 
@@ -4199,6 +4205,11 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
         {
             if (ButStartAutoRunningXML.Text == "开始")
             {
+                if (Element.CTCC_Array.Count == 0 && Element.CUCC_Array.Count == 0 && Element.CMCC_Array.Count == 0)
+                {
+                    MessageBox.Show("未加载三大运营商yin文件，请点击菜单栏“工具”--“加载”运营商yin文件再试~");
+                    return;
+                }
                 stop = false;
                 CycleThread = new Thread(AutoRunningXml)
                 {
@@ -4223,6 +4234,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
             for (int i = 0; i < dataGridViewAuto.RowCount - 1; i++)
             {
+                Thread.Sleep(50);
                 dataGridViewAuto.CurrentCell = dataGridViewAuto.Rows[i].Cells[0];
 
                 if (stop)
@@ -4246,12 +4258,12 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         {
                             XmlDocument xmlDoc = new XmlDocument();
                             xmlDoc.LoadXml(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString());
+                            string ip = dataGridViewAuto.Rows[i].Cells["Autoip地址"].Value.ToString();
 
-                            int id = int.Parse(treeViewNEID.SelectedNode.Name);
                             int line = -1;
                             for (int l = 0; l < dataGridViewNeInformation.Rows.Count; l++)
                             {
-                                if (dataGridViewNeInformation.Rows[l].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                                if (dataGridViewNeInformation.Rows[l].Cells["网元ip"].Value.ToString() == ip) //keyword要查的关键字
                                 {
                                     line = l;
                                     break;
@@ -4259,9 +4271,10 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 if (line >= 0)
                                     break;
                             }
-                            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                            int id = int.Parse(dataGridViewNeInformation.Rows[line].Cells["SSH_ID"].Value.ToString());
+                            // string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
                             string ips = dataGridViewAuto.Rows[line].Cells["Auto运营商"].Value.ToString();
-                            var result = Sendrpc(xmlDoc, id, ip);
+                            var result = RPC.Send(xmlDoc, id, ip);
                             dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                             DateTime endTime = System.DateTime.Now;
                             TimeSpan ts = endTime - startTime;
@@ -4274,119 +4287,126 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             {
                                 if (item != "")
                                 {
-                                    if (Element.Element_Value(result, item, "",ips) == true)
+                                    /* 匹配节点名称+value枚举判断 */
+                                    if (dataGridViewAuto.Rows[i].Cells["Auto匹配类型"].Value.ToString().Contains("节点"))
                                     {
-                                        if (ips.Contains("联通")) {
-                                            if(Element.CUCC_Array.Count != 0)
-                                            for (int j = 0; j < Element.CUCC_Array.Count; j++)
+                                        if (Element.Element_Value(result, item, "", ips) == true)
+                                        {
+                                            if (ips.Contains("联通"))
                                             {
-                                                if (Element.CUCC_Array[j][0] == item)
-                                                {
-                                                    end = end + item + "[枚举]=OK|" + "\n";
-                                                    key = true;
-                                                    break;
-                                                }
-                                                key = false;
+                                                if (Element.CUCC_Array.Count != 0)
+                                                    for (int j = 0; j < Element.CUCC_Array.Count; j++)
+                                                    {
+                                                        if (Element.CUCC_Array[j][0] == item)
+                                                        {
+                                                            end = end + item + "[枚举]=OK|" + "\n";
+                                                            key = true;
+                                                            break;
+                                                        }
+                                                        key = false;
+                                                    }
                                             }
-                                        }
-                                        if (ips.Contains("移动"))
-                                        {
-                                            if (Element.CMCC_Array.Count != 0)
-                                                for (int j = 0; j < Element.CMCC_Array.Count; j++)
-                                                {
-                                                    if (Element.CMCC_Array[j][0] == item)
+                                            if (ips.Contains("移动"))
+                                            {
+                                                if (Element.CMCC_Array.Count != 0)
+                                                    for (int j = 0; j < Element.CMCC_Array.Count; j++)
                                                     {
-                                                        end = end + item + "[枚举]=OK|" + "\n";
-                                                        key = true;
-                                                        break;
+                                                        if (Element.CMCC_Array[j][0] == item)
+                                                        {
+                                                            end = end + item + "[枚举]=OK|" + "\n";
+                                                            key = true;
+                                                            break;
+                                                        }
+                                                        key = false;
                                                     }
-                                                    key = false;
-                                                }
-                                        }
-                                        if (ips.Contains("电信"))
-                                        {
-                                            if (Element.CTCC_Array.Count != 0)
-                                                for (int j = 0; j < Element.CTCC_Array.Count; j++)
-                                                {
-                                                    if (Element.CTCC_Array[j][0] == item)
+                                            }
+                                            if (ips.Contains("电信"))
+                                            {
+                                                if (Element.CTCC_Array.Count != 0)
+                                                    for (int j = 0; j < Element.CTCC_Array.Count; j++)
                                                     {
-                                                        end = end + item + "[枚举]=OK|" + "\n";
-                                                        key = true;
-                                                        break;
+                                                        if (Element.CTCC_Array[j][0] == item)
+                                                        {
+                                                            end = end + item + "[枚举]=OK|" + "\n";
+                                                            key = true;
+                                                            break;
+                                                        }
+                                                        key = false;
                                                     }
-                                                    key = false;
-                                                }
-                                        }
-                                        if (!key)
-                                            end = end + item + "=OK|" + "\n";
-                                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-                                        dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
+                                            }
+                                            if (!key)
+                                                end = end + item + "=OK|" + "\n";
+                                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                            dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
 
+                                        }
+                                        else
+                                        {
+                                            if (ips.Contains("联通"))
+                                            {
+                                                if (Element.CUCC_Array.Count != 0)
+                                                    for (int j = 0; j < Element.CUCC_Array.Count; j++)
+                                                    {
+                                                        if (Element.CUCC_Array[j][0] == item)
+                                                        {
+                                                            end = end + item + "[枚举]=NOK参考:" + Element.CUCC_Array[j][2] + "|" + "\n";
+                                                            key = true;
+                                                            break;
+                                                        }
+                                                        key = false;
+                                                    }
+                                            }
+                                            if (ips.Contains("移动"))
+                                            {
+                                                if (Element.CMCC_Array.Count != 0)
+                                                    for (int j = 0; j < Element.CMCC_Array.Count; j++)
+                                                    {
+                                                        if (Element.CMCC_Array[j][0] == item)
+                                                        {
+                                                            end = end + item + "[枚举]=NOK参考:" + Element.CMCC_Array[j][2] + "|" + "\n";
+                                                            key = true;
+                                                            break;
+                                                        }
+                                                        key = false;
+                                                    }
+                                            }
+                                            if (ips.Contains("电信"))
+                                            {
+                                                if (Element.CTCC_Array.Count != 0)
+                                                    for (int j = 0; j < Element.CTCC_Array.Count; j++)
+                                                    {
+                                                        if (Element.CTCC_Array[j][0] == item)
+                                                        {
+                                                            end = end + item + "[枚举]=NOK参考:" + Element.CTCC_Array[j][2] + "|" + "\n";
+                                                            key = true;
+                                                            break;
+                                                        }
+                                                        key = false;
+                                                    }
+                                            }
+                                            if (!key)
+                                                end = end + item + "=NOK|" + "\n";
+
+                                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+
+                                        }
                                     }
-                                    else
+                                    /* 匹配节点内的值来进行包含判断 */
+                                    if (dataGridViewAuto.Rows[i].Cells["Auto匹配类型"].Value.ToString().Contains("值"))
                                     {
-                                        if (ips.Contains("联通"))
+                                        if (result.Contains(item))
                                         {
-                                            if (Element.CUCC_Array.Count != 0)
-                                                for (int j = 0; j < Element.CUCC_Array.Count; j++)
-                                                {
-                                                    if (Element.CUCC_Array[j][0] == item)
-                                                    {
-                                                        end = end + item + "[枚举]=NOK参考:"+ Element.CUCC_Array[j][2] + "|" + "\n";
-                                                        key = true;
-                                                        break;
-                                                    }
-                                                    key = false;
-                                                }
+                                            end = end + item + "=OK|" + "\n";
+                                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                            dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
                                         }
-                                        if (ips.Contains("移动"))
+                                        else
                                         {
-                                            if (Element.CMCC_Array.Count != 0)
-                                                for (int j = 0; j < Element.CMCC_Array.Count; j++)
-                                                {
-                                                    if (Element.CMCC_Array[j][0] == item)
-                                                    {
-                                                        end = end + item + "[枚举]=NOK参考:" + Element.CMCC_Array[j][2] + "|" + "\n";
-                                                        key = true;
-                                                        break;
-                                                    }
-                                                    key = false;
-                                                }
-                                        }
-                                        if (ips.Contains("电信"))
-                                        {
-                                            if (Element.CTCC_Array.Count != 0)
-                                                for (int j = 0; j < Element.CTCC_Array.Count; j++)
-                                                {
-                                                    if (Element.CTCC_Array[j][0] == item)
-                                                    {
-                                                        end = end + item + "[枚举]=NOK参考:" + Element.CTCC_Array[j][2] + "|" + "\n";
-                                                        key = true;
-                                                        break;
-                                                    }
-                                                    key = false;
-                                                }
-                                        }
-                                        if (!key)
                                             end = end + item + "=NOK|" + "\n";
-                                       
-                                        dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-
+                                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                        }
                                     }
-                                    //if (result.OuterXml.Contains(item))
-                                    //{
-                                    //    end = end + item + "=OK," + "\n";
-                                    //    dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-                                    //    dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
 
-                                    //}
-                                    //else
-                                    //{
-
-                                    //    end = end + item + "=NOK," + "\n";
-                                    //    dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-
-                                    //}
 
                                 }
 
@@ -4395,7 +4415,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             {
                                 dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
                             }
-                            dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = XmlFormat.Xml(result.OuterXml);
+                            dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = XmlFormat.Xml(result);
                         }
                         catch (Exception ex)
                         {
@@ -4457,15 +4477,38 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     dataTable = ExcelUtility.ExcelToDataTable(strPath, true);
                     for (int i = 0; i < dataTable.Rows.Count; i++)
                     {
-                        int index = dataGridViewAuto.Rows.Add();
-                        dataGridViewAuto.Rows[index].Cells["Auto编号"].Value = index;
-                        dataGridViewAuto.Rows[index].Cells["Autoip地址"].Value = dataTable.Rows[index]["ip地址"].ToString();
-                        dataGridViewAuto.Rows[index].Cells["Auto功能模块"].Value = dataTable.Rows[index]["功能模块"].ToString();
-                        dataGridViewAuto.Rows[index].Cells["Auto用例标题"].Value = dataTable.Rows[index]["用例标题"].ToString();
-                        dataGridViewAuto.Rows[index].Cells["Auto运营商"].Value = dataTable.Rows[index]["运营商"].ToString();
-                        dataGridViewAuto.Rows[index].Cells["Auto用例脚本"].Value = dataTable.Rows[index]["用例脚本"].ToString();
-                        dataGridViewAuto.Rows[index].Cells["Auto预期"].Value = dataTable.Rows[index]["预期节点"].ToString();
-                        dataGridViewAuto.Rows[index].Cells["Auto问题定位建议"].Value = dataTable.Rows[index]["问题定位建议"].ToString();
+                        if (dataTable.Rows[i]["ip地址"].ToString() != "") {
+                            int index = dataGridViewAuto.Rows.Add();
+                            dataGridViewAuto.Rows[i].Cells["Auto编号"].Value = i;
+                            dataGridViewAuto.Rows[i].Cells["Autoip地址"].Value = dataTable.Rows[i]["ip地址"].ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto功能模块"].Value = dataTable.Rows[i]["功能模块"].ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto用例标题"].Value = dataTable.Rows[i]["用例标题"].ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto运营商"].Value = dataTable.Rows[i]["运营商"].ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value = dataTable.Rows[i]["用例脚本"].ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto匹配类型"].Value = dataTable.Rows[i]["匹配类型"].ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto预期"].Value = dataTable.Rows[i]["预期"].ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto问题定位建议"].Value = dataTable.Rows[i]["问题定位建议"].ToString();
+                        }
+                        
+                        //if (dataTable.Rows[i]["结果"] != null) {
+                        //    dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = dataTable.Rows[i]["结果"].ToString();
+                        //}
+                        //if (dataTable.Rows[i]["日志信息"] != null)
+                        //{
+                        //    dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = dataTable.Rows[i]["日志信息"].ToString();
+                        //}
+                        //if (dataTable.Rows[i]["开始时间"] != null)
+                        //{
+                        //    dataGridViewAuto.Rows[i].Cells["Auto开始时间"].Value = dataTable.Rows[i]["开始时间"].ToString();
+                        //}
+                        //if (dataTable.Rows[i]["结束时间"] != null)
+                        //{
+                        //    dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = dataTable.Rows[i]["结束时间"].ToString();
+                        //}
+                        //if (dataTable.Rows[i]["耗时"] != null)
+                        //{
+                        //    dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = dataTable.Rows[i]["耗时"].ToString();
+                        //}
                     }
 
 
@@ -4497,6 +4540,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         string Title = dataGridViewAuto.Rows[row.Index].Cells["Auto用例标题"].Value.ToString();
                         string IPS = dataGridViewAuto.Rows[row.Index].Cells["Auto运营商"].Value.ToString();
                         string RPC = dataGridViewAuto.Rows[row.Index].Cells["Auto用例脚本"].Value.ToString();
+                        string ExpType = dataGridViewAuto.Rows[row.Index].Cells["Auto匹配类型"].Value.ToString();
                         string Exp = dataGridViewAuto.Rows[row.Index].Cells["Auto预期"].Value.ToString();
                         string Rx = dataGridViewAuto.Rows[row.Index].Cells["Auto结果"].Value.ToString();
                         string Reply = dataGridViewAuto.Rows[row.Index].Cells["Auto日志信息"].Value.ToString();
@@ -4506,7 +4550,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         string Recommend = dataGridViewAuto.Rows[row.Index].Cells["Auto问题定位建议"].Value.ToString();
 
                         // 实例化FormInfo，并传入待修改初值  
-                        var Info = new Form_AutoXmlInfo(ipadd, Model, Title, IPS, RPC, Exp, Rx, Reply, StartTime, StopTime, Dtime, Recommend);
+                        var Info = new Form_AutoXmlInfo(ipadd, Model, Title, IPS, RPC, ExpType, Exp, Rx, Reply, StartTime, StopTime, Dtime, Recommend);
 
                         Info.ShowDialog();
 
@@ -5017,7 +5061,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 ips = LoginOn.IPS;
                 if (!File.Exists(neinfopath))
                 {
-                    localxml.CreatXmlTree(neinfopath, LoginOn.IP, LoginOn.PORT, LoginOn.USER, LoginOn.PASSD,  ipaddresscunt, LoginOn.NeName, LoginOn.IPS);
+                    localxml.CreatXmlTree(neinfopath, LoginOn.IP, LoginOn.PORT, LoginOn.USER, LoginOn.PASSD, ipaddresscunt, LoginOn.NeName, LoginOn.IPS);
                 }
                 else
                 {
@@ -5108,7 +5152,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         dataGridViewNeInformation.Rows[index].Cells["网元名称"].Value = LoginOn.IP;
 
                     }
-                    else {
+                    else
+                    {
                         node.Text = LoginOn.NeName;
                         dataGridViewNeInformation.Rows[index].Cells["网元名称"].Value = LoginOn.NeName;
 
@@ -5366,7 +5411,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         }
 
-        private void OnLinedevm() {
+        private void OnLinedevm()
+        {
             try
             {
                 string neipall = "";
@@ -5436,7 +5482,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         Thread.Sleep(2000);
 
                     }
-                          MessageBox.Show(neipall + "\r\n上线完成！");
+                    MessageBox.Show(neipall + "\r\n准备开始上线！");
 
                 }
                 // 保存在实体类属性中
@@ -5501,7 +5547,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
                                 }
                             }
-                          //  Thread.Sleep(3000);
+                            //  Thread.Sleep(3000);
                             if (netConfClient[id] != null)
                             {
                                 if (netConfClient[id].IsConnected)
@@ -5635,7 +5681,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 {
                     TextIP.Text = dataGridViewNeInformation.Rows[e.Node.Index].Cells["网元ip"].Value.ToString();
                 }
-               // treeViewNEID.SelectedNode.ImageIndex = 2;
+                // treeViewNEID.SelectedNode.ImageIndex = 2;
                 //treeViewNEID.SelectedNode.SelectedImageIndex = 2;
                 //  dataGridViewNeInformation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 //   dataGridViewNeInformation.Rows[e.Node.Index].Selected = true;
@@ -5844,7 +5890,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         private void dataGridViewNeInformation_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (treeViewNEID.Nodes.Count > e.RowIndex && e.RowIndex >= 0) {
+            if (treeViewNEID.Nodes.Count > e.RowIndex && e.RowIndex >= 0)
+            {
                 treeViewNEID.SelectedNode = treeViewNEID.Nodes[e.RowIndex];//选中
                 if (dataGridViewNeInformation.Rows[e.RowIndex].Cells["运营商"].Value != null)
                 {
@@ -5865,7 +5912,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     TextIP.Text = dataGridViewNeInformation.Rows[e.RowIndex].Cells["网元ip"].Value.ToString();
                 }
             }
-                
+
         }
 
         private void toolStripMenuItemPrameters_Click(object sender, EventArgs e)
@@ -5885,7 +5932,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
             try
             {
-                string _pm_parameter_name = "", _granularity = "", _threshold_type = "", _object_type = "", _threshold_value = "", _input_power = "", _output_power = "",_input_power_upper_threshold ="",_input_power_lower_threshold="";
+                string _pm_parameter_name = "", _granularity = "", _threshold_type = "", _object_type = "", _threshold_value = "", _input_power = "", _output_power = "", _input_power_upper_threshold = "", _input_power_lower_threshold = "";
                 string _name = "";
                 foreach (DataGridViewRow row in this.dataGridViewCurrentPerformance.SelectedRows)
                 {
@@ -5928,7 +5975,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 if (input_power != null) { _input_power = input_power.InnerText; }
                                 if (output_power != null) { _output_power = output_power.InnerText; }
                                 if (input_power_upper_threshold != null) { _input_power_upper_threshold = input_power_upper_threshold.InnerText; }
-                                if (input_power_lower_threshold != null) { _input_power_lower_threshold = input_power_lower_threshold.InnerText;  }
+                                if (input_power_lower_threshold != null) { _input_power_lower_threshold = input_power_lower_threshold.InnerText; }
 
 
                                 // Console.Read();
@@ -5940,7 +5987,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             }
 
                             // 实例化FormInfo，并传入待修改初值  
-                            var Form_Tca_Parameter = new Form_Tca_Parameter(_name, _pm_parameter_name, _granularity, _threshold_type, _object_type, _threshold_value , _input_power , _output_power , _input_power_upper_threshold , _input_power_lower_threshold );
+                            var Form_Tca_Parameter = new Form_Tca_Parameter(_name, _pm_parameter_name, _granularity, _threshold_type, _object_type, _threshold_value, _input_power, _output_power, _input_power_upper_threshold, _input_power_lower_threshold);
                             // 以对话框方式显示FormInfo  
                             if (Form_Tca_Parameter.ShowDialog() == DialogResult.OK)
                             {
@@ -6053,77 +6100,152 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         private void 加载联通YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Element.CUCC_Array.Count != 0)
+            DialogResult dr1 = MessageBox.Show("是否从hunan128.com下载，“否”则从hunan128.com加载？", "提示", MessageBoxButtons.YesNo);
+            if (dr1 == DialogResult.No)
             {
-                Element.CUCC_Array.Clear();
-            }
-                if (Directory.Exists(CUCC_YIN))
-            {
-                LoadYIN(CUCC_YIN, "联通");
-            }
-            else {
+                if (Element.CUCC_Array.Count != 0)
+                {
+                    Element.CUCC_Array.Clear();
+                }
                 YIN_XML_URL(CUCC_YIN_URL, "联通");
+
+                if (Element.CUCC_Array.Count != 0)
+                {
+                    MessageBox.Show("加载联通YIN文件成功！");
+                }
+                else
+                {
+                    MessageBox.Show("加载失败！");
+                }
+
+            }
+            if (dr1 == DialogResult.Yes)
+            {
+                if (Element.CUCC_Array.Count != 0)
+                {
+                    Element.CUCC_Array.Clear();
+                }
+                if (Directory.Exists(CUCC_YIN))
+                {
+                    LoadYIN(CUCC_YIN, "联通");
+                }
+                else
+                {
+                    YIN_XML_URL(CUCC_YIN_URL, "联通");
+                }
+
+                if (Element.CUCC_Array.Count != 0)
+                {
+                    MessageBox.Show("加载联通YIN文件成功！");
+                }
+                else
+                {
+                    MessageBox.Show("加载失败！");
+                }
+
             }
 
-            if (Element.CUCC_Array.Count != 0)
-            {
-                MessageBox.Show("加载联通YIN文件成功！");
-            }
-            else {
-                MessageBox.Show("加载失败！");
-            }
-               
         }
 
         private void 加载移动YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Element.CMCC_Array.Count != 0)
+            DialogResult dr1 = MessageBox.Show("是否从hunan128.com下载，“否”则从hunan128.com加载？", "提示", MessageBoxButtons.YesNo);
+            if (dr1 == DialogResult.No)
             {
-                Element.CMCC_Array.Clear();
-            }
-            if (Directory.Exists(CMCC_YIN))
-            {
-                LoadYIN(CMCC_YIN, "移动");
-            }
-            else {
+                if (Element.CMCC_Array.Count != 0)
+                {
+                    Element.CMCC_Array.Clear();
+                }
+
                 YIN_XML_URL(CMCC_YIN_URL, "移动");
+
+                if (Element.CMCC_Array.Count != 0)
+                {
+                    MessageBox.Show("加载移动YIN文件成功");
+                }
+                else
+                {
+                    MessageBox.Show("加载失败");
+                }
+            }
+            if (dr1 == DialogResult.Yes)
+            {
+                if (Element.CMCC_Array.Count != 0)
+                {
+                    Element.CMCC_Array.Clear();
+                }
+                if (Directory.Exists(CMCC_YIN))
+                {
+                    LoadYIN(CMCC_YIN, "移动");
+                }
+                else
+                {
+                    YIN_XML_URL(CMCC_YIN_URL, "移动");
+                }
+
+                if (Element.CMCC_Array.Count != 0)
+                {
+                    MessageBox.Show("加载移动YIN文件成功");
+                }
+                else
+                {
+                    MessageBox.Show("加载失败");
+                }
             }
 
-            if (Element.CMCC_Array.Count != 0)
-            {
-                MessageBox.Show("加载移动YIN文件成功");
-            }
-            else {
-                MessageBox.Show("加载失败");
-            }
-               
+
         }
 
         private void 加载电信YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Element.CTCC_Array.Count != 0)
+            DialogResult dr1 = MessageBox.Show("是否从hunan128.com下载，“否”则从hunan128.com加载？", "提示", MessageBoxButtons.YesNo);
+            if (dr1 == DialogResult.No)
             {
-                Element.CTCC_Array.Clear();
-            }
-            if (Directory.Exists(CTCC_YIN))
-            {
-                LoadYIN(CTCC_YIN, "电信");
-            }
-            else {
-
+                if (Element.CTCC_Array.Count != 0)
+                {
+                    Element.CTCC_Array.Clear();
+                }
                 YIN_XML_URL(CTCC_YIN_URL, "电信");
+
+                if (Element.CTCC_Array.Count != 0)
+                {
+                    MessageBox.Show("加载电信YIN文件成功");
+                }
+                else
+                {
+                    MessageBox.Show("加载失败");
+                }
+            }
+            if (dr1 == DialogResult.Yes)
+            {
+                if (Element.CTCC_Array.Count != 0)
+                {
+                    Element.CTCC_Array.Clear();
+                }
+                if (Directory.Exists(CTCC_YIN))
+                {
+                    LoadYIN(CTCC_YIN, "电信");
+                }
+                else
+                {
+
+                    YIN_XML_URL(CTCC_YIN_URL, "电信");
+                }
+
+                if (Element.CTCC_Array.Count != 0)
+                {
+                    MessageBox.Show("加载电信YIN文件成功");
+                }
+                else
+                {
+                    MessageBox.Show("加载失败");
+                }
             }
 
-            if (Element.CTCC_Array.Count != 0)
-            {
-                MessageBox.Show("加载电信YIN文件成功");
-            }
-            else {
-                MessageBox.Show("加载失败");
-            }
-               
+
+
         }
-        private void LoadYIN(string path,string ips)
+        private void LoadYIN(string path, string ips)
         {
 
 
@@ -6142,7 +6264,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             }
             foreach (string yin in fileNames)
             {
-               
+
                 if (yin.Contains("yin"))
                 {
                     if (ips.Contains("联通"))

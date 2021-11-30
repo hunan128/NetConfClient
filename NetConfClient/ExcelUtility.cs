@@ -137,12 +137,12 @@ namespace NetConfClientSoftware
         {
             if (dgv.Rows.Count == 0)
             {
-                MessageBox.Show("请先导入「网管导出的表格」，然后再次尝试");
+                MessageBox.Show("请先导入，然后再次尝试");
                 return;
             }
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "Excel 2003格式|*.xls";
-            sfd.FileName = DateTime.Now.ToString("yyyy-MM-dd") + "批量保存表格";
+            sfd.FileName = DateTime.Now.ToString("yyyy_MM_dd  HH_mm_ss") + "_Netconf自动化测试";
             if (sfd.ShowDialog() != DialogResult.OK)
             {
                 return;
@@ -173,8 +173,14 @@ namespace NetConfClientSoftware
                     }
                     else
                     {
-
-                        cell.SetCellValue(dgv.Rows[i].Cells[j].Value.ToString());
+                        if (dgv.Rows[i].Cells[j].Value.ToString().Length < 32767)
+                        {
+                            cell.SetCellValue(dgv.Rows[i].Cells[j].Value.ToString());
+                        }
+                        else {
+                            cell.SetCellValue("表格内容超出32767这个字节");
+                        }
+                        
                     }
 
                 }
