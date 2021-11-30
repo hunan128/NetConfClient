@@ -37,6 +37,7 @@ Version record:
 2021.09.05 supports subscription function
 
 2021.09.03 Support netconf client tool debugging window
+
 版本记录：
 
 2021.11.26 支持最多32个网元同时上线
