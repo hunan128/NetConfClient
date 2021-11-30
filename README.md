@@ -1,4 +1,4 @@
-# NetConf Client 参考中国移动yang模型语言制作的一个客户端工具，可用于连接OTN设备，创建业务，删除，查询等操作
+# netconf client is a netconf test tool, it supports OTN equipment, supports the creation of ODU services, SDH services, and packet Ethernet services. It supports performance, TCA, protection groups, notifications, subscriptions, and automated testing.
 
 未来：
 
