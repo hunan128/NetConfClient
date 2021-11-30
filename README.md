@@ -1,10 +1,42 @@
 # netconf client is a netconf test tool, it supports OTN equipment, supports the creation of ODU services, SDH services, and packet Ethernet services. It supports performance, TCA, protection groups, notifications, subscriptions, and automated testing.
 
-未来：
+Version record:
 
-告警模块、TCA模块、接口模块、业务关联查询
-会支持脚本自动化测试功能
+2021.11.26 supports up to 32 network elements to go online at the same time
 
+2021.11.21 Support TCA parameter setting
+
+2021.11.18 Support ETH-to-ETH business creation, support CTP rate limit adjustment
+
+2021.11.14 supports simultaneous login and creation of multiple network elements
+
+2021.11.13 Support oduk online delay measurement
+
+2021.11.12 Supports ODUFlex time slot adjustment function of China Unicom and China Mobile
+
+2021.11.10 Supports the creation and query of services under Unicom Yang, and supports layer protocol modification and port information query
+
+2021.11.04 Support automated test function, import and export, detailed information view
+
+2021.10.13 supports Ethernet OAM configuration
+
+2021.09.25 Support NetConf version auto-negotiation (1.0 and 1.1)
+
+2021.09.19 Support EOS business creation (VC4, VC3, VC12)
+
+2021.09.17 Support performance statistics
+
+2021.09.16 supports automatic loading of Internet online XML scripts (users no longer need to find scripts)
+
+2021.09.15 Support EOO business creation
+
+2021.09.14 supports the creation of transparent transmission services
+
+2021.09.10 Support notification classification processing function
+
+2021.09.05 supports subscription function
+
+2021.09.03 Support netconf client tool debugging window
 版本记录：
 
 2021.11.26 支持最多32个网元同时上线
