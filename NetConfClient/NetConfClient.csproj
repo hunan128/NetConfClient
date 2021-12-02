@@ -125,6 +125,12 @@
     <Compile Include="Form_Connection_Rate.Designer.cs">
       <DependentUpon>Form_Connection_Rate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Form_modify_vcg_connection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_modify_vcg_connection.Designer.cs">
+      <DependentUpon>Form_modify_vcg_connection.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Tca_Parameter.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -204,6 +210,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Info.resx">
       <DependentUpon>Form_Info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_modify_vcg_connection.resx">
+      <DependentUpon>Form_modify_vcg_connection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_OAM.resx">
       <DependentUpon>Form_OAM.cs</DependentUpon>

@@ -186,7 +186,7 @@ namespace NetConfClientSoftware
         }
 
 
-        public static XmlDocument tca_parameters(string _name, string _pm_parameter_name,string _granularity,string _threshold_type,string _object_type,string _threshold_value,string ips)
+        public static XmlDocument Tca_parameters(string _name, string _pm_parameter_name,string _granularity,string _threshold_type,string _object_type,string _threshold_value,string ips)
         {
 
             XmlDocument commonXml = new XmlDocument();
@@ -245,6 +245,103 @@ namespace NetConfClientSoftware
                 XmlElement threshold_value = commonXml.CreateElement("threshold-value");
                 threshold_value.InnerText = _threshold_value;
                 tca_parameter.AppendChild(threshold_value);
+            }
+
+            return commonXml;
+
+        }
+
+        public static XmlDocument Modify_vcg_connection_capacity(string _eth_ftp_name, string _sdh_ftp_name, string _sdh_protect_ftp_name, string _mapping_path, string _mapping_path_protected, string IPS)
+        {
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement modify_vcg_connection_capacity = commonXml.CreateElement("modify-vcg-connection-capacity");
+            modify_vcg_connection_capacity.SetAttribute("xmlns", "urn:ccsa:yang:acc-eos");
+            rpc.AppendChild(modify_vcg_connection_capacity);
+            if (IPS.Contains("移动"))
+            {
+
+                //ETH FTP
+                XmlElement eth_ftp_name = commonXml.CreateElement("eth-ftp-name");
+                eth_ftp_name.InnerText = _eth_ftp_name;
+                modify_vcg_connection_capacity.AppendChild(eth_ftp_name);
+                //SDH FTP
+                XmlElement sdh_ftp_name = commonXml.CreateElement("sdh-ftp-name");
+                sdh_ftp_name.InnerText = _sdh_ftp_name;
+                modify_vcg_connection_capacity.AppendChild(sdh_ftp_name);
+                //主用时隙
+                XmlElement mapping_path = commonXml.CreateElement("mapping-path");
+                mapping_path.InnerText = _mapping_path;
+                modify_vcg_connection_capacity.AppendChild(mapping_path);
+                if (!string.IsNullOrEmpty(_sdh_protect_ftp_name))
+                {
+                    //SDH FTP P
+                    XmlElement sdh_protect_ftp_name = commonXml.CreateElement("sdh-protect-ftp-name");
+                    sdh_protect_ftp_name.InnerText = _sdh_protect_ftp_name;
+                    modify_vcg_connection_capacity.AppendChild(sdh_protect_ftp_name);
+                    //备用时隙
+                    XmlElement mapping_path_protected = commonXml.CreateElement("mapping-path-protected");
+                    mapping_path_protected.InnerText = _mapping_path_protected;
+                    modify_vcg_connection_capacity.AppendChild(mapping_path_protected);
+                }
+
+            }
+            if (IPS.Contains("联通"))
+            {
+
+                //ETH FTP
+                XmlElement eth_ftp_name = commonXml.CreateElement("eth-ftp-name");
+                eth_ftp_name.InnerText = _eth_ftp_name;
+                modify_vcg_connection_capacity.AppendChild(eth_ftp_name);
+                //SDH FTP
+                XmlElement sdh_ftp_name = commonXml.CreateElement("sdh-ftp-name");
+                sdh_ftp_name.InnerText = _sdh_ftp_name;
+                modify_vcg_connection_capacity.AppendChild(sdh_ftp_name);
+                //主用时隙
+                string[] strArray = _mapping_path.Split(',');
+                foreach (var item in strArray)
+                {
+                    if (item != "")
+                    {
+                        XmlElement mapping_path = commonXml.CreateElement("mapping-path");
+                        mapping_path.InnerText = item;
+                        modify_vcg_connection_capacity.AppendChild(mapping_path);
+                    }
+
+                }
+                if (!string.IsNullOrEmpty(_sdh_protect_ftp_name))
+                {
+                    //SDH FTP P
+                    XmlElement sdh_protect_ftp_name = commonXml.CreateElement("sdh-protect-ftp-name");
+                    sdh_protect_ftp_name.InnerText = _sdh_protect_ftp_name;
+                    modify_vcg_connection_capacity.AppendChild(sdh_protect_ftp_name);
+                    //备用时隙
+
+
+
+                    string[] strArray1 = _mapping_path_protected.Split(',');
+                    foreach (var item in strArray1)
+                    {
+                        if (item != "")
+                        {
+                            XmlElement mapping_path_protected = commonXml.CreateElement("mapping-path-protected");
+                            mapping_path_protected.InnerText = item;
+                            modify_vcg_connection_capacity.AppendChild(mapping_path_protected);
+                        }
+
+                    }
+                }
+
             }
 
             return commonXml;

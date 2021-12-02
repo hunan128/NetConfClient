@@ -3468,7 +3468,14 @@ namespace NetConfClientSoftware
             string messg0 = "";
             if (sdhunitsbyte.Length == sdhnnits_abyte.Length)
             {
-
+                string num = Regex.Replace(TextSdhlabel.Text, @"[^0-9]+", "");
+                string label = TextSdhlabel.Text;
+                label = label.Replace(num, "");
+                if (string.IsNullOrEmpty(num)) {
+                    MessageBox.Show("标签名称必须包含开头数字");
+                    return;
+                }
+                int  result = int.Parse(num);
                 for (int i = 0; i < sdhunitsbyte.Length; i++)
                 {
                     sdhunits = sdhunitsbyte[i];
@@ -3478,13 +3485,13 @@ namespace NetConfClientSoftware
                         sdhnnits_b = sdhnnits_bbyte[i];
                     }
 
-                    string messg1 = Creat(CreateSDH.Common(ips, TextSdhlabel.Text + (i + 1).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
+                    string messg1 = Creat(CreateSDH.Common(ips, label + (i +result).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
         ComSdhUniPtp.Text, ComSdhUniSdhType.Text, sdhunits,
 ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniTs_A.Text), ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, sdhnnits_a,
 ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, sdhnnits_a
 
 ), id, ip);
-                    messg0 = messg0 + "| " + messg1 + "=" + (i + 1).ToString();
+                    messg0 = messg0 + messg1 + "=" + (i + result).ToString()+"  ";
                 }
                 MessageBox.Show(messg0);
             }
@@ -4912,7 +4919,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                         allconnection = allconnection + "\r\n" + connection;
                     }
                 }
-                if (MessageBox.Show("正在配置当前业务的OAM:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                if (MessageBox.Show("正在配置当前的oduflex:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
                 {
 
                     foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
@@ -5667,7 +5674,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 {
                     ips = dataGridViewNeInformation.Rows[e.Node.Index].Cells["运营商"].Value.ToString();
                     toolStripStatusLabelips.Text = ips;
-
+                    Thread thread = new Thread(() => SDHchengetype(ips));
+                    thread.Start();
                 }
                 if (dataGridViewNeInformation.Rows[e.Node.Index].Cells["连接状态"].Value != null)
                 {
@@ -5686,8 +5694,93 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 //  dataGridViewNeInformation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
                 //   dataGridViewNeInformation.Rows[e.Node.Index].Selected = true;
                 dataGridViewNeInformation.CurrentCell = dataGridViewNeInformation.Rows[e.Node.Index].Cells["网元ip"];
+
+
+
+
+
             }
         }
+
+        private void SDHchengetype(string ips) {
+
+            if (ips.Contains("联通")) {
+                ComEosSdhSignalType.Items.Clear();
+                ComEosSdhSignalTypeProtect.Items.Clear();
+                ComVCType.Items.Clear();
+                ComSdhUniSdhType.Items.Clear();
+                ComSdhNniSdhtype_A.Items.Clear();
+                ComSdhNniVcType_A.Items.Clear();
+                ComSdhNniSdhtype_B.Items.Clear();
+                ComSdhNniVcType_B.Items.Clear();
+                ComEthServiceMappingMode.Enabled = false;
+                ComSdhSerMap.Enabled = false;
+                string[] collectionSDH = new string[4]{ "STM1","STM4","STM16","STM64"};
+                string[] collectionVC = new string[3] { "VC12", "VC3", "VC4" };
+
+                foreach (var item in collectionSDH)
+                {
+                    ComEosSdhSignalType.Items.Add(item);
+                    ComEosSdhSignalTypeProtect.Items.Add(item);
+                    ComSdhNniSdhtype_A.Items.Add(item);
+                    ComSdhNniSdhtype_B.Items.Add(item);    
+                }
+                foreach (var item in collectionVC)
+                {
+                    ComVCType.Items.Add(item);
+                    ComSdhUniSdhType.Items.Add(item);
+                    ComSdhNniVcType_A.Items.Add(item);
+                    ComSdhNniVcType_B.Items.Add(item);
+                }
+                ComEosSdhSignalType.SelectedIndex = 2;
+                ComEosSdhSignalTypeProtect.SelectedIndex = 2;
+                ComVCType.SelectedIndex = 2;
+                ComSdhUniSdhType.SelectedIndex = 2;
+                ComSdhNniSdhtype_A.SelectedIndex = 2;
+                ComSdhNniVcType_A.SelectedIndex = 2;
+                ComSdhNniSdhtype_B.SelectedIndex = 2;
+                ComSdhNniVcType_B.SelectedIndex = 2;
+            }
+            if (ips.Contains("移动"))
+            {
+                ComEosSdhSignalType.Items.Clear();
+                ComEosSdhSignalTypeProtect.Items.Clear();
+                ComVCType.Items.Clear();
+                ComSdhUniSdhType.Items.Clear();
+                ComSdhNniSdhtype_A.Items.Clear();
+                ComSdhNniVcType_A.Items.Clear();
+                ComSdhNniSdhtype_B.Items.Clear();
+                ComSdhNniVcType_B.Items.Clear();
+                ComEthServiceMappingMode.Enabled = true;
+                ComSdhSerMap.Enabled = true;
+                string[] collectionSDH = new string[4] { "acc-otn-types:STM-1", "acc-otn-types:STM-4", "acc-otn-types:STM-16", "acc-otn-types:STM-64" };
+                string[] collectionVC = new string[3] { "acc-otn-types:VC-12", "acc-otn-types:VC-3", "acc-otn-types:VC-4" };
+
+                foreach (var item in collectionSDH)
+                {
+                    ComEosSdhSignalType.Items.Add(item);
+                    ComEosSdhSignalTypeProtect.Items.Add(item);
+                    ComSdhNniSdhtype_A.Items.Add(item);
+                    ComSdhNniSdhtype_B.Items.Add(item);
+                }
+                foreach (var item in collectionVC)
+                {
+                    ComVCType.Items.Add(item);
+                    ComSdhUniSdhType.Items.Add(item);
+                    ComSdhNniVcType_A.Items.Add(item);
+                    ComSdhNniVcType_B.Items.Add(item);
+                }
+                ComEosSdhSignalType.SelectedIndex = 2;
+                ComEosSdhSignalTypeProtect.SelectedIndex = 2;
+                ComVCType.SelectedIndex = 2;
+                ComSdhUniSdhType.SelectedIndex = 2;
+                ComSdhNniSdhtype_A.SelectedIndex = 2;
+                ComSdhNniVcType_A.SelectedIndex = 2;
+                ComSdhNniSdhtype_B.SelectedIndex = 2;
+                ComSdhNniVcType_B.SelectedIndex = 2;
+            }
+        }
+
 
         private void 订阅ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
@@ -6000,7 +6093,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                 _threshold_value = Form_Tca_Parameter._threshold_value;
 
 
-                                string messg = Creat(ModifyXML.tca_parameters(_name, _pm_parameter_name, _granularity, _threshold_type, _object_type, _threshold_value, ips), id, ip);
+                                string messg = Creat(ModifyXML.Tca_parameters(_name, _pm_parameter_name, _granularity, _threshold_type, _object_type, _threshold_value, ips), id, ip);
                                 MessageBox.Show(messg);
                             }
 
@@ -6304,6 +6397,205 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
                     }
                 }
+            }
+        }
+
+        private void vCG时隙调整ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                string _eth_ftp_name="",  _sdh_ftp_name ="", _sdh_protect_ftp_name="", _mapping_path="", _mapping_path_protected="",_vc_type="",_lcas="",_hold_off="",_wtr="",_tsd="",_tx_number="",_rx_number="",_so_handshake_state="";
+                string allconnection = "";
+                string connection = "";
+                foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        connection = dataGridViewEth.Rows[row.Index].Cells["连接名称"].Value.ToString();       //设备IP地址
+                        allconnection = allconnection + "\r\n" + connection;
+                    }
+                }
+                if (MessageBox.Show("正在配置当前业务的VCG:\r\n" + allconnection + "\r\n是否查询或配置？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+
+                    foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            string _odu_ctp_name = dataGridViewEth.Rows[row.Index].Cells["CTP端口1"].Value.ToString();
+                            string[] strArray = _odu_ctp_name.Split(',');
+                            foreach (var item in strArray)
+                            {
+                                if (item != "")
+                                {
+                                    if (item.Contains("FTP"))
+                                    {
+                                        try
+                                        {
+                                            //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                                            // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                                            XmlDocument xmlDoc = new XmlDocument();
+                                            //xmlDoc.Load(filename);
+
+                                            xmlDoc = Sendrpc(FindXML.CTP(item), id, ip);
+
+                                            XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                                            root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                                            root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+
+                                            XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ctps//ptpsxmlns:ctp", root);
+                                            foreach (XmlNode itemNode in itemNodes)
+                                            {
+                                                XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+                                                XmlNode protect_role = itemNode.SelectSingleNode("ptpsxmlns:protect-role", root);
+                                                XmlNode server_tp = itemNode.SelectSingleNode("ptpsxmlns:server-tp", root);
+
+                                                if (protect_role != null && server_tp != null)
+                                                {
+                                                    if (protect_role.InnerText == "secondary")
+                                                    {
+                                                        _sdh_protect_ftp_name = server_tp.InnerText;
+                                                    }
+                                                    else {
+
+                                                        try
+                                                        {
+                                                            //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                                                            // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                                                            XmlDocument xmlDoc0 = new XmlDocument();
+                                                            //xmlDoc.Load(filename);
+
+                                                            xmlDoc0 = Sendrpc(FindXML.FTP(server_tp.InnerText), id, ip);
+
+                                                            XmlNamespaceManager root0 = new XmlNamespaceManager(xmlDoc0.NameTable);
+                                                            root0.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                                                            root0.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                                                            root0.AddNamespace("eth", "urn:ccsa:yang:acc-eth");
+                                                            root0.AddNamespace("eos", "urn:ccsa:yang:acc-eos");
+                                                            XmlNodeList itemNodes0 = xmlDoc0.SelectNodes("//ptpsxmlns:ftps//ptpsxmlns:ftp", root0);
+                                                            foreach (XmlNode itemNode0 in itemNodes0)
+                                                            {
+                                                                XmlNode layer_protocol_name = itemNode0.SelectSingleNode("ptpsxmlns:layer-protocol-name", root0);
+
+                                                                if (layer_protocol_name != null )
+                                                                {
+                                                                    if (layer_protocol_name.InnerText.Contains("ETH"))
+                                                                    {
+                                                                        _eth_ftp_name = server_tp.InnerText;
+
+                                                                        XmlNode vc_type = itemNode0.SelectSingleNode("//eos:vc-type", root0);
+                                                                        XmlNode lcas = itemNode0.SelectSingleNode("//eos:lcas", root0);
+                                                                        XmlNode hold_off = itemNode0.SelectSingleNode("//eos:hold-off", root0);
+                                                                        XmlNode wtr = itemNode0.SelectSingleNode("//eos:wtr", root0);
+                                                                        XmlNode tsd = itemNode0.SelectSingleNode("//eos:tsd", root0);
+                                                                        XmlNode tx_number = itemNode0.SelectSingleNode("//eos:tx-number", root0);
+                                                                        XmlNode rx_number = itemNode0.SelectSingleNode("//eos:rx-number", root0);
+                                                                        XmlNode so_handshake_state = itemNode0.SelectSingleNode("//eos:so-handshake-state", root0);
+                                                                        if (vc_type != null) { _vc_type = vc_type.InnerText; }
+                                                                        if (lcas != null) { _lcas = lcas.InnerText; }
+                                                                        if (hold_off != null) { _hold_off = hold_off.InnerText; }
+                                                                        if (wtr != null) { _wtr = wtr.InnerText; }
+                                                                        if (tsd != null) { _tsd = tsd.InnerText; }
+                                                                        if (tx_number != null) { _tx_number = tx_number.InnerText; }
+                                                                        if (rx_number != null) { _rx_number = rx_number.InnerText; }
+                                                                        if (so_handshake_state != null) { _so_handshake_state = so_handshake_state.InnerText; }
+
+                                                                    }
+                                                                    else {
+                                                                        _sdh_ftp_name = server_tp.InnerText;
+
+                                                                    }
+
+                                                                }
+                                                            }
+                                                            // Console.Read();
+
+                                                        }
+                                                        catch (Exception ex)
+                                                        {
+                                                            MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+                                                        }
+                                                    }
+
+                                                }
+                                            }
+                                            // Console.Read();
+
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+                                        }
+                                    }
+
+                                }
+
+                            }
+                            // 实例化FormInfo，并传入待修改初值  
+                           
+                            var Form_modify_vcg_connection = new Form_modify_vcg_connection(_eth_ftp_name, _sdh_ftp_name, _sdh_protect_ftp_name, _vc_type, _lcas, _hold_off, _wtr, _tsd, _tx_number, _rx_number, _so_handshake_state);
+                            // 以对话框方式显示FormInfo  
+                            if (Form_modify_vcg_connection.ShowDialog() == DialogResult.OK)
+                            {
+                                //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
+                                _eth_ftp_name = Form_modify_vcg_connection._eth_ftp_name;
+                                _sdh_ftp_name = Form_modify_vcg_connection._sdh_ftp_name;
+                                _sdh_protect_ftp_name = Form_modify_vcg_connection._sdh_protect_ftp_name;
+                                _mapping_path = Form_modify_vcg_connection._mapping_path;
+                                _mapping_path_protected = Form_modify_vcg_connection._mapping_path_protected;
+
+                                string messg = Creat(ModifyXML.Modify_vcg_connection_capacity(_eth_ftp_name, _sdh_ftp_name, _sdh_protect_ftp_name, _mapping_path, _mapping_path_protected, ips), id, ip);
+                                MessageBox.Show(messg);
+                            }
+
+                        }
+                    }
+
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void ComCreatConnection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComCreatConnection.Text.Contains("ETH")) {
+                groupBoxCreateEOS.Enabled = false;
+            }
+            if (ComCreatConnection.Text.Contains("EOS"))
+            {
+                groupBoxCreateEOS.Enabled = true;
+            }
+        }
+
+        private void ComEthServiceType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ComEthServiceType.Text.Contains("EPL")) {
+                groupBoxunivlan.Enabled = false;
+            }
+            if (ComEthServiceType.Text.Contains("EVPL"))
+            {
+                groupBoxunivlan.Enabled = true;
             }
         }
     }

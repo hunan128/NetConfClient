@@ -692,13 +692,13 @@
             this.label18.Text = "vlan";
             this.label18.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // FormOAM
+            // Form_OAM
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(521, 391);
             this.Controls.Add(this.groupBox1);
-            this.Name = "FormOAM";
+            this.Name = "Form_OAM";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormOAM";
             this.Load += new System.EventHandler(this.FormOAM_Load);
