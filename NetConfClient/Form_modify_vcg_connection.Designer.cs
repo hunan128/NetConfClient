@@ -30,6 +30,7 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.VC_PATH = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -40,10 +41,14 @@
             this.textBox_sdh_ftp_p = new System.Windows.Forms.TextBox();
             this.textBox_mapping_path = new System.Windows.Forms.TextBox();
             this.textBox_mapping_path_p = new System.Windows.Forms.TextBox();
-            this.VC_PATH = new System.Windows.Forms.Button();
             this.VC_PATH_P = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.textBox_so_handshake_state = new System.Windows.Forms.TextBox();
+            this.textBox_rx_num = new System.Windows.Forms.TextBox();
+            this.textBox_tx_num = new System.Windows.Forms.TextBox();
+            this.textBox_tsd = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
@@ -60,11 +65,6 @@
             this.label19 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.textBox_tsd = new System.Windows.Forms.TextBox();
-            this.textBox_tx_num = new System.Windows.Forms.TextBox();
-            this.textBox_rx_num = new System.Windows.Forms.TextBox();
-            this.textBox_so_handshake_state = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -89,7 +89,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.72093F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.27907F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 37F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel1.Controls.Add(this.VC_PATH, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -116,6 +116,17 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(468, 176);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // VC_PATH
+            // 
+            this.VC_PATH.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.VC_PATH.Location = new System.Drawing.Point(432, 93);
+            this.VC_PATH.Name = "VC_PATH";
+            this.VC_PATH.Size = new System.Drawing.Size(33, 24);
+            this.VC_PATH.TabIndex = 1;
+            this.VC_PATH.Text = "...";
+            this.VC_PATH.UseVisualStyleBackColor = true;
+            this.VC_PATH.Click += new System.EventHandler(this.VC_PATH_Click);
             // 
             // label1
             // 
@@ -173,7 +184,7 @@
             this.textBox_eth_ftp.Location = new System.Drawing.Point(148, 3);
             this.textBox_eth_ftp.Name = "textBox_eth_ftp";
             this.textBox_eth_ftp.ReadOnly = true;
-            this.textBox_eth_ftp.Size = new System.Drawing.Size(279, 21);
+            this.textBox_eth_ftp.Size = new System.Drawing.Size(278, 21);
             this.textBox_eth_ftp.TabIndex = 5;
             // 
             // textBox_sdh_ftp
@@ -182,7 +193,7 @@
             this.textBox_sdh_ftp.Location = new System.Drawing.Point(148, 33);
             this.textBox_sdh_ftp.Name = "textBox_sdh_ftp";
             this.textBox_sdh_ftp.ReadOnly = true;
-            this.textBox_sdh_ftp.Size = new System.Drawing.Size(279, 21);
+            this.textBox_sdh_ftp.Size = new System.Drawing.Size(278, 21);
             this.textBox_sdh_ftp.TabIndex = 6;
             // 
             // textBox_sdh_ftp_p
@@ -191,7 +202,7 @@
             this.textBox_sdh_ftp_p.Location = new System.Drawing.Point(148, 63);
             this.textBox_sdh_ftp_p.Name = "textBox_sdh_ftp_p";
             this.textBox_sdh_ftp_p.ReadOnly = true;
-            this.textBox_sdh_ftp_p.Size = new System.Drawing.Size(279, 21);
+            this.textBox_sdh_ftp_p.Size = new System.Drawing.Size(278, 21);
             this.textBox_sdh_ftp_p.TabIndex = 7;
             // 
             // textBox_mapping_path
@@ -199,7 +210,7 @@
             this.textBox_mapping_path.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_mapping_path.Location = new System.Drawing.Point(148, 93);
             this.textBox_mapping_path.Name = "textBox_mapping_path";
-            this.textBox_mapping_path.Size = new System.Drawing.Size(279, 21);
+            this.textBox_mapping_path.Size = new System.Drawing.Size(278, 21);
             this.textBox_mapping_path.TabIndex = 8;
             // 
             // textBox_mapping_path_p
@@ -207,30 +218,30 @@
             this.textBox_mapping_path_p.Dock = System.Windows.Forms.DockStyle.Fill;
             this.textBox_mapping_path_p.Location = new System.Drawing.Point(148, 123);
             this.textBox_mapping_path_p.Name = "textBox_mapping_path_p";
-            this.textBox_mapping_path_p.Size = new System.Drawing.Size(279, 21);
+            this.textBox_mapping_path_p.Size = new System.Drawing.Size(278, 21);
             this.textBox_mapping_path_p.TabIndex = 9;
-            // 
-            // VC_PATH
-            // 
-            this.VC_PATH.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VC_PATH.Location = new System.Drawing.Point(433, 93);
-            this.VC_PATH.Name = "VC_PATH";
-            this.VC_PATH.Size = new System.Drawing.Size(32, 24);
-            this.VC_PATH.TabIndex = 1;
-            this.VC_PATH.Text = "...";
-            this.VC_PATH.UseVisualStyleBackColor = true;
-            this.VC_PATH.Click += new System.EventHandler(this.VC_PATH_Click);
             // 
             // VC_PATH_P
             // 
             this.VC_PATH_P.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VC_PATH_P.Location = new System.Drawing.Point(433, 123);
+            this.VC_PATH_P.Location = new System.Drawing.Point(432, 123);
             this.VC_PATH_P.Name = "VC_PATH_P";
-            this.VC_PATH_P.Size = new System.Drawing.Size(32, 24);
+            this.VC_PATH_P.Size = new System.Drawing.Size(33, 24);
             this.VC_PATH_P.TabIndex = 10;
             this.VC_PATH_P.Text = "...";
             this.VC_PATH_P.UseVisualStyleBackColor = true;
             this.VC_PATH_P.Click += new System.EventHandler(this.VC_PATH_P_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.ForeColor = System.Drawing.Color.Red;
+            this.label6.Location = new System.Drawing.Point(3, 150);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(139, 30);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "有保护时主备时隙数量要相等哦";
             // 
             // groupBox2
             // 
@@ -282,6 +293,42 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(468, 271);
             this.tableLayoutPanel3.TabIndex = 1;
+            // 
+            // textBox_so_handshake_state
+            // 
+            this.textBox_so_handshake_state.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_so_handshake_state.Location = new System.Drawing.Point(150, 243);
+            this.textBox_so_handshake_state.Name = "textBox_so_handshake_state";
+            this.textBox_so_handshake_state.ReadOnly = true;
+            this.textBox_so_handshake_state.Size = new System.Drawing.Size(315, 21);
+            this.textBox_so_handshake_state.TabIndex = 17;
+            // 
+            // textBox_rx_num
+            // 
+            this.textBox_rx_num.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_rx_num.Location = new System.Drawing.Point(150, 213);
+            this.textBox_rx_num.Name = "textBox_rx_num";
+            this.textBox_rx_num.ReadOnly = true;
+            this.textBox_rx_num.Size = new System.Drawing.Size(315, 21);
+            this.textBox_rx_num.TabIndex = 16;
+            // 
+            // textBox_tx_num
+            // 
+            this.textBox_tx_num.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_tx_num.Location = new System.Drawing.Point(150, 183);
+            this.textBox_tx_num.Name = "textBox_tx_num";
+            this.textBox_tx_num.ReadOnly = true;
+            this.textBox_tx_num.Size = new System.Drawing.Size(315, 21);
+            this.textBox_tx_num.TabIndex = 15;
+            // 
+            // textBox_tsd
+            // 
+            this.textBox_tsd.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox_tsd.Location = new System.Drawing.Point(150, 153);
+            this.textBox_tsd.Name = "textBox_tsd";
+            this.textBox_tsd.ReadOnly = true;
+            this.textBox_tsd.Size = new System.Drawing.Size(315, 21);
+            this.textBox_tsd.TabIndex = 14;
             // 
             // label11
             // 
@@ -437,53 +484,6 @@
             this.button6.TabIndex = 3;
             this.button6.Text = "取消";
             this.button6.UseVisualStyleBackColor = true;
-            // 
-            // textBox_tsd
-            // 
-            this.textBox_tsd.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_tsd.Location = new System.Drawing.Point(150, 153);
-            this.textBox_tsd.Name = "textBox_tsd";
-            this.textBox_tsd.ReadOnly = true;
-            this.textBox_tsd.Size = new System.Drawing.Size(315, 21);
-            this.textBox_tsd.TabIndex = 14;
-            // 
-            // textBox_tx_num
-            // 
-            this.textBox_tx_num.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_tx_num.Location = new System.Drawing.Point(150, 183);
-            this.textBox_tx_num.Name = "textBox_tx_num";
-            this.textBox_tx_num.ReadOnly = true;
-            this.textBox_tx_num.Size = new System.Drawing.Size(315, 21);
-            this.textBox_tx_num.TabIndex = 15;
-            // 
-            // textBox_rx_num
-            // 
-            this.textBox_rx_num.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_rx_num.Location = new System.Drawing.Point(150, 213);
-            this.textBox_rx_num.Name = "textBox_rx_num";
-            this.textBox_rx_num.ReadOnly = true;
-            this.textBox_rx_num.Size = new System.Drawing.Size(315, 21);
-            this.textBox_rx_num.TabIndex = 16;
-            // 
-            // textBox_so_handshake_state
-            // 
-            this.textBox_so_handshake_state.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_so_handshake_state.Location = new System.Drawing.Point(150, 243);
-            this.textBox_so_handshake_state.Name = "textBox_so_handshake_state";
-            this.textBox_so_handshake_state.ReadOnly = true;
-            this.textBox_so_handshake_state.Size = new System.Drawing.Size(315, 21);
-            this.textBox_so_handshake_state.TabIndex = 17;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.ForeColor = System.Drawing.Color.Red;
-            this.label6.Location = new System.Drawing.Point(3, 150);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(139, 30);
-            this.label6.TabIndex = 11;
-            this.label6.Text = "主备时隙数量要相等哦";
             // 
             // Form_modify_vcg_connection
             // 

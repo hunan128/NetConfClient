@@ -199,19 +199,6 @@ namespace NetConfClientSoftware
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.ButFindOdu_local = new System.Windows.Forms.Button();
             this.dataGridViewEth = new System.Windows.Forms.DataGridView();
-            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_ODU = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除业务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OAM配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -641,6 +628,19 @@ namespace NetConfClientSoftware
             this.imageListTree = new System.Windows.Forms.ImageList(this.components);
             this.vCG时隙调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBoxunivlan = new System.Windows.Forms.GroupBox();
+            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -2173,84 +2173,6 @@ namespace NetConfClientSoftware
             this.dataGridViewEth.Size = new System.Drawing.Size(1193, 550);
             this.dataGridViewEth.TabIndex = 0;
             // 
-            // 连接名称
-            // 
-            this.连接名称.HeaderText = "连接名称";
-            this.连接名称.Name = "连接名称";
-            // 
-            // 标签别名
-            // 
-            this.标签别名.HeaderText = "标签别名";
-            this.标签别名.Name = "标签别名";
-            this.标签别名.Width = 60;
-            // 
-            // 当前状态
-            // 
-            this.当前状态.HeaderText = "当前状态";
-            this.当前状态.Name = "当前状态";
-            this.当前状态.Width = 40;
-            // 
-            // 管理状态
-            // 
-            this.管理状态.HeaderText = "管理状态";
-            this.管理状态.Name = "管理状态";
-            this.管理状态.Width = 60;
-            // 
-            // 当前层协议
-            // 
-            this.当前层协议.HeaderText = "当前层协议";
-            this.当前层协议.Name = "当前层协议";
-            this.当前层协议.Width = 80;
-            // 
-            // 服务类型
-            // 
-            this.服务类型.HeaderText = "服务类型";
-            this.服务类型.Name = "服务类型";
-            this.服务类型.Width = 40;
-            // 
-            // 业务总带宽
-            // 
-            this.业务总带宽.HeaderText = "业务总带宽";
-            this.业务总带宽.Name = "业务总带宽";
-            this.业务总带宽.Width = 60;
-            // 
-            // 承诺带宽
-            // 
-            this.承诺带宽.HeaderText = "承诺带宽";
-            this.承诺带宽.Name = "承诺带宽";
-            this.承诺带宽.Width = 40;
-            // 
-            // 峰值带宽
-            // 
-            this.峰值带宽.HeaderText = "峰值带宽";
-            this.峰值带宽.Name = "峰值带宽";
-            this.峰值带宽.Width = 40;
-            // 
-            // 承诺突发
-            // 
-            this.承诺突发.HeaderText = "承诺突发";
-            this.承诺突发.Name = "承诺突发";
-            this.承诺突发.Width = 40;
-            // 
-            // 峰值突发
-            // 
-            this.峰值突发.HeaderText = "峰值突发";
-            this.峰值突发.Name = "峰值突发";
-            this.峰值突发.Width = 40;
-            // 
-            // CTP端口1
-            // 
-            this.CTP端口1.HeaderText = "所有CTP端口";
-            this.CTP端口1.Name = "CTP端口1";
-            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CTP端口1.Width = 300;
-            // 
-            // CTP端口2
-            // 
-            this.CTP端口2.HeaderText = "PTP-CTP端口";
-            this.CTP端口2.Name = "CTP端口2";
-            this.CTP端口2.Width = 300;
-            // 
             // contextMenuStrip_ODU
             // 
             this.contextMenuStrip_ODU.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2261,41 +2183,41 @@ namespace NetConfClientSoftware
             this.cTP限速调整ToolStripMenuItem,
             this.vCG时隙调整ToolStripMenuItem});
             this.contextMenuStrip_ODU.Name = "contextMenuStrip_ODU";
-            this.contextMenuStrip_ODU.Size = new System.Drawing.Size(190, 136);
+            this.contextMenuStrip_ODU.Size = new System.Drawing.Size(238, 136);
             // 
             // 删除业务ToolStripMenuItem
             // 
             this.删除业务ToolStripMenuItem.Name = "删除业务ToolStripMenuItem";
-            this.删除业务ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.删除业务ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.删除业务ToolStripMenuItem.Text = "删除业务";
             this.删除业务ToolStripMenuItem.Click += new System.EventHandler(this.删除业务ToolStripMenuItem_Click);
             // 
             // OAM配置ToolStripMenuItem
             // 
             this.OAM配置ToolStripMenuItem.Name = "OAM配置ToolStripMenuItem";
-            this.OAM配置ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.OAM配置ToolStripMenuItem.Text = "OAM查询或配置";
+            this.OAM配置ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.OAM配置ToolStripMenuItem.Text = "分组业务OAM查询或配置";
             this.OAM配置ToolStripMenuItem.Click += new System.EventHandler(this.oAM创建ToolStripMenuItem_Click);
             // 
             // oDUFlex带宽调整ToolStripMenuItem
             // 
             this.oDUFlex带宽调整ToolStripMenuItem.Name = "oDUFlex带宽调整ToolStripMenuItem";
-            this.oDUFlex带宽调整ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
+            this.oDUFlex带宽调整ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.oDUFlex带宽调整ToolStripMenuItem.Text = "ODUFlex带宽调整";
             this.oDUFlex带宽调整ToolStripMenuItem.Click += new System.EventHandler(this.oDUFlex带宽调整ToolStripMenuItem_Click);
             // 
             // oDUK在线时延测量ToolStripMenuItem
             // 
             this.oDUK在线时延测量ToolStripMenuItem.Name = "oDUK在线时延测量ToolStripMenuItem";
-            this.oDUK在线时延测量ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.oDUK在线时延测量ToolStripMenuItem.Text = "ODUK在线时延测量";
+            this.oDUK在线时延测量ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.oDUK在线时延测量ToolStripMenuItem.Text = "透传业务ODUk在线时延测量";
             this.oDUK在线时延测量ToolStripMenuItem.Click += new System.EventHandler(this.oDUK在线时延测量ToolStripMenuItem_Click);
             // 
             // cTP限速调整ToolStripMenuItem
             // 
             this.cTP限速调整ToolStripMenuItem.Name = "cTP限速调整ToolStripMenuItem";
-            this.cTP限速调整ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.cTP限速调整ToolStripMenuItem.Text = "Connection限速调整";
+            this.cTP限速调整ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.cTP限速调整ToolStripMenuItem.Text = "分组业务Connection限速调整";
             this.cTP限速调整ToolStripMenuItem.Click += new System.EventHandler(this.cTP限速调整ToolStripMenuItem_Click);
             // 
             // ButFindEth_online
@@ -6485,8 +6407,8 @@ namespace NetConfClientSoftware
             // vCG时隙调整ToolStripMenuItem
             // 
             this.vCG时隙调整ToolStripMenuItem.Name = "vCG时隙调整ToolStripMenuItem";
-            this.vCG时隙调整ToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.vCG时隙调整ToolStripMenuItem.Text = "VCG时隙调整";
+            this.vCG时隙调整ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.vCG时隙调整ToolStripMenuItem.Text = "EOS业务VCG时隙调整";
             this.vCG时隙调整ToolStripMenuItem.Click += new System.EventHandler(this.vCG时隙调整ToolStripMenuItem_Click);
             // 
             // groupBoxunivlan
@@ -6513,6 +6435,85 @@ namespace NetConfClientSoftware
             this.groupBoxunivlan.TabIndex = 28;
             this.groupBoxunivlan.TabStop = false;
             this.groupBoxunivlan.Text = "vlan属性";
+            // 
+            // 连接名称
+            // 
+            this.连接名称.HeaderText = "连接名称";
+            this.连接名称.Name = "连接名称";
+            this.连接名称.Width = 110;
+            // 
+            // 标签别名
+            // 
+            this.标签别名.HeaderText = "标签别名";
+            this.标签别名.Name = "标签别名";
+            this.标签别名.Width = 60;
+            // 
+            // 当前状态
+            // 
+            this.当前状态.HeaderText = "当前状态";
+            this.当前状态.Name = "当前状态";
+            this.当前状态.Width = 40;
+            // 
+            // 管理状态
+            // 
+            this.管理状态.HeaderText = "管理状态";
+            this.管理状态.Name = "管理状态";
+            this.管理状态.Width = 60;
+            // 
+            // 当前层协议
+            // 
+            this.当前层协议.HeaderText = "当前层协议";
+            this.当前层协议.Name = "当前层协议";
+            this.当前层协议.Width = 80;
+            // 
+            // 服务类型
+            // 
+            this.服务类型.HeaderText = "服务类型";
+            this.服务类型.Name = "服务类型";
+            this.服务类型.Width = 40;
+            // 
+            // 业务总带宽
+            // 
+            this.业务总带宽.HeaderText = "业务总带宽";
+            this.业务总带宽.Name = "业务总带宽";
+            this.业务总带宽.Width = 60;
+            // 
+            // 承诺带宽
+            // 
+            this.承诺带宽.HeaderText = "承诺带宽";
+            this.承诺带宽.Name = "承诺带宽";
+            this.承诺带宽.Width = 40;
+            // 
+            // 峰值带宽
+            // 
+            this.峰值带宽.HeaderText = "峰值带宽";
+            this.峰值带宽.Name = "峰值带宽";
+            this.峰值带宽.Width = 40;
+            // 
+            // 承诺突发
+            // 
+            this.承诺突发.HeaderText = "承诺突发";
+            this.承诺突发.Name = "承诺突发";
+            this.承诺突发.Width = 40;
+            // 
+            // 峰值突发
+            // 
+            this.峰值突发.HeaderText = "峰值突发";
+            this.峰值突发.Name = "峰值突发";
+            this.峰值突发.Width = 40;
+            // 
+            // CTP端口1
+            // 
+            this.CTP端口1.HeaderText = "所有CTP端口";
+            this.CTP端口1.Name = "CTP端口1";
+            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CTP端口1.Width = 300;
+            // 
+            // CTP端口2
+            // 
+            this.CTP端口2.HeaderText = "PTP-CTP端口";
+            this.CTP端口2.Name = "CTP端口2";
+            this.CTP端口2.Width = 300;
             // 
             // Form_Main
             // 
@@ -7107,19 +7108,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn 端口占用率;
         private System.Windows.Forms.DataGridViewButtonColumn 操作;
         private System.Windows.Forms.ToolStripMenuItem OAM配置ToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 标签别名;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 当前状态;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 管理状态;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 当前层协议;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 服务类型;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 业务总带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺突发;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelips;
         private System.Windows.Forms.TextBox RichTextReq;
@@ -7233,6 +7221,19 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.ToolStripMenuItem vCG时隙调整ToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBoxunivlan;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 标签别名;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 当前状态;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 管理状态;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 当前层协议;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 服务类型;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 业务总带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺突发;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
     }
 }
 

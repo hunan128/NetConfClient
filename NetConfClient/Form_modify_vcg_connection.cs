@@ -27,6 +27,10 @@ namespace NetConfClientSoftware
                 textBox_eth_ftp_name.Text = _eth_ftp_name;
                 textBox_sdh_ftp.Text = _sdh_ftp_name;
                 textBox_sdh_ftp_p.Text = _sdh_protect_ftp_name;
+                if (string.IsNullOrEmpty(_sdh_protect_ftp_name)) {
+                    textBox_mapping_path_p.Enabled = false;
+                    VC_PATH_P.Enabled = false;
+                }
                 textBox_vc_type.Text = _vc_type;
                 textBox_lcas.Text = _lcas;
                 textBox_hold_off.Text = _hold_off;

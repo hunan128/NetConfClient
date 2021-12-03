@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -42,7 +43,9 @@ namespace NetConfClientSoftware
                 {
                     int index = dataGridViewExpRx.Rows.Add();
                     //dataGridViewExpRx.Rows[index].Cells["预期"].Value = ExpByte[i];
-                    string[] RxByte0 = RxByte[i].Split('=');
+                   
+                   // string[] RxByte0 = RxByte[i].Split('=');
+                    string[] RxByte0 = Regex.Split(RxByte[i], "是", RegexOptions.IgnoreCase);
                     dataGridViewExpRx.Rows[index].Cells["预期"].Value = RxByte0[0];
                     dataGridViewExpRx.Rows[index].Cells["结果"].Value = RxByte0[1];
                     if (RxByte0[0].Contains("枚举")) {

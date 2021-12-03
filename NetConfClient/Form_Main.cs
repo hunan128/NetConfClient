@@ -4306,7 +4306,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     {
                                                         if (Element.CUCC_Array[j][0] == item)
                                                         {
-                                                            end = end + item + "[枚举]=OK|" + "\n";
+                                                            end = end + item + "[枚举]是OK|" + "\n";
                                                             key = true;
                                                             break;
                                                         }
@@ -4320,7 +4320,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     {
                                                         if (Element.CMCC_Array[j][0] == item)
                                                         {
-                                                            end = end + item + "[枚举]=OK|" + "\n";
+                                                            end = end + item + "[枚举]是OK|" + "\n";
                                                             key = true;
                                                             break;
                                                         }
@@ -4334,7 +4334,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     {
                                                         if (Element.CTCC_Array[j][0] == item)
                                                         {
-                                                            end = end + item + "[枚举]=OK|" + "\n";
+                                                            end = end + item + "[枚举]是OK|" + "\n";
                                                             key = true;
                                                             break;
                                                         }
@@ -4342,7 +4342,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     }
                                             }
                                             if (!key)
-                                                end = end + item + "=OK|" + "\n";
+                                                end = end + item + "是OK|" + "\n";
                                             dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
                                             dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
 
@@ -4356,7 +4356,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     {
                                                         if (Element.CUCC_Array[j][0] == item)
                                                         {
-                                                            end = end + item + "[枚举]=NOK参考:" + Element.CUCC_Array[j][2] + "|" + "\n";
+                                                            end = end + item + "[枚举]是NOK参考:" + Element.CUCC_Array[j][2] + "|" + "\n";
                                                             key = true;
                                                             break;
                                                         }
@@ -4370,7 +4370,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     {
                                                         if (Element.CMCC_Array[j][0] == item)
                                                         {
-                                                            end = end + item + "[枚举]=NOK参考:" + Element.CMCC_Array[j][2] + "|" + "\n";
+                                                            end = end + item + "[枚举]是NOK参考:" + Element.CMCC_Array[j][2] + "|" + "\n";
                                                             key = true;
                                                             break;
                                                         }
@@ -4384,7 +4384,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     {
                                                         if (Element.CTCC_Array[j][0] == item)
                                                         {
-                                                            end = end + item + "[枚举]=NOK参考:" + Element.CTCC_Array[j][2] + "|" + "\n";
+                                                            end = end + item + "[枚举]是NOK参考:" + Element.CTCC_Array[j][2] + "|" + "\n";
                                                             key = true;
                                                             break;
                                                         }
@@ -4392,7 +4392,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                                     }
                                             }
                                             if (!key)
-                                                end = end + item + "=NOK|" + "\n";
+                                                end = end + item + "是NOK|" + "\n";
 
                                             dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
 
@@ -4403,13 +4403,13 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                     {
                                         if (result.Contains(item))
                                         {
-                                            end = end + item + "=OK|" + "\n";
+                                            end = end + item + "是OK|" + "\n";
                                             dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
                                             dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
                                         }
                                         else
                                         {
-                                            end = end + item + "=NOK|" + "\n";
+                                            end = end + item + "是NOK|" + "\n";
                                             dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
                                         }
                                     }
@@ -5990,7 +5990,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 {
                     ips = dataGridViewNeInformation.Rows[e.RowIndex].Cells["运营商"].Value.ToString();
                     toolStripStatusLabelips.Text = ips;
-
+                    Thread thread = new Thread(() => SDHchengetype(ips));
+                    thread.Start();
                 }
                 if (dataGridViewNeInformation.Rows[e.RowIndex].Cells["连接状态"].Value != null)
                 {

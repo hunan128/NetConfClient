@@ -58,6 +58,12 @@ namespace NetConfClientSoftware
                 string text = GetAttributeText(inXmlNode, "name");
                 if (string.IsNullOrEmpty(text))
                     text = inXmlNode.Name;
+                string nc = "";
+                for (int i = 0; i < inXmlNode.Attributes.Count; i++)
+                {
+                     nc =  inXmlNode.Attributes[i].OuterXml;
+
+                }
                 string newNode = null;
                 XmlNodeList nodeList = inXmlNode.ChildNodes;
                 for (int i = 0; i <= nodeList.Count - 1; i++)
@@ -69,6 +75,8 @@ namespace NetConfClientSoftware
                         {
                             newNode = text;
                             if (text == _element) { _element_bool = true; _value_bool = true; }
+                            if (nc == _element) { _element_bool = true; _value_bool = true; }
+
                         }
                     }
                     else
@@ -78,9 +86,9 @@ namespace NetConfClientSoftware
                         {
                             value = (xNode.OuterXml).Trim();
                         }
-                            
+                        if (nc == _element) { _element_bool = true; _value_bool = true; }
                         if (inXmlNode.Name == _element) {
-
+                           
                             _element_bool = true;
                             //if (value == _value) { _value_bool = true; }
                             if (ips.Contains("联通")) {
