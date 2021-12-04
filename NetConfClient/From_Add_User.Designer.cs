@@ -1,6 +1,6 @@
 ﻿namespace NetConfClientSoftware
 {
-    partial class Login_On
+    partial class From_Add_User
     {
         /// <summary>
         /// Required designer variable.

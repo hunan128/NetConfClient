@@ -89,7 +89,7 @@
             this.tableLayoutPanel1.ColumnCount = 3;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.72093F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.27907F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.Controls.Add(this.VC_PATH, 2, 3);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
@@ -120,9 +120,9 @@
             // VC_PATH
             // 
             this.VC_PATH.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VC_PATH.Location = new System.Drawing.Point(432, 93);
+            this.VC_PATH.Location = new System.Drawing.Point(430, 93);
             this.VC_PATH.Name = "VC_PATH";
-            this.VC_PATH.Size = new System.Drawing.Size(33, 24);
+            this.VC_PATH.Size = new System.Drawing.Size(35, 24);
             this.VC_PATH.TabIndex = 1;
             this.VC_PATH.Text = "...";
             this.VC_PATH.UseVisualStyleBackColor = true;
@@ -134,7 +134,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(139, 30);
+            this.label1.Size = new System.Drawing.Size(138, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "eth-ftp-name";
             // 
@@ -144,7 +144,7 @@
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Location = new System.Drawing.Point(3, 30);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(139, 30);
+            this.label2.Size = new System.Drawing.Size(138, 30);
             this.label2.TabIndex = 1;
             this.label2.Text = "sdh-ftp-name";
             // 
@@ -154,7 +154,7 @@
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Location = new System.Drawing.Point(3, 60);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(139, 30);
+            this.label3.Size = new System.Drawing.Size(138, 30);
             this.label3.TabIndex = 2;
             this.label3.Text = "sdh-protect-ftp-name";
             // 
@@ -164,7 +164,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(3, 90);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(139, 30);
+            this.label4.Size = new System.Drawing.Size(138, 30);
             this.label4.TabIndex = 3;
             this.label4.Text = "mapping-path";
             // 
@@ -174,59 +174,59 @@
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Location = new System.Drawing.Point(3, 120);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(139, 30);
+            this.label5.Size = new System.Drawing.Size(138, 30);
             this.label5.TabIndex = 4;
             this.label5.Text = "mapping-path-protected";
             // 
             // textBox_eth_ftp
             // 
             this.textBox_eth_ftp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_eth_ftp.Location = new System.Drawing.Point(148, 3);
+            this.textBox_eth_ftp.Location = new System.Drawing.Point(147, 3);
             this.textBox_eth_ftp.Name = "textBox_eth_ftp";
             this.textBox_eth_ftp.ReadOnly = true;
-            this.textBox_eth_ftp.Size = new System.Drawing.Size(278, 21);
+            this.textBox_eth_ftp.Size = new System.Drawing.Size(277, 21);
             this.textBox_eth_ftp.TabIndex = 5;
             // 
             // textBox_sdh_ftp
             // 
             this.textBox_sdh_ftp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_sdh_ftp.Location = new System.Drawing.Point(148, 33);
+            this.textBox_sdh_ftp.Location = new System.Drawing.Point(147, 33);
             this.textBox_sdh_ftp.Name = "textBox_sdh_ftp";
             this.textBox_sdh_ftp.ReadOnly = true;
-            this.textBox_sdh_ftp.Size = new System.Drawing.Size(278, 21);
+            this.textBox_sdh_ftp.Size = new System.Drawing.Size(277, 21);
             this.textBox_sdh_ftp.TabIndex = 6;
             // 
             // textBox_sdh_ftp_p
             // 
             this.textBox_sdh_ftp_p.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_sdh_ftp_p.Location = new System.Drawing.Point(148, 63);
+            this.textBox_sdh_ftp_p.Location = new System.Drawing.Point(147, 63);
             this.textBox_sdh_ftp_p.Name = "textBox_sdh_ftp_p";
             this.textBox_sdh_ftp_p.ReadOnly = true;
-            this.textBox_sdh_ftp_p.Size = new System.Drawing.Size(278, 21);
+            this.textBox_sdh_ftp_p.Size = new System.Drawing.Size(277, 21);
             this.textBox_sdh_ftp_p.TabIndex = 7;
             // 
             // textBox_mapping_path
             // 
             this.textBox_mapping_path.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_mapping_path.Location = new System.Drawing.Point(148, 93);
+            this.textBox_mapping_path.Location = new System.Drawing.Point(147, 93);
             this.textBox_mapping_path.Name = "textBox_mapping_path";
-            this.textBox_mapping_path.Size = new System.Drawing.Size(278, 21);
+            this.textBox_mapping_path.Size = new System.Drawing.Size(277, 21);
             this.textBox_mapping_path.TabIndex = 8;
             // 
             // textBox_mapping_path_p
             // 
             this.textBox_mapping_path_p.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_mapping_path_p.Location = new System.Drawing.Point(148, 123);
+            this.textBox_mapping_path_p.Location = new System.Drawing.Point(147, 123);
             this.textBox_mapping_path_p.Name = "textBox_mapping_path_p";
-            this.textBox_mapping_path_p.Size = new System.Drawing.Size(278, 21);
+            this.textBox_mapping_path_p.Size = new System.Drawing.Size(277, 21);
             this.textBox_mapping_path_p.TabIndex = 9;
             // 
             // VC_PATH_P
             // 
             this.VC_PATH_P.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.VC_PATH_P.Location = new System.Drawing.Point(432, 123);
+            this.VC_PATH_P.Location = new System.Drawing.Point(430, 123);
             this.VC_PATH_P.Name = "VC_PATH_P";
-            this.VC_PATH_P.Size = new System.Drawing.Size(33, 24);
+            this.VC_PATH_P.Size = new System.Drawing.Size(35, 24);
             this.VC_PATH_P.TabIndex = 10;
             this.VC_PATH_P.Text = "...";
             this.VC_PATH_P.UseVisualStyleBackColor = true;
@@ -239,7 +239,7 @@
             this.label6.ForeColor = System.Drawing.Color.Red;
             this.label6.Location = new System.Drawing.Point(3, 150);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(139, 30);
+            this.label6.Size = new System.Drawing.Size(138, 30);
             this.label6.TabIndex = 11;
             this.label6.Text = "有保护时主备时隙数量要相等哦";
             // 

@@ -32,14 +32,19 @@ namespace NetConfClientSoftware
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -52,11 +57,6 @@ namespace NetConfClientSoftware
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ButSend = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.XML转Tree = new System.Windows.Forms.Button();
@@ -82,6 +82,7 @@ namespace NetConfClientSoftware
             this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.分享SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.网元管理器 = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
@@ -199,12 +200,26 @@ namespace NetConfClientSoftware
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.ButFindOdu_local = new System.Windows.Forms.Button();
             this.dataGridViewEth = new System.Windows.Forms.DataGridView();
+            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_ODU = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除业务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OAM配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oDUFlex带宽调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.oDUK在线时延测量ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cTP限速调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.vCG时隙调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ButFindEth_online = new System.Windows.Forms.Button();
             this.透传业务 = new System.Windows.Forms.TabPage();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
@@ -220,7 +235,6 @@ namespace NetConfClientSoftware
             this.ComOduAdapataionType_UNI_B = new System.Windows.Forms.ComboBox();
             this.ComOduSwitchApability_UNI_B = new System.Windows.Forms.ComboBox();
             this.ComOduNniTsDetailClient_UNI_B = new System.Windows.Forms.ComboBox();
-            this.ButOduFind = new System.Windows.Forms.Button();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label82 = new System.Windows.Forms.Label();
             this.TextOdusize = new System.Windows.Forms.TextBox();
@@ -230,6 +244,29 @@ namespace NetConfClientSoftware
             this.TextOduLable = new System.Windows.Forms.TextBox();
             this.TextOduService_type = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.ButOduFind = new System.Windows.Forms.Button();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
+            this.ComOduNniPtpName_NNI_A = new System.Windows.Forms.ComboBox();
+            this.label77 = new System.Windows.Forms.Label();
+            this.ComOduOdusignalType_NNI_A = new System.Windows.Forms.ComboBox();
+            this.label78 = new System.Windows.Forms.Label();
+            this.ComOduNniTsDetail_NNI_A = new System.Windows.Forms.ComboBox();
+            this.ComOduSwitchCapability_NNI_A = new System.Windows.Forms.ComboBox();
+            this.ComOduAdapatationType_NNI_A = new System.Windows.Forms.ComboBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label79 = new System.Windows.Forms.Label();
+            this.label80 = new System.Windows.Forms.Label();
+            this.label81 = new System.Windows.Forms.Label();
+            this.ComOduOdusignalType_NNI_B = new System.Windows.Forms.ComboBox();
+            this.ComOduAdapatationType_NNI_B = new System.Windows.Forms.ComboBox();
+            this.ComOduSwitchCapability_NNI_B = new System.Windows.Forms.ComboBox();
+            this.ComOduNniTsDetail_NNI_B = new System.Windows.Forms.ComboBox();
+            this.ComOduNniPtpName_NNI_B = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.ButCreatODU = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -242,31 +279,8 @@ namespace NetConfClientSoftware
             this.ComOduAdapataionType_UNI_A = new System.Windows.Forms.ComboBox();
             this.ComOduSwitchApability_UNI_A = new System.Windows.Forms.ComboBox();
             this.ComOduNniTsDetailClient_UNI_A = new System.Windows.Forms.ComboBox();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label79 = new System.Windows.Forms.Label();
-            this.label80 = new System.Windows.Forms.Label();
-            this.label81 = new System.Windows.Forms.Label();
-            this.ComOduOdusignalType_NNI_B = new System.Windows.Forms.ComboBox();
-            this.ComOduAdapatationType_NNI_B = new System.Windows.Forms.ComboBox();
-            this.ComOduSwitchCapability_NNI_B = new System.Windows.Forms.ComboBox();
-            this.ComOduNniTsDetail_NNI_B = new System.Windows.Forms.ComboBox();
-            this.ComOduNniPtpName_NNI_B = new System.Windows.Forms.ComboBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label76 = new System.Windows.Forms.Label();
-            this.ComOduNniPtpName_NNI_A = new System.Windows.Forms.ComboBox();
-            this.label77 = new System.Windows.Forms.Label();
-            this.ComOduOdusignalType_NNI_A = new System.Windows.Forms.ComboBox();
-            this.label78 = new System.Windows.Forms.Label();
-            this.ComOduNniTsDetail_NNI_A = new System.Windows.Forms.ComboBox();
-            this.ComOduSwitchCapability_NNI_A = new System.Windows.Forms.ComboBox();
-            this.ComOduAdapatationType_NNI_A = new System.Windows.Forms.ComboBox();
             this.EOO业务 = new System.Windows.Forms.TabPage();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ButFindEoO = new System.Windows.Forms.Button();
             this.groupBoxCreateEOS = new System.Windows.Forms.GroupBox();
             this.label139 = new System.Windows.Forms.Label();
             this.ButVcProtect = new System.Windows.Forms.Button();
@@ -288,46 +302,9 @@ namespace NetConfClientSoftware
             this.label189 = new System.Windows.Forms.Label();
             this.ComHoldOff = new System.Windows.Forms.ComboBox();
             this.ComLCAS = new System.Windows.Forms.ComboBox();
-            this.ButFindEoO = new System.Windows.Forms.Button();
-            this.groupBox18 = new System.Windows.Forms.GroupBox();
-            this.ComCreatConnection = new System.Windows.Forms.ComboBox();
-            this.label140 = new System.Windows.Forms.Label();
-            this.label165 = new System.Windows.Forms.Label();
-            this.TextEthPbs = new System.Windows.Forms.TextBox();
-            this.label166 = new System.Windows.Forms.Label();
-            this.TextEthCbs = new System.Windows.Forms.TextBox();
-            this.label164 = new System.Windows.Forms.Label();
-            this.TextEthPir = new System.Windows.Forms.TextBox();
-            this.label94 = new System.Windows.Forms.Label();
-            this.TextEthCir = new System.Windows.Forms.TextBox();
-            this.Com_Eth_nni_protection_type = new System.Windows.Forms.ComboBox();
-            this.label95 = new System.Windows.Forms.Label();
-            this.label97 = new System.Windows.Forms.Label();
-            this.TextEthLabel = new System.Windows.Forms.TextBox();
-            this.ComEthServiceType = new System.Windows.Forms.ComboBox();
-            this.label98 = new System.Windows.Forms.Label();
             this.ButCreatEoO = new System.Windows.Forms.Button();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.label89 = new System.Windows.Forms.Label();
-            this.ComEthUniVlanType = new System.Windows.Forms.ComboBox();
-            this.label90 = new System.Windows.Forms.Label();
-            this.label91 = new System.Windows.Forms.Label();
-            this.label92 = new System.Windows.Forms.Label();
-            this.ComEthUniVlanId = new System.Windows.Forms.ComboBox();
-            this.ComEthUniVlanPriority = new System.Windows.Forms.ComboBox();
-            this.ComEthUniVlanAccessAction = new System.Windows.Forms.ComboBox();
-            this.label167 = new System.Windows.Forms.Label();
-            this.ComEthVlanType = new System.Windows.Forms.ComboBox();
-            this.label99 = new System.Windows.Forms.Label();
-            this.label100 = new System.Windows.Forms.Label();
-            this.label101 = new System.Windows.Forms.Label();
-            this.label102 = new System.Windows.Forms.Label();
-            this.ComEthUniPtpName = new System.Windows.Forms.ComboBox();
-            this.label103 = new System.Windows.Forms.Label();
-            this.ComEthClientVlanId = new System.Windows.Forms.ComboBox();
-            this.ComEthServiceMappingMode = new System.Windows.Forms.ComboBox();
-            this.ComEthVlanPriority = new System.Windows.Forms.ComboBox();
-            this.ComEthVlanAccessAction = new System.Windows.Forms.ComboBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.label104 = new System.Windows.Forms.Label();
             this.label105 = new System.Windows.Forms.Label();
@@ -358,6 +335,45 @@ namespace NetConfClientSoftware
             this.ComEthPrimayTs = new System.Windows.Forms.ComboBox();
             this.ComEthPrimarySwitch = new System.Windows.Forms.ComboBox();
             this.ComEthPrimayAdaType = new System.Windows.Forms.ComboBox();
+            this.groupBox18 = new System.Windows.Forms.GroupBox();
+            this.ComCreatConnection = new System.Windows.Forms.ComboBox();
+            this.label140 = new System.Windows.Forms.Label();
+            this.label165 = new System.Windows.Forms.Label();
+            this.TextEthPbs = new System.Windows.Forms.TextBox();
+            this.label166 = new System.Windows.Forms.Label();
+            this.TextEthCbs = new System.Windows.Forms.TextBox();
+            this.label164 = new System.Windows.Forms.Label();
+            this.TextEthPir = new System.Windows.Forms.TextBox();
+            this.label94 = new System.Windows.Forms.Label();
+            this.TextEthCir = new System.Windows.Forms.TextBox();
+            this.Com_Eth_nni_protection_type = new System.Windows.Forms.ComboBox();
+            this.label95 = new System.Windows.Forms.Label();
+            this.label97 = new System.Windows.Forms.Label();
+            this.TextEthLabel = new System.Windows.Forms.TextBox();
+            this.ComEthServiceType = new System.Windows.Forms.ComboBox();
+            this.label98 = new System.Windows.Forms.Label();
+            this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.groupBoxunivlan = new System.Windows.Forms.GroupBox();
+            this.label89 = new System.Windows.Forms.Label();
+            this.label102 = new System.Windows.Forms.Label();
+            this.ComEthUniVlanType = new System.Windows.Forms.ComboBox();
+            this.ComEthVlanAccessAction = new System.Windows.Forms.ComboBox();
+            this.label90 = new System.Windows.Forms.Label();
+            this.ComEthVlanPriority = new System.Windows.Forms.ComboBox();
+            this.label91 = new System.Windows.Forms.Label();
+            this.ComEthClientVlanId = new System.Windows.Forms.ComboBox();
+            this.label92 = new System.Windows.Forms.Label();
+            this.label101 = new System.Windows.Forms.Label();
+            this.ComEthUniVlanId = new System.Windows.Forms.ComboBox();
+            this.label99 = new System.Windows.Forms.Label();
+            this.ComEthUniVlanPriority = new System.Windows.Forms.ComboBox();
+            this.ComEthVlanType = new System.Windows.Forms.ComboBox();
+            this.ComEthUniVlanAccessAction = new System.Windows.Forms.ComboBox();
+            this.label167 = new System.Windows.Forms.Label();
+            this.label100 = new System.Windows.Forms.Label();
+            this.ComEthUniPtpName = new System.Windows.Forms.ComboBox();
+            this.label103 = new System.Windows.Forms.Label();
+            this.ComEthServiceMappingMode = new System.Windows.Forms.ComboBox();
             this.SDH业务 = new System.Windows.Forms.TabPage();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -371,35 +387,6 @@ namespace NetConfClientSoftware
             this.TextSdhlabel = new System.Windows.Forms.TextBox();
             this.ComSdhSer = new System.Windows.Forms.ComboBox();
             this.label122 = new System.Windows.Forms.Label();
-            this.ButCreatSDH = new System.Windows.Forms.Button();
-            this.groupBox24 = new System.Windows.Forms.GroupBox();
-            this.label126 = new System.Windows.Forms.Label();
-            this.ComSdhSerMap = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.ComSdhUniPtp = new System.Windows.Forms.ComboBox();
-            this.label127 = new System.Windows.Forms.Label();
-            this.ComSdhUniSdhType = new System.Windows.Forms.ComboBox();
-            this.ButSdhUniTs = new System.Windows.Forms.Button();
-            this.label114 = new System.Windows.Forms.Label();
-            this.TextSdhUniTs = new System.Windows.Forms.TextBox();
-            this.groupBox25 = new System.Windows.Forms.GroupBox();
-            this.ButSdhNniTs_B = new System.Windows.Forms.Button();
-            this.ComSdhNniSdhtype_B = new System.Windows.Forms.ComboBox();
-            this.label123 = new System.Windows.Forms.Label();
-            this.label128 = new System.Windows.Forms.Label();
-            this.label124 = new System.Windows.Forms.Label();
-            this.label129 = new System.Windows.Forms.Label();
-            this.ComSdhNniAda_B = new System.Windows.Forms.ComboBox();
-            this.ComSdhNniVcType_B = new System.Windows.Forms.ComboBox();
-            this.label130 = new System.Windows.Forms.Label();
-            this.label125 = new System.Windows.Forms.Label();
-            this.label131 = new System.Windows.Forms.Label();
-            this.TextSdhNniTs_B = new System.Windows.Forms.TextBox();
-            this.ComSdhNniOdu_B = new System.Windows.Forms.ComboBox();
-            this.ComSdhNniSwitch_B = new System.Windows.Forms.ComboBox();
-            this.ComSdhNniTs_B = new System.Windows.Forms.ComboBox();
-            this.ComSdhNniPtp_B = new System.Windows.Forms.ComboBox();
-            this.label132 = new System.Windows.Forms.Label();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
             this.ComSdhNniSdhtype_A = new System.Windows.Forms.ComboBox();
             this.label117 = new System.Windows.Forms.Label();
@@ -418,6 +405,35 @@ namespace NetConfClientSoftware
             this.ComSdhNniTs_A = new System.Windows.Forms.ComboBox();
             this.ComSdhNniSwitch_A = new System.Windows.Forms.ComboBox();
             this.ComSdhNniOdu_A = new System.Windows.Forms.ComboBox();
+            this.ButCreatSDH = new System.Windows.Forms.Button();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
+            this.ButSdhNniTs_B = new System.Windows.Forms.Button();
+            this.ComSdhNniSdhtype_B = new System.Windows.Forms.ComboBox();
+            this.label123 = new System.Windows.Forms.Label();
+            this.label128 = new System.Windows.Forms.Label();
+            this.label124 = new System.Windows.Forms.Label();
+            this.label129 = new System.Windows.Forms.Label();
+            this.ComSdhNniAda_B = new System.Windows.Forms.ComboBox();
+            this.ComSdhNniVcType_B = new System.Windows.Forms.ComboBox();
+            this.label130 = new System.Windows.Forms.Label();
+            this.label125 = new System.Windows.Forms.Label();
+            this.label131 = new System.Windows.Forms.Label();
+            this.TextSdhNniTs_B = new System.Windows.Forms.TextBox();
+            this.ComSdhNniOdu_B = new System.Windows.Forms.ComboBox();
+            this.ComSdhNniSwitch_B = new System.Windows.Forms.ComboBox();
+            this.ComSdhNniTs_B = new System.Windows.Forms.ComboBox();
+            this.ComSdhNniPtp_B = new System.Windows.Forms.ComboBox();
+            this.label132 = new System.Windows.Forms.Label();
+            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.label126 = new System.Windows.Forms.Label();
+            this.ComSdhSerMap = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.ComSdhUniPtp = new System.Windows.Forms.ComboBox();
+            this.label127 = new System.Windows.Forms.Label();
+            this.ComSdhUniSdhType = new System.Windows.Forms.ComboBox();
+            this.ButSdhUniTs = new System.Windows.Forms.Button();
+            this.label114 = new System.Windows.Forms.Label();
+            this.TextSdhUniTs = new System.Windows.Forms.TextBox();
             this.性能查询 = new System.Windows.Forms.TabPage();
             this.buttontcafind = new System.Windows.Forms.Button();
             this.ButUTC = new System.Windows.Forms.Button();
@@ -626,21 +642,6 @@ namespace NetConfClientSoftware
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.treeViewNEID = new System.Windows.Forms.TreeView();
             this.imageListTree = new System.Windows.Forms.ImageList(this.components);
-            this.vCG时隙调整ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.groupBoxunivlan = new System.Windows.Forms.GroupBox();
-            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -681,22 +682,23 @@ namespace NetConfClientSoftware
             this.groupBox29.SuspendLayout();
             this.groupBox15.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.EOO业务.SuspendLayout();
-            this.groupBox14.SuspendLayout();
             this.groupBoxCreateEOS.SuspendLayout();
-            this.groupBox18.SuspendLayout();
-            this.groupBox19.SuspendLayout();
+            this.groupBox14.SuspendLayout();
             this.groupBox20.SuspendLayout();
             this.groupBox21.SuspendLayout();
+            this.groupBox18.SuspendLayout();
+            this.groupBox19.SuspendLayout();
+            this.groupBoxunivlan.SuspendLayout();
             this.SDH业务.SuspendLayout();
             this.groupBox30.SuspendLayout();
             this.groupBox23.SuspendLayout();
-            this.groupBox24.SuspendLayout();
-            this.groupBox25.SuspendLayout();
             this.groupBox27.SuspendLayout();
+            this.groupBox25.SuspendLayout();
+            this.groupBox24.SuspendLayout();
             this.性能查询.SuspendLayout();
             this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurrentPerformance)).BeginInit();
@@ -729,7 +731,6 @@ namespace NetConfClientSoftware
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            this.groupBoxunivlan.SuspendLayout();
             this.SuspendLayout();
             // 
             // ButSend
@@ -846,7 +847,8 @@ namespace NetConfClientSoftware
             this.menuStrip_Winfrom.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.文件FToolStripMenuItem,
             this.工具TToolStripMenuItem,
-            this.帮助HToolStripMenuItem});
+            this.帮助HToolStripMenuItem,
+            this.分享SToolStripMenuItem});
             this.menuStrip_Winfrom.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_Winfrom.Name = "menuStrip_Winfrom";
             this.menuStrip_Winfrom.Size = new System.Drawing.Size(1423, 25);
@@ -872,7 +874,7 @@ namespace NetConfClientSoftware
             this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
             this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem1.Text = "导入XML目录";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.打开OToolStripMenuItem_Click);
             // 
@@ -976,6 +978,13 @@ namespace NetConfClientSoftware
             this.关于AToolStripMenuItem.Text = "关于(&A)...";
             this.关于AToolStripMenuItem.Click += new System.EventHandler(this.关于AToolStripMenuItem_Click);
             // 
+            // 分享SToolStripMenuItem
+            // 
+            this.分享SToolStripMenuItem.Name = "分享SToolStripMenuItem";
+            this.分享SToolStripMenuItem.Size = new System.Drawing.Size(107, 21);
+            this.分享SToolStripMenuItem.Text = "分享下载链接(S)";
+            this.分享SToolStripMenuItem.Click += new System.EventHandler(this.分享SToolStripMenuItem_Click);
+            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.网元管理器);
@@ -1023,17 +1032,17 @@ namespace NetConfClientSoftware
             // dataGridViewNeInformation
             // 
             this.dataGridViewNeInformation.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewNeInformation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewNeInformation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle26.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewNeInformation.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewNeInformation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
             this.dataGridViewNeInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewNeInformation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SSH_ID,
@@ -1053,29 +1062,29 @@ namespace NetConfClientSoftware
             this.用户名,
             this.密码});
             this.dataGridViewNeInformation.ContextMenuStrip = this.ConnectionDevice;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewNeInformation.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle31.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewNeInformation.DefaultCellStyle = dataGridViewCellStyle31;
             this.dataGridViewNeInformation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewNeInformation.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewNeInformation.Name = "dataGridViewNeInformation";
             this.dataGridViewNeInformation.ReadOnly = true;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewNeInformation.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewNeInformation.RowHeadersDefaultCellStyle = dataGridViewCellStyle32;
             this.dataGridViewNeInformation.RowHeadersVisible = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewNeInformation.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewNeInformation.RowsDefaultCellStyle = dataGridViewCellStyle33;
             this.dataGridViewNeInformation.RowTemplate.Height = 23;
             this.dataGridViewNeInformation.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewNeInformation.Size = new System.Drawing.Size(1200, 610);
@@ -1092,8 +1101,8 @@ namespace NetConfClientSoftware
             // 
             // 网元ip
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.网元ip.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.网元ip.DefaultCellStyle = dataGridViewCellStyle28;
             this.网元ip.HeaderText = "ip地址";
             this.网元ip.Name = "网元ip";
             this.网元ip.ReadOnly = true;
@@ -1119,8 +1128,8 @@ namespace NetConfClientSoftware
             // 
             // 运营商
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.运营商.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.运营商.DefaultCellStyle = dataGridViewCellStyle29;
             this.运营商.HeaderText = "运营商";
             this.运营商.Name = "运营商";
             this.运营商.ReadOnly = true;
@@ -1128,8 +1137,8 @@ namespace NetConfClientSoftware
             // 
             // 设备名称
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.设备名称.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.设备名称.DefaultCellStyle = dataGridViewCellStyle30;
             this.设备名称.HeaderText = "设备名称";
             this.设备名称.Name = "设备名称";
             this.设备名称.ReadOnly = true;
@@ -1248,7 +1257,7 @@ namespace NetConfClientSoftware
             this.网元信息.Controls.Add(this.tabControl4);
             this.网元信息.Location = new System.Drawing.Point(4, 22);
             this.网元信息.Name = "网元信息";
-            this.网元信息.Size = new System.Drawing.Size(1212, 649);
+            this.网元信息.Size = new System.Drawing.Size(1212, 636);
             this.网元信息.TabIndex = 13;
             this.网元信息.Text = "网元板卡端口信息";
             this.网元信息.UseVisualStyleBackColor = true;
@@ -2003,7 +2012,7 @@ namespace NetConfClientSoftware
             this.调试主窗口.Location = new System.Drawing.Point(4, 22);
             this.调试主窗口.Name = "调试主窗口";
             this.调试主窗口.Padding = new System.Windows.Forms.Padding(3);
-            this.调试主窗口.Size = new System.Drawing.Size(1212, 649);
+            this.调试主窗口.Size = new System.Drawing.Size(1212, 636);
             this.调试主窗口.TabIndex = 0;
             this.调试主窗口.Text = "脚本调试";
             this.调试主窗口.UseVisualStyleBackColor = true;
@@ -2133,14 +2142,14 @@ namespace NetConfClientSoftware
             this.dataGridViewEth.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEth.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEth.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewEth.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewEth.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.连接名称,
@@ -2159,19 +2168,98 @@ namespace NetConfClientSoftware
             this.dataGridViewEth.ContextMenuStrip = this.contextMenuStrip_ODU;
             this.dataGridViewEth.Location = new System.Drawing.Point(6, 20);
             this.dataGridViewEth.Name = "dataGridViewEth";
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewEth.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewEth.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewEth.RowHeadersVisible = false;
             this.dataGridViewEth.RowTemplate.Height = 23;
             this.dataGridViewEth.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewEth.Size = new System.Drawing.Size(1193, 550);
             this.dataGridViewEth.TabIndex = 0;
+            // 
+            // 连接名称
+            // 
+            this.连接名称.HeaderText = "连接名称";
+            this.连接名称.Name = "连接名称";
+            this.连接名称.Width = 110;
+            // 
+            // 标签别名
+            // 
+            this.标签别名.HeaderText = "标签别名";
+            this.标签别名.Name = "标签别名";
+            this.标签别名.Width = 60;
+            // 
+            // 当前状态
+            // 
+            this.当前状态.HeaderText = "当前状态";
+            this.当前状态.Name = "当前状态";
+            this.当前状态.Width = 40;
+            // 
+            // 管理状态
+            // 
+            this.管理状态.HeaderText = "管理状态";
+            this.管理状态.Name = "管理状态";
+            this.管理状态.Width = 60;
+            // 
+            // 当前层协议
+            // 
+            this.当前层协议.HeaderText = "当前层协议";
+            this.当前层协议.Name = "当前层协议";
+            this.当前层协议.Width = 80;
+            // 
+            // 服务类型
+            // 
+            this.服务类型.HeaderText = "服务类型";
+            this.服务类型.Name = "服务类型";
+            this.服务类型.Width = 40;
+            // 
+            // 业务总带宽
+            // 
+            this.业务总带宽.HeaderText = "业务总带宽";
+            this.业务总带宽.Name = "业务总带宽";
+            this.业务总带宽.Width = 60;
+            // 
+            // 承诺带宽
+            // 
+            this.承诺带宽.HeaderText = "承诺带宽";
+            this.承诺带宽.Name = "承诺带宽";
+            this.承诺带宽.Width = 40;
+            // 
+            // 峰值带宽
+            // 
+            this.峰值带宽.HeaderText = "峰值带宽";
+            this.峰值带宽.Name = "峰值带宽";
+            this.峰值带宽.Width = 40;
+            // 
+            // 承诺突发
+            // 
+            this.承诺突发.HeaderText = "承诺突发";
+            this.承诺突发.Name = "承诺突发";
+            this.承诺突发.Width = 40;
+            // 
+            // 峰值突发
+            // 
+            this.峰值突发.HeaderText = "峰值突发";
+            this.峰值突发.Name = "峰值突发";
+            this.峰值突发.Width = 40;
+            // 
+            // CTP端口1
+            // 
+            this.CTP端口1.HeaderText = "所有CTP端口";
+            this.CTP端口1.Name = "CTP端口1";
+            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CTP端口1.Width = 300;
+            // 
+            // CTP端口2
+            // 
+            this.CTP端口2.HeaderText = "PTP-CTP端口";
+            this.CTP端口2.Name = "CTP端口2";
+            this.CTP端口2.Width = 300;
             // 
             // contextMenuStrip_ODU
             // 
@@ -2219,6 +2307,13 @@ namespace NetConfClientSoftware
             this.cTP限速调整ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
             this.cTP限速调整ToolStripMenuItem.Text = "分组业务Connection限速调整";
             this.cTP限速调整ToolStripMenuItem.Click += new System.EventHandler(this.cTP限速调整ToolStripMenuItem_Click);
+            // 
+            // vCG时隙调整ToolStripMenuItem
+            // 
+            this.vCG时隙调整ToolStripMenuItem.Name = "vCG时隙调整ToolStripMenuItem";
+            this.vCG时隙调整ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
+            this.vCG时隙调整ToolStripMenuItem.Text = "EOS业务VCG时隙调整";
+            this.vCG时隙调整ToolStripMenuItem.Click += new System.EventHandler(this.vCG时隙调整ToolStripMenuItem_Click);
             // 
             // ButFindEth_online
             // 
@@ -2395,16 +2490,6 @@ namespace NetConfClientSoftware
             this.ComOduNniTsDetailClient_UNI_B.Size = new System.Drawing.Size(152, 20);
             this.ComOduNniTsDetailClient_UNI_B.TabIndex = 6;
             // 
-            // ButOduFind
-            // 
-            this.ButOduFind.Location = new System.Drawing.Point(648, 472);
-            this.ButOduFind.Name = "ButOduFind";
-            this.ButOduFind.Size = new System.Drawing.Size(145, 35);
-            this.ButOduFind.TabIndex = 25;
-            this.ButOduFind.Text = "查询";
-            this.ButOduFind.UseVisualStyleBackColor = true;
-            this.ButOduFind.Click += new System.EventHandler(this.ButOduFind_Click);
-            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.label82);
@@ -2499,6 +2584,256 @@ namespace NetConfClientSoftware
             this.label8.Size = new System.Drawing.Size(101, 12);
             this.label8.TabIndex = 12;
             this.label8.Text = "服务类型(层协议)";
+            // 
+            // ButOduFind
+            // 
+            this.ButOduFind.Location = new System.Drawing.Point(648, 472);
+            this.ButOduFind.Name = "ButOduFind";
+            this.ButOduFind.Size = new System.Drawing.Size(145, 35);
+            this.ButOduFind.TabIndex = 25;
+            this.ButOduFind.Text = "查询";
+            this.ButOduFind.UseVisualStyleBackColor = true;
+            this.ButOduFind.Click += new System.EventHandler(this.ButOduFind_Click);
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.label16);
+            this.groupBox7.Controls.Add(this.label14);
+            this.groupBox7.Controls.Add(this.label76);
+            this.groupBox7.Controls.Add(this.ComOduNniPtpName_NNI_A);
+            this.groupBox7.Controls.Add(this.label77);
+            this.groupBox7.Controls.Add(this.ComOduOdusignalType_NNI_A);
+            this.groupBox7.Controls.Add(this.label78);
+            this.groupBox7.Controls.Add(this.ComOduNniTsDetail_NNI_A);
+            this.groupBox7.Controls.Add(this.ComOduSwitchCapability_NNI_A);
+            this.groupBox7.Controls.Add(this.ComOduAdapatationType_NNI_A);
+            this.groupBox7.Location = new System.Drawing.Point(6, 312);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(604, 100);
+            this.groupBox7.TabIndex = 22;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "NNI 端口配置-主用";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(335, 70);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(53, 12);
+            this.label16.TabIndex = 25;
+            this.label16.Text = "使用时隙";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(5, 22);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(71, 12);
+            this.label14.TabIndex = 18;
+            this.label14.Text = "主用NNI端口";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(335, 46);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(101, 12);
+            this.label76.TabIndex = 24;
+            this.label76.Text = "适配类型(PT开销)";
+            // 
+            // ComOduNniPtpName_NNI_A
+            // 
+            this.ComOduNniPtpName_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduNniPtpName_NNI_A.FormattingEnabled = true;
+            this.ComOduNniPtpName_NNI_A.Location = new System.Drawing.Point(143, 19);
+            this.ComOduNniPtpName_NNI_A.Name = "ComOduNniPtpName_NNI_A";
+            this.ComOduNniPtpName_NNI_A.Size = new System.Drawing.Size(449, 20);
+            this.ComOduNniPtpName_NNI_A.TabIndex = 7;
+            this.ComOduNniPtpName_NNI_A.SelectedIndexChanged += new System.EventHandler(this.ComOduNniPtpName_NNI_A_SelectedIndexChanged);
+            // 
+            // label77
+            // 
+            this.label77.AutoSize = true;
+            this.label77.Location = new System.Drawing.Point(13, 71);
+            this.label77.Name = "label77";
+            this.label77.Size = new System.Drawing.Size(113, 12);
+            this.label77.TabIndex = 23;
+            this.label77.Text = "交换能力(交叉颗粒)";
+            // 
+            // ComOduOdusignalType_NNI_A
+            // 
+            this.ComOduOdusignalType_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduOdusignalType_NNI_A.FormattingEnabled = true;
+            this.ComOduOdusignalType_NNI_A.Location = new System.Drawing.Point(143, 43);
+            this.ComOduOdusignalType_NNI_A.Name = "ComOduOdusignalType_NNI_A";
+            this.ComOduOdusignalType_NNI_A.Size = new System.Drawing.Size(186, 20);
+            this.ComOduOdusignalType_NNI_A.TabIndex = 18;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.Location = new System.Drawing.Point(13, 46);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(113, 12);
+            this.label78.TabIndex = 22;
+            this.label78.Text = "净荷类型(接口速率)";
+            // 
+            // ComOduNniTsDetail_NNI_A
+            // 
+            this.ComOduNniTsDetail_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduNniTsDetail_NNI_A.FormattingEnabled = true;
+            this.ComOduNniTsDetail_NNI_A.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.ComOduNniTsDetail_NNI_A.Location = new System.Drawing.Point(440, 67);
+            this.ComOduNniTsDetail_NNI_A.Name = "ComOduNniTsDetail_NNI_A";
+            this.ComOduNniTsDetail_NNI_A.Size = new System.Drawing.Size(152, 20);
+            this.ComOduNniTsDetail_NNI_A.TabIndex = 21;
+            // 
+            // ComOduSwitchCapability_NNI_A
+            // 
+            this.ComOduSwitchCapability_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduSwitchCapability_NNI_A.FormattingEnabled = true;
+            this.ComOduSwitchCapability_NNI_A.Location = new System.Drawing.Point(143, 67);
+            this.ComOduSwitchCapability_NNI_A.Name = "ComOduSwitchCapability_NNI_A";
+            this.ComOduSwitchCapability_NNI_A.Size = new System.Drawing.Size(186, 20);
+            this.ComOduSwitchCapability_NNI_A.TabIndex = 20;
+            // 
+            // ComOduAdapatationType_NNI_A
+            // 
+            this.ComOduAdapatationType_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduAdapatationType_NNI_A.FormattingEnabled = true;
+            this.ComOduAdapatationType_NNI_A.Location = new System.Drawing.Point(440, 43);
+            this.ComOduAdapatationType_NNI_A.Name = "ComOduAdapatationType_NNI_A";
+            this.ComOduAdapatationType_NNI_A.Size = new System.Drawing.Size(152, 20);
+            this.ComOduAdapatationType_NNI_A.TabIndex = 19;
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label15);
+            this.groupBox6.Controls.Add(this.label79);
+            this.groupBox6.Controls.Add(this.label80);
+            this.groupBox6.Controls.Add(this.label81);
+            this.groupBox6.Controls.Add(this.ComOduOdusignalType_NNI_B);
+            this.groupBox6.Controls.Add(this.ComOduAdapatationType_NNI_B);
+            this.groupBox6.Controls.Add(this.ComOduSwitchCapability_NNI_B);
+            this.groupBox6.Controls.Add(this.ComOduNniTsDetail_NNI_B);
+            this.groupBox6.Controls.Add(this.ComOduNniPtpName_NNI_B);
+            this.groupBox6.Controls.Add(this.label17);
+            this.groupBox6.Location = new System.Drawing.Point(6, 418);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(604, 95);
+            this.groupBox6.TabIndex = 21;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "NNI 端口配置-备用";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(335, 65);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(53, 12);
+            this.label15.TabIndex = 28;
+            this.label15.Text = "使用时隙";
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Location = new System.Drawing.Point(335, 41);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(101, 12);
+            this.label79.TabIndex = 27;
+            this.label79.Text = "适配类型(PT开销)";
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Location = new System.Drawing.Point(13, 71);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(113, 12);
+            this.label80.TabIndex = 26;
+            this.label80.Text = "交换能力(交叉颗粒)";
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Location = new System.Drawing.Point(13, 46);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(113, 12);
+            this.label81.TabIndex = 25;
+            this.label81.Text = "净荷类型(接口速率)";
+            // 
+            // ComOduOdusignalType_NNI_B
+            // 
+            this.ComOduOdusignalType_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduOdusignalType_NNI_B.FormattingEnabled = true;
+            this.ComOduOdusignalType_NNI_B.Location = new System.Drawing.Point(143, 38);
+            this.ComOduOdusignalType_NNI_B.Name = "ComOduOdusignalType_NNI_B";
+            this.ComOduOdusignalType_NNI_B.Size = new System.Drawing.Size(186, 20);
+            this.ComOduOdusignalType_NNI_B.TabIndex = 21;
+            // 
+            // ComOduAdapatationType_NNI_B
+            // 
+            this.ComOduAdapatationType_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduAdapatationType_NNI_B.FormattingEnabled = true;
+            this.ComOduAdapatationType_NNI_B.Location = new System.Drawing.Point(440, 38);
+            this.ComOduAdapatationType_NNI_B.Name = "ComOduAdapatationType_NNI_B";
+            this.ComOduAdapatationType_NNI_B.Size = new System.Drawing.Size(152, 20);
+            this.ComOduAdapatationType_NNI_B.TabIndex = 22;
+            // 
+            // ComOduSwitchCapability_NNI_B
+            // 
+            this.ComOduSwitchCapability_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduSwitchCapability_NNI_B.FormattingEnabled = true;
+            this.ComOduSwitchCapability_NNI_B.Location = new System.Drawing.Point(143, 62);
+            this.ComOduSwitchCapability_NNI_B.Name = "ComOduSwitchCapability_NNI_B";
+            this.ComOduSwitchCapability_NNI_B.Size = new System.Drawing.Size(186, 20);
+            this.ComOduSwitchCapability_NNI_B.TabIndex = 23;
+            // 
+            // ComOduNniTsDetail_NNI_B
+            // 
+            this.ComOduNniTsDetail_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduNniTsDetail_NNI_B.FormattingEnabled = true;
+            this.ComOduNniTsDetail_NNI_B.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.ComOduNniTsDetail_NNI_B.Location = new System.Drawing.Point(440, 62);
+            this.ComOduNniTsDetail_NNI_B.Name = "ComOduNniTsDetail_NNI_B";
+            this.ComOduNniTsDetail_NNI_B.Size = new System.Drawing.Size(152, 20);
+            this.ComOduNniTsDetail_NNI_B.TabIndex = 24;
+            // 
+            // ComOduNniPtpName_NNI_B
+            // 
+            this.ComOduNniPtpName_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduNniPtpName_NNI_B.FormattingEnabled = true;
+            this.ComOduNniPtpName_NNI_B.Items.AddRange(new object[] {
+            "无"});
+            this.ComOduNniPtpName_NNI_B.Location = new System.Drawing.Point(143, 14);
+            this.ComOduNniPtpName_NNI_B.Name = "ComOduNniPtpName_NNI_B";
+            this.ComOduNniPtpName_NNI_B.Size = new System.Drawing.Size(449, 20);
+            this.ComOduNniPtpName_NNI_B.TabIndex = 9;
+            this.ComOduNniPtpName_NNI_B.SelectedIndexChanged += new System.EventHandler(this.ComOduNniPtpName_NNI_B_SelectedIndexChanged);
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(13, 22);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(71, 12);
+            this.label17.TabIndex = 20;
+            this.label17.Text = "备用NNI端口";
             // 
             // ButCreatODU
             // 
@@ -2629,246 +2964,6 @@ namespace NetConfClientSoftware
             this.ComOduNniTsDetailClient_UNI_A.Size = new System.Drawing.Size(152, 20);
             this.ComOduNniTsDetailClient_UNI_A.TabIndex = 6;
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.label15);
-            this.groupBox6.Controls.Add(this.label79);
-            this.groupBox6.Controls.Add(this.label80);
-            this.groupBox6.Controls.Add(this.label81);
-            this.groupBox6.Controls.Add(this.ComOduOdusignalType_NNI_B);
-            this.groupBox6.Controls.Add(this.ComOduAdapatationType_NNI_B);
-            this.groupBox6.Controls.Add(this.ComOduSwitchCapability_NNI_B);
-            this.groupBox6.Controls.Add(this.ComOduNniTsDetail_NNI_B);
-            this.groupBox6.Controls.Add(this.ComOduNniPtpName_NNI_B);
-            this.groupBox6.Controls.Add(this.label17);
-            this.groupBox6.Location = new System.Drawing.Point(6, 418);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(604, 95);
-            this.groupBox6.TabIndex = 21;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "NNI 端口配置-备用";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(335, 65);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(53, 12);
-            this.label15.TabIndex = 28;
-            this.label15.Text = "使用时隙";
-            // 
-            // label79
-            // 
-            this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(335, 41);
-            this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(101, 12);
-            this.label79.TabIndex = 27;
-            this.label79.Text = "适配类型(PT开销)";
-            // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(13, 71);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(113, 12);
-            this.label80.TabIndex = 26;
-            this.label80.Text = "交换能力(交叉颗粒)";
-            // 
-            // label81
-            // 
-            this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(13, 46);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(113, 12);
-            this.label81.TabIndex = 25;
-            this.label81.Text = "净荷类型(接口速率)";
-            // 
-            // ComOduOdusignalType_NNI_B
-            // 
-            this.ComOduOdusignalType_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduOdusignalType_NNI_B.FormattingEnabled = true;
-            this.ComOduOdusignalType_NNI_B.Location = new System.Drawing.Point(143, 38);
-            this.ComOduOdusignalType_NNI_B.Name = "ComOduOdusignalType_NNI_B";
-            this.ComOduOdusignalType_NNI_B.Size = new System.Drawing.Size(186, 20);
-            this.ComOduOdusignalType_NNI_B.TabIndex = 21;
-            // 
-            // ComOduAdapatationType_NNI_B
-            // 
-            this.ComOduAdapatationType_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduAdapatationType_NNI_B.FormattingEnabled = true;
-            this.ComOduAdapatationType_NNI_B.Location = new System.Drawing.Point(440, 38);
-            this.ComOduAdapatationType_NNI_B.Name = "ComOduAdapatationType_NNI_B";
-            this.ComOduAdapatationType_NNI_B.Size = new System.Drawing.Size(152, 20);
-            this.ComOduAdapatationType_NNI_B.TabIndex = 22;
-            // 
-            // ComOduSwitchCapability_NNI_B
-            // 
-            this.ComOduSwitchCapability_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduSwitchCapability_NNI_B.FormattingEnabled = true;
-            this.ComOduSwitchCapability_NNI_B.Location = new System.Drawing.Point(143, 62);
-            this.ComOduSwitchCapability_NNI_B.Name = "ComOduSwitchCapability_NNI_B";
-            this.ComOduSwitchCapability_NNI_B.Size = new System.Drawing.Size(186, 20);
-            this.ComOduSwitchCapability_NNI_B.TabIndex = 23;
-            // 
-            // ComOduNniTsDetail_NNI_B
-            // 
-            this.ComOduNniTsDetail_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduNniTsDetail_NNI_B.FormattingEnabled = true;
-            this.ComOduNniTsDetail_NNI_B.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.ComOduNniTsDetail_NNI_B.Location = new System.Drawing.Point(440, 62);
-            this.ComOduNniTsDetail_NNI_B.Name = "ComOduNniTsDetail_NNI_B";
-            this.ComOduNniTsDetail_NNI_B.Size = new System.Drawing.Size(152, 20);
-            this.ComOduNniTsDetail_NNI_B.TabIndex = 24;
-            // 
-            // ComOduNniPtpName_NNI_B
-            // 
-            this.ComOduNniPtpName_NNI_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduNniPtpName_NNI_B.FormattingEnabled = true;
-            this.ComOduNniPtpName_NNI_B.Items.AddRange(new object[] {
-            "无"});
-            this.ComOduNniPtpName_NNI_B.Location = new System.Drawing.Point(143, 14);
-            this.ComOduNniPtpName_NNI_B.Name = "ComOduNniPtpName_NNI_B";
-            this.ComOduNniPtpName_NNI_B.Size = new System.Drawing.Size(449, 20);
-            this.ComOduNniPtpName_NNI_B.TabIndex = 9;
-            this.ComOduNniPtpName_NNI_B.SelectedIndexChanged += new System.EventHandler(this.ComOduNniPtpName_NNI_B_SelectedIndexChanged);
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(13, 22);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(71, 12);
-            this.label17.TabIndex = 20;
-            this.label17.Text = "备用NNI端口";
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.label16);
-            this.groupBox7.Controls.Add(this.label14);
-            this.groupBox7.Controls.Add(this.label76);
-            this.groupBox7.Controls.Add(this.ComOduNniPtpName_NNI_A);
-            this.groupBox7.Controls.Add(this.label77);
-            this.groupBox7.Controls.Add(this.ComOduOdusignalType_NNI_A);
-            this.groupBox7.Controls.Add(this.label78);
-            this.groupBox7.Controls.Add(this.ComOduNniTsDetail_NNI_A);
-            this.groupBox7.Controls.Add(this.ComOduSwitchCapability_NNI_A);
-            this.groupBox7.Controls.Add(this.ComOduAdapatationType_NNI_A);
-            this.groupBox7.Location = new System.Drawing.Point(6, 312);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(604, 100);
-            this.groupBox7.TabIndex = 22;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "NNI 端口配置-主用";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(335, 70);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(53, 12);
-            this.label16.TabIndex = 25;
-            this.label16.Text = "使用时隙";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(5, 22);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(71, 12);
-            this.label14.TabIndex = 18;
-            this.label14.Text = "主用NNI端口";
-            // 
-            // label76
-            // 
-            this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(335, 46);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(101, 12);
-            this.label76.TabIndex = 24;
-            this.label76.Text = "适配类型(PT开销)";
-            // 
-            // ComOduNniPtpName_NNI_A
-            // 
-            this.ComOduNniPtpName_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduNniPtpName_NNI_A.FormattingEnabled = true;
-            this.ComOduNniPtpName_NNI_A.Location = new System.Drawing.Point(143, 19);
-            this.ComOduNniPtpName_NNI_A.Name = "ComOduNniPtpName_NNI_A";
-            this.ComOduNniPtpName_NNI_A.Size = new System.Drawing.Size(449, 20);
-            this.ComOduNniPtpName_NNI_A.TabIndex = 7;
-            this.ComOduNniPtpName_NNI_A.SelectedIndexChanged += new System.EventHandler(this.ComOduNniPtpName_NNI_A_SelectedIndexChanged);
-            // 
-            // label77
-            // 
-            this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(13, 71);
-            this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(113, 12);
-            this.label77.TabIndex = 23;
-            this.label77.Text = "交换能力(交叉颗粒)";
-            // 
-            // ComOduOdusignalType_NNI_A
-            // 
-            this.ComOduOdusignalType_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduOdusignalType_NNI_A.FormattingEnabled = true;
-            this.ComOduOdusignalType_NNI_A.Location = new System.Drawing.Point(143, 43);
-            this.ComOduOdusignalType_NNI_A.Name = "ComOduOdusignalType_NNI_A";
-            this.ComOduOdusignalType_NNI_A.Size = new System.Drawing.Size(186, 20);
-            this.ComOduOdusignalType_NNI_A.TabIndex = 18;
-            // 
-            // label78
-            // 
-            this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(13, 46);
-            this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(113, 12);
-            this.label78.TabIndex = 22;
-            this.label78.Text = "净荷类型(接口速率)";
-            // 
-            // ComOduNniTsDetail_NNI_A
-            // 
-            this.ComOduNniTsDetail_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduNniTsDetail_NNI_A.FormattingEnabled = true;
-            this.ComOduNniTsDetail_NNI_A.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.ComOduNniTsDetail_NNI_A.Location = new System.Drawing.Point(440, 67);
-            this.ComOduNniTsDetail_NNI_A.Name = "ComOduNniTsDetail_NNI_A";
-            this.ComOduNniTsDetail_NNI_A.Size = new System.Drawing.Size(152, 20);
-            this.ComOduNniTsDetail_NNI_A.TabIndex = 21;
-            // 
-            // ComOduSwitchCapability_NNI_A
-            // 
-            this.ComOduSwitchCapability_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduSwitchCapability_NNI_A.FormattingEnabled = true;
-            this.ComOduSwitchCapability_NNI_A.Location = new System.Drawing.Point(143, 67);
-            this.ComOduSwitchCapability_NNI_A.Name = "ComOduSwitchCapability_NNI_A";
-            this.ComOduSwitchCapability_NNI_A.Size = new System.Drawing.Size(186, 20);
-            this.ComOduSwitchCapability_NNI_A.TabIndex = 20;
-            // 
-            // ComOduAdapatationType_NNI_A
-            // 
-            this.ComOduAdapatationType_NNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComOduAdapatationType_NNI_A.FormattingEnabled = true;
-            this.ComOduAdapatationType_NNI_A.Location = new System.Drawing.Point(440, 43);
-            this.ComOduAdapatationType_NNI_A.Name = "ComOduAdapatationType_NNI_A";
-            this.ComOduAdapatationType_NNI_A.Size = new System.Drawing.Size(152, 20);
-            this.ComOduAdapatationType_NNI_A.TabIndex = 19;
-            // 
             // EOO业务
             // 
             this.EOO业务.Controls.Add(this.ButFindEoO);
@@ -2887,32 +2982,15 @@ namespace NetConfClientSoftware
             this.EOO业务.Text = "创建以太网业务";
             this.EOO业务.UseVisualStyleBackColor = true;
             // 
-            // groupBox14
+            // ButFindEoO
             // 
-            this.groupBox14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox14.Controls.Add(this.textBox1);
-            this.groupBox14.Location = new System.Drawing.Point(1003, 7);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(201, 623);
-            this.groupBox14.TabIndex = 29;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "业务创建说明：";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.textBox1.ForeColor = System.Drawing.Color.DimGray;
-            this.textBox1.Location = new System.Drawing.Point(7, 21);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(188, 596);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.ButFindEoO.Location = new System.Drawing.Point(658, 573);
+            this.ButFindEoO.Name = "ButFindEoO";
+            this.ButFindEoO.Size = new System.Drawing.Size(155, 35);
+            this.ButFindEoO.TabIndex = 25;
+            this.ButFindEoO.Text = "查询";
+            this.ButFindEoO.UseVisualStyleBackColor = true;
+            this.ButFindEoO.Click += new System.EventHandler(this.ButFindEoO_Click);
             // 
             // groupBoxCreateEOS
             // 
@@ -3153,198 +3231,6 @@ namespace NetConfClientSoftware
             this.ComLCAS.Size = new System.Drawing.Size(78, 20);
             this.ComLCAS.TabIndex = 5;
             // 
-            // ButFindEoO
-            // 
-            this.ButFindEoO.Location = new System.Drawing.Point(658, 573);
-            this.ButFindEoO.Name = "ButFindEoO";
-            this.ButFindEoO.Size = new System.Drawing.Size(155, 35);
-            this.ButFindEoO.TabIndex = 25;
-            this.ButFindEoO.Text = "查询";
-            this.ButFindEoO.UseVisualStyleBackColor = true;
-            this.ButFindEoO.Click += new System.EventHandler(this.ButFindEoO_Click);
-            // 
-            // groupBox18
-            // 
-            this.groupBox18.Controls.Add(this.ComCreatConnection);
-            this.groupBox18.Controls.Add(this.label140);
-            this.groupBox18.Controls.Add(this.label165);
-            this.groupBox18.Controls.Add(this.TextEthPbs);
-            this.groupBox18.Controls.Add(this.label166);
-            this.groupBox18.Controls.Add(this.TextEthCbs);
-            this.groupBox18.Controls.Add(this.label164);
-            this.groupBox18.Controls.Add(this.TextEthPir);
-            this.groupBox18.Controls.Add(this.label94);
-            this.groupBox18.Controls.Add(this.TextEthCir);
-            this.groupBox18.Controls.Add(this.Com_Eth_nni_protection_type);
-            this.groupBox18.Controls.Add(this.label95);
-            this.groupBox18.Controls.Add(this.label97);
-            this.groupBox18.Controls.Add(this.TextEthLabel);
-            this.groupBox18.Controls.Add(this.ComEthServiceType);
-            this.groupBox18.Controls.Add(this.label98);
-            this.groupBox18.Location = new System.Drawing.Point(15, 6);
-            this.groupBox18.Name = "groupBox18";
-            this.groupBox18.Size = new System.Drawing.Size(613, 90);
-            this.groupBox18.TabIndex = 23;
-            this.groupBox18.TabStop = false;
-            this.groupBox18.Text = "业务创建";
-            // 
-            // ComCreatConnection
-            // 
-            this.ComCreatConnection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComCreatConnection.FormattingEnabled = true;
-            this.ComCreatConnection.Items.AddRange(new object[] {
-            "ETH",
-            "EOS",
-            "ETH-to-ETH"});
-            this.ComCreatConnection.Location = new System.Drawing.Point(452, 16);
-            this.ComCreatConnection.Name = "ComCreatConnection";
-            this.ComCreatConnection.Size = new System.Drawing.Size(152, 20);
-            this.ComCreatConnection.TabIndex = 30;
-            this.ComCreatConnection.SelectedIndexChanged += new System.EventHandler(this.ComCreatConnection_SelectedIndexChanged);
-            // 
-            // label140
-            // 
-            this.label140.AutoSize = true;
-            this.label140.Location = new System.Drawing.Point(321, 19);
-            this.label140.Name = "label140";
-            this.label140.Size = new System.Drawing.Size(131, 12);
-            this.label140.TabIndex = 31;
-            this.label140.Text = "业务类型（EOS/ETH/?）";
-            // 
-            // label165
-            // 
-            this.label165.AutoSize = true;
-            this.label165.Location = new System.Drawing.Point(182, 67);
-            this.label165.Name = "label165";
-            this.label165.Size = new System.Drawing.Size(53, 12);
-            this.label165.TabIndex = 29;
-            this.label165.Text = "峰值突发";
-            // 
-            // TextEthPbs
-            // 
-            this.TextEthPbs.Location = new System.Drawing.Point(243, 63);
-            this.TextEthPbs.Name = "TextEthPbs";
-            this.TextEthPbs.Size = new System.Drawing.Size(54, 21);
-            this.TextEthPbs.TabIndex = 28;
-            this.TextEthPbs.Text = "16000";
-            // 
-            // label166
-            // 
-            this.label166.AutoSize = true;
-            this.label166.Location = new System.Drawing.Point(9, 67);
-            this.label166.Name = "label166";
-            this.label166.Size = new System.Drawing.Size(89, 12);
-            this.label166.TabIndex = 27;
-            this.label166.Text = "承诺突发(Byte)";
-            // 
-            // TextEthCbs
-            // 
-            this.TextEthCbs.Location = new System.Drawing.Point(111, 63);
-            this.TextEthCbs.Name = "TextEthCbs";
-            this.TextEthCbs.Size = new System.Drawing.Size(54, 21);
-            this.TextEthCbs.TabIndex = 26;
-            this.TextEthCbs.Text = "16000";
-            // 
-            // label164
-            // 
-            this.label164.AutoSize = true;
-            this.label164.Location = new System.Drawing.Point(182, 42);
-            this.label164.Name = "label164";
-            this.label164.Size = new System.Drawing.Size(53, 12);
-            this.label164.TabIndex = 25;
-            this.label164.Text = "峰值带宽";
-            // 
-            // TextEthPir
-            // 
-            this.TextEthPir.Location = new System.Drawing.Point(243, 39);
-            this.TextEthPir.Name = "TextEthPir";
-            this.TextEthPir.Size = new System.Drawing.Size(54, 21);
-            this.TextEthPir.TabIndex = 24;
-            this.TextEthPir.Text = "1000";
-            // 
-            // label94
-            // 
-            this.label94.AutoSize = true;
-            this.label94.Location = new System.Drawing.Point(10, 43);
-            this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(89, 12);
-            this.label94.TabIndex = 22;
-            this.label94.Text = "承诺带宽(Mbps)";
-            // 
-            // TextEthCir
-            // 
-            this.TextEthCir.Location = new System.Drawing.Point(111, 39);
-            this.TextEthCir.Name = "TextEthCir";
-            this.TextEthCir.Size = new System.Drawing.Size(54, 21);
-            this.TextEthCir.TabIndex = 20;
-            this.TextEthCir.Text = "1000";
-            // 
-            // Com_Eth_nni_protection_type
-            // 
-            this.Com_Eth_nni_protection_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.Com_Eth_nni_protection_type.FormattingEnabled = true;
-            this.Com_Eth_nni_protection_type.Items.AddRange(new object[] {
-            "无",
-            "odu-sncp-i",
-            "odu-sncp-n",
-            "odu-sncp-s",
-            "vc-sncp",
-            "och-1-plus-1",
-            "msp-1-plus-1",
-            "lag-1-to-1"});
-            this.Com_Eth_nni_protection_type.Location = new System.Drawing.Point(452, 62);
-            this.Com_Eth_nni_protection_type.Name = "Com_Eth_nni_protection_type";
-            this.Com_Eth_nni_protection_type.Size = new System.Drawing.Size(152, 20);
-            this.Com_Eth_nni_protection_type.TabIndex = 21;
-            // 
-            // label95
-            // 
-            this.label95.AutoSize = true;
-            this.label95.Location = new System.Drawing.Point(321, 65);
-            this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(53, 12);
-            this.label95.TabIndex = 23;
-            this.label95.Text = "保护类型";
-            // 
-            // label97
-            // 
-            this.label97.AutoSize = true;
-            this.label97.Location = new System.Drawing.Point(9, 18);
-            this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(83, 12);
-            this.label97.TabIndex = 11;
-            this.label97.Text = "连接名称/标签";
-            // 
-            // TextEthLabel
-            // 
-            this.TextEthLabel.Location = new System.Drawing.Point(111, 15);
-            this.TextEthLabel.Name = "TextEthLabel";
-            this.TextEthLabel.Size = new System.Drawing.Size(186, 21);
-            this.TextEthLabel.TabIndex = 0;
-            this.TextEthLabel.Text = "ETH1";
-            // 
-            // ComEthServiceType
-            // 
-            this.ComEthServiceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthServiceType.FormattingEnabled = true;
-            this.ComEthServiceType.Items.AddRange(new object[] {
-            "EVPL",
-            "EPL"});
-            this.ComEthServiceType.Location = new System.Drawing.Point(452, 39);
-            this.ComEthServiceType.Name = "ComEthServiceType";
-            this.ComEthServiceType.Size = new System.Drawing.Size(152, 20);
-            this.ComEthServiceType.TabIndex = 1;
-            this.ComEthServiceType.SelectedIndexChanged += new System.EventHandler(this.ComEthServiceType_SelectedIndexChanged);
-            // 
-            // label98
-            // 
-            this.label98.AutoSize = true;
-            this.label98.Location = new System.Drawing.Point(321, 42);
-            this.label98.Name = "label98";
-            this.label98.Size = new System.Drawing.Size(113, 12);
-            this.label98.TabIndex = 12;
-            this.label98.Text = "业务类型(EPL/EVPL)";
-            // 
             // ButCreatEoO
             // 
             this.ButCreatEoO.Location = new System.Drawing.Point(658, 526);
@@ -3355,238 +3241,32 @@ namespace NetConfClientSoftware
             this.ButCreatEoO.UseVisualStyleBackColor = true;
             this.ButCreatEoO.Click += new System.EventHandler(this.ButCreatEoO_Click);
             // 
-            // groupBox19
+            // groupBox14
             // 
-            this.groupBox19.Controls.Add(this.groupBoxunivlan);
-            this.groupBox19.Controls.Add(this.label100);
-            this.groupBox19.Controls.Add(this.ComEthUniPtpName);
-            this.groupBox19.Controls.Add(this.label103);
-            this.groupBox19.Controls.Add(this.ComEthServiceMappingMode);
-            this.groupBox19.Location = new System.Drawing.Point(15, 102);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(613, 156);
-            this.groupBox19.TabIndex = 14;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "UNI 端口配置-主用";
+            this.groupBox14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox14.Controls.Add(this.textBox1);
+            this.groupBox14.Location = new System.Drawing.Point(1003, 7);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(201, 623);
+            this.groupBox14.TabIndex = 29;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "业务创建说明：";
             // 
-            // label89
+            // textBox1
             // 
-            this.label89.AutoSize = true;
-            this.label89.Location = new System.Drawing.Point(161, 84);
-            this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(53, 12);
-            this.label89.TabIndex = 27;
-            this.label89.Text = "VLAN类型";
-            // 
-            // ComEthUniVlanType
-            // 
-            this.ComEthUniVlanType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthUniVlanType.FormattingEnabled = true;
-            this.ComEthUniVlanType.Items.AddRange(new object[] {
-            "c-tag",
-            "s-tag",
-            "un-tag"});
-            this.ComEthUniVlanType.Location = new System.Drawing.Point(215, 81);
-            this.ComEthUniVlanType.Name = "ComEthUniVlanType";
-            this.ComEthUniVlanType.Size = new System.Drawing.Size(78, 20);
-            this.ComEthUniVlanType.TabIndex = 26;
-            // 
-            // label90
-            // 
-            this.label90.AutoSize = true;
-            this.label90.Location = new System.Drawing.Point(161, 61);
-            this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(53, 12);
-            this.label90.TabIndex = 25;
-            this.label90.Text = "VLAN动作";
-            // 
-            // label91
-            // 
-            this.label91.AutoSize = true;
-            this.label91.Location = new System.Drawing.Point(4, 83);
-            this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(65, 12);
-            this.label91.TabIndex = 24;
-            this.label91.Text = "VLAN优先级";
-            // 
-            // label92
-            // 
-            this.label92.AutoSize = true;
-            this.label92.Location = new System.Drawing.Point(4, 61);
-            this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(53, 12);
-            this.label92.TabIndex = 23;
-            this.label92.Text = "Uni VLAN";
-            // 
-            // ComEthUniVlanId
-            // 
-            this.ComEthUniVlanId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.ComEthUniVlanId.FormattingEnabled = true;
-            this.ComEthUniVlanId.Location = new System.Drawing.Point(107, 58);
-            this.ComEthUniVlanId.Name = "ComEthUniVlanId";
-            this.ComEthUniVlanId.Size = new System.Drawing.Size(54, 20);
-            this.ComEthUniVlanId.TabIndex = 20;
-            // 
-            // ComEthUniVlanPriority
-            // 
-            this.ComEthUniVlanPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthUniVlanPriority.FormattingEnabled = true;
-            this.ComEthUniVlanPriority.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7"});
-            this.ComEthUniVlanPriority.Location = new System.Drawing.Point(107, 82);
-            this.ComEthUniVlanPriority.Name = "ComEthUniVlanPriority";
-            this.ComEthUniVlanPriority.Size = new System.Drawing.Size(54, 20);
-            this.ComEthUniVlanPriority.TabIndex = 21;
-            // 
-            // ComEthUniVlanAccessAction
-            // 
-            this.ComEthUniVlanAccessAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthUniVlanAccessAction.FormattingEnabled = true;
-            this.ComEthUniVlanAccessAction.Items.AddRange(new object[] {
-            "keep",
-            "exchange",
-            "push_pop"});
-            this.ComEthUniVlanAccessAction.Location = new System.Drawing.Point(215, 58);
-            this.ComEthUniVlanAccessAction.Name = "ComEthUniVlanAccessAction";
-            this.ComEthUniVlanAccessAction.Size = new System.Drawing.Size(78, 20);
-            this.ComEthUniVlanAccessAction.TabIndex = 22;
-            // 
-            // label167
-            // 
-            this.label167.AutoSize = true;
-            this.label167.Location = new System.Drawing.Point(161, 38);
-            this.label167.Name = "label167";
-            this.label167.Size = new System.Drawing.Size(53, 12);
-            this.label167.TabIndex = 19;
-            this.label167.Text = "VLAN类型";
-            // 
-            // ComEthVlanType
-            // 
-            this.ComEthVlanType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthVlanType.FormattingEnabled = true;
-            this.ComEthVlanType.Items.AddRange(new object[] {
-            "c-tag",
-            "s-tag",
-            "un-tag"});
-            this.ComEthVlanType.Location = new System.Drawing.Point(215, 35);
-            this.ComEthVlanType.Name = "ComEthVlanType";
-            this.ComEthVlanType.Size = new System.Drawing.Size(78, 20);
-            this.ComEthVlanType.TabIndex = 18;
-            // 
-            // label99
-            // 
-            this.label99.AutoSize = true;
-            this.label99.Location = new System.Drawing.Point(161, 15);
-            this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(53, 12);
-            this.label99.TabIndex = 17;
-            this.label99.Text = "VLAN动作";
-            // 
-            // label100
-            // 
-            this.label100.AutoSize = true;
-            this.label100.Location = new System.Drawing.Point(321, 44);
-            this.label100.Name = "label100";
-            this.label100.Size = new System.Drawing.Size(125, 12);
-            this.label100.TabIndex = 16;
-            this.label100.Text = "服务映射模式(PT开销)";
-            // 
-            // label101
-            // 
-            this.label101.AutoSize = true;
-            this.label101.Location = new System.Drawing.Point(4, 37);
-            this.label101.Name = "label101";
-            this.label101.Size = new System.Drawing.Size(65, 12);
-            this.label101.TabIndex = 15;
-            this.label101.Text = "VLAN优先级";
-            // 
-            // label102
-            // 
-            this.label102.AutoSize = true;
-            this.label102.Location = new System.Drawing.Point(4, 15);
-            this.label102.Name = "label102";
-            this.label102.Size = new System.Drawing.Size(71, 12);
-            this.label102.TabIndex = 14;
-            this.label102.Text = "Client VLAN";
-            // 
-            // ComEthUniPtpName
-            // 
-            this.ComEthUniPtpName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthUniPtpName.FormattingEnabled = true;
-            this.ComEthUniPtpName.Location = new System.Drawing.Point(111, 17);
-            this.ComEthUniPtpName.Name = "ComEthUniPtpName";
-            this.ComEthUniPtpName.Size = new System.Drawing.Size(496, 20);
-            this.ComEthUniPtpName.TabIndex = 2;
-            // 
-            // label103
-            // 
-            this.label103.AutoSize = true;
-            this.label103.Location = new System.Drawing.Point(8, 20);
-            this.label103.Name = "label103";
-            this.label103.Size = new System.Drawing.Size(65, 12);
-            this.label103.TabIndex = 13;
-            this.label103.Text = "客户侧端口";
-            // 
-            // ComEthClientVlanId
-            // 
-            this.ComEthClientVlanId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
-            this.ComEthClientVlanId.FormattingEnabled = true;
-            this.ComEthClientVlanId.Location = new System.Drawing.Point(107, 12);
-            this.ComEthClientVlanId.Name = "ComEthClientVlanId";
-            this.ComEthClientVlanId.Size = new System.Drawing.Size(54, 20);
-            this.ComEthClientVlanId.TabIndex = 3;
-            // 
-            // ComEthServiceMappingMode
-            // 
-            this.ComEthServiceMappingMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthServiceMappingMode.FormattingEnabled = true;
-            this.ComEthServiceMappingMode.Items.AddRange(new object[] {
-            "acc-otn-types:GFP-F",
-            "acc-otn-types:GFP-T",
-            "acc-otn-types:GMP",
-            "acc-otn-types:CBR-BMP"});
-            this.ComEthServiceMappingMode.Location = new System.Drawing.Point(452, 40);
-            this.ComEthServiceMappingMode.Name = "ComEthServiceMappingMode";
-            this.ComEthServiceMappingMode.Size = new System.Drawing.Size(155, 20);
-            this.ComEthServiceMappingMode.TabIndex = 4;
-            // 
-            // ComEthVlanPriority
-            // 
-            this.ComEthVlanPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthVlanPriority.FormattingEnabled = true;
-            this.ComEthVlanPriority.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7"});
-            this.ComEthVlanPriority.Location = new System.Drawing.Point(107, 35);
-            this.ComEthVlanPriority.Name = "ComEthVlanPriority";
-            this.ComEthVlanPriority.Size = new System.Drawing.Size(54, 20);
-            this.ComEthVlanPriority.TabIndex = 5;
-            // 
-            // ComEthVlanAccessAction
-            // 
-            this.ComEthVlanAccessAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComEthVlanAccessAction.FormattingEnabled = true;
-            this.ComEthVlanAccessAction.Items.AddRange(new object[] {
-            "keep",
-            "exchange",
-            "push_pop"});
-            this.ComEthVlanAccessAction.Location = new System.Drawing.Point(215, 12);
-            this.ComEthVlanAccessAction.Name = "ComEthVlanAccessAction";
-            this.ComEthVlanAccessAction.Size = new System.Drawing.Size(78, 20);
-            this.ComEthVlanAccessAction.TabIndex = 6;
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.textBox1.ForeColor = System.Drawing.Color.DimGray;
+            this.textBox1.Location = new System.Drawing.Point(7, 21);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(188, 596);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
             // groupBox20
             // 
@@ -3925,6 +3605,446 @@ namespace NetConfClientSoftware
             this.ComEthPrimayAdaType.Size = new System.Drawing.Size(149, 20);
             this.ComEthPrimayAdaType.TabIndex = 19;
             // 
+            // groupBox18
+            // 
+            this.groupBox18.Controls.Add(this.ComCreatConnection);
+            this.groupBox18.Controls.Add(this.label140);
+            this.groupBox18.Controls.Add(this.label165);
+            this.groupBox18.Controls.Add(this.TextEthPbs);
+            this.groupBox18.Controls.Add(this.label166);
+            this.groupBox18.Controls.Add(this.TextEthCbs);
+            this.groupBox18.Controls.Add(this.label164);
+            this.groupBox18.Controls.Add(this.TextEthPir);
+            this.groupBox18.Controls.Add(this.label94);
+            this.groupBox18.Controls.Add(this.TextEthCir);
+            this.groupBox18.Controls.Add(this.Com_Eth_nni_protection_type);
+            this.groupBox18.Controls.Add(this.label95);
+            this.groupBox18.Controls.Add(this.label97);
+            this.groupBox18.Controls.Add(this.TextEthLabel);
+            this.groupBox18.Controls.Add(this.ComEthServiceType);
+            this.groupBox18.Controls.Add(this.label98);
+            this.groupBox18.Location = new System.Drawing.Point(15, 6);
+            this.groupBox18.Name = "groupBox18";
+            this.groupBox18.Size = new System.Drawing.Size(613, 90);
+            this.groupBox18.TabIndex = 23;
+            this.groupBox18.TabStop = false;
+            this.groupBox18.Text = "业务创建";
+            // 
+            // ComCreatConnection
+            // 
+            this.ComCreatConnection.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComCreatConnection.FormattingEnabled = true;
+            this.ComCreatConnection.Items.AddRange(new object[] {
+            "ETH",
+            "EOS",
+            "ETH-to-ETH"});
+            this.ComCreatConnection.Location = new System.Drawing.Point(452, 16);
+            this.ComCreatConnection.Name = "ComCreatConnection";
+            this.ComCreatConnection.Size = new System.Drawing.Size(152, 20);
+            this.ComCreatConnection.TabIndex = 30;
+            this.ComCreatConnection.SelectedIndexChanged += new System.EventHandler(this.ComCreatConnection_SelectedIndexChanged);
+            // 
+            // label140
+            // 
+            this.label140.AutoSize = true;
+            this.label140.Location = new System.Drawing.Point(321, 19);
+            this.label140.Name = "label140";
+            this.label140.Size = new System.Drawing.Size(131, 12);
+            this.label140.TabIndex = 31;
+            this.label140.Text = "业务类型（EOS/ETH/?）";
+            // 
+            // label165
+            // 
+            this.label165.AutoSize = true;
+            this.label165.Location = new System.Drawing.Point(182, 67);
+            this.label165.Name = "label165";
+            this.label165.Size = new System.Drawing.Size(53, 12);
+            this.label165.TabIndex = 29;
+            this.label165.Text = "峰值突发";
+            // 
+            // TextEthPbs
+            // 
+            this.TextEthPbs.Location = new System.Drawing.Point(243, 63);
+            this.TextEthPbs.Name = "TextEthPbs";
+            this.TextEthPbs.Size = new System.Drawing.Size(54, 21);
+            this.TextEthPbs.TabIndex = 28;
+            this.TextEthPbs.Text = "16000";
+            // 
+            // label166
+            // 
+            this.label166.AutoSize = true;
+            this.label166.Location = new System.Drawing.Point(9, 67);
+            this.label166.Name = "label166";
+            this.label166.Size = new System.Drawing.Size(89, 12);
+            this.label166.TabIndex = 27;
+            this.label166.Text = "承诺突发(Byte)";
+            // 
+            // TextEthCbs
+            // 
+            this.TextEthCbs.Location = new System.Drawing.Point(111, 63);
+            this.TextEthCbs.Name = "TextEthCbs";
+            this.TextEthCbs.Size = new System.Drawing.Size(54, 21);
+            this.TextEthCbs.TabIndex = 26;
+            this.TextEthCbs.Text = "16000";
+            // 
+            // label164
+            // 
+            this.label164.AutoSize = true;
+            this.label164.Location = new System.Drawing.Point(182, 42);
+            this.label164.Name = "label164";
+            this.label164.Size = new System.Drawing.Size(53, 12);
+            this.label164.TabIndex = 25;
+            this.label164.Text = "峰值带宽";
+            // 
+            // TextEthPir
+            // 
+            this.TextEthPir.Location = new System.Drawing.Point(243, 39);
+            this.TextEthPir.Name = "TextEthPir";
+            this.TextEthPir.Size = new System.Drawing.Size(54, 21);
+            this.TextEthPir.TabIndex = 24;
+            this.TextEthPir.Text = "1000";
+            // 
+            // label94
+            // 
+            this.label94.AutoSize = true;
+            this.label94.Location = new System.Drawing.Point(10, 43);
+            this.label94.Name = "label94";
+            this.label94.Size = new System.Drawing.Size(89, 12);
+            this.label94.TabIndex = 22;
+            this.label94.Text = "承诺带宽(Mbps)";
+            // 
+            // TextEthCir
+            // 
+            this.TextEthCir.Location = new System.Drawing.Point(111, 39);
+            this.TextEthCir.Name = "TextEthCir";
+            this.TextEthCir.Size = new System.Drawing.Size(54, 21);
+            this.TextEthCir.TabIndex = 20;
+            this.TextEthCir.Text = "1000";
+            // 
+            // Com_Eth_nni_protection_type
+            // 
+            this.Com_Eth_nni_protection_type.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.Com_Eth_nni_protection_type.FormattingEnabled = true;
+            this.Com_Eth_nni_protection_type.Items.AddRange(new object[] {
+            "无",
+            "odu-sncp-i",
+            "odu-sncp-n",
+            "odu-sncp-s",
+            "vc-sncp",
+            "och-1-plus-1",
+            "msp-1-plus-1",
+            "lag-1-to-1"});
+            this.Com_Eth_nni_protection_type.Location = new System.Drawing.Point(452, 62);
+            this.Com_Eth_nni_protection_type.Name = "Com_Eth_nni_protection_type";
+            this.Com_Eth_nni_protection_type.Size = new System.Drawing.Size(152, 20);
+            this.Com_Eth_nni_protection_type.TabIndex = 21;
+            // 
+            // label95
+            // 
+            this.label95.AutoSize = true;
+            this.label95.Location = new System.Drawing.Point(321, 65);
+            this.label95.Name = "label95";
+            this.label95.Size = new System.Drawing.Size(53, 12);
+            this.label95.TabIndex = 23;
+            this.label95.Text = "保护类型";
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(9, 18);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(83, 12);
+            this.label97.TabIndex = 11;
+            this.label97.Text = "连接名称/标签";
+            // 
+            // TextEthLabel
+            // 
+            this.TextEthLabel.Location = new System.Drawing.Point(111, 15);
+            this.TextEthLabel.Name = "TextEthLabel";
+            this.TextEthLabel.Size = new System.Drawing.Size(186, 21);
+            this.TextEthLabel.TabIndex = 0;
+            this.TextEthLabel.Text = "ETH1";
+            // 
+            // ComEthServiceType
+            // 
+            this.ComEthServiceType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthServiceType.FormattingEnabled = true;
+            this.ComEthServiceType.Items.AddRange(new object[] {
+            "EVPL",
+            "EPL"});
+            this.ComEthServiceType.Location = new System.Drawing.Point(452, 39);
+            this.ComEthServiceType.Name = "ComEthServiceType";
+            this.ComEthServiceType.Size = new System.Drawing.Size(152, 20);
+            this.ComEthServiceType.TabIndex = 1;
+            this.ComEthServiceType.SelectedIndexChanged += new System.EventHandler(this.ComEthServiceType_SelectedIndexChanged);
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Location = new System.Drawing.Point(321, 42);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(113, 12);
+            this.label98.TabIndex = 12;
+            this.label98.Text = "业务类型(EPL/EVPL)";
+            // 
+            // groupBox19
+            // 
+            this.groupBox19.Controls.Add(this.groupBoxunivlan);
+            this.groupBox19.Controls.Add(this.label100);
+            this.groupBox19.Controls.Add(this.ComEthUniPtpName);
+            this.groupBox19.Controls.Add(this.label103);
+            this.groupBox19.Controls.Add(this.ComEthServiceMappingMode);
+            this.groupBox19.Location = new System.Drawing.Point(15, 102);
+            this.groupBox19.Name = "groupBox19";
+            this.groupBox19.Size = new System.Drawing.Size(613, 156);
+            this.groupBox19.TabIndex = 14;
+            this.groupBox19.TabStop = false;
+            this.groupBox19.Text = "UNI 端口配置-主用";
+            // 
+            // groupBoxunivlan
+            // 
+            this.groupBoxunivlan.Controls.Add(this.label89);
+            this.groupBoxunivlan.Controls.Add(this.label102);
+            this.groupBoxunivlan.Controls.Add(this.ComEthUniVlanType);
+            this.groupBoxunivlan.Controls.Add(this.ComEthVlanAccessAction);
+            this.groupBoxunivlan.Controls.Add(this.label90);
+            this.groupBoxunivlan.Controls.Add(this.ComEthVlanPriority);
+            this.groupBoxunivlan.Controls.Add(this.label91);
+            this.groupBoxunivlan.Controls.Add(this.ComEthClientVlanId);
+            this.groupBoxunivlan.Controls.Add(this.label92);
+            this.groupBoxunivlan.Controls.Add(this.label101);
+            this.groupBoxunivlan.Controls.Add(this.ComEthUniVlanId);
+            this.groupBoxunivlan.Controls.Add(this.label99);
+            this.groupBoxunivlan.Controls.Add(this.ComEthUniVlanPriority);
+            this.groupBoxunivlan.Controls.Add(this.ComEthVlanType);
+            this.groupBoxunivlan.Controls.Add(this.ComEthUniVlanAccessAction);
+            this.groupBoxunivlan.Controls.Add(this.label167);
+            this.groupBoxunivlan.Location = new System.Drawing.Point(3, 38);
+            this.groupBoxunivlan.Name = "groupBoxunivlan";
+            this.groupBoxunivlan.Size = new System.Drawing.Size(301, 107);
+            this.groupBoxunivlan.TabIndex = 28;
+            this.groupBoxunivlan.TabStop = false;
+            this.groupBoxunivlan.Text = "vlan属性";
+            // 
+            // label89
+            // 
+            this.label89.AutoSize = true;
+            this.label89.Location = new System.Drawing.Point(161, 84);
+            this.label89.Name = "label89";
+            this.label89.Size = new System.Drawing.Size(53, 12);
+            this.label89.TabIndex = 27;
+            this.label89.Text = "VLAN类型";
+            // 
+            // label102
+            // 
+            this.label102.AutoSize = true;
+            this.label102.Location = new System.Drawing.Point(4, 15);
+            this.label102.Name = "label102";
+            this.label102.Size = new System.Drawing.Size(71, 12);
+            this.label102.TabIndex = 14;
+            this.label102.Text = "Client VLAN";
+            // 
+            // ComEthUniVlanType
+            // 
+            this.ComEthUniVlanType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthUniVlanType.FormattingEnabled = true;
+            this.ComEthUniVlanType.Items.AddRange(new object[] {
+            "c-tag",
+            "s-tag",
+            "un-tag"});
+            this.ComEthUniVlanType.Location = new System.Drawing.Point(215, 81);
+            this.ComEthUniVlanType.Name = "ComEthUniVlanType";
+            this.ComEthUniVlanType.Size = new System.Drawing.Size(78, 20);
+            this.ComEthUniVlanType.TabIndex = 26;
+            // 
+            // ComEthVlanAccessAction
+            // 
+            this.ComEthVlanAccessAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthVlanAccessAction.FormattingEnabled = true;
+            this.ComEthVlanAccessAction.Items.AddRange(new object[] {
+            "keep",
+            "exchange",
+            "push_pop"});
+            this.ComEthVlanAccessAction.Location = new System.Drawing.Point(215, 12);
+            this.ComEthVlanAccessAction.Name = "ComEthVlanAccessAction";
+            this.ComEthVlanAccessAction.Size = new System.Drawing.Size(78, 20);
+            this.ComEthVlanAccessAction.TabIndex = 6;
+            // 
+            // label90
+            // 
+            this.label90.AutoSize = true;
+            this.label90.Location = new System.Drawing.Point(161, 61);
+            this.label90.Name = "label90";
+            this.label90.Size = new System.Drawing.Size(53, 12);
+            this.label90.TabIndex = 25;
+            this.label90.Text = "VLAN动作";
+            // 
+            // ComEthVlanPriority
+            // 
+            this.ComEthVlanPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthVlanPriority.FormattingEnabled = true;
+            this.ComEthVlanPriority.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"});
+            this.ComEthVlanPriority.Location = new System.Drawing.Point(107, 35);
+            this.ComEthVlanPriority.Name = "ComEthVlanPriority";
+            this.ComEthVlanPriority.Size = new System.Drawing.Size(54, 20);
+            this.ComEthVlanPriority.TabIndex = 5;
+            // 
+            // label91
+            // 
+            this.label91.AutoSize = true;
+            this.label91.Location = new System.Drawing.Point(4, 83);
+            this.label91.Name = "label91";
+            this.label91.Size = new System.Drawing.Size(65, 12);
+            this.label91.TabIndex = 24;
+            this.label91.Text = "VLAN优先级";
+            // 
+            // ComEthClientVlanId
+            // 
+            this.ComEthClientVlanId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.ComEthClientVlanId.FormattingEnabled = true;
+            this.ComEthClientVlanId.Location = new System.Drawing.Point(107, 12);
+            this.ComEthClientVlanId.Name = "ComEthClientVlanId";
+            this.ComEthClientVlanId.Size = new System.Drawing.Size(54, 20);
+            this.ComEthClientVlanId.TabIndex = 3;
+            // 
+            // label92
+            // 
+            this.label92.AutoSize = true;
+            this.label92.Location = new System.Drawing.Point(4, 61);
+            this.label92.Name = "label92";
+            this.label92.Size = new System.Drawing.Size(53, 12);
+            this.label92.TabIndex = 23;
+            this.label92.Text = "Uni VLAN";
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Location = new System.Drawing.Point(4, 37);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(65, 12);
+            this.label101.TabIndex = 15;
+            this.label101.Text = "VLAN优先级";
+            // 
+            // ComEthUniVlanId
+            // 
+            this.ComEthUniVlanId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
+            this.ComEthUniVlanId.FormattingEnabled = true;
+            this.ComEthUniVlanId.Location = new System.Drawing.Point(107, 58);
+            this.ComEthUniVlanId.Name = "ComEthUniVlanId";
+            this.ComEthUniVlanId.Size = new System.Drawing.Size(54, 20);
+            this.ComEthUniVlanId.TabIndex = 20;
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Location = new System.Drawing.Point(161, 15);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(53, 12);
+            this.label99.TabIndex = 17;
+            this.label99.Text = "VLAN动作";
+            // 
+            // ComEthUniVlanPriority
+            // 
+            this.ComEthUniVlanPriority.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthUniVlanPriority.FormattingEnabled = true;
+            this.ComEthUniVlanPriority.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7"});
+            this.ComEthUniVlanPriority.Location = new System.Drawing.Point(107, 82);
+            this.ComEthUniVlanPriority.Name = "ComEthUniVlanPriority";
+            this.ComEthUniVlanPriority.Size = new System.Drawing.Size(54, 20);
+            this.ComEthUniVlanPriority.TabIndex = 21;
+            // 
+            // ComEthVlanType
+            // 
+            this.ComEthVlanType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthVlanType.FormattingEnabled = true;
+            this.ComEthVlanType.Items.AddRange(new object[] {
+            "c-tag",
+            "s-tag",
+            "un-tag"});
+            this.ComEthVlanType.Location = new System.Drawing.Point(215, 35);
+            this.ComEthVlanType.Name = "ComEthVlanType";
+            this.ComEthVlanType.Size = new System.Drawing.Size(78, 20);
+            this.ComEthVlanType.TabIndex = 18;
+            // 
+            // ComEthUniVlanAccessAction
+            // 
+            this.ComEthUniVlanAccessAction.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthUniVlanAccessAction.FormattingEnabled = true;
+            this.ComEthUniVlanAccessAction.Items.AddRange(new object[] {
+            "keep",
+            "exchange",
+            "push_pop"});
+            this.ComEthUniVlanAccessAction.Location = new System.Drawing.Point(215, 58);
+            this.ComEthUniVlanAccessAction.Name = "ComEthUniVlanAccessAction";
+            this.ComEthUniVlanAccessAction.Size = new System.Drawing.Size(78, 20);
+            this.ComEthUniVlanAccessAction.TabIndex = 22;
+            // 
+            // label167
+            // 
+            this.label167.AutoSize = true;
+            this.label167.Location = new System.Drawing.Point(161, 38);
+            this.label167.Name = "label167";
+            this.label167.Size = new System.Drawing.Size(53, 12);
+            this.label167.TabIndex = 19;
+            this.label167.Text = "VLAN类型";
+            // 
+            // label100
+            // 
+            this.label100.AutoSize = true;
+            this.label100.Location = new System.Drawing.Point(321, 44);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(125, 12);
+            this.label100.TabIndex = 16;
+            this.label100.Text = "服务映射模式(PT开销)";
+            // 
+            // ComEthUniPtpName
+            // 
+            this.ComEthUniPtpName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthUniPtpName.FormattingEnabled = true;
+            this.ComEthUniPtpName.Location = new System.Drawing.Point(111, 17);
+            this.ComEthUniPtpName.Name = "ComEthUniPtpName";
+            this.ComEthUniPtpName.Size = new System.Drawing.Size(496, 20);
+            this.ComEthUniPtpName.TabIndex = 2;
+            // 
+            // label103
+            // 
+            this.label103.AutoSize = true;
+            this.label103.Location = new System.Drawing.Point(8, 20);
+            this.label103.Name = "label103";
+            this.label103.Size = new System.Drawing.Size(65, 12);
+            this.label103.TabIndex = 13;
+            this.label103.Text = "客户侧端口";
+            // 
+            // ComEthServiceMappingMode
+            // 
+            this.ComEthServiceMappingMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComEthServiceMappingMode.FormattingEnabled = true;
+            this.ComEthServiceMappingMode.Items.AddRange(new object[] {
+            "acc-otn-types:GFP-F",
+            "acc-otn-types:GFP-T",
+            "acc-otn-types:GMP",
+            "acc-otn-types:CBR-BMP"});
+            this.ComEthServiceMappingMode.Location = new System.Drawing.Point(452, 40);
+            this.ComEthServiceMappingMode.Name = "ComEthServiceMappingMode";
+            this.ComEthServiceMappingMode.Size = new System.Drawing.Size(155, 20);
+            this.ComEthServiceMappingMode.TabIndex = 4;
+            // 
             // SDH业务
             // 
             this.SDH业务.Controls.Add(this.groupBox30);
@@ -4077,6 +4197,210 @@ namespace NetConfClientSoftware
             this.label122.TabIndex = 12;
             this.label122.Text = "服务类型(层协议)";
             // 
+            // groupBox27
+            // 
+            this.groupBox27.Controls.Add(this.ComSdhNniSdhtype_A);
+            this.groupBox27.Controls.Add(this.label117);
+            this.groupBox27.Controls.Add(this.label115);
+            this.groupBox27.Controls.Add(this.label133);
+            this.groupBox27.Controls.Add(this.ButSdhNniTs_A);
+            this.groupBox27.Controls.Add(this.label134);
+            this.groupBox27.Controls.Add(this.ComSdhNniAda_A);
+            this.groupBox27.Controls.Add(this.ComSdhNniVcType_A);
+            this.groupBox27.Controls.Add(this.label116);
+            this.groupBox27.Controls.Add(this.label135);
+            this.groupBox27.Controls.Add(this.TextSdhNniTs_A);
+            this.groupBox27.Controls.Add(this.ComSdhNniPtp_A);
+            this.groupBox27.Controls.Add(this.label136);
+            this.groupBox27.Controls.Add(this.label137);
+            this.groupBox27.Controls.Add(this.ComSdhNniTs_A);
+            this.groupBox27.Controls.Add(this.ComSdhNniSwitch_A);
+            this.groupBox27.Controls.Add(this.ComSdhNniOdu_A);
+            this.groupBox27.Location = new System.Drawing.Point(6, 251);
+            this.groupBox27.Name = "groupBox27";
+            this.groupBox27.Size = new System.Drawing.Size(616, 153);
+            this.groupBox27.TabIndex = 22;
+            this.groupBox27.TabStop = false;
+            this.groupBox27.Text = "NNI 端口配置-主用";
+            // 
+            // ComSdhNniSdhtype_A
+            // 
+            this.ComSdhNniSdhtype_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniSdhtype_A.FormattingEnabled = true;
+            this.ComSdhNniSdhtype_A.Items.AddRange(new object[] {
+            "acc-otn-types:STM-1",
+            "acc-otn-types:STM-4",
+            "acc-otn-types:STM-16",
+            "acc-otn-types:STM-64",
+            "STM1",
+            "STM4",
+            "STM16",
+            "STM64"});
+            this.ComSdhNniSdhtype_A.Location = new System.Drawing.Point(130, 95);
+            this.ComSdhNniSdhtype_A.Name = "ComSdhNniSdhtype_A";
+            this.ComSdhNniSdhtype_A.Size = new System.Drawing.Size(186, 20);
+            this.ComSdhNniSdhtype_A.TabIndex = 43;
+            // 
+            // label117
+            // 
+            this.label117.AutoSize = true;
+            this.label117.Location = new System.Drawing.Point(13, 97);
+            this.label117.Name = "label117";
+            this.label117.Size = new System.Drawing.Size(47, 12);
+            this.label117.TabIndex = 44;
+            this.label117.Text = "SDH类型";
+            // 
+            // label115
+            // 
+            this.label115.AutoSize = true;
+            this.label115.Location = new System.Drawing.Point(322, 99);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(41, 12);
+            this.label115.TabIndex = 42;
+            this.label115.Text = "VC时隙";
+            // 
+            // label133
+            // 
+            this.label133.AutoSize = true;
+            this.label133.Location = new System.Drawing.Point(322, 73);
+            this.label133.Name = "label133";
+            this.label133.Size = new System.Drawing.Size(53, 12);
+            this.label133.TabIndex = 25;
+            this.label133.Text = "使用时隙";
+            // 
+            // ButSdhNniTs_A
+            // 
+            this.ButSdhNniTs_A.Location = new System.Drawing.Point(572, 94);
+            this.ButSdhNniTs_A.Name = "ButSdhNniTs_A";
+            this.ButSdhNniTs_A.Size = new System.Drawing.Size(33, 23);
+            this.ButSdhNniTs_A.TabIndex = 41;
+            this.ButSdhNniTs_A.Text = "...";
+            this.ButSdhNniTs_A.UseVisualStyleBackColor = true;
+            this.ButSdhNniTs_A.Click += new System.EventHandler(this.ButSdhNniTs_A_Click);
+            // 
+            // label134
+            // 
+            this.label134.AutoSize = true;
+            this.label134.Location = new System.Drawing.Point(13, 20);
+            this.label134.Name = "label134";
+            this.label134.Size = new System.Drawing.Size(71, 12);
+            this.label134.TabIndex = 18;
+            this.label134.Text = "主用NNI端口";
+            // 
+            // ComSdhNniAda_A
+            // 
+            this.ComSdhNniAda_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniAda_A.FormattingEnabled = true;
+            this.ComSdhNniAda_A.Location = new System.Drawing.Point(452, 45);
+            this.ComSdhNniAda_A.Name = "ComSdhNniAda_A";
+            this.ComSdhNniAda_A.Size = new System.Drawing.Size(152, 20);
+            this.ComSdhNniAda_A.TabIndex = 18;
+            // 
+            // ComSdhNniVcType_A
+            // 
+            this.ComSdhNniVcType_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniVcType_A.FormattingEnabled = true;
+            this.ComSdhNniVcType_A.Items.AddRange(new object[] {
+            "acc-otn-types:VC-12",
+            "acc-otn-types:VC-3",
+            "acc-otn-types:VC-4",
+            "VC12",
+            "VC3",
+            "VC4"});
+            this.ComSdhNniVcType_A.Location = new System.Drawing.Point(130, 120);
+            this.ComSdhNniVcType_A.Name = "ComSdhNniVcType_A";
+            this.ComSdhNniVcType_A.Size = new System.Drawing.Size(186, 20);
+            this.ComSdhNniVcType_A.TabIndex = 38;
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Location = new System.Drawing.Point(13, 122);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(41, 12);
+            this.label116.TabIndex = 39;
+            this.label116.Text = "VC类型";
+            // 
+            // label135
+            // 
+            this.label135.AutoSize = true;
+            this.label135.Location = new System.Drawing.Point(322, 48);
+            this.label135.Name = "label135";
+            this.label135.Size = new System.Drawing.Size(101, 12);
+            this.label135.TabIndex = 24;
+            this.label135.Text = "适配类型(PT开销)";
+            // 
+            // TextSdhNniTs_A
+            // 
+            this.TextSdhNniTs_A.Location = new System.Drawing.Point(452, 95);
+            this.TextSdhNniTs_A.Name = "TextSdhNniTs_A";
+            this.TextSdhNniTs_A.Size = new System.Drawing.Size(120, 21);
+            this.TextSdhNniTs_A.TabIndex = 40;
+            // 
+            // ComSdhNniPtp_A
+            // 
+            this.ComSdhNniPtp_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniPtp_A.FormattingEnabled = true;
+            this.ComSdhNniPtp_A.Location = new System.Drawing.Point(130, 20);
+            this.ComSdhNniPtp_A.Name = "ComSdhNniPtp_A";
+            this.ComSdhNniPtp_A.Size = new System.Drawing.Size(474, 20);
+            this.ComSdhNniPtp_A.TabIndex = 7;
+            this.ComSdhNniPtp_A.SelectedIndexChanged += new System.EventHandler(this.ComSdhNniPtp_A_SelectedIndexChanged);
+            // 
+            // label136
+            // 
+            this.label136.AutoSize = true;
+            this.label136.Location = new System.Drawing.Point(13, 73);
+            this.label136.Name = "label136";
+            this.label136.Size = new System.Drawing.Size(113, 12);
+            this.label136.TabIndex = 23;
+            this.label136.Text = "交换能力(交叉颗粒)";
+            // 
+            // label137
+            // 
+            this.label137.AutoSize = true;
+            this.label137.Location = new System.Drawing.Point(13, 47);
+            this.label137.Name = "label137";
+            this.label137.Size = new System.Drawing.Size(113, 12);
+            this.label137.TabIndex = 22;
+            this.label137.Text = "净荷类型(接口速率)";
+            // 
+            // ComSdhNniTs_A
+            // 
+            this.ComSdhNniTs_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniTs_A.FormattingEnabled = true;
+            this.ComSdhNniTs_A.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8"});
+            this.ComSdhNniTs_A.Location = new System.Drawing.Point(452, 70);
+            this.ComSdhNniTs_A.Name = "ComSdhNniTs_A";
+            this.ComSdhNniTs_A.Size = new System.Drawing.Size(152, 20);
+            this.ComSdhNniTs_A.TabIndex = 21;
+            // 
+            // ComSdhNniSwitch_A
+            // 
+            this.ComSdhNniSwitch_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniSwitch_A.FormattingEnabled = true;
+            this.ComSdhNniSwitch_A.Location = new System.Drawing.Point(130, 70);
+            this.ComSdhNniSwitch_A.Name = "ComSdhNniSwitch_A";
+            this.ComSdhNniSwitch_A.Size = new System.Drawing.Size(186, 20);
+            this.ComSdhNniSwitch_A.TabIndex = 20;
+            // 
+            // ComSdhNniOdu_A
+            // 
+            this.ComSdhNniOdu_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniOdu_A.FormattingEnabled = true;
+            this.ComSdhNniOdu_A.Location = new System.Drawing.Point(130, 45);
+            this.ComSdhNniOdu_A.Name = "ComSdhNniOdu_A";
+            this.ComSdhNniOdu_A.Size = new System.Drawing.Size(186, 20);
+            this.ComSdhNniOdu_A.TabIndex = 19;
+            // 
             // ButCreatSDH
             // 
             this.ButCreatSDH.Location = new System.Drawing.Point(649, 489);
@@ -4086,117 +4410,6 @@ namespace NetConfClientSoftware
             this.ButCreatSDH.Text = "创建";
             this.ButCreatSDH.UseVisualStyleBackColor = true;
             this.ButCreatSDH.Click += new System.EventHandler(this.ButCreatSDH_Click);
-            // 
-            // groupBox24
-            // 
-            this.groupBox24.Controls.Add(this.label126);
-            this.groupBox24.Controls.Add(this.ComSdhSerMap);
-            this.groupBox24.Controls.Add(this.label6);
-            this.groupBox24.Controls.Add(this.ComSdhUniPtp);
-            this.groupBox24.Controls.Add(this.label127);
-            this.groupBox24.Controls.Add(this.ComSdhUniSdhType);
-            this.groupBox24.Controls.Add(this.ButSdhUniTs);
-            this.groupBox24.Controls.Add(this.label114);
-            this.groupBox24.Controls.Add(this.TextSdhUniTs);
-            this.groupBox24.Location = new System.Drawing.Point(6, 108);
-            this.groupBox24.Name = "groupBox24";
-            this.groupBox24.Size = new System.Drawing.Size(616, 102);
-            this.groupBox24.TabIndex = 14;
-            this.groupBox24.TabStop = false;
-            this.groupBox24.Text = "UNI 端口配置-主用";
-            // 
-            // label126
-            // 
-            this.label126.AutoSize = true;
-            this.label126.Location = new System.Drawing.Point(322, 45);
-            this.label126.Name = "label126";
-            this.label126.Size = new System.Drawing.Size(125, 12);
-            this.label126.TabIndex = 39;
-            this.label126.Text = "服务映射模式(PT开销)";
-            // 
-            // ComSdhSerMap
-            // 
-            this.ComSdhSerMap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhSerMap.FormattingEnabled = true;
-            this.ComSdhSerMap.Items.AddRange(new object[] {
-            "acc-otn-types:GFP-F",
-            "acc-otn-types:GFP-T",
-            "acc-otn-types:GMP",
-            "acc-otn-types:CBR-BMP"});
-            this.ComSdhSerMap.Location = new System.Drawing.Point(453, 42);
-            this.ComSdhSerMap.Name = "ComSdhSerMap";
-            this.ComSdhSerMap.Size = new System.Drawing.Size(152, 20);
-            this.ComSdhSerMap.TabIndex = 38;
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(322, 71);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
-            this.label6.TabIndex = 37;
-            this.label6.Text = "VC时隙";
-            // 
-            // ComSdhUniPtp
-            // 
-            this.ComSdhUniPtp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhUniPtp.FormattingEnabled = true;
-            this.ComSdhUniPtp.Location = new System.Drawing.Point(130, 17);
-            this.ComSdhUniPtp.Name = "ComSdhUniPtp";
-            this.ComSdhUniPtp.Size = new System.Drawing.Size(475, 20);
-            this.ComSdhUniPtp.TabIndex = 2;
-            // 
-            // label127
-            // 
-            this.label127.AutoSize = true;
-            this.label127.Location = new System.Drawing.Point(13, 20);
-            this.label127.Name = "label127";
-            this.label127.Size = new System.Drawing.Size(65, 12);
-            this.label127.TabIndex = 13;
-            this.label127.Text = "客户侧端口";
-            // 
-            // ComSdhUniSdhType
-            // 
-            this.ComSdhUniSdhType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhUniSdhType.FormattingEnabled = true;
-            this.ComSdhUniSdhType.Items.AddRange(new object[] {
-            "acc-otn-types:VC-12",
-            "acc-otn-types:VC-3",
-            "acc-otn-types:VC-4",
-            "VC12",
-            "VC3",
-            "VC4"});
-            this.ComSdhUniSdhType.Location = new System.Drawing.Point(130, 42);
-            this.ComSdhUniSdhType.Name = "ComSdhUniSdhType";
-            this.ComSdhUniSdhType.Size = new System.Drawing.Size(186, 20);
-            this.ComSdhUniSdhType.TabIndex = 33;
-            // 
-            // ButSdhUniTs
-            // 
-            this.ButSdhUniTs.Location = new System.Drawing.Point(573, 66);
-            this.ButSdhUniTs.Name = "ButSdhUniTs";
-            this.ButSdhUniTs.Size = new System.Drawing.Size(33, 23);
-            this.ButSdhUniTs.TabIndex = 36;
-            this.ButSdhUniTs.Text = "...";
-            this.ButSdhUniTs.UseVisualStyleBackColor = true;
-            this.ButSdhUniTs.Click += new System.EventHandler(this.ButSdhUniTs_Click);
-            // 
-            // label114
-            // 
-            this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(35, 47);
-            this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(41, 12);
-            this.label114.TabIndex = 34;
-            this.label114.Text = "VC类型";
-            // 
-            // TextSdhUniTs
-            // 
-            this.TextSdhUniTs.Location = new System.Drawing.Point(453, 67);
-            this.TextSdhUniTs.Multiline = true;
-            this.TextSdhUniTs.Name = "TextSdhUniTs";
-            this.TextSdhUniTs.Size = new System.Drawing.Size(120, 21);
-            this.TextSdhUniTs.TabIndex = 35;
             // 
             // groupBox25
             // 
@@ -4404,209 +4617,116 @@ namespace NetConfClientSoftware
             this.label132.TabIndex = 20;
             this.label132.Text = "备用NNI端口";
             // 
-            // groupBox27
+            // groupBox24
             // 
-            this.groupBox27.Controls.Add(this.ComSdhNniSdhtype_A);
-            this.groupBox27.Controls.Add(this.label117);
-            this.groupBox27.Controls.Add(this.label115);
-            this.groupBox27.Controls.Add(this.label133);
-            this.groupBox27.Controls.Add(this.ButSdhNniTs_A);
-            this.groupBox27.Controls.Add(this.label134);
-            this.groupBox27.Controls.Add(this.ComSdhNniAda_A);
-            this.groupBox27.Controls.Add(this.ComSdhNniVcType_A);
-            this.groupBox27.Controls.Add(this.label116);
-            this.groupBox27.Controls.Add(this.label135);
-            this.groupBox27.Controls.Add(this.TextSdhNniTs_A);
-            this.groupBox27.Controls.Add(this.ComSdhNniPtp_A);
-            this.groupBox27.Controls.Add(this.label136);
-            this.groupBox27.Controls.Add(this.label137);
-            this.groupBox27.Controls.Add(this.ComSdhNniTs_A);
-            this.groupBox27.Controls.Add(this.ComSdhNniSwitch_A);
-            this.groupBox27.Controls.Add(this.ComSdhNniOdu_A);
-            this.groupBox27.Location = new System.Drawing.Point(6, 251);
-            this.groupBox27.Name = "groupBox27";
-            this.groupBox27.Size = new System.Drawing.Size(616, 153);
-            this.groupBox27.TabIndex = 22;
-            this.groupBox27.TabStop = false;
-            this.groupBox27.Text = "NNI 端口配置-主用";
+            this.groupBox24.Controls.Add(this.label126);
+            this.groupBox24.Controls.Add(this.ComSdhSerMap);
+            this.groupBox24.Controls.Add(this.label6);
+            this.groupBox24.Controls.Add(this.ComSdhUniPtp);
+            this.groupBox24.Controls.Add(this.label127);
+            this.groupBox24.Controls.Add(this.ComSdhUniSdhType);
+            this.groupBox24.Controls.Add(this.ButSdhUniTs);
+            this.groupBox24.Controls.Add(this.label114);
+            this.groupBox24.Controls.Add(this.TextSdhUniTs);
+            this.groupBox24.Location = new System.Drawing.Point(6, 108);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(616, 102);
+            this.groupBox24.TabIndex = 14;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "UNI 端口配置-主用";
             // 
-            // ComSdhNniSdhtype_A
+            // label126
             // 
-            this.ComSdhNniSdhtype_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniSdhtype_A.FormattingEnabled = true;
-            this.ComSdhNniSdhtype_A.Items.AddRange(new object[] {
-            "acc-otn-types:STM-1",
-            "acc-otn-types:STM-4",
-            "acc-otn-types:STM-16",
-            "acc-otn-types:STM-64",
-            "STM1",
-            "STM4",
-            "STM16",
-            "STM64"});
-            this.ComSdhNniSdhtype_A.Location = new System.Drawing.Point(130, 95);
-            this.ComSdhNniSdhtype_A.Name = "ComSdhNniSdhtype_A";
-            this.ComSdhNniSdhtype_A.Size = new System.Drawing.Size(186, 20);
-            this.ComSdhNniSdhtype_A.TabIndex = 43;
+            this.label126.AutoSize = true;
+            this.label126.Location = new System.Drawing.Point(322, 45);
+            this.label126.Name = "label126";
+            this.label126.Size = new System.Drawing.Size(125, 12);
+            this.label126.TabIndex = 39;
+            this.label126.Text = "服务映射模式(PT开销)";
             // 
-            // label117
+            // ComSdhSerMap
             // 
-            this.label117.AutoSize = true;
-            this.label117.Location = new System.Drawing.Point(13, 97);
-            this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(47, 12);
-            this.label117.TabIndex = 44;
-            this.label117.Text = "SDH类型";
+            this.ComSdhSerMap.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhSerMap.FormattingEnabled = true;
+            this.ComSdhSerMap.Items.AddRange(new object[] {
+            "acc-otn-types:GFP-F",
+            "acc-otn-types:GFP-T",
+            "acc-otn-types:GMP",
+            "acc-otn-types:CBR-BMP"});
+            this.ComSdhSerMap.Location = new System.Drawing.Point(453, 42);
+            this.ComSdhSerMap.Name = "ComSdhSerMap";
+            this.ComSdhSerMap.Size = new System.Drawing.Size(152, 20);
+            this.ComSdhSerMap.TabIndex = 38;
             // 
-            // label115
+            // label6
             // 
-            this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(322, 99);
-            this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(41, 12);
-            this.label115.TabIndex = 42;
-            this.label115.Text = "VC时隙";
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(322, 71);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.TabIndex = 37;
+            this.label6.Text = "VC时隙";
             // 
-            // label133
+            // ComSdhUniPtp
             // 
-            this.label133.AutoSize = true;
-            this.label133.Location = new System.Drawing.Point(322, 73);
-            this.label133.Name = "label133";
-            this.label133.Size = new System.Drawing.Size(53, 12);
-            this.label133.TabIndex = 25;
-            this.label133.Text = "使用时隙";
+            this.ComSdhUniPtp.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhUniPtp.FormattingEnabled = true;
+            this.ComSdhUniPtp.Location = new System.Drawing.Point(130, 17);
+            this.ComSdhUniPtp.Name = "ComSdhUniPtp";
+            this.ComSdhUniPtp.Size = new System.Drawing.Size(475, 20);
+            this.ComSdhUniPtp.TabIndex = 2;
             // 
-            // ButSdhNniTs_A
+            // label127
             // 
-            this.ButSdhNniTs_A.Location = new System.Drawing.Point(572, 94);
-            this.ButSdhNniTs_A.Name = "ButSdhNniTs_A";
-            this.ButSdhNniTs_A.Size = new System.Drawing.Size(33, 23);
-            this.ButSdhNniTs_A.TabIndex = 41;
-            this.ButSdhNniTs_A.Text = "...";
-            this.ButSdhNniTs_A.UseVisualStyleBackColor = true;
-            this.ButSdhNniTs_A.Click += new System.EventHandler(this.ButSdhNniTs_A_Click);
+            this.label127.AutoSize = true;
+            this.label127.Location = new System.Drawing.Point(13, 20);
+            this.label127.Name = "label127";
+            this.label127.Size = new System.Drawing.Size(65, 12);
+            this.label127.TabIndex = 13;
+            this.label127.Text = "客户侧端口";
             // 
-            // label134
+            // ComSdhUniSdhType
             // 
-            this.label134.AutoSize = true;
-            this.label134.Location = new System.Drawing.Point(13, 20);
-            this.label134.Name = "label134";
-            this.label134.Size = new System.Drawing.Size(71, 12);
-            this.label134.TabIndex = 18;
-            this.label134.Text = "主用NNI端口";
-            // 
-            // ComSdhNniAda_A
-            // 
-            this.ComSdhNniAda_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniAda_A.FormattingEnabled = true;
-            this.ComSdhNniAda_A.Location = new System.Drawing.Point(452, 45);
-            this.ComSdhNniAda_A.Name = "ComSdhNniAda_A";
-            this.ComSdhNniAda_A.Size = new System.Drawing.Size(152, 20);
-            this.ComSdhNniAda_A.TabIndex = 18;
-            // 
-            // ComSdhNniVcType_A
-            // 
-            this.ComSdhNniVcType_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniVcType_A.FormattingEnabled = true;
-            this.ComSdhNniVcType_A.Items.AddRange(new object[] {
+            this.ComSdhUniSdhType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhUniSdhType.FormattingEnabled = true;
+            this.ComSdhUniSdhType.Items.AddRange(new object[] {
             "acc-otn-types:VC-12",
             "acc-otn-types:VC-3",
             "acc-otn-types:VC-4",
             "VC12",
             "VC3",
             "VC4"});
-            this.ComSdhNniVcType_A.Location = new System.Drawing.Point(130, 120);
-            this.ComSdhNniVcType_A.Name = "ComSdhNniVcType_A";
-            this.ComSdhNniVcType_A.Size = new System.Drawing.Size(186, 20);
-            this.ComSdhNniVcType_A.TabIndex = 38;
+            this.ComSdhUniSdhType.Location = new System.Drawing.Point(130, 42);
+            this.ComSdhUniSdhType.Name = "ComSdhUniSdhType";
+            this.ComSdhUniSdhType.Size = new System.Drawing.Size(186, 20);
+            this.ComSdhUniSdhType.TabIndex = 33;
             // 
-            // label116
+            // ButSdhUniTs
             // 
-            this.label116.AutoSize = true;
-            this.label116.Location = new System.Drawing.Point(13, 122);
-            this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(41, 12);
-            this.label116.TabIndex = 39;
-            this.label116.Text = "VC类型";
+            this.ButSdhUniTs.Location = new System.Drawing.Point(573, 66);
+            this.ButSdhUniTs.Name = "ButSdhUniTs";
+            this.ButSdhUniTs.Size = new System.Drawing.Size(33, 23);
+            this.ButSdhUniTs.TabIndex = 36;
+            this.ButSdhUniTs.Text = "...";
+            this.ButSdhUniTs.UseVisualStyleBackColor = true;
+            this.ButSdhUniTs.Click += new System.EventHandler(this.ButSdhUniTs_Click);
             // 
-            // label135
+            // label114
             // 
-            this.label135.AutoSize = true;
-            this.label135.Location = new System.Drawing.Point(322, 48);
-            this.label135.Name = "label135";
-            this.label135.Size = new System.Drawing.Size(101, 12);
-            this.label135.TabIndex = 24;
-            this.label135.Text = "适配类型(PT开销)";
+            this.label114.AutoSize = true;
+            this.label114.Location = new System.Drawing.Point(35, 47);
+            this.label114.Name = "label114";
+            this.label114.Size = new System.Drawing.Size(41, 12);
+            this.label114.TabIndex = 34;
+            this.label114.Text = "VC类型";
             // 
-            // TextSdhNniTs_A
+            // TextSdhUniTs
             // 
-            this.TextSdhNniTs_A.Location = new System.Drawing.Point(452, 95);
-            this.TextSdhNniTs_A.Name = "TextSdhNniTs_A";
-            this.TextSdhNniTs_A.Size = new System.Drawing.Size(120, 21);
-            this.TextSdhNniTs_A.TabIndex = 40;
-            // 
-            // ComSdhNniPtp_A
-            // 
-            this.ComSdhNniPtp_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniPtp_A.FormattingEnabled = true;
-            this.ComSdhNniPtp_A.Location = new System.Drawing.Point(130, 20);
-            this.ComSdhNniPtp_A.Name = "ComSdhNniPtp_A";
-            this.ComSdhNniPtp_A.Size = new System.Drawing.Size(474, 20);
-            this.ComSdhNniPtp_A.TabIndex = 7;
-            this.ComSdhNniPtp_A.SelectedIndexChanged += new System.EventHandler(this.ComSdhNniPtp_A_SelectedIndexChanged);
-            // 
-            // label136
-            // 
-            this.label136.AutoSize = true;
-            this.label136.Location = new System.Drawing.Point(13, 73);
-            this.label136.Name = "label136";
-            this.label136.Size = new System.Drawing.Size(113, 12);
-            this.label136.TabIndex = 23;
-            this.label136.Text = "交换能力(交叉颗粒)";
-            // 
-            // label137
-            // 
-            this.label137.AutoSize = true;
-            this.label137.Location = new System.Drawing.Point(13, 47);
-            this.label137.Name = "label137";
-            this.label137.Size = new System.Drawing.Size(113, 12);
-            this.label137.TabIndex = 22;
-            this.label137.Text = "净荷类型(接口速率)";
-            // 
-            // ComSdhNniTs_A
-            // 
-            this.ComSdhNniTs_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniTs_A.FormattingEnabled = true;
-            this.ComSdhNniTs_A.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8"});
-            this.ComSdhNniTs_A.Location = new System.Drawing.Point(452, 70);
-            this.ComSdhNniTs_A.Name = "ComSdhNniTs_A";
-            this.ComSdhNniTs_A.Size = new System.Drawing.Size(152, 20);
-            this.ComSdhNniTs_A.TabIndex = 21;
-            // 
-            // ComSdhNniSwitch_A
-            // 
-            this.ComSdhNniSwitch_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniSwitch_A.FormattingEnabled = true;
-            this.ComSdhNniSwitch_A.Location = new System.Drawing.Point(130, 70);
-            this.ComSdhNniSwitch_A.Name = "ComSdhNniSwitch_A";
-            this.ComSdhNniSwitch_A.Size = new System.Drawing.Size(186, 20);
-            this.ComSdhNniSwitch_A.TabIndex = 20;
-            // 
-            // ComSdhNniOdu_A
-            // 
-            this.ComSdhNniOdu_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.ComSdhNniOdu_A.FormattingEnabled = true;
-            this.ComSdhNniOdu_A.Location = new System.Drawing.Point(130, 45);
-            this.ComSdhNniOdu_A.Name = "ComSdhNniOdu_A";
-            this.ComSdhNniOdu_A.Size = new System.Drawing.Size(186, 20);
-            this.ComSdhNniOdu_A.TabIndex = 19;
+            this.TextSdhUniTs.Location = new System.Drawing.Point(453, 67);
+            this.TextSdhUniTs.Multiline = true;
+            this.TextSdhUniTs.Name = "TextSdhUniTs";
+            this.TextSdhUniTs.Size = new System.Drawing.Size(120, 21);
+            this.TextSdhUniTs.TabIndex = 35;
             // 
             // 性能查询
             // 
@@ -4821,16 +4941,16 @@ namespace NetConfClientSoftware
             // dataGridViewCurrentPerformance
             // 
             this.dataGridViewCurrentPerformance.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewCurrentPerformance.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCurrentPerformance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewCurrentPerformance.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCurrentPerformance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dataGridViewCurrentPerformance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewCurrentPerformance.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.参数名称,
@@ -4847,14 +4967,14 @@ namespace NetConfClientSoftware
             this.dataGridViewCurrentPerformance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewCurrentPerformance.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewCurrentPerformance.Name = "dataGridViewCurrentPerformance";
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle13.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewCurrentPerformance.RowHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCurrentPerformance.RowHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.dataGridViewCurrentPerformance.RowHeadersVisible = false;
             this.dataGridViewCurrentPerformance.RowTemplate.Height = 23;
             this.dataGridViewCurrentPerformance.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -4974,14 +5094,14 @@ namespace NetConfClientSoftware
             this.dataGridViewPGS_Not.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewPGS_Not.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPGS_Not.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dataGridViewPGS_Not.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPGS_Not.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.保护组IDN,
@@ -4999,14 +5119,14 @@ namespace NetConfClientSoftware
             this.dataGridViewPGS_Not.ContextMenuStrip = this.contextMenuStripPGS;
             this.dataGridViewPGS_Not.Location = new System.Drawing.Point(6, 295);
             this.dataGridViewPGS_Not.Name = "dataGridViewPGS_Not";
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewPGS_Not.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPGS_Not.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridViewPGS_Not.RowHeadersVisible = false;
             this.dataGridViewPGS_Not.RowTemplate.Height = 23;
             this.dataGridViewPGS_Not.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -5143,14 +5263,14 @@ namespace NetConfClientSoftware
             // 
             this.dataGridViewPGS.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewPGS.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPGS.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
             this.dataGridViewPGS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewPGS.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.保护组ID,
@@ -5168,14 +5288,14 @@ namespace NetConfClientSoftware
             this.dataGridViewPGS.ContextMenuStrip = this.contextMenuStripPGS;
             this.dataGridViewPGS.Location = new System.Drawing.Point(6, 20);
             this.dataGridViewPGS.Name = "dataGridViewPGS";
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewPGS.RowHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPGS.RowHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewPGS.RowHeadersVisible = false;
             this.dataGridViewPGS.RowTemplate.Height = 23;
             this.dataGridViewPGS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -5296,19 +5416,19 @@ namespace NetConfClientSoftware
             // 
             // dataGridViewAlarm
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewAlarm.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewAlarm.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
             this.dataGridViewAlarm.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAlarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAlarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dataGridViewAlarm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAlarm.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.对象网元,
@@ -5321,27 +5441,27 @@ namespace NetConfClientSoftware
             this.告警结束时间,
             this.确认告警});
             this.dataGridViewAlarm.ContextMenuStrip = this.ConnectionDevice;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewAlarm.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewAlarm.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewAlarm.Location = new System.Drawing.Point(0, 447);
             this.dataGridViewAlarm.Name = "dataGridViewAlarm";
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAlarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAlarm.RowHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.dataGridViewAlarm.RowHeadersVisible = false;
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewAlarm.RowsDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewAlarm.RowsDefaultCellStyle = dataGridViewCellStyle17;
             this.dataGridViewAlarm.RowTemplate.Height = 23;
             this.dataGridViewAlarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewAlarm.Size = new System.Drawing.Size(1204, 157);
@@ -5478,7 +5598,7 @@ namespace NetConfClientSoftware
             this.tabPage11.Location = new System.Drawing.Point(4, 22);
             this.tabPage11.Name = "tabPage11";
             this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage11.Size = new System.Drawing.Size(1204, 623);
+            this.tabPage11.Size = new System.Drawing.Size(1204, 610);
             this.tabPage11.TabIndex = 1;
             this.tabPage11.Text = "TCA告警";
             this.tabPage11.UseVisualStyleBackColor = true;
@@ -5505,7 +5625,7 @@ namespace NetConfClientSoftware
             this.ListViewTcaAlarm.HideSelection = false;
             this.ListViewTcaAlarm.Location = new System.Drawing.Point(3, 3);
             this.ListViewTcaAlarm.Name = "ListViewTcaAlarm";
-            this.ListViewTcaAlarm.Size = new System.Drawing.Size(1198, 617);
+            this.ListViewTcaAlarm.Size = new System.Drawing.Size(1198, 604);
             this.ListViewTcaAlarm.TabIndex = 1;
             this.ListViewTcaAlarm.UseCompatibleStateImageBehavior = false;
             this.ListViewTcaAlarm.View = System.Windows.Forms.View.Details;
@@ -5576,7 +5696,7 @@ namespace NetConfClientSoftware
             this.tabPage12.Controls.Add(this.listViewProtection);
             this.tabPage12.Location = new System.Drawing.Point(4, 22);
             this.tabPage12.Name = "tabPage12";
-            this.tabPage12.Size = new System.Drawing.Size(1204, 623);
+            this.tabPage12.Size = new System.Drawing.Size(1204, 610);
             this.tabPage12.TabIndex = 2;
             this.tabPage12.Text = "保护倒换";
             this.tabPage12.UseVisualStyleBackColor = true;
@@ -5605,7 +5725,7 @@ namespace NetConfClientSoftware
             this.listViewProtection.HideSelection = false;
             this.listViewProtection.Location = new System.Drawing.Point(0, 0);
             this.listViewProtection.Name = "listViewProtection";
-            this.listViewProtection.Size = new System.Drawing.Size(1204, 623);
+            this.listViewProtection.Size = new System.Drawing.Size(1204, 610);
             this.listViewProtection.TabIndex = 1;
             this.listViewProtection.UseCompatibleStateImageBehavior = false;
             this.listViewProtection.View = System.Windows.Forms.View.Details;
@@ -5686,7 +5806,7 @@ namespace NetConfClientSoftware
             this.tabPage13.Controls.Add(this.listViewAttribute);
             this.tabPage13.Location = new System.Drawing.Point(4, 22);
             this.tabPage13.Name = "tabPage13";
-            this.tabPage13.Size = new System.Drawing.Size(1204, 623);
+            this.tabPage13.Size = new System.Drawing.Size(1204, 610);
             this.tabPage13.TabIndex = 3;
             this.tabPage13.Text = "对象变更";
             this.tabPage13.UseVisualStyleBackColor = true;
@@ -5709,7 +5829,7 @@ namespace NetConfClientSoftware
             this.listViewAttribute.HideSelection = false;
             this.listViewAttribute.Location = new System.Drawing.Point(0, 0);
             this.listViewAttribute.Name = "listViewAttribute";
-            this.listViewAttribute.Size = new System.Drawing.Size(1204, 623);
+            this.listViewAttribute.Size = new System.Drawing.Size(1204, 610);
             this.listViewAttribute.TabIndex = 1;
             this.listViewAttribute.UseCompatibleStateImageBehavior = false;
             this.listViewAttribute.View = System.Windows.Forms.View.Details;
@@ -5764,7 +5884,7 @@ namespace NetConfClientSoftware
             this.tabPage14.Controls.Add(this.listViewLLDP);
             this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
-            this.tabPage14.Size = new System.Drawing.Size(1204, 623);
+            this.tabPage14.Size = new System.Drawing.Size(1204, 610);
             this.tabPage14.TabIndex = 4;
             this.tabPage14.Text = "LLDP链路信息";
             this.tabPage14.UseVisualStyleBackColor = true;
@@ -5784,7 +5904,7 @@ namespace NetConfClientSoftware
             this.listViewLLDP.HideSelection = false;
             this.listViewLLDP.Location = new System.Drawing.Point(0, 0);
             this.listViewLLDP.Name = "listViewLLDP";
-            this.listViewLLDP.Size = new System.Drawing.Size(1204, 623);
+            this.listViewLLDP.Size = new System.Drawing.Size(1204, 610);
             this.listViewLLDP.TabIndex = 1;
             this.listViewLLDP.UseCompatibleStateImageBehavior = false;
             this.listViewLLDP.View = System.Windows.Forms.View.Details;
@@ -5824,7 +5944,7 @@ namespace NetConfClientSoftware
             this.tabPage15.Controls.Add(this.listViewPeer);
             this.tabPage15.Location = new System.Drawing.Point(4, 22);
             this.tabPage15.Name = "tabPage15";
-            this.tabPage15.Size = new System.Drawing.Size(1204, 623);
+            this.tabPage15.Size = new System.Drawing.Size(1204, 610);
             this.tabPage15.TabIndex = 5;
             this.tabPage15.Text = "Peer链路信息";
             this.tabPage15.UseVisualStyleBackColor = true;
@@ -5843,7 +5963,7 @@ namespace NetConfClientSoftware
             this.listViewPeer.HideSelection = false;
             this.listViewPeer.Location = new System.Drawing.Point(0, 0);
             this.listViewPeer.Name = "listViewPeer";
-            this.listViewPeer.Size = new System.Drawing.Size(1204, 623);
+            this.listViewPeer.Size = new System.Drawing.Size(1204, 610);
             this.listViewPeer.TabIndex = 2;
             this.listViewPeer.UseCompatibleStateImageBehavior = false;
             this.listViewPeer.View = System.Windows.Forms.View.Details;
@@ -5878,7 +5998,7 @@ namespace NetConfClientSoftware
             this.tabPage16.Controls.Add(this.listViewGhao);
             this.tabPage16.Location = new System.Drawing.Point(4, 22);
             this.tabPage16.Name = "tabPage16";
-            this.tabPage16.Size = new System.Drawing.Size(1204, 623);
+            this.tabPage16.Size = new System.Drawing.Size(1204, 610);
             this.tabPage16.TabIndex = 6;
             this.tabPage16.Text = "G.Hao带宽调整";
             this.tabPage16.UseVisualStyleBackColor = true;
@@ -5900,7 +6020,7 @@ namespace NetConfClientSoftware
             this.listViewGhao.HideSelection = false;
             this.listViewGhao.Location = new System.Drawing.Point(0, 0);
             this.listViewGhao.Name = "listViewGhao";
-            this.listViewGhao.Size = new System.Drawing.Size(1204, 623);
+            this.listViewGhao.Size = new System.Drawing.Size(1204, 610);
             this.listViewGhao.TabIndex = 3;
             this.listViewGhao.UseCompatibleStateImageBehavior = false;
             this.listViewGhao.View = System.Windows.Forms.View.Details;
@@ -5950,7 +6070,7 @@ namespace NetConfClientSoftware
             this.tabPage18.Location = new System.Drawing.Point(4, 22);
             this.tabPage18.Name = "tabPage18";
             this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage18.Size = new System.Drawing.Size(1204, 623);
+            this.tabPage18.Size = new System.Drawing.Size(1204, 610);
             this.tabPage18.TabIndex = 8;
             this.tabPage18.Text = "一般配置通知";
             this.tabPage18.UseVisualStyleBackColor = true;
@@ -5970,7 +6090,7 @@ namespace NetConfClientSoftware
             this.listViewCommon.HideSelection = false;
             this.listViewCommon.Location = new System.Drawing.Point(3, 3);
             this.listViewCommon.Name = "listViewCommon";
-            this.listViewCommon.Size = new System.Drawing.Size(1198, 617);
+            this.listViewCommon.Size = new System.Drawing.Size(1198, 604);
             this.listViewCommon.TabIndex = 2;
             this.listViewCommon.UseCompatibleStateImageBehavior = false;
             this.listViewCommon.View = System.Windows.Forms.View.Details;
@@ -6009,7 +6129,7 @@ namespace NetConfClientSoftware
             this.tabPageAllNotificontion.Location = new System.Drawing.Point(4, 22);
             this.tabPageAllNotificontion.Name = "tabPageAllNotificontion";
             this.tabPageAllNotificontion.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageAllNotificontion.Size = new System.Drawing.Size(1204, 623);
+            this.tabPageAllNotificontion.Size = new System.Drawing.Size(1204, 610);
             this.tabPageAllNotificontion.TabIndex = 7;
             this.tabPageAllNotificontion.Text = "所有通知";
             this.tabPageAllNotificontion.UseVisualStyleBackColor = true;
@@ -6077,16 +6197,16 @@ namespace NetConfClientSoftware
             // 
             // dataGridViewAuto
             // 
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewAuto.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle23;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAuto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewAuto.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAuto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dataGridViewAuto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAuto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Auto编号,
@@ -6108,14 +6228,14 @@ namespace NetConfClientSoftware
             this.dataGridViewAuto.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewAuto.Name = "dataGridViewAuto";
             this.dataGridViewAuto.ReadOnly = true;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle25.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAuto.RowHeadersDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAuto.RowHeadersDefaultCellStyle = dataGridViewCellStyle20;
             this.dataGridViewAuto.RowHeadersVisible = false;
             this.dataGridViewAuto.RowTemplate.Height = 23;
             this.dataGridViewAuto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -6404,121 +6524,11 @@ namespace NetConfClientSoftware
             this.imageListTree.Images.SetKeyName(4, "if_orange.png");
             this.imageListTree.Images.SetKeyName(5, "if_yellow.png");
             // 
-            // vCG时隙调整ToolStripMenuItem
-            // 
-            this.vCG时隙调整ToolStripMenuItem.Name = "vCG时隙调整ToolStripMenuItem";
-            this.vCG时隙调整ToolStripMenuItem.Size = new System.Drawing.Size(237, 22);
-            this.vCG时隙调整ToolStripMenuItem.Text = "EOS业务VCG时隙调整";
-            this.vCG时隙调整ToolStripMenuItem.Click += new System.EventHandler(this.vCG时隙调整ToolStripMenuItem_Click);
-            // 
-            // groupBoxunivlan
-            // 
-            this.groupBoxunivlan.Controls.Add(this.label89);
-            this.groupBoxunivlan.Controls.Add(this.label102);
-            this.groupBoxunivlan.Controls.Add(this.ComEthUniVlanType);
-            this.groupBoxunivlan.Controls.Add(this.ComEthVlanAccessAction);
-            this.groupBoxunivlan.Controls.Add(this.label90);
-            this.groupBoxunivlan.Controls.Add(this.ComEthVlanPriority);
-            this.groupBoxunivlan.Controls.Add(this.label91);
-            this.groupBoxunivlan.Controls.Add(this.ComEthClientVlanId);
-            this.groupBoxunivlan.Controls.Add(this.label92);
-            this.groupBoxunivlan.Controls.Add(this.label101);
-            this.groupBoxunivlan.Controls.Add(this.ComEthUniVlanId);
-            this.groupBoxunivlan.Controls.Add(this.label99);
-            this.groupBoxunivlan.Controls.Add(this.ComEthUniVlanPriority);
-            this.groupBoxunivlan.Controls.Add(this.ComEthVlanType);
-            this.groupBoxunivlan.Controls.Add(this.ComEthUniVlanAccessAction);
-            this.groupBoxunivlan.Controls.Add(this.label167);
-            this.groupBoxunivlan.Location = new System.Drawing.Point(3, 38);
-            this.groupBoxunivlan.Name = "groupBoxunivlan";
-            this.groupBoxunivlan.Size = new System.Drawing.Size(301, 107);
-            this.groupBoxunivlan.TabIndex = 28;
-            this.groupBoxunivlan.TabStop = false;
-            this.groupBoxunivlan.Text = "vlan属性";
-            // 
-            // 连接名称
-            // 
-            this.连接名称.HeaderText = "连接名称";
-            this.连接名称.Name = "连接名称";
-            this.连接名称.Width = 110;
-            // 
-            // 标签别名
-            // 
-            this.标签别名.HeaderText = "标签别名";
-            this.标签别名.Name = "标签别名";
-            this.标签别名.Width = 60;
-            // 
-            // 当前状态
-            // 
-            this.当前状态.HeaderText = "当前状态";
-            this.当前状态.Name = "当前状态";
-            this.当前状态.Width = 40;
-            // 
-            // 管理状态
-            // 
-            this.管理状态.HeaderText = "管理状态";
-            this.管理状态.Name = "管理状态";
-            this.管理状态.Width = 60;
-            // 
-            // 当前层协议
-            // 
-            this.当前层协议.HeaderText = "当前层协议";
-            this.当前层协议.Name = "当前层协议";
-            this.当前层协议.Width = 80;
-            // 
-            // 服务类型
-            // 
-            this.服务类型.HeaderText = "服务类型";
-            this.服务类型.Name = "服务类型";
-            this.服务类型.Width = 40;
-            // 
-            // 业务总带宽
-            // 
-            this.业务总带宽.HeaderText = "业务总带宽";
-            this.业务总带宽.Name = "业务总带宽";
-            this.业务总带宽.Width = 60;
-            // 
-            // 承诺带宽
-            // 
-            this.承诺带宽.HeaderText = "承诺带宽";
-            this.承诺带宽.Name = "承诺带宽";
-            this.承诺带宽.Width = 40;
-            // 
-            // 峰值带宽
-            // 
-            this.峰值带宽.HeaderText = "峰值带宽";
-            this.峰值带宽.Name = "峰值带宽";
-            this.峰值带宽.Width = 40;
-            // 
-            // 承诺突发
-            // 
-            this.承诺突发.HeaderText = "承诺突发";
-            this.承诺突发.Name = "承诺突发";
-            this.承诺突发.Width = 40;
-            // 
-            // 峰值突发
-            // 
-            this.峰值突发.HeaderText = "峰值突发";
-            this.峰值突发.Name = "峰值突发";
-            this.峰值突发.Width = 40;
-            // 
-            // CTP端口1
-            // 
-            this.CTP端口1.HeaderText = "所有CTP端口";
-            this.CTP端口1.Name = "CTP端口1";
-            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CTP端口1.Width = 300;
-            // 
-            // CTP端口2
-            // 
-            this.CTP端口2.HeaderText = "PTP-CTP端口";
-            this.CTP端口2.Name = "CTP端口2";
-            this.CTP端口2.Width = 300;
-            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1423, 709);
             this.Controls.Add(this.splitContainer4);
             this.Controls.Add(this.statusStrip);
@@ -6576,36 +6586,38 @@ namespace NetConfClientSoftware
             this.groupBox15.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.EOO业务.ResumeLayout(false);
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
             this.groupBoxCreateEOS.ResumeLayout(false);
             this.groupBoxCreateEOS.PerformLayout();
-            this.groupBox18.ResumeLayout(false);
-            this.groupBox18.PerformLayout();
-            this.groupBox19.ResumeLayout(false);
-            this.groupBox19.PerformLayout();
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
             this.groupBox21.ResumeLayout(false);
             this.groupBox21.PerformLayout();
+            this.groupBox18.ResumeLayout(false);
+            this.groupBox18.PerformLayout();
+            this.groupBox19.ResumeLayout(false);
+            this.groupBox19.PerformLayout();
+            this.groupBoxunivlan.ResumeLayout(false);
+            this.groupBoxunivlan.PerformLayout();
             this.SDH业务.ResumeLayout(false);
             this.groupBox30.ResumeLayout(false);
             this.groupBox30.PerformLayout();
             this.groupBox23.ResumeLayout(false);
             this.groupBox23.PerformLayout();
-            this.groupBox24.ResumeLayout(false);
-            this.groupBox24.PerformLayout();
-            this.groupBox25.ResumeLayout(false);
-            this.groupBox25.PerformLayout();
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
+            this.groupBox24.ResumeLayout(false);
+            this.groupBox24.PerformLayout();
             this.性能查询.ResumeLayout(false);
             this.性能查询.PerformLayout();
             this.groupBox16.ResumeLayout(false);
@@ -6641,8 +6653,6 @@ namespace NetConfClientSoftware
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
-            this.groupBoxunivlan.ResumeLayout(false);
-            this.groupBoxunivlan.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -7234,6 +7244,7 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
+        private System.Windows.Forms.ToolStripMenuItem 分享SToolStripMenuItem;
     }
 }
 

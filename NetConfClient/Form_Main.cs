@@ -19,6 +19,7 @@ using System.Runtime.InteropServices;
 using NetConfClientSoftware;
 using System.Xml.XPath;
 using System.Net.NetworkInformation;
+using System.Diagnostics;
 
 namespace NetConfClientSoftware
 {
@@ -5054,7 +5055,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             int ipaddresscunt1 = 1;
             bool idtf = false;
 
-            var LoginOn = new Login_On(gpnip, 830, gpnuser, gpnpassword, gpnnetconfversion, ips, gpnname);
+            var LoginOn = new From_Add_User(gpnip, 830, gpnuser, gpnpassword, gpnnetconfversion, ips, gpnname);
             // 以对话框方式显示FormInfo  
             if (LoginOn.ShowDialog() == DialogResult.OK)
             {
@@ -6598,6 +6599,15 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             {
                 groupBoxunivlan.Enabled = true;
             }
+        }
+
+        private void 分享SToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.Clear();//清空剪切板内容
+
+            Clipboard.SetData(DataFormats.Text, "http://hunan128.com/index.php/2021/09/02/netconfclient工具发布/");//复制内容到剪切板
+            MessageBox.Show("链接已复制，请粘贴使用");
+            //Process.Start("http://hunan128.com/index.php/2021/09/02/netconfclient工具发布/");
         }
     }
 }
