@@ -24,6 +24,12 @@ namespace NetConfClientSoftware
         public static string email = "";
         public static string licence = "";
         public static string sn = "";
+        private string strFilePath = @"C:\netconf\Config.ini";
+        private string strSec = ""; //INI文件名
+        String connetStr = "server=hunan128.com;port=3306;user=admin;password=admin123; database=netconf;";
+        private Point mouseOff;//鼠标移动位置变量
+        private bool leftFlag;//标签是否为左键
+        public static string remember = "是";
         /// <summary>
         /// 写入INI文件
         /// </summary>
@@ -47,8 +53,7 @@ namespace NetConfClientSoftware
         [DllImport("kernel32")]
         private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retval, int size, string filePath);
         // private string strFilePath = Application.StartupPath + "\\Config.ini";//获取INI文件路径
-        private string strFilePath = @"C:\netconf\Config.ini";
-        private string strSec = ""; //INI文件名
+
         #endregion
         /// <summary>
         /// 读取config文件函数
@@ -65,7 +70,7 @@ namespace NetConfClientSoftware
         /// <summary>
         /// 加载ini的config文件
         /// </summary>
-        private void Readini()
+        private void Getini()
         {
             #region 读取ini文件
             try
@@ -84,11 +89,21 @@ namespace NetConfClientSoftware
                     email = ContentValue(strSec, "email");
                     licence = ContentValue(strSec, "licence");
                     sn = ContentValue(strSec, "sn");
+                    remember = ContentValue(strSec, "remember");
                     textBoxUser.Text = user;
-                    textBoxPass.Text = password;
+                    if (remember == "是")
+                    {
+                        textBoxPass.Text = ContentValue(strSec, "password");
+                        checkBoxRe.Checked = true;
+                    }
+                    else {
+                        checkBoxRe.Checked = false;
+                    }
+
+                    
                 }
             }
-            catch (Exception ex)
+            catch 
             {
 
                 // MessageBox.Show(ex.Message);
@@ -97,7 +112,9 @@ namespace NetConfClientSoftware
         }
 
         #region 设置ini文件内容
-
+        /// <summary>
+        /// 设置ini文件
+        /// </summary>
         private void Setini()
         {
 
@@ -111,6 +128,8 @@ namespace NetConfClientSoftware
                 WritePrivateProfileString(strSec, "email", email, strFilePath);
                 WritePrivateProfileString(strSec, "licence", licence.ToString(), strFilePath);
                 WritePrivateProfileString(strSec, "sn", sn, strFilePath);
+                WritePrivateProfileString(strSec, "remember", remember, strFilePath);
+
 
 
 
@@ -121,8 +140,7 @@ namespace NetConfClientSoftware
             }
         }
         #endregion
-        private Point mouseOff;//鼠标移动位置变量
-        private bool leftFlag;//标签是否为左键
+
         private void FrmMain_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -147,21 +165,20 @@ namespace NetConfClientSoftware
                 leftFlag = false;//释放鼠标后标注为false;
             }
         }
-        private void buttonLogin_Click(object sender, EventArgs e)
+        private void ButtonLogin_Click(object sender, EventArgs e)
         {
             try
             {
-                String username, password, licence, sn;
-                username = textBoxUser.Text;
+                //String username, password, licence, sn;
+                user = textBoxUser.Text;
                 password = textBoxPass.Text;
 
-                String connetStr = "server=hunan128.com;port=3306;user=admin;password=admin123; database=netconf;";
                 MySqlConnection conn = new MySqlConnection(connetStr);
                 conn.Open();
                 licence = "1";
                 sn = MachineCode.GetMachineCodeString();
 
-                String sql = "select user,pass,licence,sn from users where user='" + username + "'and pass='" + password + "'and licence='" + licence + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
+                String sql = "select user,pass,licence,sn from users where user='" + user + "'and pass='" + password + "'and licence='" + licence + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader sqlDataReader = cmd.ExecuteReader();
                 if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
@@ -175,7 +192,7 @@ namespace NetConfClientSoftware
                 else
                 {
                     sqlDataReader.Close();
-                    sql = "select user,pass,sn from users where user='" + username + "'and pass='" + password + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
+                    sql = "select user,pass,sn from users where user='" + user + "'and pass='" + password + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
                     cmd = new MySqlCommand(sql, conn);
                     sqlDataReader = cmd.ExecuteReader();
                     if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
@@ -189,7 +206,7 @@ namespace NetConfClientSoftware
                     else
                     {
                         sqlDataReader.Close();
-                        sql = "select user,pass,licence from users where user='" + username + "'and pass='" + password + "'and licence='" + licence + "'";//SQL语句实现表数据的读取
+                        sql = "select user,pass,licence from users where user='" + user + "'and pass='" + password + "'and licence='" + licence + "'";//SQL语句实现表数据的读取
                         cmd = new MySqlCommand(sql, conn);
                         sqlDataReader = cmd.ExecuteReader();
                         if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
@@ -203,7 +220,7 @@ namespace NetConfClientSoftware
                         else
                         {
                             sqlDataReader.Close();
-                            sql = "select user,pass from users where user='" + username + "'and pass='" + password + "'";//SQL语句实现表数据的读取
+                            sql = "select user,pass from users where user='" + user + "'and pass='" + password + "'";//SQL语句实现表数据的读取
                             cmd = new MySqlCommand(sql, conn);
                             sqlDataReader = cmd.ExecuteReader();
                             if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
@@ -246,7 +263,13 @@ namespace NetConfClientSoftware
 
             }
 
-
+            if (checkBoxRe.Checked == true) {
+                remember = "是";
+            }
+            else {
+                remember = "否";
+            }
+            Setini();
         }
 
         private void PicClose_Click(object sender, EventArgs e)
@@ -254,8 +277,12 @@ namespace NetConfClientSoftware
             this.DialogResult = DialogResult.Cancel;
 
         }
-
-        private void submit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        /// <summary>
+        /// 注册按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Submit_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Form_Submit submit = new Form_Submit();
             submit.ShowDialog();
@@ -263,13 +290,40 @@ namespace NetConfClientSoftware
             if (submit.DialogResult == DialogResult.OK)
             {
                 submit.Dispose();
-                Readini();
+                Getini();
             }
         }
-
+        /// <summary>
+        /// 从窗体加载ini文件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form_Login_Load(object sender, EventArgs e)
         {
-            Readini();
+            Getini();
+        }
+
+        private void Forget_Password_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (textBoxUser.Text == "") {
+                MessageBox.Show("请输入用户名进行找回密码");
+                return;
+            }
+            user = textBoxUser.Text;
+            Form_Forget_Password Form_Forget_Password = new Form_Forget_Password();
+            Form_Forget_Password.ShowDialog();
+
+            if (Form_Forget_Password.DialogResult == DialogResult.OK)
+            {
+                Form_Forget_Password.Dispose();
+                Getini();
+            }
+            if (Form_Forget_Password.DialogResult == DialogResult.Cancel)
+            {
+                Form_Forget_Password.Dispose();
+                Form_Forget_Password.Close();
+               // Getini();
+            }
         }
     }
 }

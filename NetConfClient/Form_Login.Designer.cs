@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.buttonLogin = new System.Windows.Forms.Button();
+            this.ButtonLogin = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Account = new System.Windows.Forms.Label();
             this.textBoxUser = new System.Windows.Forms.TextBox();
@@ -37,27 +38,26 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.textBoxPass = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBoxRe = new System.Windows.Forms.CheckBox();
             this.Forget_Password = new System.Windows.Forms.LinkLabel();
             this.submit = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
-            // buttonLogin
+            // ButtonLogin
             // 
-            this.buttonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.buttonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.buttonLogin.Font = new System.Drawing.Font("微软雅黑", 12F);
-            this.buttonLogin.ForeColor = System.Drawing.Color.White;
-            this.buttonLogin.Location = new System.Drawing.Point(235, 298);
-            this.buttonLogin.Name = "buttonLogin";
-            this.buttonLogin.Size = new System.Drawing.Size(150, 40);
-            this.buttonLogin.TabIndex = 0;
-            this.buttonLogin.Text = "登录";
-            this.buttonLogin.UseVisualStyleBackColor = false;
-            this.buttonLogin.Click += new System.EventHandler(this.buttonLogin_Click);
+            this.ButtonLogin.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.ButtonLogin.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.ButtonLogin.Font = new System.Drawing.Font("微软雅黑", 12F);
+            this.ButtonLogin.ForeColor = System.Drawing.Color.White;
+            this.ButtonLogin.Location = new System.Drawing.Point(235, 298);
+            this.ButtonLogin.Name = "ButtonLogin";
+            this.ButtonLogin.Size = new System.Drawing.Size(150, 40);
+            this.ButtonLogin.TabIndex = 0;
+            this.ButtonLogin.Text = "登录";
+            this.ButtonLogin.UseVisualStyleBackColor = false;
+            this.ButtonLogin.Click += new System.EventHandler(this.ButtonLogin_Click);
             // 
             // panel1
             // 
@@ -71,6 +71,19 @@
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseUp);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox1.Image = global::NetConfClientSoftware.Properties.Resources.关闭;
+            this.pictureBox1.Location = new System.Drawing.Point(582, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.PicClose_Click);
             // 
             // label1
             // 
@@ -139,18 +152,18 @@
             this.label2.TabIndex = 7;
             this.label2.Text = "密码";
             // 
-            // checkBox1
+            // checkBoxRe
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Checked = true;
-            this.checkBox1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBox1.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.checkBox1.Location = new System.Drawing.Point(162, 249);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(63, 21);
-            this.checkBox1.TabIndex = 10;
-            this.checkBox1.Text = "记住我";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBoxRe.AutoSize = true;
+            this.checkBoxRe.Checked = true;
+            this.checkBoxRe.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRe.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.checkBoxRe.Location = new System.Drawing.Point(162, 249);
+            this.checkBoxRe.Name = "checkBoxRe";
+            this.checkBoxRe.Size = new System.Drawing.Size(75, 21);
+            this.checkBoxRe.TabIndex = 10;
+            this.checkBoxRe.Text = "记住密码";
+            this.checkBoxRe.UseVisualStyleBackColor = true;
             // 
             // Forget_Password
             // 
@@ -162,6 +175,7 @@
             this.Forget_Password.TabIndex = 11;
             this.Forget_Password.TabStop = true;
             this.Forget_Password.Text = "找回密码";
+            this.Forget_Password.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Forget_Password_LinkClicked);
             // 
             // submit
             // 
@@ -173,20 +187,7 @@
             this.submit.TabIndex = 12;
             this.submit.TabStop = true;
             this.submit.Text = "注册";
-            this.submit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.submit_LinkClicked);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Image = global::NetConfClientSoftware.Properties.Resources.关闭;
-            this.pictureBox1.Location = new System.Drawing.Point(582, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.PicClose_Click);
+            this.submit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Submit_LinkClicked);
             // 
             // Form_Login
             // 
@@ -196,7 +197,7 @@
             this.ClientSize = new System.Drawing.Size(622, 350);
             this.Controls.Add(this.submit);
             this.Controls.Add(this.Forget_Password);
-            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.checkBoxRe);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.textBoxPass);
             this.Controls.Add(this.panel2);
@@ -205,7 +206,7 @@
             this.Controls.Add(this.Account);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.buttonLogin);
+            this.Controls.Add(this.ButtonLogin);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form_Login";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -220,7 +221,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Button buttonLogin;
+        private System.Windows.Forms.Button ButtonLogin;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label Account;
@@ -229,7 +230,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox textBoxPass;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBoxRe;
         private System.Windows.Forms.LinkLabel Forget_Password;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.LinkLabel submit;

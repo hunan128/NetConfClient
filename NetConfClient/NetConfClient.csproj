@@ -31,7 +31,7 @@
     <PublisherName>NetconfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>35</ApplicationRevision>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>2021.11.10.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -128,6 +128,12 @@
     </Compile>
     <Compile Include="Form_Connection_Rate.Designer.cs">
       <DependentUpon>Form_Connection_Rate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form_Forget_Password.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Forget_Password.Designer.cs">
+      <DependentUpon>Form_Forget_Password.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Submit.cs">
       <SubType>Form</SubType>
@@ -227,6 +233,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Info.resx">
       <DependentUpon>Form_Info.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form_Forget_Password.resx">
+      <DependentUpon>Form_Forget_Password.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Submit.resx">
       <DependentUpon>Form_Submit.cs</DependentUpon>

@@ -63,7 +63,7 @@
             this.buttonSubmit.TabIndex = 0;
             this.buttonSubmit.Text = "注册";
             this.buttonSubmit.UseVisualStyleBackColor = false;
-            this.buttonSubmit.Click += new System.EventHandler(this.buttonLogin_Click);
+            this.buttonSubmit.Click += new System.EventHandler(this.ButtonSubmit_Click);
             // 
             // panel1
             // 
@@ -227,7 +227,6 @@
             this.textPassS.Font = new System.Drawing.Font("微软雅黑 Light", 12F);
             this.textPassS.Location = new System.Drawing.Point(162, 278);
             this.textPassS.Name = "textPassS";
-            this.textPassS.PasswordChar = '.';
             this.textPassS.Size = new System.Drawing.Size(300, 22);
             this.textPassS.TabIndex = 11;
             this.textPassS.UseSystemPasswordChar = true;
