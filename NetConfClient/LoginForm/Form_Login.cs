@@ -27,6 +27,7 @@ namespace NetConfClientSoftware
         private string strFilePath = @"C:\netconf\Config.ini";
         private string strSec = ""; //INI文件名
         public static String connetStr = "";
+      
         private Point mouseOff;//鼠标移动位置变量
         private bool leftFlag;//标签是否为左键
         public static string remember = "是";
@@ -251,7 +252,8 @@ namespace NetConfClientSoftware
                 }
                 conn.Close();
             }
-            catch {
+            catch (Exception ex){
+                MessageBox.Show(ex.ToString());
                 if (user == textBoxUser.Text && password == textBoxPass.Text )
                 {
                     if (sn == MachineCode.GetMachineCodeString())
