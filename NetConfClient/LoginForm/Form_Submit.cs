@@ -28,7 +28,7 @@ namespace NetConfClientSoftware
         // private string strFilePath = Application.StartupPath + "\\Config.ini";//获取INI文件路径
         private string strFilePath = @"C:\netconf\Config.ini";
         private string strSec = ""; //INI文件名
-        String connetStr = "server=hunan128.com;port=3306;user=admin;password=admin123; database=netconf;";
+        String connetStr = Form_Login.connetStr;
         private Point mouseOff;//鼠标移动位置变量
         private bool leftFlag;//标签是否为左键
         public static string remember = "";
@@ -114,7 +114,7 @@ namespace NetConfClientSoftware
                 strSec = "Login";
                 WritePrivateProfileString(strSec, "user", user, strFilePath);
                 WritePrivateProfileString(strSec, "password", password, strFilePath);
-                WritePrivateProfileString(strSec, "email", email, strFilePath);
+                //WritePrivateProfileString(strSec, "email", email, strFilePath);
                 WritePrivateProfileString(strSec, "licence", licence.ToString(), strFilePath);
                 WritePrivateProfileString(strSec, "sn", sn, strFilePath);
                 WritePrivateProfileString(strSec, "remember", Form_Login.remember, strFilePath);

@@ -26,7 +26,7 @@ namespace NetConfClientSoftware
         public static string sn = "";
         private string strFilePath = @"C:\netconf\Config.ini";
         private string strSec = ""; //INI文件名
-        String connetStr = "server=hunan128.com;port=3306;user=admin;password=admin123; database=netconf;";
+        public static String connetStr = "";
         private Point mouseOff;//鼠标移动位置变量
         private bool leftFlag;//标签是否为左键
         public static string remember = "是";
@@ -125,7 +125,7 @@ namespace NetConfClientSoftware
                 strSec = "Login";
                 WritePrivateProfileString(strSec, "user", user, strFilePath);
                 WritePrivateProfileString(strSec, "password", password, strFilePath);
-                WritePrivateProfileString(strSec, "email", email, strFilePath);
+                //WritePrivateProfileString(strSec, "email", email, strFilePath);
                 WritePrivateProfileString(strSec, "licence", licence.ToString(), strFilePath);
                 WritePrivateProfileString(strSec, "sn", sn, strFilePath);
                 WritePrivateProfileString(strSec, "remember", remember, strFilePath);
@@ -229,7 +229,19 @@ namespace NetConfClientSoftware
                             }
                             else
                             {
-                                MessageBox.Show("账号或密码错误或未注册");
+                                //MessageBox.Show("账号或密码错误或未注册");
+                                sqlDataReader.Close();
+                                sql = "select user from users where user='" + user +"'";//SQL语句实现表数据的读取
+                                cmd = new MySqlCommand(sql, conn);
+                                sqlDataReader = cmd.ExecuteReader();
+                                if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
+                                {
+                                    MessageBox.Show("密码不正确");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("用户不存在,请先进行注册");
+                                }
                             }
 
                         }

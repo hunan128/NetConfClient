@@ -26,7 +26,7 @@ namespace NetConfClientSoftware
         public static string sn = "";
         private string strFilePath = @"C:\netconf\Config.ini";
         private string strSec = ""; //INI文件名
-        String connetStr = "server=hunan128.com;port=3306;user=admin;password=admin123; database=netconf;";
+        String connetStr = Form_Login.connetStr; //连接MYSQL
         private Point mouseOff;//鼠标移动位置变量
         private bool leftFlag;//标签是否为左键
         public static string remember = "是";
@@ -117,7 +117,7 @@ namespace NetConfClientSoftware
                 strSec = "Login";
                 WritePrivateProfileString(strSec, "user", user, strFilePath);
                 WritePrivateProfileString(strSec, "password", password, strFilePath);
-                WritePrivateProfileString(strSec, "email", email, strFilePath);
+                //WritePrivateProfileString(strSec, "email", email, strFilePath);
                 WritePrivateProfileString(strSec, "licence", licence.ToString(), strFilePath);
                 WritePrivateProfileString(strSec, "sn", sn, strFilePath);
                 WritePrivateProfileString(strSec, "remember", remember, strFilePath);
@@ -277,7 +277,8 @@ namespace NetConfClientSoftware
 
         private void buttoncheckemail_Click(object sender, EventArgs e)
         {
-            if (textBoxEmail.Text == email) {
+            if (textBoxEmail.Text == email)
+            {
                 textBoxPass.Visible = true;
                 textBoxPass2.Visible = true;
                 ButtonForget.Visible = true;
@@ -286,6 +287,9 @@ namespace NetConfClientSoftware
                 panel5.Visible = true;
                 panel6.Visible = true;
                 MessageBox.Show("邮箱正确，请设置密码");
+            }
+            else {
+                MessageBox.Show("邮箱验证失败，请重试");
             }
         }
     }

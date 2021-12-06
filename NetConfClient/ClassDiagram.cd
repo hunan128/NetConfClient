@@ -4,101 +4,87 @@
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>kIAAAAgAACAgCAUAAACAAAADAAAAEIAAAAAAAAAAAAA=</HashCode>
-      <FileName>AboutBox.cs</FileName>
+      <FileName>About\AboutBox.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NetConfClientSoftware.CreateSDH" Collapsed="true">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>CreateSDH.cs</FileName>
+      <FileName>CreatServices\CreateSDH.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NetConfClientSoftware.CreatETH" Collapsed="true">
+  <Class Name="NetConfClientSoftware.CreateETH" Collapsed="true">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>CreatETH.cs</FileName>
+      <FileName>CreatServices\CreateETH.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NetConfClientSoftware.CreatODU" Collapsed="true">
+  <Class Name="NetConfClientSoftware.CreateODU" Collapsed="true">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>CreatODU.cs</FileName>
+      <HashCode>AAAAAAAAAEAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CreatServices\CreateODU.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NetConfClientSoftware.DeleteODU" Collapsed="true">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>DeleteODU.cs</FileName>
+      <FileName>CreatServices\DeleteODU.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NetConfClientSoftware.FindPath" Collapsed="true">
+  <Class Name="NetConfClientSoftware.FindXML" Collapsed="true">
     <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAIQIAAAAAAAEAAAQMAAAAQAAAEAAAQAA=</HashCode>
-      <FileName>FindPath.cs</FileName>
+      <HashCode>IAEAAAAAAAAAIQMAAAAAAAEAAAQEAAAAQAAAECAAQAA=</HashCode>
+      <FileName>ConfigServices\FindXML.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NetConfClientSoftware.FormInfo" Collapsed="true">
+  <Class Name="NetConfClientSoftware.Form_Info" Collapsed="true">
     <Position X="2.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAEhAAACAAgBASAACEAAACBAABQAAAAABAAAIAIAA=</HashCode>
-      <FileName>FormInfo.cs</FileName>
+      <FileName>MenuForm\Form_Info.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NetConfClientSoftware.LoginOn" Collapsed="true">
+  <Class Name="NetConfClientSoftware.From_Add_User" Collapsed="true">
     <Position X="4" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAIBAAAACAAgBgAAACAAAAKICQBAAEAACAAAAAAAiA=</HashCode>
-      <FileName>LoginOn.cs</FileName>
+      <HashCode>AAgIBAAAACAAgBgCAAiAAAAKICQBAAEAACAAAAAAAiA=</HashCode>
+      <FileName>MenuForm\From_Add_User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NetConfClientSoftware.NetConfXml" Collapsed="true">
     <Position X="0.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAEAAAAAAAAg=</HashCode>
-      <FileName>NetConfXml.cs</FileName>
+      <FileName>Config\NetConfXml.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="NetConfClientSoftware.PG">
+  <Class Name="NetConfClientSoftware.CreatePG">
     <Position X="2.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PG.cs</FileName>
+      <FileName>CreatServices\CreatePG.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NetConfClientSoftware.TSConversion" Collapsed="true">
     <Position X="0.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>TSConversion.cs</FileName>
+      <FileName>Other\TSConversion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NetConfClientSoftware.XmlFormat">
     <Position X="2.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>XmlFormat.cs</FileName>
+      <FileName>Other\XmlFormat.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="WindowsFormsApp1.Main_Form" Collapsed="true">
-    <Position X="5.75" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>////n/+43f//m//2///H9///+/f/+/t3/2/4x/z7/f8=</HashCode>
-      <FileName>Main_Form.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WindowsFormsApp1.NetConfSend" Collapsed="true">
-    <Position X="7.5" Y="1.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>NetConfSend.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="WindowsFormsApp1.Program" Collapsed="true">
+  <Class Name="NetConfClientSoftware.Program" Collapsed="true">
     <Position X="4" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
@@ -108,11 +94,11 @@
   <Class Name="NetConfClientSoftware.Properties.Resources" Collapsed="true">
     <Position X="5.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+      <HashCode>AAAAAAAAAEAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="NetConfClientSoftware.Properties.Settings" Collapsed="true">
-    <Position X="7.25" Y="2.5" Width="1.5" />
+    <Position X="7.75" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>

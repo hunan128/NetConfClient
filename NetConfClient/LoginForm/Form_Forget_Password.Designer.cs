@@ -142,6 +142,7 @@
             // textBoxViewMail
             // 
             this.textBoxViewMail.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxViewMail.Enabled = false;
             this.textBoxViewMail.Font = new System.Drawing.Font("微软雅黑 Light", 12F);
             this.textBoxViewMail.Location = new System.Drawing.Point(162, 214);
             this.textBoxViewMail.Name = "textBoxViewMail";

@@ -30,7 +30,6 @@
         {
             this.ButtonLogin = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Account = new System.Windows.Forms.Label();
             this.textBoxUser = new System.Windows.Forms.TextBox();
@@ -41,6 +40,7 @@
             this.checkBoxRe = new System.Windows.Forms.CheckBox();
             this.Forget_Password = new System.Windows.Forms.LinkLabel();
             this.submit = new System.Windows.Forms.LinkLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -71,19 +71,6 @@
             this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseDown);
             this.panel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseMove);
             this.panel1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.FrmMain_MouseUp);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pictureBox1.Image = global::NetConfClientSoftware.Properties.Resources.关闭;
-            this.pictureBox1.Location = new System.Drawing.Point(582, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 12;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.PicClose_Click);
             // 
             // label1
             // 
@@ -169,7 +156,7 @@
             // 
             this.Forget_Password.AutoSize = true;
             this.Forget_Password.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Forget_Password.Location = new System.Drawing.Point(350, 250);
+            this.Forget_Password.Location = new System.Drawing.Point(406, 250);
             this.Forget_Password.Name = "Forget_Password";
             this.Forget_Password.Size = new System.Drawing.Size(56, 17);
             this.Forget_Password.TabIndex = 11;
@@ -181,13 +168,26 @@
             // 
             this.submit.AutoSize = true;
             this.submit.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.submit.Location = new System.Drawing.Point(350, 267);
+            this.submit.Location = new System.Drawing.Point(430, 276);
             this.submit.Name = "submit";
             this.submit.Size = new System.Drawing.Size(32, 17);
             this.submit.TabIndex = 12;
             this.submit.TabStop = true;
             this.submit.Text = "注册";
             this.submit.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.Submit_LinkClicked);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox1.Image = global::NetConfClientSoftware.Properties.Resources.关闭;
+            this.pictureBox1.Location = new System.Drawing.Point(582, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.PicClose_Click);
             // 
             // Form_Login
             // 

@@ -31,7 +31,7 @@
     <PublisherName>NetconfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>37</ApplicationRevision>
+    <ApplicationRevision>40</ApplicationRevision>
     <ApplicationVersion>2021.11.10.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -117,99 +117,99 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutBox.cs">
+    <Compile Include="About\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutBox.Designer.cs">
+    <Compile Include="About\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Connection_Rate.cs">
+    <Compile Include="MenuForm\Form_Connection_Rate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Connection_Rate.Designer.cs">
+    <Compile Include="MenuForm\Form_Connection_Rate.Designer.cs">
       <DependentUpon>Form_Connection_Rate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Forget_Password.cs">
+    <Compile Include="LoginForm\Form_Forget_Password.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Forget_Password.Designer.cs">
+    <Compile Include="LoginForm\Form_Forget_Password.Designer.cs">
       <DependentUpon>Form_Forget_Password.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Submit.cs">
+    <Compile Include="LoginForm\Form_Submit.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Submit.Designer.cs">
+    <Compile Include="LoginForm\Form_Submit.Designer.cs">
       <DependentUpon>Form_Submit.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Login.cs">
+    <Compile Include="LoginForm\Form_Login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Login.Designer.cs">
+    <Compile Include="LoginForm\Form_Login.Designer.cs">
       <DependentUpon>Form_Login.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_modify_vcg_connection.cs">
+    <Compile Include="MenuForm\Form_modify_vcg_connection.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_modify_vcg_connection.Designer.cs">
+    <Compile Include="MenuForm\Form_modify_vcg_connection.Designer.cs">
       <DependentUpon>Form_modify_vcg_connection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Tca_Parameter.cs">
+    <Compile Include="MenuForm\Form_Tca_Parameter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Tca_Parameter.Designer.cs">
+    <Compile Include="MenuForm\Form_Tca_Parameter.Designer.cs">
       <DependentUpon>Form_Tca_Parameter.cs</DependentUpon>
     </Compile>
-    <Compile Include="LocalConnectionXml.cs" />
-    <Compile Include="Element.cs" />
-    <Compile Include="ExcelUtility.cs" />
-    <Compile Include="FindXML.cs" />
-    <Compile Include="Form_AutoRunningNetconf.cs">
+    <Compile Include="Config\LocalConnectionXml.cs" />
+    <Compile Include="AutoRuning\Element.cs" />
+    <Compile Include="AutoRuning\ExcelUtility.cs" />
+    <Compile Include="ConfigServices\FindXML.cs" />
+    <Compile Include="AutoRuning\Form_AutoRunningNetconf.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_AutoRunningNetconf.Designer.cs">
+    <Compile Include="AutoRuning\Form_AutoRunningNetconf.Designer.cs">
       <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_OAM.cs">
+    <Compile Include="MenuForm\Form_OAM.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_OAM.Designer.cs">
+    <Compile Include="MenuForm\Form_OAM.Designer.cs">
       <DependentUpon>Form_OAM.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_AutoXmlInfo.cs">
+    <Compile Include="AutoRuning\Form_AutoXmlInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_AutoXmlInfo.Designer.cs">
+    <Compile Include="AutoRuning\Form_AutoXmlInfo.Designer.cs">
       <DependentUpon>Form_AutoXmlInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Modify_Odu.cs">
+    <Compile Include="MenuForm\Form_Modify_Odu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Modify_Odu.Designer.cs">
+    <Compile Include="MenuForm\Form_Modify_Odu.Designer.cs">
       <DependentUpon>Form_Modify_Odu.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_ODUk_Delay.cs">
+    <Compile Include="MenuForm\Form_ODUk_Delay.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_ODUk_Delay.Designer.cs">
+    <Compile Include="MenuForm\Form_ODUk_Delay.Designer.cs">
       <DependentUpon>Form_ODUk_Delay.cs</DependentUpon>
     </Compile>
-    <Compile Include="MachineCode.cs" />
-    <Compile Include="ModifyXML.cs" />
-    <Compile Include="CreateOAM.cs" />
-    <Compile Include="CreateSDH.cs" />
-    <Compile Include="CreateETH.cs" />
-    <Compile Include="CreateODU.cs" />
-    <Compile Include="DeleteODU.cs" />
-    <Compile Include="Form_Info.cs">
+    <Compile Include="LoginForm\MachineCode.cs" />
+    <Compile Include="ConfigServices\ModifyXML.cs" />
+    <Compile Include="CreatServices\CreateOAM.cs" />
+    <Compile Include="CreatServices\CreateSDH.cs" />
+    <Compile Include="CreatServices\CreateETH.cs" />
+    <Compile Include="CreatServices\CreateODU.cs" />
+    <Compile Include="CreatServices\DeleteODU.cs" />
+    <Compile Include="MenuForm\Form_Info.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Info.Designer.cs">
+    <Compile Include="MenuForm\Form_Info.Designer.cs">
       <DependentUpon>Form_Info.cs</DependentUpon>
     </Compile>
-    <Compile Include="From_Add_User.cs">
+    <Compile Include="MenuForm\From_Add_User.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="From_Add_User.Designer.cs">
+    <Compile Include="MenuForm\From_Add_User.Designer.cs">
       <DependentUpon>From_Add_User.cs</DependentUpon>
     </Compile>
     <Compile Include="Form_Main.cs">
@@ -218,53 +218,53 @@
     <Compile Include="Form_Main.Designer.cs">
       <DependentUpon>Form_Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="NetConfXml.cs" />
-    <Compile Include="CreatePG.cs" />
+    <Compile Include="Config\NetConfXml.cs" />
+    <Compile Include="CreatServices\CreatePG.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RPC.cs" />
-    <Compile Include="TSConversion.cs" />
-    <Compile Include="XmlFormat.cs" />
-    <EmbeddedResource Include="AboutBox.resx">
+    <Compile Include="AutoRuning\RPC.cs" />
+    <Compile Include="Other\TSConversion.cs" />
+    <Compile Include="Other\XmlFormat.cs" />
+    <EmbeddedResource Include="About\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_AutoRunningNetconf.resx">
+    <EmbeddedResource Include="AutoRuning\Form_AutoRunningNetconf.resx">
       <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Info.resx">
+    <EmbeddedResource Include="MenuForm\Form_Info.resx">
       <DependentUpon>Form_Info.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Forget_Password.resx">
+    <EmbeddedResource Include="LoginForm\Form_Forget_Password.resx">
       <DependentUpon>Form_Forget_Password.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Submit.resx">
+    <EmbeddedResource Include="LoginForm\Form_Submit.resx">
       <DependentUpon>Form_Submit.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Login.resx">
+    <EmbeddedResource Include="LoginForm\Form_Login.resx">
       <DependentUpon>Form_Login.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_modify_vcg_connection.resx">
+    <EmbeddedResource Include="MenuForm\Form_modify_vcg_connection.resx">
       <DependentUpon>Form_modify_vcg_connection.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_OAM.resx">
+    <EmbeddedResource Include="MenuForm\Form_OAM.resx">
       <DependentUpon>Form_OAM.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_AutoXmlInfo.resx">
+    <EmbeddedResource Include="AutoRuning\Form_AutoXmlInfo.resx">
       <DependentUpon>Form_AutoXmlInfo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Connection_Rate.resx">
+    <EmbeddedResource Include="MenuForm\Form_Connection_Rate.resx">
       <DependentUpon>Form_Connection_Rate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Modify_Odu.resx">
+    <EmbeddedResource Include="MenuForm\Form_Modify_Odu.resx">
       <DependentUpon>Form_Modify_Odu.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_ODUk_Delay.resx">
+    <EmbeddedResource Include="MenuForm\Form_ODUk_Delay.resx">
       <DependentUpon>Form_ODUk_Delay.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Tca_Parameter.resx">
+    <EmbeddedResource Include="MenuForm\Form_Tca_Parameter.resx">
       <DependentUpon>Form_Tca_Parameter.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="From_Add_User.resx">
+    <EmbeddedResource Include="MenuForm\From_Add_User.resx">
       <DependentUpon>From_Add_User.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
@@ -281,7 +281,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="ClassDiagram.cd" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

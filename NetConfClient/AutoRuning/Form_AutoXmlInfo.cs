@@ -116,17 +116,33 @@ namespace NetConfClientSoftware
                 }
                 TreeNode newNode = null;
                 XmlNodeList nodeList = inXmlNode.ChildNodes;
-                for (int i = 0; i <= nodeList.Count - 1; i++)
+                for (int i = 0; i < nodeList.Count; i++)
                 {
+                   
                     XmlNode xNode = inXmlNode.ChildNodes[i];
                     if (!xNode.HasChildNodes)
                     {
                         // If the node has an attribute "name", use that.  Otherwise display the entire text of the node.
+                       
                         string value = GetAttributeText(xNode, "name");
-                        if (string.IsNullOrEmpty(value))
-                            value = (xNode.OuterXml).Trim();
-                        //nodes.Remove(newNode);
-                        nodes.Add(inXmlNode.Name + "(" + value + ")");
+                        if (string.IsNullOrEmpty(value)) {
+                            value = xNode.Value;
+                            if (string.IsNullOrEmpty(value))
+                            {
+                                value = xNode.Name;
+                                if (i == 0)
+                                {
+                                    TreeNode textnode = new TreeNode();
+                                    textnode.Text = text;
+                                    textnode.Nodes.Add(value);
+                                    nodes.Add(textnode);
+                                }
+                            }
+                            else {
+                                nodes.Add(inXmlNode.Name + "(" + value + ")");
+                            }
+                        }
+                       
                     }
                     else
                     {
