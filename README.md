@@ -1,11 +1,60 @@
-# NetConfClient 参考中国移动yang模型语言制作的一个客户端工具，可用于连接OTN设备，创建业务，删除，查询等操作
+# netconf client is a netconf test tool, it supports OTN equipment, supports the creation of ODU services, SDH services, and packet Ethernet services. It supports performance, TCA, protection groups, notifications, subscriptions, and automated testing.
 
-未来：
+netconf Version record:
 
-告警模块、TCA模块、接口模块、业务关联查询
-会支持脚本自动化测试功能
+2021.11.26 supports up to 32 network elements to go online at the same time
+
+2021.11.21 Support TCA parameter setting
+
+2021.11.18 Support ETH-to-ETH business creation, support CTP rate limit adjustment
+
+2021.11.14 supports simultaneous login and creation of multiple network elements
+
+2021.11.13 Support oduk online delay measurement
+
+2021.11.12 Supports ODUFlex time slot adjustment function of China Unicom and China Mobile
+
+2021.11.10 Supports the creation and query of services under Unicom Yang, and supports layer protocol modification and port information query
+
+2021.11.04 Support automated test function, import and export, detailed information view
+
+2021.10.13 supports Ethernet OAM configuration
+
+2021.09.25 Support NetConf version auto-negotiation (1.0 and 1.1)
+
+2021.09.19 Support EOS business creation (VC4, VC3, VC12)
+
+2021.09.17 Support performance statistics
+
+2021.09.16 supports automatic loading of Internet online XML scripts (users no longer need to find scripts)
+
+2021.09.15 Support EOO business creation
+
+2021.09.14 supports the creation of transparent transmission services
+
+2021.09.10 Support notification classification processing function
+
+2021.09.05 supports subscription function
+
+2021.09.03 Support netconf client tool debugging window
 
 版本记录：
+
+2021.11.26 支持最多32个网元同时上线
+
+2021.11.21 支持TCA参数设置
+
+2021.11.18 支持ETH-to-ETH业务创建，支持CTP限速调整
+
+2021.11.14 支持多个网元同时登录创建使用
+
+2021.11.13 支持oduk在线时延测量
+
+2021.11.12 支持联通、移动的ODUFlex时隙调整功能
+
+2021.11.10 支持联通yang下的业务创建于查询，支持层协议修改和端口信息查询
+
+2021.11.04 支持自动化测试功能，导入导出，详细信息查看
 
 2021.10.13 支持以太网OAM配置
 
@@ -27,6 +76,7 @@
 
 2021.09.03 支持netconf客户端工具调试窗口
 
+![image](https://user-images.githubusercontent.com/59459264/144022899-1b9dd707-963e-49de-8767-691ca49d9689.png)
 
 连接页面：
 ![image](https://user-images.githubusercontent.com/59459264/134663857-d1178673-a923-4d78-9786-5728aa74d0fd.png)
