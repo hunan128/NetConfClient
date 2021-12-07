@@ -444,7 +444,7 @@ namespace NetConfClientSoftware
                         if (string.IsNullOrEmpty(value))
                             value = (xNode.OuterXml).Trim();
                         //nodes.Remove(newNode);
-                        nodes.Add(inXmlNode.Name + "(" + value + ")");
+                        nodes.Add(text + "(" + value + ")");
                     }
                     else
                     {
@@ -1624,9 +1624,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-
-
-                                                ComOduOduSignalType_UNI_A.Items.Add(odu_signal_type1.InnerText);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":")) {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                               
+                                                ComOduOduSignalType_UNI_A.Items.Add(result_type);
                                                 ComOduOduSignalType_UNI_A.SelectedIndex = 0;
                                             }
                                         }
@@ -1637,8 +1640,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-
-                                                ComOduAdapataionType_UNI_A.Items.Add(adaptation_type1.InnerText);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduAdapataionType_UNI_A.Items.Add(result_type);
                                                 ComOduAdapataionType_UNI_A.SelectedIndex = 0;
                                             }
                                         }
@@ -1649,7 +1656,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                ComOduSwitchApability_UNI_A.Items.Add(switch_capability1.InnerText);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduSwitchApability_UNI_A.Items.Add(result_type);
                                                 ComOduSwitchApability_UNI_A.SelectedIndex = 0;
                                             }
                                         }
@@ -1730,9 +1742,14 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                ComOduOdusignalType_NNI_A.Items.Add(odu_signal_type1.InnerText);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduOdusignalType_NNI_A.Items.Add(result_type);
                                                 ComOduOdusignalType_NNI_A.SelectedIndex = 0;
-                                                ComOduOdusignalType_NNI_B.Items.Add(odu_signal_type1.InnerText);
+                                                ComOduOdusignalType_NNI_B.Items.Add(result_type);
                                                 ComOduOdusignalType_NNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -1743,9 +1760,14 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-                                                ComOduAdapatationType_NNI_A.Items.Add(adaptation_type1.InnerText);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduAdapatationType_NNI_A.Items.Add(result_type);
                                                 ComOduAdapatationType_NNI_A.SelectedIndex = 0;
-                                                ComOduAdapatationType_NNI_B.Items.Add(adaptation_type1.InnerText);
+                                                ComOduAdapatationType_NNI_B.Items.Add(result_type);
                                                 ComOduAdapatationType_NNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -1757,9 +1779,14 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                ComOduSwitchCapability_NNI_A.Items.Add(switch_capability1.InnerText);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduSwitchCapability_NNI_A.Items.Add(result_type);
                                                 ComOduSwitchCapability_NNI_A.SelectedIndex = 0;
-                                                ComOduSwitchCapability_NNI_B.Items.Add(switch_capability1.InnerText);
+                                                ComOduSwitchCapability_NNI_B.Items.Add(result_type);
                                                 ComOduSwitchCapability_NNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -1838,7 +1865,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                ComOduOdusignalType_NNI_B.Items.Add(odu_signal_type1.InnerText);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduOdusignalType_NNI_B.Items.Add(result_type);
                                                 ComOduOdusignalType_NNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -1848,7 +1880,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-                                                ComOduAdapatationType_NNI_B.Items.Add(adaptation_type1.InnerText);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduAdapatationType_NNI_B.Items.Add(result_type);
                                                 ComOduAdapatationType_NNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -1858,7 +1895,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                ComOduSwitchCapability_NNI_B.Items.Add(switch_capability1.InnerText);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduSwitchCapability_NNI_B.Items.Add(result_type);
                                                 ComOduSwitchCapability_NNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -1938,9 +1980,13 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
 
-
-                                                ComOduOduSignalType_UNI_B.Items.Add(odu_signal_type1.InnerText);
+                                                ComOduOduSignalType_UNI_B.Items.Add(result_type);
                                                 ComOduOduSignalType_UNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -1951,8 +1997,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-
-                                                ComOduAdapataionType_UNI_B.Items.Add(adaptation_type1.InnerText);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduAdapataionType_UNI_B.Items.Add(result_type);
                                                 ComOduAdapataionType_UNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -1963,7 +2013,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                ComOduSwitchApability_UNI_B.Items.Add(switch_capability1.InnerText);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduSwitchApability_UNI_B.Items.Add(result_type);
                                                 ComOduSwitchApability_UNI_B.SelectedIndex = 0;
                                             }
                                         }
@@ -2429,9 +2484,13 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
 
-
-                                                ComEthPrimayOduType.Items.Add(odu_signal_type1.InnerText);
+                                                ComEthPrimayOduType.Items.Add(result_type);
                                                 ComEthPrimayOduType.SelectedIndex = 0;
                                             }
                                         }
@@ -2442,8 +2501,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-
-                                                ComEthPrimayAdaType.Items.Add(adaptation_type1.InnerText);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComEthPrimayAdaType.Items.Add(result_type);
                                                 ComEthPrimayAdaType.SelectedIndex = 0;
                                             }
                                         }
@@ -2454,7 +2517,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                ComEthPrimarySwitch.Items.Add(switch_capability1.InnerText);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComEthPrimarySwitch.Items.Add(result_type);
                                                 ComEthPrimarySwitch.SelectedIndex = 0;
                                             }
                                         }
@@ -2534,9 +2602,13 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
 
-
-                                                ComEthSecOduType.Items.Add(odu_signal_type1.InnerText);
+                                                ComEthSecOduType.Items.Add(result_type);
                                                 ComEthSecOduType.SelectedIndex = 0;
                                             }
                                         }
@@ -2547,8 +2619,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-
-                                                ComEthSecAdaType.Items.Add(adaptation_type1.InnerText);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComEthSecAdaType.Items.Add(result_type);
                                                 ComEthSecAdaType.SelectedIndex = 0;
                                             }
                                         }
@@ -2559,7 +2635,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                ComEthSecSwitch.Items.Add(switch_capability1.InnerText);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComEthSecSwitch.Items.Add(result_type);
                                                 ComEthSecSwitch.SelectedIndex = 0;
                                             }
                                         }
@@ -3270,7 +3351,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                ComSdhNniOdu_A.Items.Add(odu_signal_type1.InnerText);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComSdhNniOdu_A.Items.Add(result_type);
                                                 ComSdhNniOdu_A.SelectedIndex = 0;
                                             }
                                         }
@@ -3280,7 +3366,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-                                                ComSdhNniAda_A.Items.Add(adaptation_type1.InnerText);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComSdhNniAda_A.Items.Add(result_type);
                                                 ComSdhNniAda_A.SelectedIndex = 0;
                                             }
                                         }
@@ -3290,7 +3381,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                ComSdhNniSwitch_A.Items.Add(switch_capability1.InnerText);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComSdhNniSwitch_A.Items.Add(result_type);
                                                 ComSdhNniSwitch_A.SelectedIndex = 0;
                                             }
                                         }
@@ -3366,7 +3462,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                ComSdhNniOdu_B.Items.Add(odu_signal_type1.InnerText);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComSdhNniOdu_B.Items.Add(result_type);
                                                 ComSdhNniOdu_B.SelectedIndex = 0;
                                             }
                                         }
@@ -3376,7 +3477,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-                                                ComSdhNniAda_B.Items.Add(adaptation_type1.InnerText);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComSdhNniAda_B.Items.Add(result_type);
                                                 ComSdhNniAda_B.SelectedIndex = 0;
                                             }
                                         }
@@ -3386,7 +3492,12 @@ namespace NetConfClientSoftware
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                ComSdhNniSwitch_B.Items.Add(switch_capability1.InnerText);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComSdhNniSwitch_B.Items.Add(result_type);
                                                 ComSdhNniSwitch_B.SelectedIndex = 0;
                                             }
                                         }
@@ -4781,46 +4892,6 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             ButFind.PerformClick();
         }
 
-        private void ButDelay_Click(object sender, EventArgs e)
-        {
-
-            int id = int.Parse(treeViewNEID.SelectedNode.Name);
-            int line = -1;
-            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
-            {
-                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
-                {
-                    line = i;
-                    break;
-                }
-                if (line >= 0)
-                    break;
-            }
-            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-            XmlDocument xmlDoc = new XmlDocument();
-            if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
-            {
-                return;
-            }
-            if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
-            {
-                return;
-            }
-            if (ComPtpCtpFtp.Text.Contains("PTP") && ComPtpCtpFtp.Text.Contains("CTP"))
-            {
-                xmlDoc = Sendrpc(ModifyXML.Odu_ctp_delay(ComPtpCtpFtp.Text, "true"), id, ip);
-
-
-            }
-            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
-            {
-                return;
-            }
-            LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
-            Thread.Sleep(3000);
-            ButFind.PerformClick();
-        }
-
         private void oDUFlex带宽调整ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -5754,8 +5825,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 ComSdhNniVcType_B.Items.Clear();
                 ComEthServiceMappingMode.Enabled = true;
                 ComSdhSerMap.Enabled = true;
-                string[] collectionSDH = new string[4] { "acc-otn-types:STM-1", "acc-otn-types:STM-4", "acc-otn-types:STM-16", "acc-otn-types:STM-64" };
-                string[] collectionVC = new string[3] { "acc-otn-types:VC-12", "acc-otn-types:VC-3", "acc-otn-types:VC-4" };
+                string[] collectionSDH = new string[4] { "STM-1", "STM-4", "STM-16", "STM-64" };
+                string[] collectionVC = new string[3] { "VC-12", "VC-3", "VC-4" };
 
                 foreach (var item in collectionSDH)
                 {

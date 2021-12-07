@@ -15,7 +15,30 @@ namespace NetConfClientSoftware
         string _sdh_signal_type, string _vc_type, string _mapping_path, string _sdh_signal_type_protect, string _mapping_path_protect,string _lcas,string _hold_off,string _wtr,string _tsd
 )
         {
+            string xmlns = "";
+            _layer_protoco_name = "acc-eth:" + _layer_protoco_name;
+            if (ips.Contains("联通"))
+            {
+                xmlns = "otn-types:";
+                _primary_odu = xmlns + _primary_odu;
+                _primary_switch = xmlns + _primary_switch;
+                _secondary_odu = xmlns + _secondary_odu;
+                _secondary_switch = xmlns + _secondary_switch;
+            }
+            if (ips.Contains("移动"))
+            {
+                xmlns = "acc-otn-types:";
+                _primary_ada = xmlns + _primary_ada;
+                _primary_odu = xmlns + _primary_odu;
+                _primary_switch = xmlns + _primary_switch;
+                _secondary_ada = xmlns + _secondary_ada;
+                _secondary_odu = xmlns + _secondary_odu;
+                _secondary_switch = xmlns + _secondary_switch;
+                _sdh_signal_type = xmlns + _sdh_signal_type;
+                _vc_type = xmlns + _vc_type;
+                _sdh_signal_type_protect = xmlns + _sdh_signal_type_protect;
 
+            }
             XmlDocument commonXml = new XmlDocument();
             //  创建XML文档，存在就删除再生成
             XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
@@ -80,6 +103,7 @@ namespace NetConfClientSoftware
                     create_eth_connection.AppendChild(service_type);
                     //层协议
                     XmlElement layer_protocol_name = commonXml.CreateElement("layer-protocol-name");
+                    layer_protocol_name.SetAttribute("xmlns:acc-eth", "urn:ccsa:yang:acc-eth");
                     layer_protocol_name.InnerText = _layer_protoco_name;
                     create_eth_connection.AppendChild(layer_protocol_name);
 
@@ -359,6 +383,7 @@ namespace NetConfClientSoftware
                     create_eth_connection.AppendChild(service_type);
                     //层协议
                     XmlElement layer_protocol_name = commonXml.CreateElement("layer-protocol-name");
+                    layer_protocol_name.SetAttribute("xmlns:acc-eth", "urn:ccsa:yang:acc-eth");
                     layer_protocol_name.InnerText = _layer_protoco_name;
                     create_eth_connection.AppendChild(layer_protocol_name);
 
@@ -514,19 +539,19 @@ namespace NetConfClientSoftware
 
                         //净荷类型
                         XmlElement _adaptation_type = commonXml.CreateElement("adaptation-type");
-                        _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                       // _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
                         _adaptation_type.InnerText = _primary_ada;
                         primary_nni.AppendChild(_adaptation_type);
 
                         //ODU类型
                         XmlElement _odu_signal_type = commonXml.CreateElement("client-signal-type");
-                        _odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                         _odu_signal_type.InnerText = _primary_odu;
                         primary_nni.AppendChild(_odu_signal_type);
 
                         //交换类型
                         XmlElement _switch_capability = commonXml.CreateElement("switch-capability");
-                        _switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                         _switch_capability.InnerText = _primary_switch;
                         primary_nni.AppendChild(_switch_capability);
 
@@ -579,19 +604,19 @@ namespace NetConfClientSoftware
 
                         //净荷类型
                         XmlElement _adaptation_type = commonXml.CreateElement("adaptation-type");
-                        _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        //_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
                         _adaptation_type.InnerText = _primary_ada;
                         primary_nni.AppendChild(_adaptation_type);
 
                         //ODU类型
                         XmlElement _odu_signal_type = commonXml.CreateElement("client-signal-type");
-                        _odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                         _odu_signal_type.InnerText = _primary_odu;
                         primary_nni.AppendChild(_odu_signal_type);
 
                         //交换类型
                         XmlElement _switch_capability = commonXml.CreateElement("switch-capability");
-                        _switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        _switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                         _switch_capability.InnerText = _primary_switch;
                         primary_nni.AppendChild(_switch_capability);
 
@@ -605,13 +630,13 @@ namespace NetConfClientSoftware
                         create_eth_connection.AppendChild(eos_pac);
                         //SDH 信号类型
                         XmlElement sdh_signal_type = commonXml.CreateElement("sdh-signal-type");
-                        sdh_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                       // sdh_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
                         sdh_signal_type.InnerText = _sdh_signal_type;
                         eos_pac.AppendChild(sdh_signal_type);
 
                         //VC类型
                         XmlElement vc_type = commonXml.CreateElement("vc-type");
-                        vc_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                        //vc_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
                         vc_type.InnerText = _vc_type;
                         eos_pac.AppendChild(vc_type);
 
@@ -633,7 +658,7 @@ namespace NetConfClientSoftware
                         {
                             //SDH 信号类型
                             XmlElement sdh_signal_type_protect = commonXml.CreateElement("sdh-signal-type-protect");
-                            sdh_signal_type_protect.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                          //  sdh_signal_type_protect.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
                             sdh_signal_type_protect.InnerText = _sdh_signal_type_protect;
                             eos_pac.AppendChild(sdh_signal_type_protect);
 
@@ -691,19 +716,19 @@ namespace NetConfClientSoftware
 
                             //净荷类型
                             XmlElement _secondary_adaptation_type = commonXml.CreateElement("adaptation-type");
-                            _secondary_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                           // _secondary_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
                             _secondary_adaptation_type.InnerText = _secondary_ada;
                             secondary_nni.AppendChild(_secondary_adaptation_type);
 
                             //ODU类型
                             XmlElement _secondary_odu_signal_type = commonXml.CreateElement("client-signal-type");
-                            _secondary_odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                            _secondary_odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                             _secondary_odu_signal_type.InnerText = _secondary_odu;
                             secondary_nni.AppendChild(_secondary_odu_signal_type);
 
                             //交换类型
                             XmlElement _secondary_switch_capability = commonXml.CreateElement("switch-capability");
-                            _secondary_switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                            _secondary_switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                             _secondary_switch_capability.InnerText = _secondary_switch;
                             secondary_nni.AppendChild(_secondary_switch_capability);
                         }
@@ -724,19 +749,19 @@ namespace NetConfClientSoftware
 
                             //净荷类型
                             XmlElement _secondary_adaptation_type = commonXml.CreateElement("adaptation-type");
-                            _secondary_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                            //_secondary_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
                             _secondary_adaptation_type.InnerText = _secondary_ada;
                             secondary_nni.AppendChild(_secondary_adaptation_type);
 
                             //ODU类型
                             XmlElement _secondary_odu_signal_type = commonXml.CreateElement("client-signal-type");
-                            _secondary_odu_signal_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                            _secondary_odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                             _secondary_odu_signal_type.InnerText = _secondary_odu;
                             secondary_nni.AppendChild(_secondary_odu_signal_type);
 
                             //交换类型
                             XmlElement _secondary_switch_capability = commonXml.CreateElement("switch-capability");
-                            _secondary_switch_capability.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                            _secondary_switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                             _secondary_switch_capability.InnerText = _secondary_switch;
                             secondary_nni.AppendChild(_secondary_switch_capability);
                         }
