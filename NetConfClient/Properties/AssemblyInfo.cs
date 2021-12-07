@@ -6,7 +6,9 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("Netconf")]
+
 [assembly: AssemblyDescription("" +
+    "2021.12.07 修改业务创建，根据私有命名空间指定净荷类型" + "\r\n" +
     "2021.12.03 新增用户登录认证" + "\r\n" +
     "2021.12.03 自动化功能 支持匹配命名空间" + "\r\n" +
     "2021.12.02 支持EOS业务VCG时隙调整" + "\r\n" +
@@ -57,5 +59,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2021.11.10.17")]
-[assembly: AssemblyFileVersion("2021.11.10.17")]
+[assembly: AssemblyVersion("2021.12.7.1")]
+[assembly: AssemblyFileVersion("2021.12.7.1")]

@@ -30,6 +30,7 @@ namespace NetConfClientSoftware
         private Point mouseOff;//鼠标移动位置变量
         private bool leftFlag;//标签是否为左键
         public static string remember = "是";
+        public static string ip = ""; 
         /// <summary>
         /// 写入INI文件
         /// </summary>
@@ -174,7 +175,7 @@ namespace NetConfClientSoftware
                 conn.Open();
                 licence = "1";
                 sn = MachineCode.GetMachineCodeString();
-                String sql = "UPDATE users set "+ "pass = '" + password + "',update_time = '" + update_time + "'Where user = '"+user+"'";
+                String sql = "UPDATE users set "+ "pass = '" + password + "',update_time = '" + update_time + "',ipaddress = '" + ip + "'Where user = '"+user+"'";
                 //String sql = "select user,pass,licence,sn from users where user='" + username + "'and pass='" + password + "'and licence='" + licence + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                // MySqlDataReader sqlDataReader = cmd.ExecuteReader();
@@ -263,6 +264,29 @@ namespace NetConfClientSoftware
         /// <param name="e"></param>
         private void Form_Login_Load(object sender, EventArgs e)
         {
+            var t0_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("http://myip.ipip.net", "utf-8"));// 111.198.29.123
+
+            // var t2_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("https://www.whatismyip.com/my-ip-information/", "utf-8"));// 111.198.29.123
+            //var t3_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("https://www.cman.jp/network/support/go_access.cgi", "utf-8"));// 111.198.29.123
+            if (!string.IsNullOrEmpty(t0_ip))
+            {
+                ip = t0_ip;
+            }
+            else
+            {
+                var t1_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("http://www.net.cn/static/customercare/yourip.asp", "gbk"));// 111.198.29.123
+                if (!string.IsNullOrEmpty(t1_ip))
+                {
+                    ip = t1_ip;
+                }
+            }
+            if (string.IsNullOrEmpty(ip))
+            {
+                MessageBox.Show("设备未接入互联网，请接入互联网后再此尝试！" + MachineCode.GetMachineCodeString());
+                this.DialogResult = DialogResult.Cancel;
+                return;
+            }
+
             user = Form_Login.user;
             textBoxUser.Text = user;
             email = "";

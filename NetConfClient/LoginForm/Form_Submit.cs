@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,6 +26,7 @@ namespace NetConfClientSoftware
         public static string email = "";
         public static string licence = "";
         public static string sn = "";
+        public static string ip = "";
         // private string strFilePath = Application.StartupPath + "\\Config.ini";//获取INI文件路径
         private string strFilePath = @"C:\netconf\Config.ini";
         private string strSec = ""; //INI文件名
@@ -202,7 +204,7 @@ namespace NetConfClientSoftware
                 }
                 else {
                     sqlDataReader.Close();
-                    sql = "INSERT INTO users(user,pass,mail,licence,sn,create_time,update_time) VALUES('" + user + "','" + password + "','" + email + "','" + licence + "','" + sn + "','" + create_time + "','" + update_time + "')"; // 没有判断重复插入
+                    sql = "INSERT INTO users(user,pass,mail,licence,sn,create_time,update_time,ipaddress) VALUES('" + user + "','" + password + "','" + email + "','" + licence + "','" + sn + "','" + create_time + "','" + update_time + "','" + ip + "')"; // 没有判断重复插入
                     cmd = new MySqlCommand(sql, conn);
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("注册成功");
@@ -248,6 +250,39 @@ namespace NetConfClientSoftware
         private void Form_Submit_Load(object sender, EventArgs e)
         {
             textSN.Text = MachineCode.GetMachineCodeString();
+            // 
+            var t0_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("http://myip.ipip.net", "utf-8"));// 111.198.29.123
+
+            // var t2_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("https://www.whatismyip.com/my-ip-information/", "utf-8"));// 111.198.29.123
+            //var t3_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("https://www.cman.jp/network/support/go_access.cgi", "utf-8"));// 111.198.29.123
+            if (!string.IsNullOrEmpty(t0_ip))
+            {
+                ip = t0_ip;
+            }
+            else {
+                var t1_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("http://www.net.cn/static/customercare/yourip.asp", "gbk"));// 111.198.29.123
+                if (!string.IsNullOrEmpty(t1_ip))
+                {
+                    ip = t1_ip;
+                }
+            }
+            if (string.IsNullOrEmpty(ip))
+            {
+                MessageBox.Show("设备未接入互联网，请接入互联网后再此尝试！"+MachineCode.GetMachineCodeString());
+                this.DialogResult = DialogResult.Cancel;
+                return;
+            }
+
+            //if (!string.IsNullOrEmpty(t2_ip))
+            //{
+            //    ip = t2_ip;
+            //}
+            //if (!string.IsNullOrEmpty(t3_ip))
+            //{
+            //    ip = t3_ip;
+            //}
+
         }
+       
     }
 }

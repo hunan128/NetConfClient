@@ -27,7 +27,7 @@ namespace NetConfClientSoftware
         private string strFilePath = @"C:\netconf\Config.ini";
         private string strSec = ""; //INI文件名
         public static String connetStr = "";
-      
+
         private Point mouseOff;//鼠标移动位置变量
         private bool leftFlag;//标签是否为左键
         public static string remember = "是";
@@ -166,40 +166,51 @@ namespace NetConfClientSoftware
                 leftFlag = false;//释放鼠标后标注为false;
             }
         }
+        MySqlConnection conn = new MySqlConnection(connetStr);
+        
         private void ButtonLogin_Click(object sender, EventArgs e)
         {
             try
             {
-                //String username, password, licence, sn;
-                user = textBoxUser.Text;
-                password = textBoxPass.Text;
-
-                MySqlConnection conn = new MySqlConnection(connetStr);
-                conn.Open();
+                if (checkBoxRe.Checked == true)
+                {
+                    remember = "是";
+                }
+                else
+                {
+                    remember = "否";
+                }
                 licence = "1";
                 sn = MachineCode.GetMachineCodeString();
-
-                String sql = "select user,pass,licence,sn from users where user='" + user + "'and pass='" + password + "'and licence='" + licence + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
+                
+                String sql = "select user,pass,licence,sn from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'and licence='" + licence + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader sqlDataReader = cmd.ExecuteReader();
                 if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                 {
                     MessageBox.Show("在线认证成功：用户名、密码、机器码、License认证成功");
-
+                    user = textBoxUser.Text;
+                    password = textBoxPass.Text;
+                    Setini();
+                    conn.Close();
                     this.DialogResult = DialogResult.OK;
                     this.Dispose();
                     this.Close();
+
                 }
                 else
                 {
                     sqlDataReader.Close();
-                    sql = "select user,pass,sn from users where user='" + user + "'and pass='" + password + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
+                    sql = "select user,pass,sn from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
                     cmd = new MySqlCommand(sql, conn);
                     sqlDataReader = cmd.ExecuteReader();
                     if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                     {
                         MessageBox.Show("在线认证成功：用户名、密码、机器码认证成功");
-
+                        user = textBoxUser.Text;
+                        password = textBoxPass.Text;
+                        Setini();
+                        conn.Close();
                         this.DialogResult = DialogResult.OK;
                         this.Dispose();
                         this.Close();
@@ -207,13 +218,16 @@ namespace NetConfClientSoftware
                     else
                     {
                         sqlDataReader.Close();
-                        sql = "select user,pass,licence from users where user='" + user + "'and pass='" + password + "'and licence='" + licence + "'";//SQL语句实现表数据的读取
+                        sql = "select user,pass,licence from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'and licence='" + licence + "'";//SQL语句实现表数据的读取
                         cmd = new MySqlCommand(sql, conn);
                         sqlDataReader = cmd.ExecuteReader();
                         if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                         {
                             MessageBox.Show("在线认证成功：用户名、密码、Licence认证成功");
-
+                            user = textBoxUser.Text;
+                            password = textBoxPass.Text;
+                            Setini();
+                            conn.Close();
                             this.DialogResult = DialogResult.OK;
                             this.Dispose();
                             this.Close();
@@ -221,28 +235,29 @@ namespace NetConfClientSoftware
                         else
                         {
                             sqlDataReader.Close();
-                            sql = "select user,pass from users where user='" + user + "'and pass='" + password + "'";//SQL语句实现表数据的读取
+                            sql = "select user,pass from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'";//SQL语句实现表数据的读取
                             cmd = new MySqlCommand(sql, conn);
                             sqlDataReader = cmd.ExecuteReader();
                             if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                             {
-                                MessageBox.Show("在线认证成功：用户名密码认证成功，License认证失败。请联系作者：sxhunan@163.com,开通权限");
+                                MessageBox.Show("在线认证失败：用户名密码认证成功，License认证失败。请联系作者：sxhunan@163.com,开通权限");
                             }
                             else
                             {
                                 //MessageBox.Show("账号或密码错误或未注册");
                                 sqlDataReader.Close();
-                                sql = "select user from users where user='" + user +"'";//SQL语句实现表数据的读取
+                                sql = "select user from users where user='" + textBoxUser.Text + "'";//SQL语句实现表数据的读取
                                 cmd = new MySqlCommand(sql, conn);
                                 sqlDataReader = cmd.ExecuteReader();
                                 if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                                 {
-                                    MessageBox.Show("密码不正确");
+                                    MessageBox.Show("在线认证失败：密码不正确");
                                 }
                                 else
                                 {
-                                    MessageBox.Show("用户不存在,请先进行注册");
+                                    MessageBox.Show("在线认证失败：用户不存在,请先进行注册");
                                 }
+                               sqlDataReader.Close();
                             }
 
                         }
@@ -250,16 +265,19 @@ namespace NetConfClientSoftware
                     }
                     //MessageBox.Show("账号或密码错误或未注册");
                 }
-                conn.Close();
+               // conn.Close();
             }
             catch (Exception ex){
-                MessageBox.Show(ex.ToString());
+                //MessageBox.Show(ex.ToString());
+               // Getini();
                 if (user == textBoxUser.Text && password == textBoxPass.Text )
                 {
                     if (sn == MachineCode.GetMachineCodeString())
                     {
                         MessageBox.Show("离线认证成功：机器码认证成功");
-
+                        user = textBoxUser.Text;
+                        password = textBoxPass.Text;
+                        Setini();
                         this.DialogResult = DialogResult.OK;
                         this.Dispose();
                         this.Close();
@@ -277,13 +295,8 @@ namespace NetConfClientSoftware
 
             }
 
-            if (checkBoxRe.Checked == true) {
-                remember = "是";
-            }
-            else {
-                remember = "否";
-            }
-            Setini();
+
+          
         }
 
         private void PicClose_Click(object sender, EventArgs e)
@@ -315,6 +328,12 @@ namespace NetConfClientSoftware
         private void Form_Login_Load(object sender, EventArgs e)
         {
             Getini();
+            try {
+                conn.Open();
+            }catch{
+                MessageBox.Show("连接服务器失败！");
+            }
+           
         }
 
         private void Forget_Password_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

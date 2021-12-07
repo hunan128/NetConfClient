@@ -139,7 +139,7 @@ namespace NetConfClientSoftware
                                 }
                             }
                             else {
-                                nodes.Add(inXmlNode.Name + "(" + value + ")");
+                                nodes.Add(text + "(" + value + ")");
                             }
                         }
                        

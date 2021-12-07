@@ -99,6 +99,7 @@ namespace NetConfClientSoftware
                                 {
 
                                     _element_bool = true;
+                                    _value_bool = true;
                                     //if (value == _value) { _value_bool = true; }
                                     if (ips.Contains("联通"))
                                     {
@@ -110,8 +111,17 @@ namespace NetConfClientSoftware
                                                 {
                                                     if (CUCC_Array[g][2].Contains(value))
                                                     {
-                                                        _value_bool = true;
-                                                        break;
+                                                        _value_bool = false;
+                                                        string[] value_ = CUCC_Array[g][2].Split(',');
+                                                        for (int l = 0; l < value_.Length; l++)
+                                                        {
+                                                            if (value_[l] == value) {
+                                                                _value_bool = true;
+                                                                break;
+                                                            }
+                                                        }
+                                                        
+
                                                     }
                                                     else
                                                     {
@@ -123,8 +133,16 @@ namespace NetConfClientSoftware
                                                                 {
                                                                     if (CUCC_Array[h][2].Contains(value))
                                                                     {
-                                                                        _value_bool = true;
-                                                                        break;
+                                                                        _value_bool = false;
+                                                                        string[] value_ = CUCC_Array[h][2].Split(',');
+                                                                        for (int l = 0; l < value_.Length; l++)
+                                                                        {
+                                                                            if (value_[l] == value)
+                                                                            {
+                                                                                _value_bool = true;
+                                                                                break;
+                                                                            }
+                                                                        }
                                                                     }
                                                                     else
                                                                     {
@@ -140,7 +158,7 @@ namespace NetConfClientSoftware
                                                         break;
                                                     }
                                                 }
-                                                _value_bool = true;
+                                              //  _value_bool = true;
                                             }
 
 
@@ -160,8 +178,16 @@ namespace NetConfClientSoftware
                                                 {
                                                     if (CTCC_Array[g][2].Contains(value))
                                                     {
-                                                        _value_bool = true;
-                                                        break;
+                                                        _value_bool = false;
+                                                        string[] value_ = CTCC_Array[g][2].Split(',');
+                                                        for (int l = 0; l < value_.Length; l++)
+                                                        {
+                                                            if (value_[l] == value)
+                                                            {
+                                                                _value_bool = true;
+                                                                break;
+                                                            }
+                                                        }
                                                     }
                                                     else
                                                     {
@@ -169,7 +195,7 @@ namespace NetConfClientSoftware
                                                         break;
                                                     }
                                                 }
-                                                _value_bool = true;
+                                             //   _value_bool = true;
                                             }
 
 
@@ -189,8 +215,16 @@ namespace NetConfClientSoftware
                                                 {
                                                     if (CMCC_Array[g][2].Contains(value))
                                                     {
-                                                        _value_bool = true;
-                                                        break;
+                                                        _value_bool = false;
+                                                        string[] value_ = CMCC_Array[g][2].Split(',');
+                                                        for (int l = 0; l < value_.Length; l++)
+                                                        {
+                                                            if (value_[l] == value)
+                                                            {
+                                                                _value_bool = true;
+                                                                break;
+                                                            }
+                                                        }
                                                     }
                                                     else
                                                     {
@@ -198,7 +232,7 @@ namespace NetConfClientSoftware
                                                         break;
                                                     }
                                                 }
-                                                _value_bool = true;
+                                             //   _value_bool = true;
                                             }
 
 
