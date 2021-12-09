@@ -25,7 +25,7 @@ namespace NetConfClientSoftware
         public static string licence = "";
         public static string sn = "";
         private string strFilePath = @"C:\netconf\Config.ini";
-        private string strSec = ""; //INI文件名
+        private string strSec = ""; //INI内容标题名称
         public static String connetStr = "";
 
         private Point mouseOff;//鼠标移动位置变量

@@ -429,6 +429,7 @@ namespace NetConfClientSoftware
                     text = inXmlNode.Name;
                 for (int i = 0; i < inXmlNode.Attributes.Count; i++)
                 {
+                    if(!string.IsNullOrEmpty(inXmlNode.Attributes[i].OuterXml))
                     text = text + " " + inXmlNode.Attributes[i].OuterXml;
 
                 }
@@ -440,11 +441,36 @@ namespace NetConfClientSoftware
                     if (!xNode.HasChildNodes)
                     {
                         // If the node has an attribute "name", use that.  Otherwise display the entire text of the node.
+                        //string value = GetAttributeText(xNode, "name");
+                        //if (string.IsNullOrEmpty(value)) {
+                        //    value = (xNode.OuterXml).Trim();
+                        //}
+                        //nodes.Add(text + "(" + value + ")");
+
                         string value = GetAttributeText(xNode, "name");
                         if (string.IsNullOrEmpty(value))
-                            value = (xNode.OuterXml).Trim();
-                        //nodes.Remove(newNode);
-                        nodes.Add(text + "(" + value + ")");
+                        {
+                            value = xNode.Value;
+                            if (string.IsNullOrEmpty(value))
+                            {
+                                // value = xNode.Name + " "+ xNode.Attributes[0].OuterXml;
+                                value = xNode.Name;
+                                if (i == 0)
+                                {
+                                    TreeNode textnode = new TreeNode();
+                                    textnode.Text = text;
+                                    textnode.Nodes.Add(value);
+                                    nodes.Add(textnode);
+                                }
+                            }
+                            else
+                            {
+                                nodes.Add(text + "(" + value + ")");
+                            }
+                        }
+
+
+
                     }
                     else
                     {
@@ -1119,9 +1145,9 @@ namespace NetConfClientSoftware
             ComEthVlanType.SelectedIndex = 0;
             ComEthServiceMappingMode.SelectedIndex = 0;
             ComEthPrimayTs.SelectedIndex = 0;
-            ComEosSdhSignalType.SelectedIndex = 2;
-            ComEosSdhSignalTypeProtect.SelectedIndex = 2;
-            ComVCType.SelectedIndex = 2;
+           // ComEosSdhSignalType.SelectedIndex = 2;
+          //  ComEosSdhSignalTypeProtect.SelectedIndex = 2;
+         //   ComVCType.SelectedIndex = 2;
             ComTSD.SelectedIndex = 0;
             ComLCAS.SelectedIndex = 0;
             ComEthFtpVlanAccess.SelectedIndex = 2;
@@ -1130,13 +1156,13 @@ namespace NetConfClientSoftware
 
             ComSdhSer.SelectedIndex = 0;
             ComSdhPro.SelectedIndex = 7;
-            ComSdhUniSdhType.SelectedIndex = 2;
+         //   ComSdhUniSdhType.SelectedIndex = 2;
             ComSdhSerMap.SelectedIndex = 0;
-            ComSdhNniSdhtype_A.SelectedIndex = 2;
-            ComSdhNniVcType_A.SelectedIndex = 2;
+         //   ComSdhNniSdhtype_A.SelectedIndex = 2;
+         //   ComSdhNniVcType_A.SelectedIndex = 2;
             ComSdhNniTs_A.SelectedIndex = 0;
-            ComSdhNniSdhtype_B.SelectedIndex = 2;
-            ComSdhNniVcType_B.SelectedIndex = 2;
+         //   ComSdhNniSdhtype_B.SelectedIndex = 2;
+        //    ComSdhNniVcType_B.SelectedIndex = 2;
             ComSdhNniTs_B.SelectedIndex = 0;
 
             Control.CheckForIllegalCrossThreadCalls = false;

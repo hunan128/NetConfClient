@@ -243,6 +243,45 @@
   <metadata name="操作.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
+  <metadata name="单板名称.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="是否在位.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="状态.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="板卡类型.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="XC能力.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="所属机框.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="所属子架.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="所在槽位.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="端口数量.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="软件版本.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="硬件版本.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="端口占用率.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="操作.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="连接名称.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -286,46 +325,6 @@
     <value>169, 18</value>
   </metadata>
   <data name="textBox2.Text" xml:space="preserve">
-    <value>0：如果查询后没有接口，请先在端口信息更改所在端口层协议为ETH。
-
-1：先点击“查询”，在选择接口和类型创建业务，接口和类型根据试试查询后的记过进行填充；
-
-2：保护类型、SNC与SNCP都不需要选，只需要选择了备用NNI接口会自动创建保护组；
-
-3：EOS业务创建 SDH类型和VC类型：移动yang（STM-16/VC-4）中间多一个“-”，联通yang则没有中间（STM16/VC4）；（与SDH业务一样）
-
-4：VLAN和时隙，只要填写就会下发对应节点，不填写，留空则不下发该节点；
-
-5：EOS备用SDH类型，填写了时隙，默认下SNCP基于VC时隙的保护，不填写则不下发保护；（与SDH业务一样）
-
-6：服务映射模式  只有移动用到改字段，联通yang则没有这个字段，是通过NNU口的设备类型进行配置的；
-
-7：NNI端口 备用，如果不需要配置保护，默认无即可。
-
-8：净荷类型 移动和电信为ETH-1Gb、STM-1、STM-4、STM-16、10GE-LAN、OTU2、OTU2E、OTU1、OTU0。联通较为特殊应该选择ODU1、ODU2、10GE-LAN、STM-16、STM-4、STM-1、ETH-1Gb.
-是什么接口类型就选择什么类型去创建业务，不要选择的类型接口本身都不支持肯定会创建失败的。</value>
-  </data>
-  <data name="textBox1.Text" xml:space="preserve">
-    <value>0：如果查询后没有接口，请先在端口信息更改所在端口层协议为ETH。
-
-1：先点击“查询”，在选择接口和类型创建业务，接口和类型根据试试查询后的记过进行填充；
-
-2：保护类型、SNC与SNCP都不需要选，只需要选择了备用NNI接口会自动创建保护组；
-
-3：EOS业务创建 SDH类型和VC类型：移动yang（STM-16/VC-4）中间多一个“-”，联通yang则没有中间（STM16/VC4）；（与SDH业务一样）
-
-4：VLAN和时隙，只要填写就会下发对应节点，不填写，留空则不下发该节点；
-
-5：EOS备用SDH类型，填写了时隙，默认下SNCP基于VC时隙的保护，不填写则不下发保护；（与SDH业务一样）
-
-6：服务映射模式  只有移动用到改字段，联通yang则没有这个字段，是通过NNU口的设备类型进行配置的；
-
-7：NNI端口 备用，如果不需要配置保护，默认无即可。
-
-8：净荷类型 移动和电信为ETH-1Gb、STM-1、STM-4、STM-16、10GE-LAN、OTU2、OTU2E、OTU1、OTU0。联通较为特殊应该选择ODU1、ODU2、10GE-LAN、STM-16、STM-4、STM-1、ETH-1Gb.
-是什么接口类型就选择什么类型去创建业务，不要选择的类型接口本身都不支持肯定会创建失败的。</value>
-  </data>
-  <data name="textBox3.Text" xml:space="preserve">
     <value>0：如果查询后没有接口，请先在端口信息更改所在端口层协议为ETH。
 
 1：先点击“查询”，在选择接口和类型创建业务，接口和类型根据试试查询后的记过进行填充；
@@ -536,7 +535,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdTeXN0ZW0uV2luZG93cy5Gb3JtcywgVmVyc2lvbj00LjAuMC4w
         LCBDdWx0dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPWI3N2E1YzU2MTkzNGUwODkFAQAAACZTeXN0
         ZW0uV2luZG93cy5Gb3Jtcy5JbWFnZUxpc3RTdHJlYW1lcgEAAAAERGF0YQcCAgAAAAkDAAAADwMAAABU
-        CwAAAk1TRnQBSQFMAgEBBgEAAVABAAFQAQABEAEAARABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAFA
+        CwAAAk1TRnQBSQFMAgEBBgEAAVgBAAFYAQABEAEAARABAAT/AREBAAj/AUIBTQE2BwABNgMAASgDAAFA
         AwABIAMAAQEBAAEQBgABEBIAAWABfgFgAX4BYAF+AWABfgFgAX4BYAF+AWABfgFgAX4BYAF+AWABfgFg
         AX4BYAF+AWABfgFgAX4BYAF+AWABfgHgAX8B4AF/AeABfwHgAX8B4AF/AeABfwHgAX8B4AF/AeABfwHg
         AX8B4AF/AeABfwHgAX8B4AF/AeABfwHgAX9AAAFgAX4BYAF+AWABfgFgAX4BYAF+AWABfgFgAX4BYAF+
