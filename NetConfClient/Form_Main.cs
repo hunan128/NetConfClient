@@ -4335,6 +4335,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                 int index = dataGridViewAuto.Rows.Add();
                 dataGridViewAuto.Rows[index].Cells["Auto编号"].Value = index;
                 dataGridViewAuto.Rows[index].Cells["Autoip地址"].Value = AutoXml.Ip;
+                dataGridViewAuto.Rows[index].Cells["Auto是否执行"].Value = AutoXml.Runnning;
+                dataGridViewAuto.Rows[index].Cells["Auto等待时间"].Value = AutoXml.Time;
                 dataGridViewAuto.Rows[index].Cells["Auto功能模块"].Value = AutoXml.Mode;
                 dataGridViewAuto.Rows[index].Cells["Auto用例标题"].Value = AutoXml.Title;
                 dataGridViewAuto.Rows[index].Cells["Auto运营商"].Value = AutoXml.Ips;
@@ -4379,7 +4381,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
             for (int i = 0; i < dataGridViewAuto.RowCount - 1; i++)
             {
-                Thread.Sleep(50);
+               // Thread.Sleep(50);
                 dataGridViewAuto.CurrentCell = dataGridViewAuto.Rows[i].Cells[0];
 
                 if (stop)
@@ -4393,6 +4395,19 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                     ma = new ManualResetEvent(false);
                     ma.WaitOne();
                 }
+                if (dataGridViewAuto.Rows[i].Cells["Auto是否执行"].Value.ToString() == "否") {
+
+                    continue;
+                }
+                int T = 50;
+                try
+                {
+                    T = int.Parse(dataGridViewAuto.Rows[i].Cells["Auto等待时间"].Value.ToString());
+                }
+                catch {
+
+                }
+                Thread.Sleep(T);
                 DateTime startTime = System.DateTime.Now;
                 dataGridViewAuto.Rows[i].Cells["Auto开始时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                 if (dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value != null && dataGridViewAuto.Rows[i].Cells["Auto预期"].Value != null)
@@ -4418,7 +4433,7 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             }
                             int id = int.Parse(dataGridViewNeInformation.Rows[line].Cells["SSH_ID"].Value.ToString());
                             // string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                            string ips = dataGridViewAuto.Rows[line].Cells["Auto运营商"].Value.ToString();
+                            string ips = dataGridViewAuto.Rows[i].Cells["Auto运营商"].Value.ToString();
                             var result = RPC.Send(xmlDoc, id, ip);
                             dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                             DateTime endTime = System.DateTime.Now;
@@ -4626,6 +4641,11 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                             int index = dataGridViewAuto.Rows.Add();
                             dataGridViewAuto.Rows[i].Cells["Auto编号"].Value = i;
                             dataGridViewAuto.Rows[i].Cells["Autoip地址"].Value = dataTable.Rows[i]["ip地址"].ToString();
+                            ((DataGridViewComboBoxCell)dataGridViewAuto.Rows[i].Cells["Auto是否执行"]).Items.Add("是");
+                            ((DataGridViewComboBoxCell)dataGridViewAuto.Rows[i].Cells["Auto是否执行"]).Items.Add("否");
+                            ((DataGridViewComboBoxCell)dataGridViewAuto.Rows[i].Cells["Auto是否执行"]).Value = dataTable.Rows[i]["是否执行"].ToString();
+                            // dataGridViewAuto.Rows[i].Cells["Auto是否执行"].Value = dataTable.Rows[i]["是否执行"].ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto等待时间"].Value = dataTable.Rows[i]["等待时间"].ToString();
                             dataGridViewAuto.Rows[i].Cells["Auto功能模块"].Value = dataTable.Rows[i]["功能模块"].ToString();
                             dataGridViewAuto.Rows[i].Cells["Auto用例标题"].Value = dataTable.Rows[i]["用例标题"].ToString();
                             dataGridViewAuto.Rows[i].Cells["Auto运营商"].Value = dataTable.Rows[i]["运营商"].ToString();
@@ -6705,6 +6725,38 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             Clipboard.SetData(DataFormats.Text, "http://hunan128.com/index.php/2021/09/02/netconfclient工具发布/");//复制内容到剪切板
             MessageBox.Show("链接已复制，请粘贴使用");
             //Process.Start("http://hunan128.com/index.php/2021/09/02/netconfclient工具发布/");
+        }
+
+        private void 取消执行ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.dataGridViewAuto.SelectedRows)
+            {
+                if (!row.IsNewRow)
+                {
+                    //dataGridViewAuto.Rows[row.Index].Cells["Auto是否执行"].Value = "否";
+                    ((DataGridViewComboBoxCell)dataGridViewAuto.Rows[row.Index].Cells["Auto是否执行"]).Items.Add("否");
+                    ((DataGridViewComboBoxCell)dataGridViewAuto.Rows[row.Index].Cells["Auto是否执行"]).Value = "否";
+                }
+            }
+            MessageBox.Show("修改完成");
+        }
+
+        private void 确认执行ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.dataGridViewAuto.SelectedRows)
+            {
+                if (!row.IsNewRow)
+                {
+                    ((DataGridViewComboBoxCell)dataGridViewAuto.Rows[row.Index].Cells["Auto是否执行"]).Items.Add("是");
+                    ((DataGridViewComboBoxCell)dataGridViewAuto.Rows[row.Index].Cells["Auto是否执行"]).Value = "是";
+                }
+            }
+            MessageBox.Show("修改完成");
+        }
+
+        private void dataGridViewAuto_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

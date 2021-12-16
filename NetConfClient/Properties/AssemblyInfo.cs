@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Netconf")]
 
 [assembly: AssemblyDescription("" +
+    "2021.12.16 修改自动化测试模块，支持选择是否执行和等待时间" + "\r\n" +
     "2021.12.07 修改业务创建，根据私有命名空间指定净荷类型" + "\r\n" +
     "2021.12.03 新增用户登录认证" + "\r\n" +
     "2021.12.03 自动化功能 支持匹配命名空间" + "\r\n" +

@@ -37,7 +37,15 @@ namespace NetConfClientSoftware
         /// </summary>
         public string Ip {
             get { return ipaddress.Text; }
-        } 
+        }
+        public string Runnning
+        {
+            get { return comboBoxRunning.Text; }
+        }
+        public string Time
+        {
+            get { return textBoxTime.Text; }
+        }
         public string Mode
         {
             get { return ComMode.Text; }

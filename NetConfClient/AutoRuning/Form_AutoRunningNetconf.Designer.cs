@@ -48,6 +48,11 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.comboBoxType = new System.Windows.Forms.ComboBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.comboBoxRunning = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.textBoxTime = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -69,7 +74,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 38);
+            this.label2.Location = new System.Drawing.Point(20, 85);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 12);
             this.label2.TabIndex = 1;
@@ -82,7 +87,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.用例标题.AutoSize = true;
-            this.用例标题.Location = new System.Drawing.Point(20, 65);
+            this.用例标题.Location = new System.Drawing.Point(20, 105);
             this.用例标题.Name = "用例标题";
             this.用例标题.Size = new System.Drawing.Size(53, 12);
             this.用例标题.TabIndex = 2;
@@ -95,7 +100,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 94);
+            this.label3.Location = new System.Drawing.Point(20, 129);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 12);
             this.label3.TabIndex = 3;
@@ -112,7 +117,7 @@
             // ComMode
             // 
             this.ComMode.FormattingEnabled = true;
-            this.ComMode.Location = new System.Drawing.Point(165, 39);
+            this.ComMode.Location = new System.Drawing.Point(165, 84);
             this.ComMode.Name = "ComMode";
             this.ComMode.Size = new System.Drawing.Size(305, 20);
             this.ComMode.TabIndex = 8;
@@ -120,7 +125,7 @@
             // ComTitle
             // 
             this.ComTitle.FormattingEnabled = true;
-            this.ComTitle.Location = new System.Drawing.Point(165, 65);
+            this.ComTitle.Location = new System.Drawing.Point(165, 105);
             this.ComTitle.Name = "ComTitle";
             this.ComTitle.Size = new System.Drawing.Size(305, 20);
             this.ComTitle.TabIndex = 9;
@@ -133,7 +138,7 @@
             "中国移动",
             "中国电信",
             "中国联通"});
-            this.comips.Location = new System.Drawing.Point(165, 91);
+            this.comips.Location = new System.Drawing.Point(165, 126);
             this.comips.Name = "comips";
             this.comips.Size = new System.Drawing.Size(305, 20);
             this.comips.TabIndex = 10;
@@ -156,11 +161,11 @@
             this.TextXml.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TextXml.Location = new System.Drawing.Point(165, 155);
+            this.TextXml.Location = new System.Drawing.Point(165, 172);
             this.TextXml.Multiline = true;
             this.TextXml.Name = "TextXml";
             this.TextXml.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TextXml.Size = new System.Drawing.Size(591, 227);
+            this.TextXml.Size = new System.Drawing.Size(591, 210);
             this.TextXml.TabIndex = 11;
             // 
             // label6
@@ -266,7 +271,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(20, 121);
+            this.label9.Location = new System.Drawing.Point(20, 150);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(53, 12);
             this.label9.TabIndex = 16;
@@ -280,16 +285,81 @@
             "节点",
             "通知",
             "值"});
-            this.comboBoxType.Location = new System.Drawing.Point(165, 118);
+            this.comboBoxType.Location = new System.Drawing.Point(165, 147);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(305, 20);
             this.comboBoxType.TabIndex = 17;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(20, 41);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(53, 12);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "是否执行";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // comboBoxRunning
+            // 
+            this.comboBoxRunning.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxRunning.FormattingEnabled = true;
+            this.comboBoxRunning.Items.AddRange(new object[] {
+            "是",
+            "否"});
+            this.comboBoxRunning.Location = new System.Drawing.Point(165, 36);
+            this.comboBoxRunning.Name = "comboBoxRunning";
+            this.comboBoxRunning.Size = new System.Drawing.Size(305, 20);
+            this.comboBoxRunning.TabIndex = 19;
+            // 
+            // label11
+            // 
+            this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(20, 63);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(53, 12);
+            this.label11.TabIndex = 20;
+            this.label11.Text = "等待时间";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // textBoxTime
+            // 
+            this.textBoxTime.Location = new System.Drawing.Point(165, 60);
+            this.textBoxTime.Name = "textBoxTime";
+            this.textBoxTime.Size = new System.Drawing.Size(305, 21);
+            this.textBoxTime.TabIndex = 21;
+            this.textBoxTime.Text = "1000";
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.AutoSize = true;
+            this.label12.ForeColor = System.Drawing.Color.Red;
+            this.label12.Location = new System.Drawing.Point(476, 63);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(47, 12);
+            this.label12.TabIndex = 22;
+            this.label12.Text = "单位:ms";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Form_AutoRunningNetconf
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(768, 797);
+            this.Controls.Add(this.label12);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.textBoxTime);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.comboBoxRunning);
             this.Controls.Add(this.comboBoxType);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label6);
@@ -339,5 +409,10 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox comboBoxType;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox comboBoxRunning;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox textBoxTime;
+        private System.Windows.Forms.Label label12;
     }
 }

@@ -120,7 +120,9 @@ namespace NetConfClientSoftware
                                                                 break;
                                                             }
                                                         }
-                                                        
+                                                        if (_value_bool) {
+                                                            break;
+                                                        }
 
                                                     }
                                                     else
@@ -188,6 +190,10 @@ namespace NetConfClientSoftware
                                                                 break;
                                                             }
                                                         }
+                                                        if (_value_bool)
+                                                        {
+                                                            break;
+                                                        }
                                                     }
                                                     else
                                                     {
@@ -224,6 +230,10 @@ namespace NetConfClientSoftware
                                                                 _value_bool = true;
                                                                 break;
                                                             }
+                                                        }
+                                                        if (_value_bool)
+                                                        {
+                                                            break;
                                                         }
                                                     }
                                                     else
