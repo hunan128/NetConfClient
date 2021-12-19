@@ -181,7 +181,7 @@ namespace NetConfClientSoftware
                     remember = "否";
                 }
                 licence = "1";
-                sn = MachineCode.GetMachineCodeString();
+                sn = MachineCode.GetHardDiskID();
                 
                 String sql = "select user,pass,licence,sn from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'and licence='" + licence + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
                 MySqlCommand cmd = new MySqlCommand(sql, conn);

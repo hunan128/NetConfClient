@@ -1132,7 +1132,7 @@ namespace NetConfClientSoftware
             TextOduService_type.SelectedIndex = 0;
             Com_nni_protection_type.SelectedIndex = 0;
             ComOduNniTsDetailClient_UNI_A.SelectedIndex = 0;
-            ComOduNniTsDetail_NNI_A.SelectedIndex = 0;
+            ComOduTsDetail_Primary_nni.SelectedIndex = 0;
             ComCreatConnection.SelectedIndex = 0;
 
             ComEthUniVlanAccessAction.SelectedIndex = 0;
@@ -1144,15 +1144,14 @@ namespace NetConfClientSoftware
             ComEthVlanPriority.SelectedIndex = 0;
             ComEthVlanType.SelectedIndex = 0;
             ComEthServiceMappingMode.SelectedIndex = 0;
-            ComEthPrimayTs.SelectedIndex = 0;
            // ComEosSdhSignalType.SelectedIndex = 2;
           //  ComEosSdhSignalTypeProtect.SelectedIndex = 2;
          //   ComVCType.SelectedIndex = 2;
             ComTSD.SelectedIndex = 0;
             ComLCAS.SelectedIndex = 0;
-            ComEthFtpVlanAccess.SelectedIndex = 2;
-            ComEthFtpVlanPriority.SelectedIndex = 0;
-            ComEthFtpVlanType.SelectedIndex = 1;
+            ComEthFtpVlanAccess_primary_nni.SelectedIndex = 2;
+            ComEthFtpVlanPriority_primary_nni.SelectedIndex = 0;
+            ComEthFtpVlanType_primary_nni.SelectedIndex = 1;
 
             ComSdhSer.SelectedIndex = 0;
             ComSdhPro.SelectedIndex = 7;
@@ -1522,9 +1521,10 @@ namespace NetConfClientSoftware
             try
             {
                 ComClientSideNni_UNI_A.Items.Clear();
-                ComClientSideNni_UNI_B.Items.Clear();
-                ComOduNniPtpName_NNI_A.Items.Clear();
-                ComOduNniPtpName_NNI_B.Items.Clear();
+                ComODUPtpNamesecondary_nni2.Items.Clear();
+                comODUPtpNamePrimary_nni2.Items.Clear();
+                comODUPtpNamePrimary_nni.Items.Clear();
+                ComODUPtpNamesecondary_nni.Items.Clear();
 
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 //// XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
@@ -1551,8 +1551,10 @@ namespace NetConfClientSoftware
                 root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
 
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
-                ComClientSideNni_UNI_B.Items.Add("无");
-                ComOduNniPtpName_NNI_B.Items.Add("无");
+                ComClientSideNni_UNI_A.Items.Add("无");
+                ComODUPtpNamesecondary_nni2.Items.Add("无");
+                comODUPtpNamePrimary_nni2.Items.Add("无");
+                ComODUPtpNamesecondary_nni.Items.Add("无");
 
                 foreach (XmlNode itemNode in itemNodes)
                 {
@@ -1562,22 +1564,31 @@ namespace NetConfClientSoftware
 
                     if (layer_protocol_name != null && interface_type != null)
                     {
-                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
+                        if (layer_protocol_name.InnerText.Contains("ODU"))
                         {
                             if (name != null)
                             {
-                                ComClientSideNni_UNI_A.Items.Add(name.InnerText);
-                                ComClientSideNni_UNI_A.SelectedIndex = 0;
-                                ComClientSideNni_UNI_B.Items.Add(name.InnerText);
-                                ComClientSideNni_UNI_B.SelectedIndex = 0;
-                                ComOduNniPtpName_NNI_A.Items.Add(name.InnerText);
-                                ComOduNniPtpName_NNI_A.SelectedIndex = 0;
-                                ComOduNniPtpName_NNI_B.Items.Add(name.InnerText);
-                                ComOduNniPtpName_NNI_B.SelectedIndex = 0;
+                                if (interface_type.InnerText.Contains("NNI"))
+                                {
 
+                                    comODUPtpNamePrimary_nni.Items.Add(name.InnerText);
+                                    comODUPtpNamePrimary_nni.SelectedIndex = 0;
+                                    ComODUPtpNamesecondary_nni.Items.Add(name.InnerText);
+                                    ComODUPtpNamesecondary_nni.SelectedIndex = 0;
+                                    ComODUPtpNamesecondary_nni2.Items.Add(name.InnerText);
+                                    ComODUPtpNamesecondary_nni2.SelectedIndex = 0;
+                                    comODUPtpNamePrimary_nni2.Items.Add(name.InnerText);
+                                    comODUPtpNamePrimary_nni2.SelectedIndex = 0;
+                                }
+                                if (interface_type.InnerText.Contains("UNI"))
+                                {
+                                    ComClientSideNni_UNI_A.Items.Add(name.InnerText);
+                                    ComClientSideNni_UNI_A.SelectedIndex = 0;
+                                }
                             }
 
-                        }
+                            }
+                           
                     }
                 }
                 // Console.Read();
@@ -1730,7 +1741,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComOduNniPtpName_NNI_A.Text), id, ip);
+                xmlDoc = Sendrpc(FindXML.PTP(comODUPtpNamePrimary_nni.Text), id, ip);
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1750,7 +1761,7 @@ namespace NetConfClientSoftware
                         {
                             if (name != null)
                             {
-                                if (ComOduNniPtpName_NNI_A.Text == name.InnerText)
+                                if (comODUPtpNamePrimary_nni.Text == name.InnerText)
                                 {
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
@@ -1762,8 +1773,8 @@ namespace NetConfClientSoftware
 
                                         if (odu_signal_type != null)
                                         {
-                                            ComOduOdusignalType_NNI_A.Items.Clear();
-                                            ComOduOdusignalType_NNI_B.Items.Clear();
+                                            ComOduOduSignalType_Primary_nni.Items.Clear();
+                                            ComOduOduSignalType_Secondary_nni.Items.Clear();
 
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
@@ -1773,16 +1784,16 @@ namespace NetConfClientSoftware
                                                 {
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
-                                                ComOduOdusignalType_NNI_A.Items.Add(result_type);
-                                                ComOduOdusignalType_NNI_A.SelectedIndex = 0;
-                                                ComOduOdusignalType_NNI_B.Items.Add(result_type);
-                                                ComOduOdusignalType_NNI_B.SelectedIndex = 0;
+                                                ComOduOduSignalType_Primary_nni.Items.Add(result_type);
+                                                ComOduOduSignalType_Primary_nni.SelectedIndex = 0;
+                                                ComOduOduSignalType_Secondary_nni.Items.Add(result_type);
+                                                ComOduOduSignalType_Secondary_nni.SelectedIndex = 0;
                                             }
                                         }
                                         if (adaptation_type != null)
                                         {
-                                            ComOduAdapatationType_NNI_A.Items.Clear();
-                                            ComOduAdapatationType_NNI_B.Items.Clear();
+                                            ComOduAdapataionType_Primary_nni.Items.Clear();
+                                            ComOduAdapataionType_Secondary_nni.Items.Clear();
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
@@ -1791,16 +1802,16 @@ namespace NetConfClientSoftware
                                                 {
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
-                                                ComOduAdapatationType_NNI_A.Items.Add(result_type);
-                                                ComOduAdapatationType_NNI_A.SelectedIndex = 0;
-                                                ComOduAdapatationType_NNI_B.Items.Add(result_type);
-                                                ComOduAdapatationType_NNI_B.SelectedIndex = 0;
+                                                ComOduAdapataionType_Primary_nni.Items.Add(result_type);
+                                                ComOduAdapataionType_Primary_nni.SelectedIndex = 0;
+                                                ComOduAdapataionType_Secondary_nni.Items.Add(result_type);
+                                                ComOduAdapataionType_Secondary_nni.SelectedIndex = 0;
                                             }
                                         }
                                         if (switch_capability != null)
                                         {
-                                            ComOduSwitchCapability_NNI_A.Items.Clear();
-                                            ComOduSwitchCapability_NNI_B.Items.Clear();
+                                            ComOduSwitchApability_Primary_nni.Items.Clear();
+                                            ComOduSwitchApability_Secondary_nni.Items.Clear();
 
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
@@ -1810,10 +1821,10 @@ namespace NetConfClientSoftware
                                                 {
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
-                                                ComOduSwitchCapability_NNI_A.Items.Add(result_type);
-                                                ComOduSwitchCapability_NNI_A.SelectedIndex = 0;
-                                                ComOduSwitchCapability_NNI_B.Items.Add(result_type);
-                                                ComOduSwitchCapability_NNI_B.SelectedIndex = 0;
+                                                ComOduSwitchApability_Primary_nni.Items.Add(result_type);
+                                                ComOduSwitchApability_Primary_nni.SelectedIndex = 0;
+                                                ComOduSwitchApability_Secondary_nni.Items.Add(result_type);
+                                                ComOduSwitchApability_Secondary_nni.SelectedIndex = 0;
                                             }
                                         }
                                     }
@@ -1855,7 +1866,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComOduNniPtpName_NNI_B.Text), id, ip);
+                xmlDoc = Sendrpc(FindXML.PTP(ComODUPtpNamesecondary_nni.Text), id, ip);
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1875,7 +1886,7 @@ namespace NetConfClientSoftware
                         {
                             if (name != null)
                             {
-                                if (ComOduNniPtpName_NNI_B.Text == name.InnerText)
+                                if (ComODUPtpNamesecondary_nni.Text == name.InnerText)
                                 {
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
@@ -1887,7 +1898,7 @@ namespace NetConfClientSoftware
 
                                         if (odu_signal_type != null)
                                         {
-                                            ComOduOdusignalType_NNI_B.Items.Clear();
+                                            ComOduOduSignalType_Secondary_nni.Items.Clear();
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
@@ -1896,13 +1907,13 @@ namespace NetConfClientSoftware
                                                 {
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
-                                                ComOduOdusignalType_NNI_B.Items.Add(result_type);
-                                                ComOduOdusignalType_NNI_B.SelectedIndex = 0;
+                                                ComOduOduSignalType_Secondary_nni.Items.Add(result_type);
+                                                ComOduOduSignalType_Secondary_nni.SelectedIndex = 0;
                                             }
                                         }
                                         if (adaptation_type != null)
                                         {
-                                            ComOduAdapatationType_NNI_B.Items.Clear();
+                                            ComOduAdapataionType_Secondary_nni.Items.Clear();
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
                                                 XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
@@ -1911,13 +1922,13 @@ namespace NetConfClientSoftware
                                                 {
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
-                                                ComOduAdapatationType_NNI_B.Items.Add(result_type);
-                                                ComOduAdapatationType_NNI_B.SelectedIndex = 0;
+                                                ComOduAdapataionType_Secondary_nni.Items.Add(result_type);
+                                                ComOduAdapataionType_Secondary_nni.SelectedIndex = 0;
                                             }
                                         }
                                         if (switch_capability != null)
                                         {
-                                            ComOduSwitchCapability_NNI_B.Items.Clear();
+                                            ComOduSwitchApability_Secondary_nni.Items.Clear();
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
                                                 XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
@@ -1926,8 +1937,8 @@ namespace NetConfClientSoftware
                                                 {
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
-                                                ComOduSwitchCapability_NNI_B.Items.Add(result_type);
-                                                ComOduSwitchCapability_NNI_B.SelectedIndex = 0;
+                                                ComOduSwitchApability_Secondary_nni.Items.Add(result_type);
+                                                ComOduSwitchApability_Secondary_nni.SelectedIndex = 0;
                                             }
                                         }
                                     }
@@ -1969,7 +1980,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComClientSideNni_UNI_B.Text), id, ip);
+                xmlDoc = Sendrpc(FindXML.PTP(ComODUPtpNamesecondary_nni2.Text), id, ip);
 
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
@@ -1990,7 +2001,7 @@ namespace NetConfClientSoftware
                             if (name != null)
                             {
 
-                                if (ComClientSideNni_UNI_B.Text == name.InnerText)
+                                if (ComODUPtpNamesecondary_nni2.Text == name.InnerText)
                                 {
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
@@ -2002,7 +2013,7 @@ namespace NetConfClientSoftware
 
                                         if (odu_signal_type != null)
                                         {
-                                            ComOduOduSignalType_UNI_B.Items.Clear();
+                                            ComOduOduSignalType_Secondary_nni2.Items.Clear();
                                             for (int i = 1; i <= odu_signal_type.Count; i++)
                                             {
                                                 XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
@@ -2012,13 +2023,13 @@ namespace NetConfClientSoftware
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
 
-                                                ComOduOduSignalType_UNI_B.Items.Add(result_type);
-                                                ComOduOduSignalType_UNI_B.SelectedIndex = 0;
+                                                ComOduOduSignalType_Secondary_nni2.Items.Add(result_type);
+                                                ComOduOduSignalType_Secondary_nni2.SelectedIndex = 0;
                                             }
                                         }
                                         if (adaptation_type != null)
                                         {
-                                            ComOduAdapataionType_UNI_B.Items.Clear();
+                                            ComOduAdapataionType_Secondary_nni2.Items.Clear();
 
                                             for (int i = 1; i <= adaptation_type.Count; i++)
                                             {
@@ -2028,13 +2039,13 @@ namespace NetConfClientSoftware
                                                 {
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
-                                                ComOduAdapataionType_UNI_B.Items.Add(result_type);
-                                                ComOduAdapataionType_UNI_B.SelectedIndex = 0;
+                                                ComOduAdapataionType_Secondary_nni2.Items.Add(result_type);
+                                                ComOduAdapataionType_Secondary_nni2.SelectedIndex = 0;
                                             }
                                         }
                                         if (switch_capability != null)
                                         {
-                                            ComOduSwitchApability_UNI_B.Items.Clear();
+                                            ComOduSwitchApability_Secondary_nni2.Items.Clear();
 
                                             for (int i = 1; i <= switch_capability.Count; i++)
                                             {
@@ -2044,8 +2055,8 @@ namespace NetConfClientSoftware
                                                 {
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
-                                                ComOduSwitchApability_UNI_B.Items.Add(result_type);
-                                                ComOduSwitchApability_UNI_B.SelectedIndex = 0;
+                                                ComOduSwitchApability_Secondary_nni2.Items.Add(result_type);
+                                                ComOduSwitchApability_Secondary_nni2.SelectedIndex = 0;
                                             }
                                         }
                                     }
@@ -2087,8 +2098,8 @@ namespace NetConfClientSoftware
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
             string messg = Creat(CreateODU.Common(ips, TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
                     ComClientSideNni_UNI_A.Text, TSConversion.Ts(ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text, ComOduNniTsDetailClient_UNI_A.Text), ComOduAdapataionType_UNI_A.Text, ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,
-    ComOduNniPtpName_NNI_A.Text, TSConversion.Ts(ComOduOdusignalType_NNI_A.Text, ComOduSwitchCapability_NNI_A.Text, ComOduNniTsDetail_NNI_A.Text), ComOduAdapatationType_NNI_A.Text, ComOduOdusignalType_NNI_A.Text, ComOduSwitchCapability_NNI_A.Text,
-        ComOduNniPtpName_NNI_B.Text, TSConversion.Ts(ComOduOdusignalType_NNI_B.Text, ComOduSwitchCapability_NNI_B.Text, ComOduNniTsDetail_NNI_B.Text), ComOduAdapatationType_NNI_B.Text, ComOduOdusignalType_NNI_B.Text, ComOduSwitchCapability_NNI_B.Text
+    comODUPtpNamePrimary_nni.Text, TSConversion.Ts(ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComOduTsDetail_Primary_nni.Text), ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text,
+        ComODUPtpNamesecondary_nni.Text, TSConversion.Ts(ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text, ComOduTsDetail_Secondary_nni.Text), ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text
 
 
     ), id, ip);
@@ -2378,8 +2389,11 @@ namespace NetConfClientSoftware
             try
             {
                 ComEthUniPtpName.Items.Clear();
-                ComEthPrimayNniPtpName.Items.Clear();
-                ComEthSecNniPtpName.Items.Clear();
+                comODUPtpNamePrimary_nni.Items.Clear();
+                ComODUPtpNamesecondary_nni.Items.Clear();
+                comODUPtpNamePrimary_nni2.Items.Clear();
+                ComODUPtpNamesecondary_nni2.Items.Clear();
+
 
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 //// XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
@@ -2404,9 +2418,11 @@ namespace NetConfClientSoftware
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
                 root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
-
+                ComEthUniPtpName.Items.Add("无");
+                ComODUPtpNamesecondary_nni2.Items.Add("无");
+                comODUPtpNamePrimary_nni2.Items.Add("无");
+                ComODUPtpNamesecondary_nni.Items.Add("无");
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
-                ComEthSecNniPtpName.Items.Add("无");
 
                 foreach (XmlNode itemNode in itemNodes)
                 {
@@ -2416,7 +2432,7 @@ namespace NetConfClientSoftware
 
                     if (layer_protocol_name != null && interface_type != null)
                     {
-                        if (layer_protocol_name.InnerText == "acc-eth:ETH")
+                        if (layer_protocol_name.InnerText.Contains("ETH"))
                         {
                             if (name != null)
                             {
@@ -2424,256 +2440,43 @@ namespace NetConfClientSoftware
                                 ComEthUniPtpName.SelectedIndex = 0;
                                 if (ComCreatConnection.Text.Contains("ETH-to-ETH"))
                                 {
-                                    ComEthPrimayNniPtpName.Items.Add(name.InnerText);
-                                    ComEthPrimayNniPtpName.SelectedIndex = 0;
+                                    comODUPtpNamePrimary_nni.Items.Add(name.InnerText);
+                                    comODUPtpNamePrimary_nni.SelectedIndex = 0;
                                 }
 
                             }
 
                         }
-                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
+                        if (layer_protocol_name.InnerText.Contains("ODU"))
                         {
                             if (name != null)
                             {
-                                ComEthPrimayNniPtpName.Items.Add(name.InnerText);
-                                ComEthPrimayNniPtpName.SelectedIndex = 0;
-                                ComEthSecNniPtpName.Items.Add(name.InnerText);
-                                ComEthSecNniPtpName.SelectedIndex = 0;
-                            }
-
-                        }
-                    }
-                }
-                // Console.Read();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
-            }
-        }
-
-        private void ComEthPrimayNniPtpName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
-                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
-                XmlDocument xmlDoc = new XmlDocument();
-                //xmlDoc.Load(filename);
-
-                int id = int.Parse(treeViewNEID.SelectedNode.Name);
-                int line = -1;
-                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
-                {
-                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
-                    {
-                        line = i;
-                        break;
-                    }
-                    if (line >= 0)
-                        break;
-                }
-                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComEthPrimayNniPtpName.Text), id, ip);
-                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
-                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
-                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
-                root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
-
-                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
-                foreach (XmlNode itemNode in itemNodes)
-                {
-                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
-                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
-                    XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
-
-                    if (layer_protocol_name != null && interface_type != null)
-                    {
-                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
-                        {
-                            if (name != null)
-                            {
-                                if (ComEthPrimayNniPtpName.Text == name.InnerText)
+                                //ComEthPrimayNniPtpName.Items.Add(name.InnerText);
+                                //ComEthPrimayNniPtpName.SelectedIndex = 0;
+                                //ComEthSecNniPtpName.Items.Add(name.InnerText);
+                                //ComEthSecNniPtpName.SelectedIndex = 0;
+                                //comODUPtpNamePrimary_nni.Items.Add(name.InnerText);
+                                //comODUPtpNamePrimary_nni.SelectedIndex = 0;
+                                //ComODUPtpNamesecondary_nni.Items.Add(name.InnerText);
+                                //ComODUPtpNamesecondary_nni.SelectedIndex = 0;
+                                //ComODUPtpNamesecondary_nni2.Items.Add(name.InnerText);
+                                //ComODUPtpNamesecondary_nni2.SelectedIndex = 0;
+                                //comODUPtpNamePrimary_nni2.Items.Add(name.InnerText);
+                                //comODUPtpNamePrimary_nni2.SelectedIndex = 0;
+                                if (interface_type.InnerText.Contains("NNI"))
                                 {
-                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
-                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
-                                    {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
-                                        XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
-                                        XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
-                                        XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
 
-                                        if (odu_signal_type != null)
-                                        {
-                                            ComEthPrimayOduType.Items.Clear();
-                                            for (int i = 1; i <= odu_signal_type.Count; i++)
-                                            {
-                                                XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                string result_type = odu_signal_type1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-
-                                                ComEthPrimayOduType.Items.Add(result_type);
-                                                ComEthPrimayOduType.SelectedIndex = 0;
-                                            }
-                                        }
-                                        if (adaptation_type != null)
-                                        {
-                                            ComEthPrimayAdaType.Items.Clear();
-
-                                            for (int i = 1; i <= adaptation_type.Count; i++)
-                                            {
-                                                XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-                                                string result_type = adaptation_type1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComEthPrimayAdaType.Items.Add(result_type);
-                                                ComEthPrimayAdaType.SelectedIndex = 0;
-                                            }
-                                        }
-                                        if (switch_capability != null)
-                                        {
-                                            ComEthPrimarySwitch.Items.Clear();
-
-                                            for (int i = 1; i <= switch_capability.Count; i++)
-                                            {
-                                                XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                string result_type = switch_capability1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComEthPrimarySwitch.Items.Add(result_type);
-                                                ComEthPrimarySwitch.SelectedIndex = 0;
-                                            }
-                                        }
-                                    }
+                                    comODUPtpNamePrimary_nni.Items.Add(name.InnerText);
+                                    comODUPtpNamePrimary_nni.SelectedIndex = 0;
+                                    ComODUPtpNamesecondary_nni.Items.Add(name.InnerText);
+                                    ComODUPtpNamesecondary_nni.SelectedIndex = 0;
+                                    ComODUPtpNamesecondary_nni2.Items.Add(name.InnerText);
+                                    ComODUPtpNamesecondary_nni2.SelectedIndex = 0;
+                                    comODUPtpNamePrimary_nni2.Items.Add(name.InnerText);
+                                    comODUPtpNamePrimary_nni2.SelectedIndex = 0;
                                 }
-
                             }
-
-                        }
-                    }
-                }
-                // Console.Read();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
-            }
-
-        }
-
-        private void ComEthSecNniPtpName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
-                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
-                XmlDocument xmlDoc = new XmlDocument();
-                //xmlDoc.Load(filename);
-
-                int id = int.Parse(treeViewNEID.SelectedNode.Name);
-                int line = -1;
-                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
-                {
-                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
-                    {
-                        line = i;
-                        break;
-                    }
-                    if (line >= 0)
-                        break;
-                }
-                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComEthSecNniPtpName.Text), id, ip);
-
-                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
-                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
-                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
-                root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
-
-                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
-                foreach (XmlNode itemNode in itemNodes)
-                {
-                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
-                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
-                    XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
-
-                    if (layer_protocol_name != null && interface_type != null)
-                    {
-                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
-                        {
-                            if (name != null)
-                            {
-                                if (ComEthSecNniPtpName.Text == name.InnerText)
-                                {
-                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
-                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
-                                    {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
-                                        XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
-                                        XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
-                                        XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
-
-                                        if (odu_signal_type != null)
-                                        {
-                                            ComEthSecOduType.Items.Clear();
-                                            for (int i = 1; i <= odu_signal_type.Count; i++)
-                                            {
-                                                XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                string result_type = odu_signal_type1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-
-                                                ComEthSecOduType.Items.Add(result_type);
-                                                ComEthSecOduType.SelectedIndex = 0;
-                                            }
-                                        }
-                                        if (adaptation_type != null)
-                                        {
-                                            ComEthSecAdaType.Items.Clear();
-
-                                            for (int i = 1; i <= adaptation_type.Count; i++)
-                                            {
-                                                XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-                                                string result_type = adaptation_type1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComEthSecAdaType.Items.Add(result_type);
-                                                ComEthSecAdaType.SelectedIndex = 0;
-                                            }
-                                        }
-                                        if (switch_capability != null)
-                                        {
-                                            ComEthSecSwitch.Items.Clear();
-
-                                            for (int i = 1; i <= switch_capability.Count; i++)
-                                            {
-                                                XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                string result_type = switch_capability1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComEthSecSwitch.Items.Add(result_type);
-                                                ComEthSecSwitch.SelectedIndex = 0;
-                                            }
-                                        }
-                                    }
-                                }
-
-                            }
+                            
 
                         }
                     }
@@ -2705,8 +2508,8 @@ namespace NetConfClientSoftware
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
             string messg = Creat(CreateETH.Common(ips, ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_nni_protection_type.Text, ComEthServiceMappingMode.Text,
                     ComEthUniPtpName.Text, ComEthClientVlanId.Text, ComEthVlanPriority.Text, ComEthVlanAccessAction.Text, ComEthVlanType.Text, ComEthUniVlanId.Text, ComEthUniVlanPriority.Text, ComEthUniVlanAccessAction.Text, ComEthUniVlanType.Text,
-    ComEthPrimayNniPtpName.Text, TSConversion.Ts(ComEthPrimayOduType.Text, ComEthPrimarySwitch.Text, ComEthPrimayTs.Text), ComEthPrimayAdaType.Text, ComEthPrimayOduType.Text, ComEthPrimarySwitch.Text, ComEthFtpVlanID.Text, ComEthFtpVlanPriority.Text, ComEthFtpVlanAccess.Text, ComEthFtpVlanType.Text,
-        ComEthSecNniPtpName.Text, TSConversion.Ts(ComEthSecOduType.Text, ComEthSecSwitch.Text, ComEthSecNniTs.Text), ComEthSecAdaType.Text, ComEthSecOduType.Text, ComEthSecSwitch.Text,
+    comODUPtpNamePrimary_nni.Text, TSConversion.Ts(ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComOduTsDetail_Primary_nni.Text), ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComEthFtpVlanID_primary_nni.Text, ComEthFtpVlanPriority_primary_nni.Text, ComEthFtpVlanAccess_primary_nni.Text, ComEthFtpVlanType_primary_nni.Text,
+        ComODUPtpNamesecondary_nni.Text, TSConversion.Ts(ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text, ComOduTsDetail_Secondary_nni.Text), ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text,
         ComEosSdhSignalType.Text, ComVCType.Text, TextMappingPath.Text, ComEosSdhSignalTypeProtect.Text, TextMappingPathProtect.Text, ComLCAS.Text, ComHoldOff.Text, ComWTR.Text, ComTSD.Text
 
     ), id, ip);
@@ -6756,6 +6559,201 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
         private void dataGridViewAuto_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void buttonEGG_Click(object sender, EventArgs e)
+        {
+            Process.Start("http://hunan128.com:888/AutoRunningExcel/");
+        }
+
+        private void comPrimary_nni2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                XmlDocument xmlDoc = new XmlDocument();
+                //xmlDoc.Load(filename);
+
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                xmlDoc = Sendrpc(FindXML.PTP(ComODUPtpNamesecondary_nni2.Text), id, ip);
+
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
+
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
+                    XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
+
+                    if (layer_protocol_name != null && interface_type != null)
+                    {
+                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
+                        {
+                            if (name != null)
+                            {
+
+                                if (comODUPtpNamePrimary_nni2.Text == name.InnerText)
+                                {
+                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
+                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
+                                    {
+                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
+                                        XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
+                                        XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
+                                        XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
+
+                                        if (odu_signal_type != null)
+                                        {
+                                            ComOduOduSignalType_Primary_nni2.Items.Clear();
+                                            for (int i = 1; i <= odu_signal_type.Count; i++)
+                                            {
+                                                XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
+                                                string result_type = odu_signal_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+
+                                                ComOduOduSignalType_Primary_nni2.Items.Add(result_type);
+                                                ComOduOduSignalType_Primary_nni2.SelectedIndex = 0;
+                                            }
+                                        }
+                                        if (adaptation_type != null)
+                                        {
+                                            ComOduAdapataionType_Primary_nni2.Items.Clear();
+
+                                            for (int i = 1; i <= adaptation_type.Count; i++)
+                                            {
+                                                XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
+                                                string result_type = adaptation_type1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduAdapataionType_Primary_nni2.Items.Add(result_type);
+                                                ComOduAdapataionType_Primary_nni2.SelectedIndex = 0;
+                                            }
+                                        }
+                                        if (switch_capability != null)
+                                        {
+                                            ComOduSwitchApability_Primary_nni2.Items.Clear();
+
+                                            for (int i = 1; i <= switch_capability.Count; i++)
+                                            {
+                                                XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
+                                                string result_type = switch_capability1.InnerText;
+                                                if (result_type.Contains(":"))
+                                                {
+                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                }
+                                                ComOduSwitchApability_Primary_nni2.Items.Add(result_type);
+                                                ComOduSwitchApability_Primary_nni2.SelectedIndex = 0;
+                                            }
+                                        }
+                                    }
+                                }
+
+                            }
+
+                        }
+                    }
+                }
+                // Console.Read();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+            }
+        }
+
+        private void groupBox5_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel_primary_nni_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void comboBoxODUservicemode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxODUservicemode.Text.Contains("线路To线路业务"))
+            {
+                ComClientSideNni_UNI_A.Text = "无";
+                groupBoxODUClient.Visible = false;
+                groupBoxODUprimary_nni2.Visible = true;
+                groupBoxsecondary_nni2.Visible = true;
+                panel_primary_nni.Visible = false;
+                panel_secondary_nni.Visible = false;
+                panel_primary_nni2.Visible = false;
+                panel_secondary_nni2.Visible = false;
+            }
+            else {
+                comODUPtpNamePrimary_nni2.Text = "无";
+                ComODUPtpNamesecondary_nni2.Text = "无";
+                groupBoxODUClient.Visible = true;
+                groupBoxODUprimary_nni2.Visible = false;
+                groupBoxsecondary_nni2.Visible = false;
+                panel_primary_nni.Visible = false;
+                panel_secondary_nni.Visible = false;
+                panel_primary_nni2.Visible = false;
+                panel_secondary_nni2.Visible = false;
+            }
+        }
+
+        private void comboBoxETHservicemode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxETHservicemode.Text.Contains("线路To线路业务"))
+            {
+                ComEthUniPtpName.Text = "无";
+                ComEthClientVlanId.Text = "";
+                ComEthUniVlanId.Text = "";
+                groupBoxETH_UNI.Visible = false;
+                groupBoxODUprimary_nni2.Visible = true;
+                ComEthFtpVlanID_primary_nni2.Text = "";
+                ComEthFtpVlanID_secondary_nni2.Text = "";
+                groupBoxsecondary_nni2.Visible = true;
+                panel_primary_nni.Visible = true;
+                panel_secondary_nni.Visible = true;
+                panel_primary_nni2.Visible = true;
+                panel_secondary_nni2.Visible = true;
+
+            }
+            else
+            {
+                comODUPtpNamePrimary_nni2.Text = "无";
+                ComODUPtpNamesecondary_nni2.Text = "无";
+                ComEthFtpVlanID_primary_nni2.Text = "";
+                ComEthFtpVlanID_secondary_nni2.Text = "";
+                groupBoxETH_UNI.Visible = true;
+                groupBoxODUprimary_nni2.Visible = false ;
+                groupBoxsecondary_nni2.Visible = false;
+                panel_primary_nni.Visible = true;
+                panel_secondary_nni.Visible = true;
+                panel_primary_nni2.Visible = false;
+                panel_secondary_nni2.Visible = false;
+
+            }
 
         }
     }

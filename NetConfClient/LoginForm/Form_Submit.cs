@@ -249,7 +249,8 @@ namespace NetConfClientSoftware
         /// <param name="e"></param>
         private void Form_Submit_Load(object sender, EventArgs e)
         {
-            textSN.Text = MachineCode.GetMachineCodeString();
+            //textSN.Text = MachineCode.GetMachineCodeString();
+            textSN.Text = MachineCode.GetHardDiskID();
             // 
             var t0_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("http://myip.ipip.net", "utf-8"));// 111.198.29.123
 
