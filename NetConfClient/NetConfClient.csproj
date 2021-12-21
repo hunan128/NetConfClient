@@ -31,7 +31,7 @@
     <PublisherName>NetconfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>8</ApplicationRevision>
+    <ApplicationRevision>11</ApplicationRevision>
     <ApplicationVersion>2021.12.7.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -200,6 +200,12 @@
     <Compile Include="CreatServices\CreateETH.cs" />
     <Compile Include="CreatServices\CreateODU.cs" />
     <Compile Include="CreatServices\DeleteODU.cs" />
+    <Compile Include="MenuForm\Form_Oduk_TS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuForm\Form_Oduk_TS.Designer.cs">
+      <DependentUpon>Form_Oduk_TS.cs</DependentUpon>
+    </Compile>
     <Compile Include="MenuForm\Form_VC_Info.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -231,6 +237,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AutoRuning\Form_AutoRunningNetconf.resx">
       <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuForm\Form_Oduk_TS.resx">
+      <DependentUpon>Form_Oduk_TS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuForm\Form_VC_Info.resx">
       <DependentUpon>Form_VC_Info.cs</DependentUpon>

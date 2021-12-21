@@ -1131,8 +1131,8 @@ namespace NetConfClientSoftware
             ComTimeOut.SelectedIndex = 0;
             TextOduService_type.SelectedIndex = 0;
             Com_nni_protection_type.SelectedIndex = 0;
-            ComOduNniTsDetailClient_UNI_A.SelectedIndex = 0;
-            ComOduTsDetail_Primary_nni.SelectedIndex = 0;
+        //    ComOduNniTsDetailClient_UNI_A.SelectedIndex = 0;
+         //   ComOduTsDetail_Primary_nni.SelectedIndex = 0;
             ComCreatConnection.SelectedIndex = 0;
 
             ComEthUniVlanAccessAction.SelectedIndex = 0;
@@ -1159,10 +1159,10 @@ namespace NetConfClientSoftware
             ComSdhSerMap.SelectedIndex = 0;
          //   ComSdhNniSdhtype_A.SelectedIndex = 2;
          //   ComSdhNniVcType_A.SelectedIndex = 2;
-            ComSdhNniTs_A.SelectedIndex = 0;
+        //    ComSdhNniTs_A.SelectedIndex = 0;
          //   ComSdhNniSdhtype_B.SelectedIndex = 2;
         //    ComSdhNniVcType_B.SelectedIndex = 2;
-            ComSdhNniTs_B.SelectedIndex = 0;
+         //   ComSdhNniTs_B.SelectedIndex = 0;
 
             Control.CheckForIllegalCrossThreadCalls = false;
             Readini();
@@ -1184,6 +1184,8 @@ namespace NetConfClientSoftware
             this.listViewAll.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewAll.UseCompatibleStateImageBehavior = false;
             this.listViewAll.View = System.Windows.Forms.View.Details;
+            this.listViewAll.ContextMenuStrip = this.contextMenuStripNotification;
+
 
             tabPageAllNotificontion.Controls.Add(listViewAll);
 
@@ -1650,7 +1652,8 @@ namespace NetConfClientSoftware
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                     {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
+                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
+                                        if (ts_detail != null) labelClientTs.Text = ts_detail.InnerText;
                                         XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
                                         XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
                                         XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
@@ -1766,7 +1769,8 @@ namespace NetConfClientSoftware
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                     {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
+                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
+                                        if (ts_detail != null) label_ts_primary_nni.Text = ts_detail.InnerText;
                                         XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
                                         XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
                                         XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
@@ -1891,7 +1895,8 @@ namespace NetConfClientSoftware
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                     {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
+                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
+                                        if (ts_detail != null) label_ts_sec_nni.Text = ts_detail.InnerText;
                                         XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
                                         XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
                                         XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
@@ -2006,7 +2011,8 @@ namespace NetConfClientSoftware
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                     {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
+                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
+                                        if (ts_detail != null) label_ts_sec_nni2.Text = ts_detail.InnerText;
                                         XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
                                         XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
                                         XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
@@ -2097,9 +2103,9 @@ namespace NetConfClientSoftware
             }
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
             string messg = Creat(CreateODU.Common(ips, TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
-                    ComClientSideNni_UNI_A.Text, TSConversion.Ts(ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text, ComOduNniTsDetailClient_UNI_A.Text), ComOduAdapataionType_UNI_A.Text, ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,
-    comODUPtpNamePrimary_nni.Text, TSConversion.Ts(ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComOduTsDetail_Primary_nni.Text), ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text,
-        ComODUPtpNamesecondary_nni.Text, TSConversion.Ts(ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text, ComOduTsDetail_Secondary_nni.Text), ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text
+                    ComClientSideNni_UNI_A.Text, ComOduNniTsDetailClient_UNI_A.Text, ComOduAdapataionType_UNI_A.Text, ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,
+    comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text,
+        ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text
 
 
     ), id, ip);
@@ -2508,8 +2514,8 @@ namespace NetConfClientSoftware
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
             string messg = Creat(CreateETH.Common(ips, ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_nni_protection_type.Text, ComEthServiceMappingMode.Text,
                     ComEthUniPtpName.Text, ComEthClientVlanId.Text, ComEthVlanPriority.Text, ComEthVlanAccessAction.Text, ComEthVlanType.Text, ComEthUniVlanId.Text, ComEthUniVlanPriority.Text, ComEthUniVlanAccessAction.Text, ComEthUniVlanType.Text,
-    comODUPtpNamePrimary_nni.Text, TSConversion.Ts(ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComOduTsDetail_Primary_nni.Text), ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComEthFtpVlanID_primary_nni.Text, ComEthFtpVlanPriority_primary_nni.Text, ComEthFtpVlanAccess_primary_nni.Text, ComEthFtpVlanType_primary_nni.Text,
-        ComODUPtpNamesecondary_nni.Text, TSConversion.Ts(ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text, ComOduTsDetail_Secondary_nni.Text), ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text,
+    comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComEthFtpVlanID_primary_nni.Text, ComEthFtpVlanPriority_primary_nni.Text, ComEthFtpVlanAccess_primary_nni.Text, ComEthFtpVlanType_primary_nni.Text,
+        ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text,
         ComEosSdhSignalType.Text, ComVCType.Text, TextMappingPath.Text, ComEosSdhSignalTypeProtect.Text, TextMappingPathProtect.Text, ComLCAS.Text, ComHoldOff.Text, ComWTR.Text, ComTSD.Text
 
     ), id, ip);
@@ -3169,7 +3175,8 @@ namespace NetConfClientSoftware
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                     {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
+                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
+                                        if (ts_detail != null) labelSdhNniPtp_A.Text = ts_detail.InnerText;
                                         XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
                                         XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
                                         XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
@@ -3280,7 +3287,8 @@ namespace NetConfClientSoftware
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                     {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
+                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
+                                        if (ts_detail != null) labelSdhNniPtp_B.Text = ts_detail.InnerText;
                                         XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
                                         XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
                                         XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
@@ -3428,8 +3436,8 @@ namespace NetConfClientSoftware
 
                     string messg1 = Creat(CreateSDH.Common(ips, label + (i +result).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
         ComSdhUniPtp.Text, ComSdhUniSdhType.Text, sdhunits,
-ComSdhNniPtp_A.Text, TSConversion.Ts(ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniTs_A.Text), ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, sdhnnits_a,
-ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniTs_B.Text), ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, sdhnnits_a
+ComSdhNniPtp_A.Text, ComSdhNniTs_A.Text, ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, sdhnnits_a,
+ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, sdhnnits_a
 
 ), id, ip);
                     messg0 = messg0 + messg1 + "=" + (i + result).ToString()+"  ";
@@ -6615,7 +6623,8 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                     {
-                                        XmlNode odu_capacity = itemNodeOdu.SelectSingleNode("oduxmlns:odu-capacity", root);
+                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
+                                        if (ts_detail != null) label_ts_primary_nni2.Text = ts_detail.InnerText;
                                         XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
                                         XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
                                         XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
@@ -6685,16 +6694,6 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
             }
         }
 
-        private void groupBox5_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void panel_primary_nni_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
         private void comboBoxODUservicemode_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (comboBoxODUservicemode.Text.Contains("线路To线路业务"))
@@ -6755,6 +6754,146 @@ ComSdhNniPtp_B.Text, TSConversion.Ts(ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text
 
             }
 
+        }
+
+        private void 清空所有通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListViewAlarm.Items.Clear();
+            ListViewTcaAlarm.Items.Clear();
+            listViewProtection.Items.Clear();
+            dataGridViewPGS_Not.Rows.Clear();
+            listViewAttribute.Items.Clear();
+            listViewLLDP.Items.Clear();
+            listViewPeer.Items.Clear();
+            listViewGhao.Items.Clear();
+            listViewCommon.Items.Clear();
+            listViewAll.Items.Clear();
+        }
+
+        private void 清空告警通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListViewAlarm.Items.Clear();
+
+        }
+
+        private void 清空TCA告警通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListViewTcaAlarm.Items.Clear();
+
+        }
+
+        private void 清空保护倒换通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewProtection.Items.Clear();
+            dataGridViewPGS_Not.Rows.Clear();
+
+        }
+
+        private void 清空对象变更通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewAttribute.Items.Clear();
+        }
+
+        private void 清空LLDP通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewLLDP.Items.Clear();
+
+        }
+
+        private void 清空Peer通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewPeer.Items.Clear();
+
+        }
+
+        private void 清空GHao通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewGhao.Items.Clear();
+
+        }
+
+        private void 清空一般配置通知ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            listViewCommon.Items.Clear();
+
+        }
+
+        private void butOduuni_Click(object sender, EventArgs e)
+        {
+            // 实例化FormInfo，并传入待修改初值  
+            var formInfo = new Form_Oduk_TS(labelClientTs.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                ComOduNniTsDetailClient_UNI_A.Text = formInfo.Information;
+            }
+        }
+
+        private void but_ts_primary_nni_Click(object sender, EventArgs e)
+        {
+            var formInfo = new Form_Oduk_TS(label_ts_primary_nni.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                ComOduTsDetail_Primary_nni.Text = formInfo.Information;
+            }
+        }
+
+        private void but_ts_sec_nni_Click(object sender, EventArgs e)
+        {
+            var formInfo = new Form_Oduk_TS(label_ts_sec_nni.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                ComOduTsDetail_Secondary_nni.Text = formInfo.Information;
+            }
+        }
+
+        private void but_ts_primary_nni2_Click(object sender, EventArgs e)
+        {
+            var formInfo = new Form_Oduk_TS(label_ts_primary_nni2.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                ComOduTsDetail_Primary_nni2.Text = formInfo.Information;
+            }
+        }
+
+        private void but_ts_sec_nni2_Click(object sender, EventArgs e)
+        {
+            var formInfo = new Form_Oduk_TS(label_ts_sec_nni2.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                ComOduTsDetail_Secondary_nni2.Text = formInfo.Information;
+            }
+        }
+
+        private void butlSdhNniPtp_A_Click(object sender, EventArgs e)
+        {
+            var formInfo = new Form_Oduk_TS(labelSdhNniPtp_A.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                ComSdhNniTs_A.Text = formInfo.Information;
+            }
+        }
+
+        private void butlSdhNniPtp_B_Click(object sender, EventArgs e)
+        {
+            var formInfo = new Form_Oduk_TS(labelSdhNniPtp_B.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                ComSdhNniTs_B.Text = formInfo.Information;
+            }
         }
     }
 }

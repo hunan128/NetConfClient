@@ -31,7 +31,6 @@ namespace NetConfClientSoftware
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -58,6 +57,7 @@ namespace NetConfClientSoftware
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
             this.ButSend = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.XML转Tree = new System.Windows.Forms.Button();
@@ -68,8 +68,6 @@ namespace NetConfClientSoftware
             this.ComTimeOut = new System.Windows.Forms.ComboBox();
             this.menuStrip_Winfrom = new System.Windows.Forms.MenuStrip();
             this.文件FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemAUto = new System.Windows.Forms.ToolStripMenuItem();
             this.导出用例报表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -201,19 +199,6 @@ namespace NetConfClientSoftware
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.ButFindOdu_local = new System.Windows.Forms.Button();
             this.dataGridViewEth = new System.Windows.Forms.DataGridView();
-            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_ODU = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除业务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OAM配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -506,13 +491,16 @@ namespace NetConfClientSoftware
             this.选择端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.主要端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.次要端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.contextMenuStripPGS = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.强制倒换到主用toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.强制倒换到备用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.人工倒换到主用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.人工倒换到备用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.锁定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripNotification = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.清空所有通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空告警通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空TCA告警通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空保护倒换通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空对象变更通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空LLDP通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空Peer通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空GHao通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空一般配置通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewPGS = new System.Windows.Forms.DataGridView();
             this.保护组ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.保护类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -526,6 +514,13 @@ namespace NetConfClientSoftware
             this.选择端口 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.主要端口 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.次要端口 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStripPGS = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.强制倒换到主用toolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.强制倒换到备用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.人工倒换到主用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.人工倒换到备用ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清除ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.锁定ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.告警和通知 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage10 = new System.Windows.Forms.TabPage();
@@ -672,6 +667,35 @@ namespace NetConfClientSoftware
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.treeViewNEID = new System.Windows.Forms.TreeView();
             this.imageListTree = new System.Windows.Forms.ImageList(this.components);
+            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.butOduuni = new System.Windows.Forms.Button();
+            this.labelClientTs = new System.Windows.Forms.Label();
+            this.label_ts_primary_nni = new System.Windows.Forms.Label();
+            this.label_ts_sec_nni = new System.Windows.Forms.Label();
+            this.label_ts_primary_nni2 = new System.Windows.Forms.Label();
+            this.label_ts_sec_nni2 = new System.Windows.Forms.Label();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemAUto = new System.Windows.Forms.ToolStripMenuItem();
+            this.but_ts_primary_nni = new System.Windows.Forms.Button();
+            this.but_ts_sec_nni = new System.Windows.Forms.Button();
+            this.but_ts_primary_nni2 = new System.Windows.Forms.Button();
+            this.but_ts_sec_nni2 = new System.Windows.Forms.Button();
+            this.butlSdhNniPtp_A = new System.Windows.Forms.Button();
+            this.butlSdhNniPtp_B = new System.Windows.Forms.Button();
+            this.labelSdhNniPtp_A = new System.Windows.Forms.Label();
+            this.labelSdhNniPtp_B = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -739,8 +763,9 @@ namespace NetConfClientSoftware
             this.保护组查询.SuspendLayout();
             this.groupBox17.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS_Not)).BeginInit();
-            this.contextMenuStripPGS.SuspendLayout();
+            this.contextMenuStripNotification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS)).BeginInit();
+            this.contextMenuStripPGS.SuspendLayout();
             this.告警和通知.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage10.SuspendLayout();
@@ -902,24 +927,6 @@ namespace NetConfClientSoftware
             this.文件FToolStripMenuItem.Name = "文件FToolStripMenuItem";
             this.文件FToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
             this.文件FToolStripMenuItem.Text = "文件(&F)";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
-            this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
-            this.toolStripMenuItem1.Text = "导入XML目录";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.打开OToolStripMenuItem_Click);
-            // 
-            // ToolStripMenuItemAUto
-            // 
-            this.ToolStripMenuItemAUto.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemAUto.Image")));
-            this.ToolStripMenuItemAUto.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ToolStripMenuItemAUto.Name = "ToolStripMenuItemAUto";
-            this.ToolStripMenuItemAUto.Size = new System.Drawing.Size(150, 22);
-            this.ToolStripMenuItemAUto.Text = "导入测试用例";
-            this.ToolStripMenuItemAUto.Click += new System.EventHandler(this.ToolStripMenuItemAUto_Click);
             // 
             // 导出用例报表ToolStripMenuItem
             // 
@@ -2218,85 +2225,6 @@ namespace NetConfClientSoftware
             this.dataGridViewEth.Size = new System.Drawing.Size(1160, 502);
             this.dataGridViewEth.TabIndex = 0;
             // 
-            // 连接名称
-            // 
-            this.连接名称.HeaderText = "连接名称";
-            this.连接名称.Name = "连接名称";
-            this.连接名称.Width = 110;
-            // 
-            // 标签别名
-            // 
-            this.标签别名.HeaderText = "标签别名";
-            this.标签别名.Name = "标签别名";
-            this.标签别名.Width = 60;
-            // 
-            // 当前状态
-            // 
-            this.当前状态.HeaderText = "当前状态";
-            this.当前状态.Name = "当前状态";
-            this.当前状态.Width = 40;
-            // 
-            // 管理状态
-            // 
-            this.管理状态.HeaderText = "管理状态";
-            this.管理状态.Name = "管理状态";
-            this.管理状态.Width = 60;
-            // 
-            // 当前层协议
-            // 
-            this.当前层协议.HeaderText = "当前层协议";
-            this.当前层协议.Name = "当前层协议";
-            this.当前层协议.Width = 80;
-            // 
-            // 服务类型
-            // 
-            this.服务类型.HeaderText = "服务类型";
-            this.服务类型.Name = "服务类型";
-            this.服务类型.Width = 40;
-            // 
-            // 业务总带宽
-            // 
-            this.业务总带宽.HeaderText = "业务总带宽";
-            this.业务总带宽.Name = "业务总带宽";
-            this.业务总带宽.Width = 60;
-            // 
-            // 承诺带宽
-            // 
-            this.承诺带宽.HeaderText = "承诺带宽";
-            this.承诺带宽.Name = "承诺带宽";
-            this.承诺带宽.Width = 40;
-            // 
-            // 峰值带宽
-            // 
-            this.峰值带宽.HeaderText = "峰值带宽";
-            this.峰值带宽.Name = "峰值带宽";
-            this.峰值带宽.Width = 40;
-            // 
-            // 承诺突发
-            // 
-            this.承诺突发.HeaderText = "承诺突发";
-            this.承诺突发.Name = "承诺突发";
-            this.承诺突发.Width = 40;
-            // 
-            // 峰值突发
-            // 
-            this.峰值突发.HeaderText = "峰值突发";
-            this.峰值突发.Name = "峰值突发";
-            this.峰值突发.Width = 40;
-            // 
-            // CTP端口1
-            // 
-            this.CTP端口1.HeaderText = "所有CTP端口";
-            this.CTP端口1.Name = "CTP端口1";
-            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CTP端口1.Width = 300;
-            // 
-            // CTP端口2
-            // 
-            this.CTP端口2.HeaderText = "PTP-CTP端口";
-            this.CTP端口2.Name = "CTP端口2";
-            this.CTP端口2.Width = 300;
-            // 
             // contextMenuStrip_ODU
             // 
             this.contextMenuStrip_ODU.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2390,6 +2318,8 @@ namespace NetConfClientSoftware
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.but_ts_primary_nni);
+            this.groupBox7.Controls.Add(this.label_ts_primary_nni);
             this.groupBox7.Controls.Add(this.panel_primary_nni);
             this.groupBox7.Controls.Add(this.label16);
             this.groupBox7.Controls.Add(this.label14);
@@ -2423,7 +2353,6 @@ namespace NetConfClientSoftware
             this.panel_primary_nni.Size = new System.Drawing.Size(459, 46);
             this.panel_primary_nni.TabIndex = 35;
             this.panel_primary_nni.Visible = false;
-            this.panel_primary_nni.Paint += new System.Windows.Forms.PaintEventHandler(this.panel_primary_nni_Paint);
             // 
             // ComEthFtpVlanAccess_primary_nni
             // 
@@ -2521,7 +2450,7 @@ namespace NetConfClientSoftware
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(53, 12);
             this.label16.TabIndex = 25;
-            this.label16.Text = "使用时隙";
+            this.label16.Text = "ODUk时隙";
             // 
             // label14
             // 
@@ -2582,7 +2511,7 @@ namespace NetConfClientSoftware
             // 
             // ComOduTsDetail_Primary_nni
             // 
-            this.ComOduTsDetail_Primary_nni.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduTsDetail_Primary_nni.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.ComOduTsDetail_Primary_nni.FormattingEnabled = true;
             this.ComOduTsDetail_Primary_nni.Items.AddRange(new object[] {
             "1",
@@ -2618,6 +2547,8 @@ namespace NetConfClientSoftware
             // 
             // groupBoxODU
             // 
+            this.groupBoxODU.Controls.Add(this.but_ts_sec_nni);
+            this.groupBoxODU.Controls.Add(this.label_ts_sec_nni);
             this.groupBoxODU.Controls.Add(this.panel_secondary_nni);
             this.groupBoxODU.Controls.Add(this.label15);
             this.groupBoxODU.Controls.Add(this.label79);
@@ -2634,7 +2565,7 @@ namespace NetConfClientSoftware
             this.groupBoxODU.Size = new System.Drawing.Size(519, 143);
             this.groupBoxODU.TabIndex = 21;
             this.groupBoxODU.TabStop = false;
-            this.groupBoxODU.Text = "NNI 端口配置-备用-2";
+            this.groupBoxODU.Text = "NNI 端口配置-备用-1";
             // 
             // panel_secondary_nni
             // 
@@ -2748,7 +2679,7 @@ namespace NetConfClientSoftware
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(53, 12);
             this.label15.TabIndex = 28;
-            this.label15.Text = "使用时隙";
+            this.label15.Text = "ODUk时隙";
             // 
             // label79
             // 
@@ -2806,7 +2737,7 @@ namespace NetConfClientSoftware
             // 
             // ComOduTsDetail_Secondary_nni
             // 
-            this.ComOduTsDetail_Secondary_nni.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduTsDetail_Secondary_nni.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.ComOduTsDetail_Secondary_nni.FormattingEnabled = true;
             this.ComOduTsDetail_Secondary_nni.Items.AddRange(new object[] {
             "1",
@@ -2817,7 +2748,7 @@ namespace NetConfClientSoftware
             "6",
             "7",
             "8"});
-            this.ComOduTsDetail_Secondary_nni.Location = new System.Drawing.Point(367, 52);
+            this.ComOduTsDetail_Secondary_nni.Location = new System.Drawing.Point(367, 53);
             this.ComOduTsDetail_Secondary_nni.Name = "ComOduTsDetail_Secondary_nni";
             this.ComOduTsDetail_Secondary_nni.Size = new System.Drawing.Size(94, 20);
             this.ComOduTsDetail_Secondary_nni.TabIndex = 24;
@@ -2845,6 +2776,8 @@ namespace NetConfClientSoftware
             // 
             // groupBoxODUprimary_nni2
             // 
+            this.groupBoxODUprimary_nni2.Controls.Add(this.but_ts_primary_nni2);
+            this.groupBoxODUprimary_nni2.Controls.Add(this.label_ts_primary_nni2);
             this.groupBoxODUprimary_nni2.Controls.Add(this.panel_primary_nni2);
             this.groupBoxODUprimary_nni2.Controls.Add(this.label3);
             this.groupBoxODUprimary_nni2.Controls.Add(this.label18);
@@ -2972,11 +2905,11 @@ namespace NetConfClientSoftware
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(262, 63);
+            this.label3.Location = new System.Drawing.Point(262, 59);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(53, 12);
             this.label3.TabIndex = 17;
-            this.label3.Text = "使用时隙";
+            this.label3.Text = "ODUk时隙";
             // 
             // label18
             // 
@@ -3055,7 +2988,7 @@ namespace NetConfClientSoftware
             // 
             // ComOduTsDetail_Primary_nni2
             // 
-            this.ComOduTsDetail_Primary_nni2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduTsDetail_Primary_nni2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.ComOduTsDetail_Primary_nni2.FormattingEnabled = true;
             this.ComOduTsDetail_Primary_nni2.Items.AddRange(new object[] {
             "1",
@@ -3066,13 +2999,15 @@ namespace NetConfClientSoftware
             "6",
             "7",
             "8"});
-            this.ComOduTsDetail_Primary_nni2.Location = new System.Drawing.Point(367, 55);
+            this.ComOduTsDetail_Primary_nni2.Location = new System.Drawing.Point(367, 56);
             this.ComOduTsDetail_Primary_nni2.Name = "ComOduTsDetail_Primary_nni2";
             this.ComOduTsDetail_Primary_nni2.Size = new System.Drawing.Size(94, 20);
             this.ComOduTsDetail_Primary_nni2.TabIndex = 6;
             // 
             // groupBoxsecondary_nni2
             // 
+            this.groupBoxsecondary_nni2.Controls.Add(this.but_ts_sec_nni2);
+            this.groupBoxsecondary_nni2.Controls.Add(this.label_ts_sec_nni2);
             this.groupBoxsecondary_nni2.Controls.Add(this.panel_secondary_nni2);
             this.groupBoxsecondary_nni2.Controls.Add(this.label84);
             this.groupBoxsecondary_nni2.Controls.Add(this.label85);
@@ -3102,7 +3037,7 @@ namespace NetConfClientSoftware
             this.panel_secondary_nni2.Controls.Add(this.ComEthFtpVlanID_secondary_nni2);
             this.panel_secondary_nni2.Controls.Add(this.label55);
             this.panel_secondary_nni2.Controls.Add(this.ComEthFtpVlanType_secondary_nni2);
-            this.panel_secondary_nni2.Location = new System.Drawing.Point(15, 75);
+            this.panel_secondary_nni2.Location = new System.Drawing.Point(15, 77);
             this.panel_secondary_nni2.Name = "panel_secondary_nni2";
             this.panel_secondary_nni2.Size = new System.Drawing.Size(459, 46);
             this.panel_secondary_nni2.TabIndex = 36;
@@ -3204,7 +3139,7 @@ namespace NetConfClientSoftware
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(53, 12);
             this.label84.TabIndex = 17;
-            this.label84.Text = "使用时隙";
+            this.label84.Text = "ODUk时隙";
             // 
             // label85
             // 
@@ -3283,7 +3218,7 @@ namespace NetConfClientSoftware
             // 
             // ComOduTsDetail_Secondary_nni2
             // 
-            this.ComOduTsDetail_Secondary_nni2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduTsDetail_Secondary_nni2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.ComOduTsDetail_Secondary_nni2.FormattingEnabled = true;
             this.ComOduTsDetail_Secondary_nni2.Items.AddRange(new object[] {
             "1",
@@ -3294,7 +3229,7 @@ namespace NetConfClientSoftware
             "6",
             "7",
             "8"});
-            this.ComOduTsDetail_Secondary_nni2.Location = new System.Drawing.Point(367, 55);
+            this.ComOduTsDetail_Secondary_nni2.Location = new System.Drawing.Point(367, 56);
             this.ComOduTsDetail_Secondary_nni2.Name = "ComOduTsDetail_Secondary_nni2";
             this.ComOduTsDetail_Secondary_nni2.Size = new System.Drawing.Size(94, 20);
             this.ComOduTsDetail_Secondary_nni2.TabIndex = 6;
@@ -3476,6 +3411,8 @@ namespace NetConfClientSoftware
             // 
             // groupBoxODUClient
             // 
+            this.groupBoxODUClient.Controls.Add(this.labelClientTs);
+            this.groupBoxODUClient.Controls.Add(this.butOduuni);
             this.groupBoxODUClient.Controls.Add(this.label12);
             this.groupBoxODUClient.Controls.Add(this.label13);
             this.groupBoxODUClient.Controls.Add(this.label11);
@@ -3492,7 +3429,6 @@ namespace NetConfClientSoftware
             this.groupBoxODUClient.TabIndex = 14;
             this.groupBoxODUClient.TabStop = false;
             this.groupBoxODUClient.Text = "NNI  客户侧端口";
-            this.groupBoxODUClient.Enter += new System.EventHandler(this.groupBox5_Enter);
             // 
             // label12
             // 
@@ -3501,7 +3437,7 @@ namespace NetConfClientSoftware
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(53, 12);
             this.label12.TabIndex = 17;
-            this.label12.Text = "使用时隙";
+            this.label12.Text = "ODUk时隙";
             // 
             // label13
             // 
@@ -3580,7 +3516,7 @@ namespace NetConfClientSoftware
             // 
             // ComOduNniTsDetailClient_UNI_A
             // 
-            this.ComOduNniTsDetailClient_UNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComOduNniTsDetailClient_UNI_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.ComOduNniTsDetailClient_UNI_A.FormattingEnabled = true;
             this.ComOduNniTsDetailClient_UNI_A.Items.AddRange(new object[] {
             "1",
@@ -3591,7 +3527,7 @@ namespace NetConfClientSoftware
             "6",
             "7",
             "8"});
-            this.ComOduNniTsDetailClient_UNI_A.Location = new System.Drawing.Point(367, 55);
+            this.ComOduNniTsDetailClient_UNI_A.Location = new System.Drawing.Point(367, 56);
             this.ComOduNniTsDetailClient_UNI_A.Name = "ComOduNniTsDetailClient_UNI_A";
             this.ComOduNniTsDetailClient_UNI_A.Size = new System.Drawing.Size(94, 20);
             this.ComOduNniTsDetailClient_UNI_A.TabIndex = 6;
@@ -4338,7 +4274,7 @@ namespace NetConfClientSoftware
             // 
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1157, 244);
+            this.tabPage1.Size = new System.Drawing.Size(1165, 244);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "SDH业务";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -4347,7 +4283,7 @@ namespace NetConfClientSoftware
             // 
             this.OSU业务.Location = new System.Drawing.Point(4, 22);
             this.OSU业务.Name = "OSU业务";
-            this.OSU业务.Size = new System.Drawing.Size(1157, 244);
+            this.OSU业务.Size = new System.Drawing.Size(1165, 244);
             this.OSU业务.TabIndex = 3;
             this.OSU业务.Text = "OSU业务";
             this.OSU业务.UseVisualStyleBackColor = true;
@@ -4356,7 +4292,7 @@ namespace NetConfClientSoftware
             // 
             this.EoOSU业务.Location = new System.Drawing.Point(4, 22);
             this.EoOSU业务.Name = "EoOSU业务";
-            this.EoOSU业务.Size = new System.Drawing.Size(1157, 244);
+            this.EoOSU业务.Size = new System.Drawing.Size(1165, 244);
             this.EoOSU业务.TabIndex = 4;
             this.EoOSU业务.Text = "EoOSU业务";
             this.EoOSU业务.UseVisualStyleBackColor = true;
@@ -4365,7 +4301,7 @@ namespace NetConfClientSoftware
             // 
             this.EoS2EoOSU业务.Location = new System.Drawing.Point(4, 22);
             this.EoS2EoOSU业务.Name = "EoS2EoOSU业务";
-            this.EoS2EoOSU业务.Size = new System.Drawing.Size(1157, 244);
+            this.EoS2EoOSU业务.Size = new System.Drawing.Size(1165, 244);
             this.EoS2EoOSU业务.TabIndex = 5;
             this.EoS2EoOSU业务.Text = "EoS2EoOSU业务";
             this.EoS2EoOSU业务.UseVisualStyleBackColor = true;
@@ -4496,6 +4432,8 @@ namespace NetConfClientSoftware
             // 
             // groupBox27
             // 
+            this.groupBox27.Controls.Add(this.labelSdhNniPtp_A);
+            this.groupBox27.Controls.Add(this.butlSdhNniPtp_A);
             this.groupBox27.Controls.Add(this.ComSdhNniSdhtype_A);
             this.groupBox27.Controls.Add(this.label117);
             this.groupBox27.Controls.Add(this.label115);
@@ -4554,7 +4492,7 @@ namespace NetConfClientSoftware
             this.label133.Name = "label133";
             this.label133.Size = new System.Drawing.Size(53, 12);
             this.label133.TabIndex = 25;
-            this.label133.Text = "使用时隙";
+            this.label133.Text = "ODUk时隙";
             // 
             // ButSdhNniTs_A
             // 
@@ -4648,7 +4586,7 @@ namespace NetConfClientSoftware
             // 
             // ComSdhNniTs_A
             // 
-            this.ComSdhNniTs_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniTs_A.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.ComSdhNniTs_A.FormattingEnabled = true;
             this.ComSdhNniTs_A.Items.AddRange(new object[] {
             "1",
@@ -4661,7 +4599,7 @@ namespace NetConfClientSoftware
             "8"});
             this.ComSdhNniTs_A.Location = new System.Drawing.Point(452, 70);
             this.ComSdhNniTs_A.Name = "ComSdhNniTs_A";
-            this.ComSdhNniTs_A.Size = new System.Drawing.Size(152, 20);
+            this.ComSdhNniTs_A.Size = new System.Drawing.Size(120, 20);
             this.ComSdhNniTs_A.TabIndex = 21;
             // 
             // ComSdhNniSwitch_A
@@ -4694,6 +4632,8 @@ namespace NetConfClientSoftware
             // 
             // groupBox25
             // 
+            this.groupBox25.Controls.Add(this.labelSdhNniPtp_B);
+            this.groupBox25.Controls.Add(this.butlSdhNniPtp_B);
             this.groupBox25.Controls.Add(this.ButSdhNniTs_B);
             this.groupBox25.Controls.Add(this.ComSdhNniSdhtype_B);
             this.groupBox25.Controls.Add(this.label123);
@@ -4753,7 +4693,7 @@ namespace NetConfClientSoftware
             this.label128.Name = "label128";
             this.label128.Size = new System.Drawing.Size(53, 12);
             this.label128.TabIndex = 28;
-            this.label128.Text = "使用时隙";
+            this.label128.Text = "ODUk时隙";
             // 
             // label124
             // 
@@ -4845,7 +4785,7 @@ namespace NetConfClientSoftware
             // 
             // ComSdhNniTs_B
             // 
-            this.ComSdhNniTs_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.ComSdhNniTs_B.DropDownStyle = System.Windows.Forms.ComboBoxStyle.Simple;
             this.ComSdhNniTs_B.FormattingEnabled = true;
             this.ComSdhNniTs_B.Items.AddRange(new object[] {
             "1",
@@ -4858,7 +4798,7 @@ namespace NetConfClientSoftware
             "8"});
             this.ComSdhNniTs_B.Location = new System.Drawing.Point(452, 69);
             this.ComSdhNniTs_B.Name = "ComSdhNniTs_B";
-            this.ComSdhNniTs_B.Size = new System.Drawing.Size(152, 20);
+            this.ComSdhNniTs_B.Size = new System.Drawing.Size(120, 20);
             this.ComSdhNniTs_B.TabIndex = 24;
             // 
             // ComSdhNniPtp_B
@@ -5374,7 +5314,7 @@ namespace NetConfClientSoftware
             this.选择端口N,
             this.主要端口N,
             this.次要端口N});
-            this.dataGridViewPGS_Not.ContextMenuStrip = this.contextMenuStripPGS;
+            this.dataGridViewPGS_Not.ContextMenuStrip = this.contextMenuStripNotification;
             this.dataGridViewPGS_Not.Location = new System.Drawing.Point(6, 295);
             this.dataGridViewPGS_Not.Name = "dataGridViewPGS_Not";
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -5463,59 +5403,83 @@ namespace NetConfClientSoftware
             this.次要端口N.Name = "次要端口N";
             this.次要端口N.Width = 280;
             // 
-            // contextMenuStripPGS
+            // contextMenuStripNotification
             // 
-            this.contextMenuStripPGS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.强制倒换到主用toolStripMenuItem,
-            this.强制倒换到备用ToolStripMenuItem,
-            this.人工倒换到主用ToolStripMenuItem,
-            this.人工倒换到备用ToolStripMenuItem,
-            this.清除ToolStripMenuItem,
-            this.锁定ToolStripMenuItem});
-            this.contextMenuStripPGS.Name = "contextMenuStrip_ODU";
-            this.contextMenuStripPGS.Size = new System.Drawing.Size(161, 136);
+            this.contextMenuStripNotification.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.清空所有通知ToolStripMenuItem,
+            this.清空告警通知ToolStripMenuItem,
+            this.清空TCA告警通知ToolStripMenuItem,
+            this.清空保护倒换通知ToolStripMenuItem,
+            this.清空对象变更通知ToolStripMenuItem,
+            this.清空LLDP通知ToolStripMenuItem,
+            this.清空Peer通知ToolStripMenuItem,
+            this.清空GHao通知ToolStripMenuItem,
+            this.清空一般配置通知ToolStripMenuItem});
+            this.contextMenuStripNotification.Name = "contextMenuStripNotification";
+            this.contextMenuStripNotification.Size = new System.Drawing.Size(232, 202);
             // 
-            // 强制倒换到主用toolStripMenuItem
+            // 清空所有通知ToolStripMenuItem
             // 
-            this.强制倒换到主用toolStripMenuItem.Name = "强制倒换到主用toolStripMenuItem";
-            this.强制倒换到主用toolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.强制倒换到主用toolStripMenuItem.Text = "强制倒换到主用";
-            this.强制倒换到主用toolStripMenuItem.Click += new System.EventHandler(this.强制倒换到主用toolStripMenuItem_Click);
+            this.清空所有通知ToolStripMenuItem.Name = "清空所有通知ToolStripMenuItem";
+            this.清空所有通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空所有通知ToolStripMenuItem.Text = "清空All所有通知";
+            this.清空所有通知ToolStripMenuItem.Click += new System.EventHandler(this.清空所有通知ToolStripMenuItem_Click);
             // 
-            // 强制倒换到备用ToolStripMenuItem
+            // 清空告警通知ToolStripMenuItem
             // 
-            this.强制倒换到备用ToolStripMenuItem.Name = "强制倒换到备用ToolStripMenuItem";
-            this.强制倒换到备用ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.强制倒换到备用ToolStripMenuItem.Text = "强制倒换到备用";
-            this.强制倒换到备用ToolStripMenuItem.Click += new System.EventHandler(this.强制倒换到备用ToolStripMenuItem_Click);
+            this.清空告警通知ToolStripMenuItem.Name = "清空告警通知ToolStripMenuItem";
+            this.清空告警通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空告警通知ToolStripMenuItem.Text = "清空Alarm告警通知";
+            this.清空告警通知ToolStripMenuItem.Click += new System.EventHandler(this.清空告警通知ToolStripMenuItem_Click);
             // 
-            // 人工倒换到主用ToolStripMenuItem
+            // 清空TCA告警通知ToolStripMenuItem
             // 
-            this.人工倒换到主用ToolStripMenuItem.Name = "人工倒换到主用ToolStripMenuItem";
-            this.人工倒换到主用ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.人工倒换到主用ToolStripMenuItem.Text = "人工倒换到主用";
-            this.人工倒换到主用ToolStripMenuItem.Click += new System.EventHandler(this.人工倒换到主用ToolStripMenuItem_Click);
+            this.清空TCA告警通知ToolStripMenuItem.Name = "清空TCA告警通知ToolStripMenuItem";
+            this.清空TCA告警通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空TCA告警通知ToolStripMenuItem.Text = "清空Tca_Alarm告警通知";
+            this.清空TCA告警通知ToolStripMenuItem.Click += new System.EventHandler(this.清空TCA告警通知ToolStripMenuItem_Click);
             // 
-            // 人工倒换到备用ToolStripMenuItem
+            // 清空保护倒换通知ToolStripMenuItem
             // 
-            this.人工倒换到备用ToolStripMenuItem.Name = "人工倒换到备用ToolStripMenuItem";
-            this.人工倒换到备用ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.人工倒换到备用ToolStripMenuItem.Text = "人工倒换到备用";
-            this.人工倒换到备用ToolStripMenuItem.Click += new System.EventHandler(this.人工倒换到备用ToolStripMenuItem_Click);
+            this.清空保护倒换通知ToolStripMenuItem.Name = "清空保护倒换通知ToolStripMenuItem";
+            this.清空保护倒换通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空保护倒换通知ToolStripMenuItem.Text = "清空Protection保护倒换通知";
+            this.清空保护倒换通知ToolStripMenuItem.Click += new System.EventHandler(this.清空保护倒换通知ToolStripMenuItem_Click);
             // 
-            // 清除ToolStripMenuItem
+            // 清空对象变更通知ToolStripMenuItem
             // 
-            this.清除ToolStripMenuItem.Name = "清除ToolStripMenuItem";
-            this.清除ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.清除ToolStripMenuItem.Text = "清除";
-            this.清除ToolStripMenuItem.Click += new System.EventHandler(this.清除ToolStripMenuItem_Click);
+            this.清空对象变更通知ToolStripMenuItem.Name = "清空对象变更通知ToolStripMenuItem";
+            this.清空对象变更通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空对象变更通知ToolStripMenuItem.Text = "清空Attribute对象变更通知";
+            this.清空对象变更通知ToolStripMenuItem.Click += new System.EventHandler(this.清空对象变更通知ToolStripMenuItem_Click);
             // 
-            // 锁定ToolStripMenuItem
+            // 清空LLDP通知ToolStripMenuItem
             // 
-            this.锁定ToolStripMenuItem.Name = "锁定ToolStripMenuItem";
-            this.锁定ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
-            this.锁定ToolStripMenuItem.Text = "锁定";
-            this.锁定ToolStripMenuItem.Click += new System.EventHandler(this.锁定ToolStripMenuItem_Click);
+            this.清空LLDP通知ToolStripMenuItem.Name = "清空LLDP通知ToolStripMenuItem";
+            this.清空LLDP通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空LLDP通知ToolStripMenuItem.Text = "清空LLDP通知";
+            this.清空LLDP通知ToolStripMenuItem.Click += new System.EventHandler(this.清空LLDP通知ToolStripMenuItem_Click);
+            // 
+            // 清空Peer通知ToolStripMenuItem
+            // 
+            this.清空Peer通知ToolStripMenuItem.Name = "清空Peer通知ToolStripMenuItem";
+            this.清空Peer通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空Peer通知ToolStripMenuItem.Text = "清空Peer通知";
+            this.清空Peer通知ToolStripMenuItem.Click += new System.EventHandler(this.清空Peer通知ToolStripMenuItem_Click);
+            // 
+            // 清空GHao通知ToolStripMenuItem
+            // 
+            this.清空GHao通知ToolStripMenuItem.Name = "清空GHao通知ToolStripMenuItem";
+            this.清空GHao通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空GHao通知ToolStripMenuItem.Text = "清空G.Hao通知";
+            this.清空GHao通知ToolStripMenuItem.Click += new System.EventHandler(this.清空GHao通知ToolStripMenuItem_Click);
+            // 
+            // 清空一般配置通知ToolStripMenuItem
+            // 
+            this.清空一般配置通知ToolStripMenuItem.Name = "清空一般配置通知ToolStripMenuItem";
+            this.清空一般配置通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空一般配置通知ToolStripMenuItem.Text = "清空Common一般配置通知";
+            this.清空一般配置通知ToolStripMenuItem.Click += new System.EventHandler(this.清空一般配置通知ToolStripMenuItem_Click);
             // 
             // dataGridViewPGS
             // 
@@ -5631,6 +5595,60 @@ namespace NetConfClientSoftware
             this.次要端口.HeaderText = "备用端口";
             this.次要端口.Name = "次要端口";
             this.次要端口.Width = 280;
+            // 
+            // contextMenuStripPGS
+            // 
+            this.contextMenuStripPGS.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.强制倒换到主用toolStripMenuItem,
+            this.强制倒换到备用ToolStripMenuItem,
+            this.人工倒换到主用ToolStripMenuItem,
+            this.人工倒换到备用ToolStripMenuItem,
+            this.清除ToolStripMenuItem,
+            this.锁定ToolStripMenuItem});
+            this.contextMenuStripPGS.Name = "contextMenuStrip_ODU";
+            this.contextMenuStripPGS.Size = new System.Drawing.Size(161, 136);
+            // 
+            // 强制倒换到主用toolStripMenuItem
+            // 
+            this.强制倒换到主用toolStripMenuItem.Name = "强制倒换到主用toolStripMenuItem";
+            this.强制倒换到主用toolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.强制倒换到主用toolStripMenuItem.Text = "强制倒换到主用";
+            this.强制倒换到主用toolStripMenuItem.Click += new System.EventHandler(this.强制倒换到主用toolStripMenuItem_Click);
+            // 
+            // 强制倒换到备用ToolStripMenuItem
+            // 
+            this.强制倒换到备用ToolStripMenuItem.Name = "强制倒换到备用ToolStripMenuItem";
+            this.强制倒换到备用ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.强制倒换到备用ToolStripMenuItem.Text = "强制倒换到备用";
+            this.强制倒换到备用ToolStripMenuItem.Click += new System.EventHandler(this.强制倒换到备用ToolStripMenuItem_Click);
+            // 
+            // 人工倒换到主用ToolStripMenuItem
+            // 
+            this.人工倒换到主用ToolStripMenuItem.Name = "人工倒换到主用ToolStripMenuItem";
+            this.人工倒换到主用ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.人工倒换到主用ToolStripMenuItem.Text = "人工倒换到主用";
+            this.人工倒换到主用ToolStripMenuItem.Click += new System.EventHandler(this.人工倒换到主用ToolStripMenuItem_Click);
+            // 
+            // 人工倒换到备用ToolStripMenuItem
+            // 
+            this.人工倒换到备用ToolStripMenuItem.Name = "人工倒换到备用ToolStripMenuItem";
+            this.人工倒换到备用ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.人工倒换到备用ToolStripMenuItem.Text = "人工倒换到备用";
+            this.人工倒换到备用ToolStripMenuItem.Click += new System.EventHandler(this.人工倒换到备用ToolStripMenuItem_Click);
+            // 
+            // 清除ToolStripMenuItem
+            // 
+            this.清除ToolStripMenuItem.Name = "清除ToolStripMenuItem";
+            this.清除ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.清除ToolStripMenuItem.Text = "清除";
+            this.清除ToolStripMenuItem.Click += new System.EventHandler(this.清除ToolStripMenuItem_Click);
+            // 
+            // 锁定ToolStripMenuItem
+            // 
+            this.锁定ToolStripMenuItem.Name = "锁定ToolStripMenuItem";
+            this.锁定ToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+            this.锁定ToolStripMenuItem.Text = "锁定";
+            this.锁定ToolStripMenuItem.Click += new System.EventHandler(this.锁定ToolStripMenuItem_Click);
             // 
             // 告警和通知
             // 
@@ -5791,6 +5809,7 @@ namespace NetConfClientSoftware
             this.end_time_alarm,
             this.check,
             this.NEname});
+            this.ListViewAlarm.ContextMenuStrip = this.contextMenuStripNotification;
             this.ListViewAlarm.FullRowSelect = true;
             this.ListViewAlarm.GridLines = true;
             this.ListViewAlarm.HideSelection = false;
@@ -5877,6 +5896,7 @@ namespace NetConfClientSoftware
             this.end_time,
             this.TCACheck,
             this.TCAnename});
+            this.ListViewTcaAlarm.ContextMenuStrip = this.contextMenuStripNotification;
             this.ListViewTcaAlarm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ListViewTcaAlarm.FullRowSelect = true;
             this.ListViewTcaAlarm.GridLines = true;
@@ -5977,6 +5997,7 @@ namespace NetConfClientSoftware
             this.columnHeader16,
             this.columnHeader17,
             this.columnHeader31});
+            this.listViewProtection.ContextMenuStrip = this.contextMenuStripNotification;
             this.listViewProtection.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewProtection.FullRowSelect = true;
             this.listViewProtection.GridLines = true;
@@ -6081,6 +6102,7 @@ namespace NetConfClientSoftware
             this.new_value,
             this.old_value,
             this.columnHeader32});
+            this.listViewAttribute.ContextMenuStrip = this.contextMenuStripNotification;
             this.listViewAttribute.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewAttribute.FullRowSelect = true;
             this.listViewAttribute.GridLines = true;
@@ -6156,6 +6178,7 @@ namespace NetConfClientSoftware
             this.lldp_peer_port_id,
             this.lldp_peer_system_name,
             this.columnHeader33});
+            this.listViewLLDP.ContextMenuStrip = this.contextMenuStripNotification;
             this.listViewLLDP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewLLDP.FullRowSelect = true;
             this.listViewLLDP.GridLines = true;
@@ -6215,6 +6238,7 @@ namespace NetConfClientSoftware
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader34});
+            this.listViewPeer.ContextMenuStrip = this.contextMenuStripNotification;
             this.listViewPeer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewPeer.FullRowSelect = true;
             this.listViewPeer.GridLines = true;
@@ -6272,6 +6296,7 @@ namespace NetConfClientSoftware
             this.columnHeader29,
             this.columnHeader30,
             this.columnHeader35});
+            this.listViewGhao.ContextMenuStrip = this.contextMenuStripNotification;
             this.listViewGhao.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewGhao.FullRowSelect = true;
             this.listViewGhao.GridLines = true;
@@ -6342,6 +6367,7 @@ namespace NetConfClientSoftware
             this.columnHeader22,
             this.columnHeader23,
             this.columnHeader36});
+            this.listViewCommon.ContextMenuStrip = this.contextMenuStripNotification;
             this.listViewCommon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listViewCommon.FullRowSelect = true;
             this.listViewCommon.GridLines = true;
@@ -6370,7 +6396,7 @@ namespace NetConfClientSoftware
             // columnHeader22
             // 
             this.columnHeader22.Text = "对象名称";
-            this.columnHeader22.Width = 100;
+            this.columnHeader22.Width = 371;
             // 
             // columnHeader23
             // 
@@ -6818,6 +6844,236 @@ namespace NetConfClientSoftware
             this.imageListTree.Images.SetKeyName(4, "if_orange.png");
             this.imageListTree.Images.SetKeyName(5, "if_yellow.png");
             // 
+            // 连接名称
+            // 
+            this.连接名称.HeaderText = "连接名称";
+            this.连接名称.Name = "连接名称";
+            this.连接名称.Width = 120;
+            // 
+            // 标签别名
+            // 
+            this.标签别名.HeaderText = "标签别名";
+            this.标签别名.Name = "标签别名";
+            this.标签别名.Width = 60;
+            // 
+            // 当前状态
+            // 
+            this.当前状态.HeaderText = "当前状态";
+            this.当前状态.Name = "当前状态";
+            this.当前状态.Width = 40;
+            // 
+            // 管理状态
+            // 
+            this.管理状态.HeaderText = "管理状态";
+            this.管理状态.Name = "管理状态";
+            this.管理状态.Width = 60;
+            // 
+            // 当前层协议
+            // 
+            this.当前层协议.HeaderText = "当前层协议";
+            this.当前层协议.Name = "当前层协议";
+            this.当前层协议.Width = 80;
+            // 
+            // 服务类型
+            // 
+            this.服务类型.HeaderText = "服务类型";
+            this.服务类型.Name = "服务类型";
+            this.服务类型.Width = 40;
+            // 
+            // 业务总带宽
+            // 
+            this.业务总带宽.HeaderText = "业务总带宽";
+            this.业务总带宽.Name = "业务总带宽";
+            this.业务总带宽.Width = 60;
+            // 
+            // 承诺带宽
+            // 
+            this.承诺带宽.HeaderText = "承诺带宽";
+            this.承诺带宽.Name = "承诺带宽";
+            this.承诺带宽.Width = 40;
+            // 
+            // 峰值带宽
+            // 
+            this.峰值带宽.HeaderText = "峰值带宽";
+            this.峰值带宽.Name = "峰值带宽";
+            this.峰值带宽.Width = 40;
+            // 
+            // 承诺突发
+            // 
+            this.承诺突发.HeaderText = "承诺突发";
+            this.承诺突发.Name = "承诺突发";
+            this.承诺突发.Width = 40;
+            // 
+            // 峰值突发
+            // 
+            this.峰值突发.HeaderText = "峰值突发";
+            this.峰值突发.Name = "峰值突发";
+            this.峰值突发.Width = 40;
+            // 
+            // CTP端口1
+            // 
+            this.CTP端口1.HeaderText = "所有CTP端口";
+            this.CTP端口1.Name = "CTP端口1";
+            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CTP端口1.Width = 600;
+            // 
+            // CTP端口2
+            // 
+            this.CTP端口2.HeaderText = "PTP-CTP端口";
+            this.CTP端口2.Name = "CTP端口2";
+            this.CTP端口2.Width = 300;
+            // 
+            // butOduuni
+            // 
+            this.butOduuni.Location = new System.Drawing.Point(461, 54);
+            this.butOduuni.Name = "butOduuni";
+            this.butOduuni.Size = new System.Drawing.Size(45, 23);
+            this.butOduuni.TabIndex = 18;
+            this.butOduuni.Text = "...";
+            this.butOduuni.UseVisualStyleBackColor = true;
+            this.butOduuni.Click += new System.EventHandler(this.butOduuni_Click);
+            // 
+            // labelClientTs
+            // 
+            this.labelClientTs.AutoSize = true;
+            this.labelClientTs.Location = new System.Drawing.Point(332, 58);
+            this.labelClientTs.Name = "labelClientTs";
+            this.labelClientTs.Size = new System.Drawing.Size(29, 12);
+            this.labelClientTs.TabIndex = 19;
+            this.labelClientTs.Text = "0-00";
+            // 
+            // label_ts_primary_nni
+            // 
+            this.label_ts_primary_nni.AutoSize = true;
+            this.label_ts_primary_nni.Location = new System.Drawing.Point(334, 61);
+            this.label_ts_primary_nni.Name = "label_ts_primary_nni";
+            this.label_ts_primary_nni.Size = new System.Drawing.Size(29, 12);
+            this.label_ts_primary_nni.TabIndex = 20;
+            this.label_ts_primary_nni.Text = "0-00";
+            // 
+            // label_ts_sec_nni
+            // 
+            this.label_ts_sec_nni.AutoSize = true;
+            this.label_ts_sec_nni.Location = new System.Drawing.Point(334, 57);
+            this.label_ts_sec_nni.Name = "label_ts_sec_nni";
+            this.label_ts_sec_nni.Size = new System.Drawing.Size(29, 12);
+            this.label_ts_sec_nni.TabIndex = 36;
+            this.label_ts_sec_nni.Text = "0-00";
+            // 
+            // label_ts_primary_nni2
+            // 
+            this.label_ts_primary_nni2.AutoSize = true;
+            this.label_ts_primary_nni2.Location = new System.Drawing.Point(334, 61);
+            this.label_ts_primary_nni2.Name = "label_ts_primary_nni2";
+            this.label_ts_primary_nni2.Size = new System.Drawing.Size(29, 12);
+            this.label_ts_primary_nni2.TabIndex = 26;
+            this.label_ts_primary_nni2.Text = "0-00";
+            // 
+            // label_ts_sec_nni2
+            // 
+            this.label_ts_sec_nni2.AutoSize = true;
+            this.label_ts_sec_nni2.Location = new System.Drawing.Point(334, 59);
+            this.label_ts_sec_nni2.Name = "label_ts_sec_nni2";
+            this.label_ts_sec_nni2.Size = new System.Drawing.Size(29, 12);
+            this.label_ts_sec_nni2.TabIndex = 37;
+            this.label_ts_sec_nni2.Text = "0-00";
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
+            this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem1.Text = "导入XML目录";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.打开OToolStripMenuItem_Click);
+            // 
+            // ToolStripMenuItemAUto
+            // 
+            this.ToolStripMenuItemAUto.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemAUto.Image")));
+            this.ToolStripMenuItemAUto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ToolStripMenuItemAUto.Name = "ToolStripMenuItemAUto";
+            this.ToolStripMenuItemAUto.Size = new System.Drawing.Size(150, 22);
+            this.ToolStripMenuItemAUto.Text = "导入测试用例";
+            this.ToolStripMenuItemAUto.Click += new System.EventHandler(this.ToolStripMenuItemAUto_Click);
+            // 
+            // but_ts_primary_nni
+            // 
+            this.but_ts_primary_nni.Location = new System.Drawing.Point(461, 55);
+            this.but_ts_primary_nni.Name = "but_ts_primary_nni";
+            this.but_ts_primary_nni.Size = new System.Drawing.Size(45, 23);
+            this.but_ts_primary_nni.TabIndex = 20;
+            this.but_ts_primary_nni.Text = "...";
+            this.but_ts_primary_nni.UseVisualStyleBackColor = true;
+            this.but_ts_primary_nni.Click += new System.EventHandler(this.but_ts_primary_nni_Click);
+            // 
+            // but_ts_sec_nni
+            // 
+            this.but_ts_sec_nni.Location = new System.Drawing.Point(461, 51);
+            this.but_ts_sec_nni.Name = "but_ts_sec_nni";
+            this.but_ts_sec_nni.Size = new System.Drawing.Size(45, 23);
+            this.but_ts_sec_nni.TabIndex = 36;
+            this.but_ts_sec_nni.Text = "...";
+            this.but_ts_sec_nni.UseVisualStyleBackColor = true;
+            this.but_ts_sec_nni.Click += new System.EventHandler(this.but_ts_sec_nni_Click);
+            // 
+            // but_ts_primary_nni2
+            // 
+            this.but_ts_primary_nni2.Location = new System.Drawing.Point(461, 53);
+            this.but_ts_primary_nni2.Name = "but_ts_primary_nni2";
+            this.but_ts_primary_nni2.Size = new System.Drawing.Size(45, 23);
+            this.but_ts_primary_nni2.TabIndex = 37;
+            this.but_ts_primary_nni2.Text = "...";
+            this.but_ts_primary_nni2.UseVisualStyleBackColor = true;
+            this.but_ts_primary_nni2.Click += new System.EventHandler(this.but_ts_primary_nni2_Click);
+            // 
+            // but_ts_sec_nni2
+            // 
+            this.but_ts_sec_nni2.Location = new System.Drawing.Point(461, 53);
+            this.but_ts_sec_nni2.Name = "but_ts_sec_nni2";
+            this.but_ts_sec_nni2.Size = new System.Drawing.Size(45, 23);
+            this.but_ts_sec_nni2.TabIndex = 38;
+            this.but_ts_sec_nni2.Text = "...";
+            this.but_ts_sec_nni2.UseVisualStyleBackColor = true;
+            this.but_ts_sec_nni2.Click += new System.EventHandler(this.but_ts_sec_nni2_Click);
+            // 
+            // butlSdhNniPtp_A
+            // 
+            this.butlSdhNniPtp_A.Location = new System.Drawing.Point(572, 68);
+            this.butlSdhNniPtp_A.Name = "butlSdhNniPtp_A";
+            this.butlSdhNniPtp_A.Size = new System.Drawing.Size(33, 23);
+            this.butlSdhNniPtp_A.TabIndex = 45;
+            this.butlSdhNniPtp_A.Text = "...";
+            this.butlSdhNniPtp_A.UseVisualStyleBackColor = true;
+            this.butlSdhNniPtp_A.Click += new System.EventHandler(this.butlSdhNniPtp_A_Click);
+            // 
+            // butlSdhNniPtp_B
+            // 
+            this.butlSdhNniPtp_B.Location = new System.Drawing.Point(572, 67);
+            this.butlSdhNniPtp_B.Name = "butlSdhNniPtp_B";
+            this.butlSdhNniPtp_B.Size = new System.Drawing.Size(33, 23);
+            this.butlSdhNniPtp_B.TabIndex = 42;
+            this.butlSdhNniPtp_B.Text = "...";
+            this.butlSdhNniPtp_B.UseVisualStyleBackColor = true;
+            this.butlSdhNniPtp_B.Click += new System.EventHandler(this.butlSdhNniPtp_B_Click);
+            // 
+            // labelSdhNniPtp_A
+            // 
+            this.labelSdhNniPtp_A.AutoSize = true;
+            this.labelSdhNniPtp_A.Location = new System.Drawing.Point(400, 73);
+            this.labelSdhNniPtp_A.Name = "labelSdhNniPtp_A";
+            this.labelSdhNniPtp_A.Size = new System.Drawing.Size(29, 12);
+            this.labelSdhNniPtp_A.TabIndex = 46;
+            this.labelSdhNniPtp_A.Text = "0-00";
+            // 
+            // labelSdhNniPtp_B
+            // 
+            this.labelSdhNniPtp_B.AutoSize = true;
+            this.labelSdhNniPtp_B.Location = new System.Drawing.Point(399, 73);
+            this.labelSdhNniPtp_B.Name = "labelSdhNniPtp_B";
+            this.labelSdhNniPtp_B.Size = new System.Drawing.Size(29, 12);
+            this.labelSdhNniPtp_B.TabIndex = 47;
+            this.labelSdhNniPtp_B.Text = "0-00";
+            // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -6923,8 +7179,9 @@ namespace NetConfClientSoftware
             this.保护组查询.ResumeLayout(false);
             this.groupBox17.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS_Not)).EndInit();
-            this.contextMenuStripPGS.ResumeLayout(false);
+            this.contextMenuStripNotification.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS)).EndInit();
+            this.contextMenuStripPGS.ResumeLayout(false);
             this.告警和通知.ResumeLayout(false);
             this.tabControl2.ResumeLayout(false);
             this.tabPage10.ResumeLayout(false);
@@ -7485,19 +7742,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.ToolStripMenuItem 加载电信YIN文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem vCG时隙调整ToolStripMenuItem;
         private System.Windows.Forms.GroupBox groupBoxunivlan;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 标签别名;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 当前状态;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 管理状态;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 当前层协议;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 服务类型;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 业务总带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺突发;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
         private System.Windows.Forms.ToolStripMenuItem 分享SToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 取消执行ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 确认执行ToolStripMenuItem;
@@ -7571,6 +7815,43 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.Label label56;
         private System.Windows.Forms.ComboBox comboBoxETHservicemode;
         private System.Windows.Forms.Label label58;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripNotification;
+        private System.Windows.Forms.ToolStripMenuItem 清空所有通知ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空告警通知ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空TCA告警通知ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空保护倒换通知ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空对象变更通知ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空LLDP通知ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空Peer通知ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空GHao通知ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 清空一般配置通知ToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 标签别名;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 当前状态;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 管理状态;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 当前层协议;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 服务类型;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 业务总带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺突发;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
+        private System.Windows.Forms.Button butOduuni;
+        private System.Windows.Forms.Label label_ts_primary_nni;
+        private System.Windows.Forms.Label label_ts_sec_nni;
+        private System.Windows.Forms.Label label_ts_primary_nni2;
+        private System.Windows.Forms.Label label_ts_sec_nni2;
+        private System.Windows.Forms.Label labelClientTs;
+        private System.Windows.Forms.Button but_ts_primary_nni;
+        private System.Windows.Forms.Button but_ts_sec_nni;
+        private System.Windows.Forms.Button but_ts_primary_nni2;
+        private System.Windows.Forms.Button but_ts_sec_nni2;
+        private System.Windows.Forms.Label labelSdhNniPtp_A;
+        private System.Windows.Forms.Button butlSdhNniPtp_A;
+        private System.Windows.Forms.Label labelSdhNniPtp_B;
+        private System.Windows.Forms.Button butlSdhNniPtp_B;
     }
 }
 
