@@ -53,10 +53,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.textBoxRecommod = new System.Windows.Forms.TextBox();
-            this.预期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxtype = new System.Windows.Forms.TextBox();
+            this.个数 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.预期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -217,6 +218,7 @@
             // 
             this.dataGridViewExpRx.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewExpRx.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.个数,
             this.预期,
             this.结果});
             this.dataGridViewExpRx.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -346,18 +348,6 @@
             this.textBoxRecommod.Size = new System.Drawing.Size(100, 21);
             this.textBoxRecommod.TabIndex = 16;
             // 
-            // 预期
-            // 
-            this.预期.HeaderText = "预期";
-            this.预期.Name = "预期";
-            this.预期.Width = 200;
-            // 
-            // 结果
-            // 
-            this.结果.HeaderText = "结果";
-            this.结果.Name = "结果";
-            this.结果.Width = 300;
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -374,6 +364,24 @@
             this.textBoxtype.ReadOnly = true;
             this.textBoxtype.Size = new System.Drawing.Size(100, 21);
             this.textBoxtype.TabIndex = 18;
+            // 
+            // 个数
+            // 
+            this.个数.HeaderText = "个数";
+            this.个数.Name = "个数";
+            this.个数.Width = 40;
+            // 
+            // 预期
+            // 
+            this.预期.HeaderText = "预期";
+            this.预期.Name = "预期";
+            this.预期.Width = 200;
+            // 
+            // 结果
+            // 
+            this.结果.HeaderText = "结果";
+            this.结果.Name = "结果";
+            this.结果.Width = 300;
             // 
             // Form_AutoXmlInfo
             // 
@@ -450,9 +458,10 @@
         private System.Windows.Forms.TreeView treeView;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.GroupBox RPC;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 预期;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 结果;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxtype;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 个数;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 预期;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 结果;
     }
 }

@@ -42,9 +42,10 @@ namespace NetConfClientSoftware
                 for (int i = 0; i < ExpByte.Length; i++)
                 {
                     int index = dataGridViewExpRx.Rows.Add();
+                    dataGridViewExpRx.Rows[index].Cells["个数"].Value = index+1;
                     //dataGridViewExpRx.Rows[index].Cells["预期"].Value = ExpByte[i];
-                   
-                   // string[] RxByte0 = RxByte[i].Split('=');
+
+                    // string[] RxByte0 = RxByte[i].Split('=');
                     string[] RxByte0 = Regex.Split(RxByte[i], "是", RegexOptions.IgnoreCase);
                     dataGridViewExpRx.Rows[index].Cells["预期"].Value = RxByte0[0];
                     dataGridViewExpRx.Rows[index].Cells["结果"].Value = RxByte0[1];

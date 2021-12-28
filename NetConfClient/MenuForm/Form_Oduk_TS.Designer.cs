@@ -108,11 +108,12 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 74);
+            this.label1.ForeColor = System.Drawing.Color.Red;
+            this.label1.Location = new System.Drawing.Point(13, 68);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(221, 12);
+            this.label1.Size = new System.Drawing.Size(383, 24);
             this.label1.TabIndex = 9;
-            this.label1.Text = "注意：不能“勾选”说明时隙已被占用。";
+            this.label1.Text = "注意：不能“勾选”说明时隙已被占用;\r\n注意：ODU2和ODU2e要全选，其他ODUk按需选择，ODU1要选择俩个时隙。\r\n";
             // 
             // Form_Oduk_TS
             // 
