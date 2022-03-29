@@ -31,6 +31,7 @@ namespace NetConfClientSoftware
         private Point mouseOff;//鼠标移动位置变量
         private bool leftFlag;//标签是否为左键
         public static string remember = "是";
+        public static int count = 0;
         /// <summary>
         /// 写入INI文件
         /// </summary>
@@ -188,7 +189,9 @@ namespace NetConfClientSoftware
                 MySqlDataReader sqlDataReader = cmd.ExecuteReader();
                 if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                 {
-                    MessageBox.Show("在线认证成功：用户名、密码、机器码、License认证成功");
+                    MessageBox.Show("联网认证成功：用户名、密码、机器码、License认证成功");
+                    FindCount(user);
+                    InserCount(user);
                     user = textBoxUser.Text;
                     password = textBoxPass.Text;
                     Setini();
@@ -201,21 +204,10 @@ namespace NetConfClientSoftware
                 else
                 {
                     sqlDataReader.Close();
-                    sql = "select user,pass,sn from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
+                    sql = "select user,licence from users where user='" + textBoxUser.Text + "'and licence='" + licence + "'";//SQL语句实现表数据的读取
                     cmd = new MySqlCommand(sql, conn);
                     sqlDataReader = cmd.ExecuteReader();
                     if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
-                    {
-                        MessageBox.Show("在线认证成功：用户名、密码、机器码认证成功");
-                        user = textBoxUser.Text;
-                        password = textBoxPass.Text;
-                        Setini();
-                        conn.Close();
-                        this.DialogResult = DialogResult.OK;
-                        this.Dispose();
-                        this.Close();
-                    }
-                    else
                     {
                         sqlDataReader.Close();
                         sql = "select user,pass,licence from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'and licence='" + licence + "'";//SQL语句实现表数据的读取
@@ -223,7 +215,9 @@ namespace NetConfClientSoftware
                         sqlDataReader = cmd.ExecuteReader();
                         if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                         {
-                            MessageBox.Show("在线认证成功：用户名、密码、Licence认证成功");
+                            MessageBox.Show("联网认证成功：用户名、密码、Licence认证成功");
+                            FindCount(user);
+                            InserCount(user);
                             user = textBoxUser.Text;
                             password = textBoxPass.Text;
                             Setini();
@@ -235,44 +229,81 @@ namespace NetConfClientSoftware
                         else
                         {
                             sqlDataReader.Close();
-                            sql = "select user,pass from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'";//SQL语句实现表数据的读取
+                            sql = "select user,pass,sn from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
                             cmd = new MySqlCommand(sql, conn);
                             sqlDataReader = cmd.ExecuteReader();
                             if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                             {
-                                MessageBox.Show("在线认证失败：用户名密码认证成功，License认证失败。请联系作者：sxhunan@163.com,开通权限");
+                                MessageBox.Show("联网认证成功：用户名、密码、机器码认证成功");
+                                FindCount(user);
+                                InserCount(user);
+                                user = textBoxUser.Text;
+                                password = textBoxPass.Text;
+                                Setini();
+                                conn.Close();
+                                this.DialogResult = DialogResult.OK;
+                                this.Dispose();
+                                this.Close();
                             }
                             else
                             {
-                                //MessageBox.Show("账号或密码错误或未注册");
                                 sqlDataReader.Close();
-                                sql = "select user from users where user='" + textBoxUser.Text + "'";//SQL语句实现表数据的读取
+                                sql = "select user,pass from users where user='" + textBoxUser.Text + "'and pass='" + textBoxPass.Text + "'";//SQL语句实现表数据的读取
                                 cmd = new MySqlCommand(sql, conn);
                                 sqlDataReader = cmd.ExecuteReader();
                                 if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                                 {
-                                    MessageBox.Show("在线认证失败：密码不正确");
+                                    MessageBox.Show("联网认证成功：用户名、密码认证成功");
+                                    FindCount(user);
+                                    InserCount(user);
+                                    user = textBoxUser.Text;
+                                    password = textBoxPass.Text;
+                                    Setini();
+                                    conn.Close();
+                                    this.DialogResult = DialogResult.OK;
+                                    this.Dispose();
+                                    this.Close();
                                 }
                                 else
                                 {
-                                    MessageBox.Show("在线认证失败：用户不存在,请先进行注册");
+                                    //MessageBox.Show("账号或密码错误或未注册");
+                                    sqlDataReader.Close();
+                                    sql = "select user from users where user='" + textBoxUser.Text + "'";//SQL语句实现表数据的读取
+                                    cmd = new MySqlCommand(sql, conn);
+                                    sqlDataReader = cmd.ExecuteReader();
+                                    if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
+                                    {
+                                        MessageBox.Show("联网认证失败：密码不正确");
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("联网认证失败：用户不存在,请先进行注册");
+                                    }
+                                    sqlDataReader.Close();
                                 }
-                               sqlDataReader.Close();
+
                             }
 
                         }
+                        //MessageBox.Show("账号或密码错误或未注册");
+                    }
+                    else
+                    {
+                        MessageBox.Show("联网认证失败：用户名认证成功，License认证失败！\n请联系作者：sxhunan@163.com，开通使用权限");
+                        sqlDataReader.Close();
 
                     }
-                    //MessageBox.Show("账号或密码错误或未注册");
+
                 }
                // conn.Close();
             }
             catch (Exception ex){
+                conn.Close();
                 //MessageBox.Show(ex.ToString());
-               // Getini();
+                // Getini();
                 if (user == textBoxUser.Text && password == textBoxPass.Text )
                 {
-                    if (sn == MachineCode.GetMachineCodeString())
+                    if (sn == MachineCode.GetHardDiskID())
                     {
                         MessageBox.Show("离线认证成功：机器码认证成功");
                         user = textBoxUser.Text;
@@ -289,7 +320,7 @@ namespace NetConfClientSoftware
 
                 }
                 else {
-                    MessageBox.Show("离线认证失败：用户名密码错误");
+                    MessageBox.Show("离线认证失败：用户名密码错误!");
 
                 }
 
@@ -299,6 +330,99 @@ namespace NetConfClientSoftware
           
         }
 
+        private void InserCount(string name) {
+            try
+            {
+                string ip = "";
+                var t0_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("http://myip.ipip.net", "utf-8"));// 111.198.29.123
+
+                // var t2_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("https://www.whatismyip.com/my-ip-information/", "utf-8"));// 111.198.29.123
+                //var t3_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("https://www.cman.jp/network/support/go_access.cgi", "utf-8"));// 111.198.29.123
+                if (!string.IsNullOrEmpty(t0_ip))
+                {
+                    ip = t0_ip;
+                }
+                else
+                {
+                    var t1_ip = Myip.GetIPFromHtml(Myip.HttpGetPageHtml("http://www.net.cn/static/customercare/yourip.asp", "gbk"));// 111.198.29.123
+                    if (!string.IsNullOrEmpty(t1_ip))
+                    {
+                        ip = t1_ip;
+                    }
+                }
+                if (string.IsNullOrEmpty(ip))
+                {
+                    //MessageBox.Show("设备未接入互联网，请接入互联网后再此尝试！" + MachineCode.GetMachineCodeString());
+                    this.DialogResult = DialogResult.Cancel;
+                    return;
+                }
+
+                String update_time;
+                user = textBoxUser.Text;
+                password = textBoxPass.Text;
+                update_time = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                MySqlConnection conn = new MySqlConnection(connetStr);
+                conn.Open();
+                
+                sn = MachineCode.GetHardDiskID();
+                String sql = "UPDATE users set " + "count = '" + count + "',ipaddress = '" + ip + "',update_time = '" + update_time + "'Where user = '" + user + "'";
+                //String sql = "select user,pass,licence,sn from users where user='" + username + "'and pass='" + password + "'and licence='" + licence + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                // MySqlDataReader sqlDataReader = cmd.ExecuteReader();
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                }
+                else
+                {
+                    MessageBox.Show("用户未注册，请先注册");
+                    return;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+
+            }
+            finally {
+
+                conn.Close();
+            }
+        }
+        private void FindCount(string name) {
+            // server=127.0.0.1/localhost 代表本机，端口号port默认是3306可以不写
+            MySqlConnection conn = new MySqlConnection(connetStr);
+            try
+            {
+                conn.Open();//打开通道，建立连接，可能出现异常,使用try catch语句
+                            // MessageBox.Show("已经建立连接");
+                            //在这里使用代码对数据库进行增删查改
+                            //设置查询命令
+                string sql = "SELECT count from users WHERE user = '" + name + "'";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                //查询结果读取器
+                MySqlDataReader reader = cmd.ExecuteReader();
+                // MessageBox.Show(reader[0].ToString());
+
+                while (reader.Read())
+                {
+
+                    count = int.Parse(reader[0].ToString());
+                    count++;
+
+
+                }
+            }
+            catch (MySqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
         private void PicClose_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
@@ -331,6 +455,7 @@ namespace NetConfClientSoftware
             try {
                 conn.Open();
             }catch{
+                conn.Close();
                 MessageBox.Show("连接服务器失败！");
             }
            

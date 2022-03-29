@@ -173,8 +173,8 @@ namespace NetConfClientSoftware
                 }
                 MySqlConnection conn = new MySqlConnection(connetStr);
                 conn.Open();
-                licence = "1";
-                sn = MachineCode.GetMachineCodeString();
+                //licence = "1";
+                sn = MachineCode.GetHardDiskID();
                 String sql = "UPDATE users set "+ "pass = '" + password + "',update_time = '" + update_time + "',ipaddress = '" + ip + "'Where user = '"+user+"'";
                 //String sql = "select user,pass,licence,sn from users where user='" + username + "'and pass='" + password + "'and licence='" + licence + "'and sn='" + sn + "'";//SQL语句实现表数据的读取
                 MySqlCommand cmd = new MySqlCommand(sql, conn);

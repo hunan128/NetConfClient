@@ -1021,7 +1021,7 @@ namespace NetConfClientSoftware
             ComEthUniVlanPriority.SelectedIndex = 0;
             ComEthUniVlanType.SelectedIndex = 0;
             ComEthServiceType.SelectedIndex = 0;
-            Com_Eth_nni_protection_type.SelectedIndex = 0;
+            Com_Eth_uni_protection_type.SelectedIndex = 0;
             ComEthVlanAccessAction.SelectedIndex = 0;
             ComEthVlanPriority.SelectedIndex = 0;
             ComEthVlanType.SelectedIndex = 0;
@@ -1112,6 +1112,7 @@ namespace NetConfClientSoftware
                 {
                     MessageBox.Show(ex.ToString());   //读取该节点的相关信息
                 }
+                加载所有运营商YIN文件ToolStripMenuItem.PerformClick();
             }
         }
         /// <summary>
@@ -1887,7 +1888,9 @@ namespace NetConfClientSoftware
         /// <param name="e"></param>
         private void ButCreatODU_Click(object sender, EventArgs e)
         {
+            
             int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            string ODUservicemode = comboBoxODUservicemode.Text;
             int line = -1;
             for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
             {
@@ -1900,10 +1903,13 @@ namespace NetConfClientSoftware
                     break;
             }
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-            string messg = Creat(CreateODU.Common(ips, TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
+            string messg = Creat(CreateODU.Common(ODUservicemode,ips, TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
                     ComClientSideNni_UNI_A.Text, ComOduNniTsDetailClient_UNI_A.Text, ComOduAdapataionType_UNI_A.Text, ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,
     comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text,
-        ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text
+        ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text,
+    comODUPtpNamePrimary_nni2.Text, ComOduTsDetail_Primary_nni2.Text, ComOduAdapataionType_Primary_nni2.Text, ComOduOduSignalType_Primary_nni2.Text, ComOduSwitchApability_Primary_nni2.Text,
+        ComODUPtpNamesecondary_nni2.Text, ComOduTsDetail_Secondary_nni2.Text, ComOduAdapataionType_Secondary_nni2.Text, ComOduOduSignalType_Secondary_nni2.Text, ComOduSwitchApability_Secondary_nni2.Text
+        
     ), id, ip);
             MessageBox.Show(messg);
         }
@@ -2161,6 +2167,7 @@ namespace NetConfClientSoftware
             try
             {
                 ComEthUniPtpName.Items.Clear();
+                ComEthSecondUniPtpName.Items.Clear();
                 comODUPtpNamePrimary_nni.Items.Clear();
                 ComODUPtpNamesecondary_nni.Items.Clear();
                 comODUPtpNamePrimary_nni2.Items.Clear();
@@ -2188,6 +2195,7 @@ namespace NetConfClientSoftware
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
                 root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
                 ComEthUniPtpName.Items.Add("无");
+                ComEthSecondUniPtpName.Items.Add("无");
                 ComODUPtpNamesecondary_nni2.Items.Add("无");
                 comODUPtpNamePrimary_nni2.Items.Add("无");
                 ComODUPtpNamesecondary_nni.Items.Add("无");
@@ -2205,6 +2213,8 @@ namespace NetConfClientSoftware
                             {
                                 ComEthUniPtpName.Items.Add(name.InnerText);
                                 ComEthUniPtpName.SelectedIndex = 0;
+                                ComEthSecondUniPtpName.Items.Add(name.InnerText);
+                                ComEthSecondUniPtpName.SelectedIndex = 0;
                                 if (ComCreatConnection.Text.Contains("ETH-to-ETH"))
                                 {
                                     comODUPtpNamePrimary_nni.Items.Add(name.InnerText);
@@ -2253,8 +2263,8 @@ namespace NetConfClientSoftware
                     break;
             }
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-            string messg = Creat(CreateETH.Common(ips, ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_nni_protection_type.Text, ComEthServiceMappingMode.Text,
-                    ComEthUniPtpName.Text, ComEthClientVlanId.Text, ComEthVlanPriority.Text, ComEthVlanAccessAction.Text, ComEthVlanType.Text, ComEthUniVlanId.Text, ComEthUniVlanPriority.Text, ComEthUniVlanAccessAction.Text, ComEthUniVlanType.Text,
+            string messg = Creat(CreateETH.Common(ips, ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_uni_protection_type.Text, ComEthServiceMappingMode.Text,
+                    ComEthUniPtpName.Text, ComEthSecondUniPtpName.Text, ComEthClientVlanId.Text, ComEthVlanPriority.Text, ComEthVlanAccessAction.Text, ComEthVlanType.Text, ComEthUniVlanId.Text, ComEthUniVlanPriority.Text, ComEthUniVlanAccessAction.Text, ComEthUniVlanType.Text,
     comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComEthFtpVlanID_primary_nni.Text, ComEthFtpVlanPriority_primary_nni.Text, ComEthFtpVlanAccess_primary_nni.Text, ComEthFtpVlanType_primary_nni.Text,
         ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text,
         ComEosSdhSignalType.Text, ComVCType.Text, TextMappingPath.Text, ComEosSdhSignalTypeProtect.Text, TextMappingPathProtect.Text, ComLCAS.Text, ComHoldOff.Text, ComWTR.Text, ComTSD.Text
@@ -5090,6 +5100,130 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 ComSdhNniVcType_A.SelectedIndex = 2;
                 ComSdhNniSdhtype_B.SelectedIndex = 2;
                 ComSdhNniVcType_B.SelectedIndex = 2;
+                if (Element.CMCC_Array.Count != 0)
+                {
+
+                    for (int g = 0; g < Element.CMCC_Array.Count; g++)
+                    {
+                        if (Element.CMCC_Array[g][0] == "protection-type")
+                        {
+                            Com_Eth_uni_protection_type.Items.Clear();
+                            Com_nni_protection_type.Items.Clear();
+                            Com_nni2_protection_type.Items.Clear();
+                            Com_Eth_uni_protection_type.Items.Add("无");
+                            Com_nni_protection_type.Items.Add("无");
+                            Com_nni2_protection_type.Items.Add("无");
+                            string[] value_ = Element.CMCC_Array[g][2].Split(',');
+                            for (int l = 0; l < value_.Length; l++)
+                            {
+                               
+                                Com_Eth_uni_protection_type.Items.Add(value_[l]);
+                                Com_nni_protection_type.Items.Add(value_[l]);
+                                Com_nni2_protection_type.Items.Add(value_[l]);
+
+                            }
+                            Com_Eth_uni_protection_type.SelectedIndex = 0;
+                            Com_nni_protection_type.SelectedIndex = 0;
+                            Com_nni2_protection_type.SelectedIndex = 0;
+
+                        }
+                        //移动不是枚举的类型
+                        //if (Element.CMCC_Array[g][0] == "adaptation-type")
+                        //{
+                        //    ComEthServiceMappingMode.Items.Clear();
+                        //    ComSdhSerMap.Items.Clear();
+                        //    ComEthServiceMappingMode.Items.Add("无");
+                        //    ComSdhSerMap.Items.Add("无");
+                        //    string[] value_ = Element.CMCC_Array[g][2].Split(',');
+                        //    for (int l = 0; l < value_.Length; l++)
+                        //    {
+
+                        //        ComEthServiceMappingMode.Items.Add(value_[l]);
+                        //        ComSdhSerMap.Items.Add(value_[l]);
+
+                        //    }
+                        //}
+                    }
+                }
+
+            }
+            if (ips.Contains("电信")) {
+                if (Element.CTCC_Array.Count != 0)
+                {
+
+                    for (int g = 0; g < Element.CTCC_Array.Count; g++)
+                    {
+                        if (Element.CTCC_Array[g][0] == "protection-type")
+                        {
+                            Com_Eth_uni_protection_type.Items.Clear();
+                            Com_nni_protection_type.Items.Clear();
+                            Com_nni2_protection_type.Items.Clear();
+                            Com_Eth_uni_protection_type.Items.Add("无");
+                            Com_nni_protection_type.Items.Add("无");
+                            Com_nni2_protection_type.Items.Add("无");
+                            string[] value_ = Element.CTCC_Array[g][2].Split(',');
+                            for (int l = 0; l < value_.Length; l++)
+                            {
+
+                                Com_Eth_uni_protection_type.Items.Add(value_[l]);
+                                Com_nni_protection_type.Items.Add(value_[l]);
+                                Com_nni2_protection_type.Items.Add(value_[l]);
+
+                            }
+                            Com_Eth_uni_protection_type.SelectedIndex = 0;
+                            Com_nni_protection_type.SelectedIndex = 0;
+                            Com_nni2_protection_type.SelectedIndex = 0;
+                        }
+                        if (Element.CTCC_Array[g][0] == "adaptation-type")
+                        {
+                            ComEthServiceMappingMode.Items.Clear();
+                            ComSdhSerMap.Items.Clear();
+                            string[] value_ = Element.CTCC_Array[g][2].Split(',');
+                            for (int l = 0; l < value_.Length; l++)
+                            {
+
+                                ComEthServiceMappingMode.Items.Add(value_[l]);
+                                ComSdhSerMap.Items.Add(value_[l]);
+
+                            }
+
+                        }
+                        if (Element.CTCC_Array[g][0] == "signal-type")
+                        {
+                            ComSdhNniSdhtype_A.Items.Clear();
+                            ComSdhNniSdhtype_B.Items.Clear();
+                            ComEosSdhSignalType.Items.Clear();
+                            ComEosSdhSignalTypeProtect.Items.Clear();
+                            string[] value_ = Element.CTCC_Array[g][2].Split(',');
+                            for (int l = 0; l < value_.Length; l++)
+                            {
+
+                                ComSdhNniSdhtype_A.Items.Add(value_[l]);
+                                ComSdhNniSdhtype_B.Items.Add(value_[l]);
+                                ComEosSdhSignalType.Items.Add(value_[l]);
+                                ComEosSdhSignalTypeProtect.Items.Add(value_[l]);
+
+                            }
+                        }
+                        if (Element.CTCC_Array[g][0] == "sdh-switch-type")
+                        {
+                            ComVCType.Items.Clear();
+                            ComSdhUniSdhType.Items.Clear();
+                            ComSdhNniVcType_A.Items.Clear();
+                            ComSdhNniVcType_B.Items.Clear();
+                            string[] value_ = Element.CTCC_Array[g][2].Split(',');
+                            for (int l = 0; l < value_.Length; l++)
+                            {
+
+                                ComVCType.Items.Add(value_[l]);
+                                ComSdhUniSdhType.Items.Add(value_[l]);
+                                ComSdhNniVcType_A.Items.Add(value_[l]);
+                                ComSdhNniVcType_B.Items.Add(value_[l]);
+
+                            }
+                        }
+                    }
+                }
             }
         }
         private void 订阅ToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -5940,7 +6074,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         }
         private void comboBoxODUservicemode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxODUservicemode.Text.Contains("线路To线路业务"))
+            if (comboBoxODUservicemode.Text.Contains("NNI-To-NNI业务"))
             {
                 ComClientSideNni_UNI_A.Text = "无";
                 groupBoxODUClient.Visible = false;
@@ -5966,7 +6100,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         }
         private void comboBoxETHservicemode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxETHservicemode.Text.Contains("线路To线路业务"))
+            if (comboBoxETHservicemode.Text.Contains("NNI-To-NNI业务"))
             {
                 ComEthUniPtpName.Text = "无";
                 ComEthClientVlanId.Text = "";
@@ -6118,5 +6252,121 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         {
             详细信息ToolStripMenuItem.PerformClick();
         }
+
+        private void 加载所有运营商YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Element.CUCC_Array.Count != 0)
+            {
+                Element.CUCC_Array.Clear();
+            }
+            if (Directory.Exists(CUCC_YIN))
+            {
+                LoadYIN(CUCC_YIN, "联通");
+            }
+            else
+            {
+                YIN_XML_URL(CUCC_YIN_URL, "联通");
+            }
+            if (Element.CUCC_Array.Count != 0)
+            {
+               // MessageBox.Show("加载联通YIN文件成功！");
+                TextLog.AppendText("加载联通YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            else
+            {
+                TextLog.AppendText("加载联通YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+            }
+
+            if (Element.CMCC_Array.Count != 0)
+            {
+                Element.CMCC_Array.Clear();
+            }
+            if (Directory.Exists(CMCC_YIN))
+            {
+                LoadYIN(CMCC_YIN, "移动");
+            }
+            else
+            {
+                YIN_XML_URL(CMCC_YIN_URL, "移动");
+            }
+            if (Element.CMCC_Array.Count != 0)
+            {
+                TextLog.AppendText("加载移动YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            else
+            {
+                TextLog.AppendText("加载移动YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            if (Element.CTCC_Array.Count != 0)
+            {
+                Element.CTCC_Array.Clear();
+            }
+            if (Directory.Exists(CTCC_YIN))
+            {
+                LoadYIN(CTCC_YIN, "电信");
+            }
+            else
+            {
+                YIN_XML_URL(CTCC_YIN_URL, "电信");
+            }
+            if (Element.CTCC_Array.Count != 0)
+            {
+                TextLog.AppendText("加载电信YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            else
+            {
+                TextLog.AppendText("加载电信YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            MessageBox.Show("加载所有运营商YIN文件已完成！");
+        }
+
+        private void dataGridViewNeInformation_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            Thread thread = new Thread(() => OnLinedevm());
+            thread.Start();
+        }
+
+        private void treeViewNEID_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            Thread thread = new Thread(() => OnLinedevm());
+            thread.Start();
+        }
+
+        private void ButModifyInterface_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            XmlDocument xmlDoc = new XmlDocument();
+            if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                xmlDoc = Sendrpc(ModifyXML.interface_type(ComPtpCtpFtp.Text, cominterfacetype.Text), id, ip);
+            }
+            if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                return;
+            }
+            if (ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                return;
+            }
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
+            ButFind.PerformClick();
+        }
+
     }
 }

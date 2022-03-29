@@ -8,10 +8,12 @@ namespace NetConfClientSoftware
 {
     class CreateODU
     {
-        public static XmlDocument Common(string IPS,string _label,string _service_type,string _layer_protoco_name,string _total_size,string _nni_protection_type,
+        public static XmlDocument Common(string ODUservicemode,string IPS,string _label,string _service_type,string _layer_protoco_name,string _total_size,string _nni_protection_type,
             string _client_nni_name,string _client_ts,string _client_ada,string _client_odu,string _client_switch,
             string _primary_nni_name,string _primary_ts,string _primary_ada,string _primary_odu,string _primary_switch,
-            string _secondary_nni_name, string _secondary_ts, string _secondary_ada, string _secondary_odu, string _secondary_switch) {
+            string _secondary_nni_name, string _secondary_ts, string _secondary_ada, string _secondary_odu, string _secondary_switch,
+            string _primary_nni_name2, string _primary_ts2, string _primary_ada2, string _primary_odu2, string _primary_switch2,
+            string _secondary_nni_name2, string _secondary_ts2, string _secondary_ada2, string _secondary_odu2, string _secondary_switch2) {
             string xmlns = "";
             _layer_protoco_name = "acc-otn:" + _layer_protoco_name;
             if (IPS.Contains("联通")) {
@@ -22,6 +24,10 @@ namespace NetConfClientSoftware
                 _primary_switch = xmlns + _primary_switch;
                 _secondary_odu = xmlns + _secondary_odu;
                 _secondary_switch = xmlns + _secondary_switch;
+                _primary_odu2 = xmlns + _primary_odu2;
+                _primary_switch2 = xmlns + _primary_switch2;
+                _secondary_odu2 = xmlns + _secondary_odu2;
+                _secondary_switch2 = xmlns + _secondary_switch2;
             }
             if (IPS.Contains("移动")) {
                 xmlns = "acc-otn-types:";
@@ -258,73 +264,77 @@ namespace NetConfClientSoftware
                     create_odu_connection.AppendChild(nni_protection_type);
                 }
 
+                if (_client_nni_name != "无") {
+                    //客户侧配置
+                    XmlElement client_side_nni = commonXml.CreateElement("client-side-nni");
+                    create_odu_connection.AppendChild(client_side_nni);
 
-                //客户侧配置
-                XmlElement client_side_nni = commonXml.CreateElement("client-side-nni");
-                create_odu_connection.AppendChild(client_side_nni);
+                    //PTP接口配置
+                    XmlElement nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
+                    nni_ptp_name.InnerText = _client_nni_name;
+                    client_side_nni.AppendChild(nni_ptp_name);
 
-                //PTP接口配置
-                XmlElement nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
-                nni_ptp_name.InnerText = _client_nni_name;
-                client_side_nni.AppendChild(nni_ptp_name);
+                    //时隙配置
+                    XmlElement nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
+                    nni_ts_detail.InnerText = _client_ts;
+                    client_side_nni.AppendChild(nni_ts_detail);
 
-                //时隙配置
-                XmlElement nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
-                nni_ts_detail.InnerText = _client_ts;
-                client_side_nni.AppendChild(nni_ts_detail);
+                    //净荷类型
+                    XmlElement adaptation_type = commonXml.CreateElement("adaptation-type");
+                    //adaptation_type.SetAttribute("xmlns:acc-otn", "urn:ccsa:yang:acc-otn");
+                    adaptation_type.InnerText = _client_ada;
+                    client_side_nni.AppendChild(adaptation_type);
 
-                //净荷类型
-                XmlElement adaptation_type = commonXml.CreateElement("adaptation-type");
-                //adaptation_type.SetAttribute("xmlns:acc-otn", "urn:ccsa:yang:acc-otn");
-                adaptation_type.InnerText = _client_ada;
-                client_side_nni.AppendChild(adaptation_type);
+                    //ODU类型
+                    XmlElement odu_signal_type = commonXml.CreateElement("client-signal-type");
+                    odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
+                    odu_signal_type.InnerText = _client_odu;
+                    client_side_nni.AppendChild(odu_signal_type);
 
-                //ODU类型
-                XmlElement odu_signal_type = commonXml.CreateElement("client-signal-type");
-                odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
-                odu_signal_type.InnerText = _client_odu;
-                client_side_nni.AppendChild(odu_signal_type);
-
-                //交换类型
-                XmlElement switch_capability = commonXml.CreateElement("switch-capability");
-                switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
-                switch_capability.InnerText = _client_switch;
-                client_side_nni.AppendChild(switch_capability);
-
-
-
+                    //交换类型
+                    XmlElement switch_capability = commonXml.CreateElement("switch-capability");
+                    switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
+                    switch_capability.InnerText = _client_switch;
+                    client_side_nni.AppendChild(switch_capability);
+                }
 
 
-                //线路侧配置
-                XmlElement primary_nni = commonXml.CreateElement("primary-nni-1");
-                create_odu_connection.AppendChild(primary_nni);
-                //PTP接口配置
-                XmlElement _nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
-                _nni_ptp_name.InnerText = _primary_nni_name;
-                primary_nni.AppendChild(_nni_ptp_name);
 
-                //时隙配置
-                XmlElement _nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
-                _nni_ts_detail.InnerText = _primary_ts;
-                primary_nni.AppendChild(_nni_ts_detail);
 
-                //净荷类型
-                XmlElement _adaptation_type = commonXml.CreateElement("adaptation-type");
-               // _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
-                _adaptation_type.InnerText = _primary_ada;
-                primary_nni.AppendChild(_adaptation_type);
 
-                //ODU类型
-                XmlElement _odu_signal_type = commonXml.CreateElement("client-signal-type");
-                _odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
-                _odu_signal_type.InnerText = _primary_odu;
-                primary_nni.AppendChild(_odu_signal_type);
+                if (_primary_nni_name != "无") {
+                    //线路侧配置
+                    XmlElement primary_nni = commonXml.CreateElement("primary-nni-1");
+                    create_odu_connection.AppendChild(primary_nni);
+                    //PTP接口配置
+                    XmlElement _nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
+                    _nni_ptp_name.InnerText = _primary_nni_name;
+                    primary_nni.AppendChild(_nni_ptp_name);
 
-                //交换类型
-                XmlElement _switch_capability = commonXml.CreateElement("switch-capability");
-                _switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
-                _switch_capability.InnerText = _primary_switch;
-                primary_nni.AppendChild(_switch_capability);
+                    //时隙配置
+                    XmlElement _nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
+                    _nni_ts_detail.InnerText = _primary_ts;
+                    primary_nni.AppendChild(_nni_ts_detail);
+
+                    //净荷类型
+                    XmlElement _adaptation_type = commonXml.CreateElement("adaptation-type");
+                    // _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _adaptation_type.InnerText = _primary_ada;
+                    primary_nni.AppendChild(_adaptation_type);
+
+                    //ODU类型
+                    XmlElement _odu_signal_type = commonXml.CreateElement("client-signal-type");
+                    _odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
+                    _odu_signal_type.InnerText = _primary_odu;
+                    primary_nni.AppendChild(_odu_signal_type);
+
+                    //交换类型
+                    XmlElement _switch_capability = commonXml.CreateElement("switch-capability");
+                    _switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
+                    _switch_capability.InnerText = _primary_switch;
+                    primary_nni.AppendChild(_switch_capability);
+                }
+
 
 
 
@@ -360,6 +370,78 @@ namespace NetConfClientSoftware
                     XmlElement _secondary_switch_capability = commonXml.CreateElement("switch-capability");
                     _secondary_switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
                     _secondary_switch_capability.InnerText = _secondary_switch;
+                    secondary_nni.AppendChild(_secondary_switch_capability);
+                }
+
+                if (_primary_nni_name2 != "无")
+                {
+                    //线路侧配置
+                    XmlElement primary_nni2 = commonXml.CreateElement("primary-nni-2");
+                    create_odu_connection.AppendChild(primary_nni2);
+                    //PTP接口配置
+                    XmlElement _nni_ptp_name2 = commonXml.CreateElement("nni-ptp-name");
+                    _nni_ptp_name2.InnerText = _primary_nni_name2;
+                    primary_nni2.AppendChild(_nni_ptp_name2);
+
+                    //时隙配置
+                    XmlElement _nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
+                    _nni_ts_detail.InnerText = _primary_ts2;
+                    primary_nni2.AppendChild(_nni_ts_detail);
+
+                    //净荷类型
+                    XmlElement _adaptation_type = commonXml.CreateElement("adaptation-type");
+                    // _adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _adaptation_type.InnerText = _primary_ada2;
+                    primary_nni2.AppendChild(_adaptation_type);
+
+                    //ODU类型
+                    XmlElement _odu_signal_type = commonXml.CreateElement("client-signal-type");
+                    _odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
+                    _odu_signal_type.InnerText = _primary_odu2;
+                    primary_nni2.AppendChild(_odu_signal_type);
+
+                    //交换类型
+                    XmlElement _switch_capability = commonXml.CreateElement("switch-capability");
+                    _switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
+                    _switch_capability.InnerText = _primary_switch2;
+                    primary_nni2.AppendChild(_switch_capability);
+                }
+
+
+
+
+
+                if (_secondary_nni_name2 != "无")
+                {
+                    //线路侧配置 备接口
+                    XmlElement secondary_nni = commonXml.CreateElement("secondary-nni-2");
+                    create_odu_connection.AppendChild(secondary_nni);
+                    //PTP接口配置
+                    XmlElement _secondary_nni_ptp_name = commonXml.CreateElement("nni-ptp-name");
+                    _secondary_nni_ptp_name.InnerText = _secondary_nni_name2;
+                    secondary_nni.AppendChild(_secondary_nni_ptp_name);
+
+                    //时隙配置
+                    XmlElement _secondary_nni_ts_detail = commonXml.CreateElement("nni-ts-detail");
+                    _secondary_nni_ts_detail.InnerText = _secondary_ts2;
+                    secondary_nni.AppendChild(_secondary_nni_ts_detail);
+
+                    //净荷类型
+                    XmlElement _secondary_adaptation_type = commonXml.CreateElement("adaptation-type");
+                    // _secondary_adaptation_type.SetAttribute("xmlns:acc-otn-types", "urn:ccsa:yang:acc-otn-types");
+                    _secondary_adaptation_type.InnerText = _secondary_ada2;
+                    secondary_nni.AppendChild(_secondary_adaptation_type);
+
+                    //ODU类型
+                    XmlElement _secondary_odu_signal_type = commonXml.CreateElement("client-signal-type");
+                    _secondary_odu_signal_type.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
+                    _secondary_odu_signal_type.InnerText = _secondary_odu2;
+                    secondary_nni.AppendChild(_secondary_odu_signal_type);
+
+                    //交换类型
+                    XmlElement _secondary_switch_capability = commonXml.CreateElement("switch-capability");
+                    _secondary_switch_capability.SetAttribute("xmlns:otn-types", "urn:ietf:params:xml:ns:yang:ietf-otn-types");
+                    _secondary_switch_capability.InnerText = _secondary_switch2;
                     secondary_nni.AppendChild(_secondary_switch_capability);
                 }
 

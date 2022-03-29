@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Netconf")]
 
 [assembly: AssemblyDescription("" +
+    "2022.03.28 支持联通ODU的NNIToNNI业务" + "\r\n" +
+    "2022.02.10 支持电信的SDH业务创建" + "\r\n" +
     "2021.12.21 优化了时隙选择，更改未弹窗，支持已被占用的时隙标识" + "\r\n" +
     "2021.12.16 修改自动化测试模块，支持选择是否执行和等待时间" + "\r\n" +
     "2021.12.07 修改业务创建，根据私有命名空间指定净荷类型" + "\r\n" +
@@ -61,5 +63,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2021.12.7.1")]
-[assembly: AssemblyFileVersion("2021.12.7.1")]
+[assembly: AssemblyVersion("2022.2.10.4")]
+[assembly: AssemblyFileVersion("2022.2.10.4")]

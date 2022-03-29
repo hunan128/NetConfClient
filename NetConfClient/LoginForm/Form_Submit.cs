@@ -192,7 +192,7 @@ namespace NetConfClientSoftware
 
                 MySqlConnection conn = new MySqlConnection(connetStr);
                 conn.Open();
-                sn = MachineCode.GetMachineCodeString();
+               // sn = MachineCode.GetMachineCodeString();
 
                 String sql = "select user from users where user='" + user + "'";//SQL语句实现表数据的读取
                 MySqlCommand cmd = new MySqlCommand(sql, conn);

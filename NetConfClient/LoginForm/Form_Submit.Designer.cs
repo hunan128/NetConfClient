@@ -192,7 +192,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(106, 22);
             this.label3.TabIndex = 13;
-            this.label3.Text = "软件唯一编码";
+            this.label3.Text = "软件机器编码";
             // 
             // textMail
             // 
