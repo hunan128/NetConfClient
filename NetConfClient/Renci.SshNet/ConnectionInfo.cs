@@ -424,7 +424,6 @@ namespace Renci.SshNet
             Host = host;
             Port = port;
             Username = username;
-
             ProxyType = proxyType;
             ProxyHost = proxyHost;
             ProxyPort = proxyPort;

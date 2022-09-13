@@ -8,6 +8,12 @@ namespace NetConfClientSoftware
 {
     class ModifyXML
     {
+        /// <summary>
+        /// 层协议修改
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_layer_protocol_name">层协议</param>
+        /// <returns></returns>
         public static XmlDocument Layer_protocal_name(string _name,string _layer_protocol_name)
         {
 
@@ -60,6 +66,12 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
+        /// <summary>
+        /// 接口类型UNI或NNI
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_interface_type">接口类型</param>
+        /// <returns></returns>
         public static XmlDocument interface_type(string _name, string _interface_type)
         {
 
@@ -112,7 +124,12 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
-
+        /// <summary>
+        /// oduk时延测量
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_odu_ctp_delay">时延开关</param>
+        /// <returns></returns>
         public static XmlDocument Odu_ctp_delay(string _name, string _odu_ctp_delay)
         {
 
@@ -170,6 +187,17 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
+        /// <summary>
+        /// 显示修改
+        /// </summary>
+        /// <param name="_name">连接名称</param>
+        /// <param name="_total_size">总带宽</param>
+        /// <param name="_cir">CIR</param>
+        /// <param name="_pir">PIR</param>
+        /// <param name="_cbs">CBS</param>
+        /// <param name="_pbs">PBS</param>
+        /// <param name="ips">运营商</param>
+        /// <returns></returns>
         public static XmlDocument Connection_Rate(string _name, string _total_size,string _cir,string _pir ,string _cbs,string _pbs,string ips)
         {
 
@@ -238,7 +266,17 @@ namespace NetConfClientSoftware
 
         }
 
-
+        /// <summary>
+        /// TCA参数修改
+        /// </summary>
+        /// <param name="_name">接口</param>
+        /// <param name="_pm_parameter_name"></param>
+        /// <param name="_granularity"></param>
+        /// <param name="_threshold_type"></param>
+        /// <param name="_object_type">对象名称</param>
+        /// <param name="_threshold_value">值</param>
+        /// <param name="ips">运营商</param>
+        /// <returns></returns>
         public static XmlDocument Tca_parameters(string _name, string _pm_parameter_name,string _granularity,string _threshold_type,string _object_type,string _threshold_value,string ips)
         {
 
@@ -303,7 +341,16 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
-
+        /// <summary>
+        /// VCG时隙调整
+        /// </summary>
+        /// <param name="_eth_ftp_name">ETH-FTP</param>
+        /// <param name="_sdh_ftp_name">SDH-FTP</param>
+        /// <param name="_sdh_protect_ftp_name">SDH-FTP保护</param>
+        /// <param name="_mapping_path">主用映射时隙</param>
+        /// <param name="_mapping_path_protected">备用映射时隙</param>
+        /// <param name="IPS">运营商</param>
+        /// <returns></returns>
         public static XmlDocument Modify_vcg_connection_capacity(string _eth_ftp_name, string _sdh_ftp_name, string _sdh_protect_ftp_name, string _mapping_path, string _mapping_path_protected, string IPS)
         {
             XmlDocument commonXml = new XmlDocument();
@@ -397,6 +444,867 @@ namespace NetConfClientSoftware
 
             }
 
+            return commonXml;
+
+        }
+
+        /// <summary>
+        /// NTP服务器
+        /// </summary>
+        /// <param name="_enable">开关</param>
+        /// <param name="_name">NTP服务名称</param>
+        /// <param name="_ip">IP地址</param>
+        /// <param name="_port">端口</param>
+        /// <param name="_ntp_version">版本</param>
+        /// <returns></returns>
+        public static XmlDocument Ntp(string _enable,string _name,string _ip,string _port,string _ntp_version)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //me
+            XmlElement me = commonXml.CreateElement("me");
+            me.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            config.AppendChild(me);
+
+            //NTP服务使能
+            XmlElement ntp_enable = commonXml.CreateElement("ntp-enable");
+            ntp_enable.InnerText = _enable;
+            me.AppendChild(ntp_enable);
+            if (_enable == "true") {
+                //ntp-servers
+                XmlElement ntp_servers = commonXml.CreateElement("ntp-servers");
+                ntp_servers.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                me.AppendChild(ntp_servers);
+                //ntp-server
+                XmlElement ntp_server = commonXml.CreateElement("ntp-server");
+                ntp_server.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                ntp_servers.AppendChild(ntp_server);
+                //NTP名称
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ntp_server.AppendChild(name);
+                //NTP ip
+                XmlElement ip_ipaddress = commonXml.CreateElement("ip-address");
+                ip_ipaddress.InnerText = _ip;
+                ntp_server.AppendChild(ip_ipaddress);
+                //NTP 端口
+                XmlElement port = commonXml.CreateElement("port");
+                port.InnerText = _port;
+                ntp_server.AppendChild(port);
+                //NTP 版本
+                XmlElement ntp_version = commonXml.CreateElement("ntp-version");
+                ntp_version.InnerText = _ntp_version;
+                ntp_server.AppendChild(ntp_version);
+            }
+
+            return commonXml;
+
+        }
+
+
+        /// <summary>
+        /// VLAN修改
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_vlan_id"></param>
+        /// <param name="_vlan_priority"></param>
+        /// <param name="_access_action"></param> 
+        /// <param name="_vlan_type"></param>
+        /// <param name="_client_vlan_id"></param>
+        /// <param name="_client_vlan_priority"></param>
+        /// <param name="_client_access_action"></param>
+        /// <param name="_client_vlan_type"></param>
+        /// <returns></returns>
+        public static XmlDocument Vlan_spec(string _name, string _vlan_id,string _vlan_priority, string _access_action,string _vlan_type,string _client_vlan_id, string _client_vlan_priority, string _client_access_action, string _client_vlan_type)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement ptps = commonXml.CreateElement("ctps");
+            ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            config.AppendChild(ptps);
+
+            //CTP
+            XmlElement ptp = commonXml.CreateElement("ctp");
+            ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            ptps.AppendChild(ptp);
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ptp.AppendChild(name);
+                XmlElement eth_ctp_pac = commonXml.CreateElement("eth-ctp-pac");
+                eth_ctp_pac.SetAttribute("xmlns", "urn:ccsa:yang:acc-eth");
+                ptp.AppendChild(eth_ctp_pac);
+                if (_vlan_id != "" || _vlan_priority != "" || _access_action != "" || _vlan_type != "") {
+                    XmlElement vlan_spec = commonXml.CreateElement("vlan-spec");
+                    eth_ctp_pac.AppendChild(vlan_spec);
+                    if (_vlan_id != "")
+                    {
+                        XmlElement vlan_id = commonXml.CreateElement("vlan-id");
+                        vlan_id.InnerText = _vlan_id;
+                        vlan_spec.AppendChild(vlan_id);
+                    }
+                    if (_vlan_priority != "")
+                    {
+                        XmlElement vlan_priority = commonXml.CreateElement("vlan-priority");
+                        vlan_priority.InnerText = _vlan_priority;
+                        vlan_spec.AppendChild(vlan_priority);
+                    }
+                    if (_access_action != "")
+                    {
+                        XmlElement access_action = commonXml.CreateElement("access-action");
+                        access_action.InnerText = _access_action;
+                        vlan_spec.AppendChild(access_action);
+                    }
+                    if (_vlan_type != "")
+                    {
+                        XmlElement vlan_type = commonXml.CreateElement("vlan-type");
+                        vlan_type.InnerText = _vlan_type;
+                        vlan_spec.AppendChild(vlan_type);
+                    }
+                }
+                if (_client_vlan_id != "" || _client_vlan_priority != "" || _client_access_action != "" || _client_vlan_type != "")
+                {
+                    XmlElement vlan_spec = commonXml.CreateElement("client-vlan-spec");
+                    eth_ctp_pac.AppendChild(vlan_spec);
+                    if (_client_vlan_id != "") {
+                        XmlElement vlan_id = commonXml.CreateElement("vlan-id");
+                        vlan_id.InnerText = _client_vlan_id;
+                        vlan_spec.AppendChild(vlan_id);
+                    }
+                    if (_client_vlan_priority != "") {
+                        XmlElement vlan_priority = commonXml.CreateElement("vlan-priority");
+                        vlan_priority.InnerText = _client_vlan_priority;
+                        vlan_spec.AppendChild(vlan_priority);
+                    }
+                    if (_client_access_action != "") {
+                        XmlElement access_action = commonXml.CreateElement("access-action");
+                        access_action.InnerText = _client_access_action;
+                        vlan_spec.AppendChild(access_action);
+                    }
+                    if (_client_vlan_type != "") {
+                        XmlElement vlan_type = commonXml.CreateElement("vlan-type");
+                        vlan_type.InnerText = _client_vlan_type;
+                        vlan_spec.AppendChild(vlan_type);
+                    }
+
+                }
+
+            }
+
+            return commonXml;
+
+        }
+
+        /// <summary>
+        /// 环回接口
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_loopback_type">环回类型</param>
+        /// <returns></returns>
+        public static XmlDocument Loop_back(string _name, string _loopback_type)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+            //PTP端口
+            if (_name.Contains("PTP") && !_name.Contains("CTP")) {
+                //PTP
+                XmlElement ptps = commonXml.CreateElement("ptps");
+                ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                config.AppendChild(ptps);
+
+                //PTP
+                XmlElement ptp = commonXml.CreateElement("ptp");
+                ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                ptps.AppendChild(ptp);
+                if (!_name.Contains("无"))
+                {
+                    XmlElement name = commonXml.CreateElement("name");
+                    name.InnerText = _name;
+                    ptp.AppendChild(name);
+                    XmlElement loop_back = commonXml.CreateElement("loop-back");
+                    loop_back.InnerText = _loopback_type;
+                    ptp.AppendChild(loop_back);
+                }
+
+            }
+            //FTP端口
+            if (_name.Contains("FTP") && !_name.Contains("CTP"))
+            {
+                //PTP
+                XmlElement ptps = commonXml.CreateElement("ftps");
+                ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                config.AppendChild(ptps);
+
+                //PTP
+                XmlElement ptp = commonXml.CreateElement("ftp");
+                ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                ptps.AppendChild(ptp);
+                if (!_name.Contains("无"))
+                {
+                    XmlElement name = commonXml.CreateElement("name");
+                    name.InnerText = _name;
+                    ptp.AppendChild(name);
+                    XmlElement loop_back = commonXml.CreateElement("loop-back");
+                    loop_back.InnerText = _loopback_type;
+                    ptp.AppendChild(loop_back);
+                }
+
+            }
+            //CTP端口
+            if (_name.Contains("CTP"))
+            {
+                //PTP
+                XmlElement ptps = commonXml.CreateElement("ctps");
+                ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                config.AppendChild(ptps);
+
+                //PTP
+                XmlElement ptp = commonXml.CreateElement("ctp");
+                ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                ptps.AppendChild(ptp);
+                if (!_name.Contains("无"))
+                {
+                    XmlElement name = commonXml.CreateElement("name");
+                    name.InnerText = _name;
+                    ptp.AppendChild(name);
+                    XmlElement loop_back = commonXml.CreateElement("loop-back");
+                    loop_back.InnerText = _loopback_type;
+                    ptp.AppendChild(loop_back);
+                }
+
+            }
+            return commonXml;
+
+        }
+        /// <summary>
+        /// 激光器开关配置
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_laser_status">激光器开关</param>
+        /// <returns></returns>
+        public static XmlDocument Laser_status(string _name, string _laser_status)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement ptps = commonXml.CreateElement("ptps");
+            ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            config.AppendChild(ptps);
+
+            //CTP
+            XmlElement ptp = commonXml.CreateElement("ptp");
+            ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            ptps.AppendChild(ptp);
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ptp.AppendChild(name);
+                XmlElement laser_status = commonXml.CreateElement("laser-status");
+                laser_status.InnerText = _laser_status;
+                ptp.AppendChild(laser_status);
+            }
+
+            return commonXml;
+
+        }
+
+        /// <summary>
+        /// 端口shutdownl
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_admin_state">使能或关闭</param>
+        /// <returns></returns>
+        public static XmlDocument Admin_state(string _name, string _admin_state )
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+            //PTP
+            if (_name.Contains("PTP") && !_name.Contains("CTP")) {
+                //PTP
+                XmlElement ptps = commonXml.CreateElement("ptps");
+                ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                config.AppendChild(ptps);
+
+                //PTP
+                XmlElement ptp = commonXml.CreateElement("ptp");
+                ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                ptps.AppendChild(ptp);
+                if (!_name.Contains("无"))
+                {
+                    XmlElement name = commonXml.CreateElement("name");
+                    name.InnerText = _name;
+                    ptp.AppendChild(name);
+                    XmlElement state_pac = commonXml.CreateElement("state-pac");
+                    ptp.AppendChild(state_pac);
+                    XmlElement admin_state = commonXml.CreateElement("admin-state");
+                    admin_state.InnerText = _admin_state;
+                    state_pac.AppendChild(admin_state);
+                }
+            }
+            //FTP
+            if (_name.Contains("FTP") && !_name.Contains("CTP"))
+            {
+                //FTP
+                XmlElement ptps = commonXml.CreateElement("ctps");
+                ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                config.AppendChild(ptps);
+
+                //FTP
+                XmlElement ptp = commonXml.CreateElement("ctp");
+                ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                ptps.AppendChild(ptp);
+                if (!_name.Contains("无"))
+                {
+                    XmlElement name = commonXml.CreateElement("name");
+                    name.InnerText = _name;
+                    ptp.AppendChild(name);
+                    XmlElement state_pac = commonXml.CreateElement("state-pac");
+                    ptp.AppendChild(state_pac);
+                    XmlElement admin_state = commonXml.CreateElement("admin-state");
+                    admin_state.InnerText = _admin_state;
+                    state_pac.AppendChild(admin_state);
+                }
+            }
+            //CTP
+            if (_name.Contains("CTP"))
+            {
+                //CTP
+                XmlElement ptps = commonXml.CreateElement("ctps");
+                ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                config.AppendChild(ptps);
+
+                //CTP
+                XmlElement ptp = commonXml.CreateElement("ctp");
+                ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                ptps.AppendChild(ptp);
+                if (!_name.Contains("无"))
+                {
+                    XmlElement name = commonXml.CreateElement("name");
+                    name.InnerText = _name;
+                    ptp.AppendChild(name);
+                    XmlElement state_pac = commonXml.CreateElement("state-pac");
+                    ptp.AppendChild(state_pac);
+                    XmlElement admin_state = commonXml.CreateElement("admin-state");
+                    admin_state.InnerText = _admin_state;
+                    state_pac.AppendChild(admin_state);
+                }
+            }
+
+            return commonXml;
+
+        }
+
+        /// <summary>
+        /// MTU修改
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_mtu">MTU值</param>
+        /// <returns></returns>
+        public static XmlDocument MTU(string _name, string _mtu)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement ptps = commonXml.CreateElement("ptps");
+            ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            config.AppendChild(ptps);
+
+            //CTP
+            XmlElement ptp = commonXml.CreateElement("ptp");
+            ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            ptps.AppendChild(ptp);
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ptp.AppendChild(name);
+                XmlElement eth_ptp_pac = commonXml.CreateElement("eth-ptp-pac");
+                eth_ptp_pac.SetAttribute("xmlns", "urn:ccsa:yang:acc-eth");
+                ptp.AppendChild(eth_ptp_pac);
+                XmlElement current_mtu = commonXml.CreateElement("current-mtu");
+                current_mtu.InnerText = _mtu;
+                eth_ptp_pac.AppendChild(current_mtu);
+            }
+
+            return commonXml;
+
+        }
+
+        /// <summary>
+        /// 双工模式
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_mode">双工模式</param>
+        /// <returns></returns>
+        public static XmlDocument Working_Mode(string _name, string _working_mode)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement ptps = commonXml.CreateElement("ptps");
+            ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            config.AppendChild(ptps);
+
+            //CTP
+            XmlElement ptp = commonXml.CreateElement("ptp");
+            ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            ptps.AppendChild(ptp);
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ptp.AppendChild(name);
+                XmlElement eth_ptp_pac = commonXml.CreateElement("eth-ptp-pac");
+                eth_ptp_pac.SetAttribute("xmlns", "urn:ccsa:yang:acc-eth");
+                ptp.AppendChild(eth_ptp_pac);
+                XmlElement current_working_mode = commonXml.CreateElement("current-working-mode");
+                current_working_mode.InnerText = _working_mode;
+                eth_ptp_pac.AppendChild(current_working_mode);
+            }
+
+            return commonXml;
+
+        }
+
+        /// <summary>
+        /// LLDP开关
+        /// </summary>
+        /// <param name="_name">接口名称</param>
+        /// <param name="_enable">开关</param>
+        /// <returns></returns>
+        public static XmlDocument LLDP(string _name, string _lldp_enable)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement ptps = commonXml.CreateElement("ptps");
+            ptps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            config.AppendChild(ptps);
+
+            //CTP
+            XmlElement ptp = commonXml.CreateElement("ptp");
+            ptp.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            ptps.AppendChild(ptp);
+            if (!_name.Contains("无"))
+            {
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                ptp.AppendChild(name);
+                XmlElement eth_ptp_pac = commonXml.CreateElement("eth-ptp-pac");
+                eth_ptp_pac.SetAttribute("xmlns", "urn:ccsa:yang:acc-eth");
+                ptp.AppendChild(eth_ptp_pac);
+                XmlElement lldp_enable = commonXml.CreateElement("lldp-enable");
+                lldp_enable.InnerText = _lldp_enable;
+                eth_ptp_pac.AppendChild(lldp_enable);
+            }
+
+            return commonXml;
+
+        }
+
+        /// <summary>
+        /// 修改用户密码
+        /// </summary>
+        /// <param name="_user_name">用户名</param>
+        /// <param name="_old_password">旧密码</param>
+        /// <param name="_new_password">新密码</param>
+        /// <returns></returns>
+
+        public static XmlDocument Password(string _user_name, string _old_password,string _new_password)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            ////创建信息节点
+            //XmlElement edit_config = commonXml.CreateElement("edit-config");
+            //rpc.AppendChild(edit_config);
+            ////创建tatget
+            //XmlElement target = commonXml.CreateElement("target");
+            //edit_config.AppendChild(target);
+            ////创建running
+            //XmlElement running = commonXml.CreateElement("running");
+            //target.AppendChild(running);
+
+            ////连接删除
+            //XmlElement config = commonXml.CreateElement("config");
+            //config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            //edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement modify_user_password = commonXml.CreateElement("modify-user-password");
+            modify_user_password.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            rpc.AppendChild(modify_user_password);
+
+            if (_user_name != "") {
+                //用户名
+                XmlElement user_name = commonXml.CreateElement("user-name");
+                user_name.InnerText = _user_name;
+                modify_user_password.AppendChild(user_name);
+            }
+
+
+            XmlElement old_password = commonXml.CreateElement("old-password");
+            old_password.InnerText = _old_password;
+            modify_user_password.AppendChild(old_password);
+            XmlElement new_password = commonXml.CreateElement("new-password");
+            new_password.InnerText = _new_password;
+            modify_user_password.AppendChild(new_password);
+            return commonXml;
+
+        }
+
+
+        public static XmlDocument Reset(string _eq_name, string _reset_type)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            ////创建信息节点
+            //XmlElement edit_config = commonXml.CreateElement("edit-config");
+            //rpc.AppendChild(edit_config);
+            ////创建tatget
+            //XmlElement target = commonXml.CreateElement("target");
+            //edit_config.AppendChild(target);
+            ////创建running
+            //XmlElement running = commonXml.CreateElement("running");
+            //target.AppendChild(running);
+
+            ////连接删除
+            //XmlElement config = commonXml.CreateElement("config");
+            //config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            //edit_config.AppendChild(config);
+
+
+            //CTP
+            XmlElement reset = commonXml.CreateElement("reset");
+            reset.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            rpc.AppendChild(reset);
+
+            if (_eq_name != "")
+            {
+                //板卡名称
+                XmlElement eq_name = commonXml.CreateElement("eq-name");
+                eq_name.InnerText = _eq_name;
+                reset.AppendChild(eq_name);
+                //软硬复位
+                XmlElement reset_type = commonXml.CreateElement("reset-type");
+                reset_type.InnerText = _reset_type;
+                reset.AppendChild(reset_type);
+            }
+
+            return commonXml;
+
+        }
+
+        public static XmlDocument Set_Managed_Element_Time(string _new_time)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+
+            //CTP
+            XmlElement set_managed_element_time = commonXml.CreateElement("set-managed-element-time");
+            set_managed_element_time.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            rpc.AppendChild(set_managed_element_time);
+
+            if (_new_time != "")
+            {
+                //板卡名称
+                XmlElement new_time = commonXml.CreateElement("new-time");
+                new_time.InnerText = _new_time;
+                set_managed_element_time.AppendChild(new_time);
+            }
+
+            return commonXml;
+
+        }
+
+
+        public static XmlDocument Mc_Port(string _name,string _admin_state)
+        {
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+            //CTP
+            XmlElement mc_ports = commonXml.CreateElement("mc-ports");
+            mc_ports.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+            config.AppendChild(mc_ports);
+
+            XmlElement mc_port = commonXml.CreateElement("mc-port");
+            mc_ports.AppendChild(mc_port);
+
+            if (_name != "")
+            {
+                //板卡名称
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _name;
+                mc_port.AppendChild(name);
+            }
+            if (_admin_state != "")
+            {
+                //板卡名称
+                XmlElement admin_state = commonXml.CreateElement("admin-state");
+                admin_state.InnerText = _admin_state;
+                mc_port.AppendChild(admin_state);
+            }
             return commonXml;
 
         }

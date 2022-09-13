@@ -7,22 +7,21 @@ using System.Xml;
 using System.Text.RegularExpressions;
 using System.IO;
 using System.Xml.Linq;
-
 namespace Renci.SshNet.NetConf
 {
     internal class NetConfSession : SubsystemSession, INetConfSession
     {
         private const string Prompt = "]]>]]>";
-
         private readonly StringBuilder _data = new StringBuilder();
         private readonly StringBuilder _datanotification = new StringBuilder();
-        public  bool _usingFramingProtocol =true;
+        public bool _usingFramingProtocol = true;
         private EventWaitHandle _serverCapabilitiesConfirmed = new AutoResetEvent(false);
         private EventWaitHandle _rpcReplyReceived = new AutoResetEvent(false);
         private EventWaitHandle _rpcReplyReceivedNotificaton = new AutoResetEvent(false);
         private StringBuilder _rpcReply = new StringBuilder();
         private StringBuilder _rpcReplyNotification = new StringBuilder();
         private int _messageId;
+        private string _notificationstr ="";
 
         /// <summary>
         /// Gets NetConf server capabilities.
@@ -35,13 +34,13 @@ namespace Renci.SshNet.NetConf
         public XmlDocument ClientCapabilities { get; private set; }
 
 
-        
+
         /// <summary>
         /// Initializes a new instance of the <see cref="NetConfSession"/> class.
         /// </summary>
         /// <param name="session">The session.</param>
         /// <param name="operationTimeout">The number of milliseconds to wait for an operation to complete, or -1 to wait indefinitely.</param>
-        public NetConfSession(ISession session, int operationTimeout): base(session, "netconf", operationTimeout)
+        public NetConfSession(ISession session, int operationTimeout) : base(session, "netconf", operationTimeout)
         {
             ClientCapabilities = new XmlDocument();
             string xml1 = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
@@ -69,7 +68,8 @@ namespace Renci.SshNet.NetConf
                 ClientCapabilities.LoadXml(xml2);
 
             }
-            else {
+            else
+            {
                 ClientCapabilities.LoadXml(xml1);
             }
         }
@@ -96,7 +96,7 @@ namespace Renci.SshNet.NetConf
             return stringBuilder.ToString();
 
         }
-        public XmlDocument SendReceiveRpc(XmlDocument rpc, bool automaticMessageIdHandling ,int Timeout)
+        public XmlDocument SendReceiveRpc(XmlDocument rpc, bool automaticMessageIdHandling, int Timeout)
         {
             _data.Clear();
             XmlNamespaceManager nsMgr = null;
@@ -131,9 +131,11 @@ namespace Renci.SshNet.NetConf
                 string end = "\n##\n";
                 string rpcsend = rpctop + PrettyXml(rpcsend1) + end;
                 SendData(Encoding.UTF8.GetBytes(rpcsend));
+                WriteLogs("Log", "请求：", "1.1版本+RPC请求打印日志：\r\n" + rpcsend);
                 System.Diagnostics.Debug.WriteLine("1.1版本+RPC请求打印日志：\r\n" + rpcsend);
                 WaitOnHandle(_rpcReplyReceived, Timeout);
-                for (int i = 0; i < 5; i++) {
+                for (int i = 0; i < 1; i++)
+                {
                     if (!_rpcReply.ToString().Contains("rpc"))
                     {
                         _data.Clear();
@@ -152,6 +154,7 @@ namespace Renci.SshNet.NetConf
             else
             {
                 SendData(Encoding.UTF8.GetBytes(PrettyXml(rpc.OuterXml) + Prompt));
+                WriteLogs("Log", "请求：", "1.0版本+RPC请求打印日志：\r\n" + PrettyXml(rpc.OuterXml) + Prompt);
                 System.Diagnostics.Debug.WriteLine("1.0版本+RPC请求打印日志：\r\n" + PrettyXml(rpc.OuterXml) + Prompt);
 
                 WaitOnHandle(_rpcReplyReceived, Timeout);
@@ -182,15 +185,29 @@ namespace Renci.SshNet.NetConf
             }
             return reply;
         }
+        private string a = "";
 
-
-        public string  SendReceiveRpcSub(int Timeout)
+        public string SendReceiveRpcSub(int Timeout)
         {
-            _datanotification.Clear();
-            _rpcReplyNotification = new StringBuilder();
-            _rpcReplyReceivedNotificaton.Reset();
-            WaitOnHandleNotification(_rpcReplyReceivedNotificaton, -1);
-            return _rpcReplyNotification.ToString();
+            //_datanotification.Clear();
+            //_rpcReplyNotification = new StringBuilder();
+            // _rpcReplyReceivedNotificaton.Reset();
+            // WaitOnHandleNotification(_rpcReplyReceivedNotificaton, -1);
+            // return _rpcReplyNotification.ToString();
+
+            if (a != _notificationstr)
+            {
+                a = _notificationstr;
+                return _notificationstr;
+            }
+            else
+            {
+                _notificationstr = "";
+                a = "";
+                return _notificationstr;
+
+            }
+            //return _notificationstr;
 
         }
         public void SendReceiveRpcKeepLive()
@@ -205,7 +222,8 @@ namespace Renci.SshNet.NetConf
                 string rpcsend = rpctop + PrettyXml(rpcsend1) + end;
                 SendData(Encoding.UTF8.GetBytes(rpcsend));
             }
-            else {
+            else
+            {
                 string rpcsend1 = "<?xml version=\"1.0\" encoding=\"utf-8\"?><rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"6\"><get ><filter/></get ></rpc>";
 
                 SendData(Encoding.UTF8.GetBytes(PrettyXml(rpcsend1) + Prompt));
@@ -218,30 +236,88 @@ namespace Renci.SshNet.NetConf
         {
             _data.Clear();
             _datanotification.Clear();
-           // var message = string.Format("{0}{1}", ClientCapabilities.InnerXml, Prompt);
+            // var message = string.Format("{0}{1}", ClientCapabilities.InnerXml, Prompt);
             var command = PrettyXml(ClientCapabilities.InnerXml);
-            SendData(Encoding.UTF8.GetBytes(command.ToString()+ Prompt));
-           // SendData(Encoding.UTF8.GetBytes(message));
+            SendData(Encoding.UTF8.GetBytes(command.ToString() + Prompt));
+            // SendData(Encoding.UTF8.GetBytes(message));
+            WriteLogs("Log", "认证请求：", command.ToString() + Prompt);
+
+            System.Diagnostics.Debug.WriteLine(command.ToString() + Prompt);
 
 
-            WaitOnHandle(_serverCapabilitiesConfirmed, OperationTimeout);
+            WaitOnHandle(_serverCapabilitiesConfirmed, 30000);
         }
 
+        /// <summary>
+        /// 日志部分
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="type"></param>
+        /// <param name="content"></param>
+        public static void WriteLogs(string fileName, string type, string content)
+        {
+            try
+            {
+                string path = @"C:\netconf\";
+                if (!string.IsNullOrEmpty(path))
+                {
+                    path = @"C:\netconf\" + fileName;
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    path = path + "\\" + DateTime.Now.ToString("yyyyMMdd");
+                    if (!Directory.Exists(path))
+                    {
+                        Directory.CreateDirectory(path);
+                    }
+                    path = path + "\\" +  "GWTT-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+                    if (!File.Exists(path))
+                    {
+                        FileStream fs = File.Create(path);
+                        fs.Close();
+                    }
+                    if (File.Exists(path))
+                    {
+                        //StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default);
+                        //sw.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + type + "-->" + content);
+                        ////  sw.WriteLine("----------------------------------------");
+                        //sw.Close();
+                        using (StreamWriter sw = new StreamWriter(path, true, Encoding.Default))
+                        {
+                            string s = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + type + "-->\r\n" + "-------------------------------------------------------------------------------------------------------\r\n" + content;
+                            sw.WriteLine(s);
+                            sw.WriteLine("-------------------------------------------------------------------------------------------------------");
+                            sw.Close();
+                        }
+
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+        }
         protected override void OnDataReceived(byte[] data)
         {
             var chunk = Encoding.UTF8.GetString(data);
-            var chunknotfication = Encoding.UTF8.GetString(data);
+            //var chunknotfication = Encoding.UTF8.GetString(data);
             if (ServerCapabilities == null)   // This must be server capabilities, old protocol
             {
-                _data.Append(chunk);  
+                _data.Append(chunk);
 
                 if (!chunk.Contains(Prompt))
                 {
+                    WriteLogs("Log", "认证答复：", chunk);
+                    System.Diagnostics.Debug.WriteLine(chunk);
                     return;
                 }
                 try
                 {
-                    chunk = _data.ToString(); 
+                    System.Diagnostics.Debug.WriteLine(chunk);
+                    WriteLogs("Log", "认证答复：", chunk);
+                    chunk = _data.ToString();
                     _data.Clear();
 
                     ServerCapabilities = new XmlDocument();
@@ -255,67 +331,112 @@ namespace Renci.SshNet.NetConf
                 var nsMgr = new XmlNamespaceManager(ServerCapabilities.NameTable);
                 nsMgr.AddNamespace("nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 _usingFramingProtocol = (ServerCapabilities.SelectSingleNode("/nc:hello/nc:capabilities/nc:capability[text()='urn:ietf:params:netconf:base:1.1']", nsMgr) != null);
-
+                //System.Diagnostics.Debug.WriteLine(chunk);
                 _serverCapabilitiesConfirmed.Set();
             }
-            else 
+            else
             if (_usingFramingProtocol)
             {
                 _data.Append(chunk);
-                _datanotification.Append(chunknotfication);
+               // _datanotification.Append(chunknotfication);
 
                 if (!chunk.Contains("##"))
                 {
+                    WriteLogs("Log", "答复：", chunk);
                     System.Diagnostics.Debug.WriteLine(chunk);
                     return;
                     //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
                 }
 
-                if (!chunknotfication.Contains("##"))
-                {
-                    return;
-                    //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
-                }
+                //if (!chunknotfication.Contains("##"))
+                //{
+                //    return;
+                //    //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
+                //}
+                
                 System.Diagnostics.Debug.WriteLine(chunk);
                 System.Diagnostics.Debug.WriteLine("\r\n 1.1版本服务器回复打印完毕");
 
                 chunk = _data.ToString();
-                chunknotfication = _datanotification.ToString();
                 _data.Clear();
-                _datanotification.Clear();
-                _rpcReply.Append(Regex.Replace(chunk, @"\n#([\d\n\#]*)", ""));
-                _rpcReplyNotification.Append(Regex.Replace(chunknotfication, @"\n#([\d\n\#]*)", ""));
-                _rpcReplyReceived.Set();
-                _rpcReplyReceivedNotificaton.Set();
+                //chunknotfication = _datanotification.ToString();
+
+                //_datanotification.Clear();
+
+                if (chunk.Contains("</rpc-reply>"))
+                {
+                    _rpcReply.Append(Regex.Replace(chunk, @"\n*#([\d\n\#]*)", ""));
+                    _rpcReplyReceived.Set();
+                }
+                if (chunk.Contains("</notification>"))
+                {
+
+                    //_rpcReplyNotification.Append(Regex.Replace(chunknotfication, @"\n#([\d\n\#]*)", ""));
+                    // _rpcReplyReceivedNotificaton.Set();
+                   // _notificationstr = Regex.Replace(chunk, @"\n#([\d\n\#]*)", "");
+                    string[] arr = Regex.Split(chunk, "##", RegexOptions.IgnoreCase);
+
+                    foreach (string s in arr)
+                    {
+                        if (s.Contains("</notification>")) {
+ 
+                            _notificationstr = Regex.Replace(s, @"\n*#([\d\n\#]*)", "");
+
+                        }
+                        if (s.Contains("</rpc-reply>")) {
+
+                            _rpcReply.Append(Regex.Replace(_notificationstr, @"\n*#([\d\n\#]*)", ""));
+                            _rpcReplyReceived.Set();
+                        }
+                        if (s.Contains("<rpc-reply>")&& !s.Contains("</rpc-reply>"))
+                        {
+
+                            _data.Append(s);
+                            return;
+                        }
+                    }
+                }
+                WriteLogs("Log", "答复：", chunk);
+
             }
             else  // Old protocol
             {
                 _data.Append(chunk);
-                _datanotification.Append(chunknotfication);
+               // _datanotification.Append(chunknotfication);
 
                 if (!chunk.Contains(Prompt))
                 {
+                    WriteLogs("Log", "答复：", chunk);
                     System.Diagnostics.Debug.WriteLine(chunk);
                     return;
                     //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
                 }
 
-                if (!chunknotfication.Contains(Prompt))
-                {
-                    return;
-                    //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
-                }
+                //if (!chunknotfication.Contains(Prompt))
+                //{
+                //    return;
+                //    //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
+                //}
+                WriteLogs("Log", "答复：", chunk);
                 System.Diagnostics.Debug.WriteLine(chunk);
                 System.Diagnostics.Debug.WriteLine("\r\n 1.0版本服务器回复打印完毕");
 
                 chunk = _data.ToString();
-                chunknotfication = _datanotification.ToString();
+               // chunknotfication = _datanotification.ToString();
                 _data.Clear();
                 _datanotification.Clear();
-                _rpcReply.Append(chunk.Replace(Prompt, ""));
-                _rpcReplyNotification.Append(chunknotfication.Replace(Prompt, ""));
-                _rpcReplyReceived.Set();
-                _rpcReplyReceivedNotificaton.Set();
+                if (chunk.Contains("</rpc-reply>"))
+                {
+                    _rpcReply.Append(chunk.Replace(Prompt, ""));
+                    _rpcReplyReceived.Set();
+                }
+                if (chunk.Contains("</notification>"))
+                {
+                    //_rpcReplyNotification.Append(chunk.Replace(Prompt, ""));
+                    //_rpcReplyReceivedNotificaton.Set();
+                    _notificationstr = chunk.Replace(Prompt, "");
+                }
+
             }
         }
 

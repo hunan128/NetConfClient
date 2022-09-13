@@ -39,6 +39,9 @@
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewExpRx = new System.Windows.Forms.DataGridView();
+            this.个数 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.预期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBoxModel = new System.Windows.Forms.TextBox();
             this.textBoxtitle = new System.Windows.Forms.TextBox();
             this.textBoxips = new System.Windows.Forms.TextBox();
@@ -55,9 +58,6 @@
             this.textBoxRecommod = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxtype = new System.Windows.Forms.TextBox();
-            this.个数 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.预期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -115,13 +115,11 @@
             // 
             // RPC请求
             // 
-            this.RPC请求.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.RPC请求.Controls.Add(this.richTextBoxRpc);
-            this.RPC请求.Location = new System.Drawing.Point(12, 9);
+            this.RPC请求.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RPC请求.Location = new System.Drawing.Point(0, 0);
             this.RPC请求.Name = "RPC请求";
-            this.RPC请求.Size = new System.Drawing.Size(378, 309);
+            this.RPC请求.Size = new System.Drawing.Size(403, 331);
             this.RPC请求.TabIndex = 4;
             this.RPC请求.TabStop = false;
             this.RPC请求.Text = "RPC请求";
@@ -132,19 +130,17 @@
             this.richTextBoxRpc.ForeColor = System.Drawing.Color.Blue;
             this.richTextBoxRpc.Location = new System.Drawing.Point(3, 17);
             this.richTextBoxRpc.Name = "richTextBoxRpc";
-            this.richTextBoxRpc.Size = new System.Drawing.Size(372, 289);
+            this.richTextBoxRpc.Size = new System.Drawing.Size(397, 311);
             this.richTextBoxRpc.TabIndex = 1;
             this.richTextBoxRpc.Text = "";
             // 
             // RPC
             // 
-            this.RPC.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.RPC.Controls.Add(this.richTextBoxReply);
-            this.RPC.Location = new System.Drawing.Point(12, 12);
+            this.RPC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RPC.Location = new System.Drawing.Point(0, 0);
             this.RPC.Name = "RPC";
-            this.RPC.Size = new System.Drawing.Size(378, 303);
+            this.RPC.Size = new System.Drawing.Size(403, 328);
             this.RPC.TabIndex = 5;
             this.RPC.TabStop = false;
             this.RPC.Text = "Reply答复";
@@ -155,19 +151,17 @@
             this.richTextBoxReply.ForeColor = System.Drawing.Color.Blue;
             this.richTextBoxReply.Location = new System.Drawing.Point(3, 17);
             this.richTextBoxReply.Name = "richTextBoxReply";
-            this.richTextBoxReply.Size = new System.Drawing.Size(372, 283);
+            this.richTextBoxReply.Size = new System.Drawing.Size(397, 308);
             this.richTextBoxReply.TabIndex = 2;
             this.richTextBoxReply.Text = "";
             // 
             // groupBox2
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.treeView);
-            this.groupBox2.Location = new System.Drawing.Point(12, 9);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(424, 641);
+            this.groupBox2.Size = new System.Drawing.Size(449, 663);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Reply树状图";
@@ -178,7 +172,7 @@
             this.treeView.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.treeView.Location = new System.Drawing.Point(3, 17);
             this.treeView.Name = "treeView";
-            this.treeView.Size = new System.Drawing.Size(418, 621);
+            this.treeView.Size = new System.Drawing.Size(443, 643);
             this.treeView.TabIndex = 3;
             this.treeView.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.treeView_DrawNode);
             // 
@@ -203,13 +197,11 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.dataGridViewExpRx);
-            this.groupBox1.Location = new System.Drawing.Point(12, 9);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(357, 641);
+            this.groupBox1.Size = new System.Drawing.Size(380, 663);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "预期与结果";
@@ -226,8 +218,26 @@
             this.dataGridViewExpRx.Name = "dataGridViewExpRx";
             this.dataGridViewExpRx.RowHeadersVisible = false;
             this.dataGridViewExpRx.RowTemplate.Height = 23;
-            this.dataGridViewExpRx.Size = new System.Drawing.Size(351, 621);
+            this.dataGridViewExpRx.Size = new System.Drawing.Size(374, 643);
             this.dataGridViewExpRx.TabIndex = 0;
+            // 
+            // 个数
+            // 
+            this.个数.HeaderText = "个数";
+            this.个数.Name = "个数";
+            this.个数.Width = 40;
+            // 
+            // 预期
+            // 
+            this.预期.HeaderText = "预期";
+            this.预期.Name = "预期";
+            this.预期.Width = 200;
+            // 
+            // 结果
+            // 
+            this.结果.HeaderText = "结果";
+            this.结果.Name = "结果";
+            this.结果.Width = 300;
             // 
             // textBoxModel
             // 
@@ -345,7 +355,7 @@
             this.textBoxRecommod.Location = new System.Drawing.Point(631, 39);
             this.textBoxRecommod.Name = "textBoxRecommod";
             this.textBoxRecommod.ReadOnly = true;
-            this.textBoxRecommod.Size = new System.Drawing.Size(100, 21);
+            this.textBoxRecommod.Size = new System.Drawing.Size(273, 21);
             this.textBoxRecommod.TabIndex = 16;
             // 
             // label8
@@ -364,24 +374,6 @@
             this.textBoxtype.ReadOnly = true;
             this.textBoxtype.Size = new System.Drawing.Size(100, 21);
             this.textBoxtype.TabIndex = 18;
-            // 
-            // 个数
-            // 
-            this.个数.HeaderText = "个数";
-            this.个数.Name = "个数";
-            this.个数.Width = 40;
-            // 
-            // 预期
-            // 
-            this.预期.HeaderText = "预期";
-            this.预期.Name = "预期";
-            this.预期.Width = 200;
-            // 
-            // 结果
-            // 
-            this.结果.HeaderText = "结果";
-            this.结果.Name = "结果";
-            this.结果.Width = 300;
             // 
             // Form_AutoXmlInfo
             // 

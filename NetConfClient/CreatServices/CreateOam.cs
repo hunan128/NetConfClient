@@ -73,7 +73,7 @@ namespace NetConfClientSoftware
                 meg_id.InnerText = _meg_id;
                 oam_config.AppendChild(meg_id);
                 //md-name
-                XmlElement md_name = commonXml.CreateElement("ma-name");
+                XmlElement md_name = commonXml.CreateElement("md-name");
                 md_name.InnerText = _md_name;
                 oam_config.AppendChild(md_name);
                 //mel
@@ -156,7 +156,66 @@ namespace NetConfClientSoftware
                 dm_interval.InnerText = _dm_interval;
                 oam_config.AppendChild(dm_interval);
             }
+            if (ips.Contains("电信"))
+            {
+                //配置connections
+                XmlElement ctps = commonXml.CreateElement("ctps");
+                ctps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                config.AppendChild(ctps);
 
+                //配置connection
+                XmlElement ctp = commonXml.CreateElement("ctp");
+                ctps.AppendChild(ctp);
+
+
+                //CTP端口
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _ctp_name;
+                ctp.AppendChild(name);
+
+                //CTP属性
+                XmlElement eth_ctp_pac = commonXml.CreateElement("eth-ctp-pac");
+                eth_ctp_pac.SetAttribute("xmlns", "urn:ccsa:yang:acc-eth");
+                ctp.AppendChild(eth_ctp_pac);
+                //OAMconfig
+                XmlElement oam_config = commonXml.CreateElement("oam-config");
+                eth_ctp_pac.AppendChild(oam_config);
+                //MEP-ID
+                XmlElement mep_id = commonXml.CreateElement("mep-id");
+                mep_id.InnerText = _mep_id;
+                oam_config.AppendChild(mep_id);
+                //远端MEP-ID
+                XmlElement remote_mep_id = commonXml.CreateElement("remote-mep-id");
+                remote_mep_id.InnerText = _remote_mep_id;
+                oam_config.AppendChild(remote_mep_id);
+                //MGE-ID
+                XmlElement meg_id = commonXml.CreateElement("meg-id");
+                meg_id.InnerText = _meg_id;
+                oam_config.AppendChild(meg_id);
+                //md-name
+                XmlElement md_name = commonXml.CreateElement("md-name");
+                md_name.InnerText = _md_name;
+                oam_config.AppendChild(md_name);
+                //mel
+                XmlElement mel = commonXml.CreateElement("mel");
+                mel.InnerText = _mel;
+                oam_config.AppendChild(mel);
+                //cc_interval
+                XmlElement cc_interval = commonXml.CreateElement("cc-interval");
+                cc_interval.InnerText = _cc_interval;
+                oam_config.AppendChild(cc_interval);
+
+
+                //cc_interval
+                XmlElement lm_interval = commonXml.CreateElement("lm-interval");
+                lm_interval.InnerText = _lm_interval;
+                oam_config.AppendChild(lm_interval);
+
+                //cc_interval
+                XmlElement dm_interval = commonXml.CreateElement("dm-interval");
+                dm_interval.InnerText = _dm_interval;
+                oam_config.AppendChild(dm_interval);
+            }
             return commonXml;
 
         }
@@ -274,7 +333,47 @@ namespace NetConfClientSoftware
                 cc_state.InnerText = _cc_state;
                 oam_state_pac.AppendChild(cc_state);
             }
+            if (ips.Contains("电信"))
+            {
+                //配置connections
+                XmlElement ctps = commonXml.CreateElement("ctps");
+                ctps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
+                config.AppendChild(ctps);
 
+                //配置connection
+                XmlElement ctp = commonXml.CreateElement("ctp");
+                ctps.AppendChild(ctp);
+
+
+                //CTP端口
+                XmlElement name = commonXml.CreateElement("name");
+                name.InnerText = _ctp_name;
+                ctp.AppendChild(name);
+
+                //CTP属性
+                XmlElement eth_ctp_pac = commonXml.CreateElement("eth-ctp-pac");
+                eth_ctp_pac.SetAttribute("xmlns", "urn:ccsa:yang:acc-eth");
+                ctp.AppendChild(eth_ctp_pac);
+                //OAMconfig
+                XmlElement oam_state_pac = commonXml.CreateElement("oam-state-pac");
+                eth_ctp_pac.AppendChild(oam_state_pac);
+                //MEP-ID
+                XmlElement dm_state = commonXml.CreateElement("dm-state");
+                dm_state.InnerText = _dm_state;
+                oam_state_pac.AppendChild(dm_state);
+                //远端MEP-ID
+                XmlElement tm_state = commonXml.CreateElement("tm-state");
+                tm_state.InnerText = _tm_state;
+                oam_state_pac.AppendChild(tm_state);
+                //MGE-ID
+                XmlElement lm_state = commonXml.CreateElement("lm-state");
+                lm_state.InnerText = _lm_state;
+                oam_state_pac.AppendChild(lm_state);
+                //md-name
+                XmlElement cc_state = commonXml.CreateElement("cc-state");
+                cc_state.InnerText = _cc_state;
+                oam_state_pac.AppendChild(cc_state);
+            }
             return commonXml;
 
         }

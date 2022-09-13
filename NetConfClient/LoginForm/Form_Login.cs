@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -26,12 +27,13 @@ namespace NetConfClientSoftware
         public static string sn = "";
         private string strFilePath = @"C:\netconf\Config.ini";
         private string strSec = ""; //INI内容标题名称
-        public static String connetStr = "";
+        public static String connetStr = "server=hunan128.com;port=3306;user=admin;password=xiaotuzi128; database=netconf;";
 
         private Point mouseOff;//鼠标移动位置变量
         private bool leftFlag;//标签是否为左键
         public static string remember = "是";
         public static int count = 0;
+        public static string appver = "";
         /// <summary>
         /// 写入INI文件
         /// </summary>
@@ -101,8 +103,8 @@ namespace NetConfClientSoftware
                     else {
                         checkBoxRe.Checked = false;
                     }
+                    appver = ContentValue(strSec, "appver");
 
-                    
                 }
             }
             catch 
@@ -131,9 +133,14 @@ namespace NetConfClientSoftware
                 WritePrivateProfileString(strSec, "licence", licence.ToString(), strFilePath);
                 WritePrivateProfileString(strSec, "sn", sn, strFilePath);
                 WritePrivateProfileString(strSec, "remember", remember, strFilePath);
-
-
-
+                string appvernew = Application.ProductVersion.ToString();
+                WritePrivateProfileString(strSec, "appver", appvernew, strFilePath);
+                if (appver != appvernew) {
+                    object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
+                    string[] description = ((AssemblyDescriptionAttribute)attributes[0]).Description.Split('\n');
+                    string DES = description[0] + "\n" + description[1] + "\n" + description[2] + "\n";
+                    MessageBox.Show(DES,"本次软件更新说明：");
+                }
 
             }
             catch (Exception ex)
@@ -309,6 +316,7 @@ namespace NetConfClientSoftware
                         user = textBoxUser.Text;
                         password = textBoxPass.Text;
                         Setini();
+                        
                         this.DialogResult = DialogResult.OK;
                         this.Dispose();
                         this.Close();
@@ -454,7 +462,11 @@ namespace NetConfClientSoftware
             Getini();
             try {
                 conn.Open();
-            }catch{
+              
+
+            }
+            catch
+            {
                 conn.Close();
                 MessageBox.Show("连接服务器失败！");
             }

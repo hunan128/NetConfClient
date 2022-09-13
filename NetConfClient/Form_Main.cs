@@ -19,6 +19,9 @@ using NetConfClientSoftware;
 using System.Xml.XPath;
 using System.Net.NetworkInformation;
 using System.Diagnostics;
+using NetConfClientSoftware.MenuForm;
+using NetConfClientSoftware.ConfigServices;
+
 namespace NetConfClientSoftware
 {
     public partial class Form_Main : Form
@@ -44,6 +47,7 @@ namespace NetConfClientSoftware
         public string CUCC_YIN_URL = "http://hunan128.com:888/YANG/CUCC/YIN/";   //XML在线文件地址
         public string CTCC_YIN_URL = "http://hunan128.com:888/YANG/CTCC/YIN/";   //XML在线文件地址
         public string CMCC_YIN_URL = "http://hunan128.com:888/YANG/CMCC/YIN/";   //XML在线文件地址
+        public int AutoCount = 0;    //自动化循环次数
         #region 声明ini变量
         /// <summary>
         /// 写入INI文件
@@ -401,9 +405,12 @@ namespace NetConfClientSoftware
                         string value = GetAttributeText(xNode, "name");
                         if (string.IsNullOrEmpty(value))
                         {
+                           
                             value = xNode.Value;
+
                             if (string.IsNullOrEmpty(value))
                             {
+                                
                                 // value = xNode.Name + " "+ xNode.Attributes[0].OuterXml;
                                 value = xNode.Name;
                                 if (i == 0)
@@ -413,6 +420,8 @@ namespace NetConfClientSoftware
                                     textnode.Nodes.Add(value);
                                     nodes.Add(textnode);
                                 }
+                              
+
                             }
                             else
                             {
@@ -426,6 +435,7 @@ namespace NetConfClientSoftware
                         {
                             newNode = nodes.Add(text);
                         }
+
                     }
                     if (newNode != null)
                         AddNode(newNode.Nodes, xNode);
@@ -534,8 +544,11 @@ namespace NetConfClientSoftware
         /// <summary>
         /// 订阅在循环等待消息
         /// </summary>
+        /// 
         private void Subscription(int id, string ip)
         {
+            XmlDocument notfication = new XmlDocument();
+
             if (Sub[id])
             {
                 TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
@@ -544,35 +557,29 @@ namespace NetConfClientSoftware
             string rpcResponse = "";
             while (Sub[id])
             {
-                try
+                //System.Diagnostics.Debug.WriteLine("循环计时器："  + System.DateTime.Now.ToString()+"."+ System.DateTime.Now.Millisecond.ToString() +"\r\n");
+                rpcResponse = netConfClient[id].SendReceiveRpcSub();
+                if (rpcResponse != ""&& rpcResponse !="\n")
                 {
-                    rpcResponse = netConfClient[id].SendReceiveRpcSub();
-                    if (rpcResponse != "")
+                    //System.Diagnostics.Debug.WriteLine("有通知了哦：" + System.DateTime.Now.ToString() + "." + System.DateTime.Now.Millisecond.ToString() + "\r\n");
+                    TextLog.AppendText("Notification服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString()+"."+ System.DateTime.Now.Millisecond.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+                    rpcResponse = XmlFormat.Xml(rpcResponse);
+                    notfication.LoadXml(rpcResponse);
+                    System.Diagnostics.Debug.WriteLine(rpcResponse);
+                    TextLog.AppendText(rpcResponse + "\r\n" + FenGeFu + "\r\n");
+                    BeginInvoke(new MethodInvoker(delegate ()
                     {
-                        if (!rpcResponse.Contains("rpc"))
-                        {
-                            XmlDocument notfication = new XmlDocument();
-                            TextLog.AppendText("Notification服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                            notfication.LoadXml(rpcResponse);
-                            TextLog.AppendText(XmlFormat.Xml(rpcResponse) + "\r\n" + FenGeFu + "\r\n");
-                            BeginInvoke(new MethodInvoker(delegate ()
-                            {
-                                Thread mes = new Thread(() => ShowXML(notfication, id));
-                                mes.Start();
-                                //ShowXML(notfication);
-                                // Pgnot(notfication);
-                                //LoadNotfication(notfication);
-                                Thread pg = new Thread(() => Pgnot(notfication));
-                                pg.Start();
-                                Thread loadNotficationg = new Thread(() => LoadNotfication(notfication, ip));
-                                loadNotficationg.Start();
-                            }));
-                        }
-                    }
-                    //Thread.Sleep(100);
-                }
-                catch
-                {
+
+                        Thread mes = new Thread(() => ShowXML(notfication, id));
+                        mes.Start();
+                        //ShowXML(notfication);
+                        // Pgnot(notfication);
+                        //LoadNotfication(notfication);
+                        Thread pg = new Thread(() => Pgnot(notfication));
+                        pg.Start();
+                        Thread loadNotficationg = new Thread(() => LoadNotfication(notfication, ip));
+                        loadNotficationg.Start();
+                    }));
                 }
             }
             //TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
@@ -1014,6 +1021,10 @@ namespace NetConfClientSoftware
             ComTimeOut.SelectedIndex = 0;
             TextOduService_type.SelectedIndex = 0;
             Com_nni_protection_type.SelectedIndex = 0;
+            Com_nni2_protection_type.SelectedIndex = 0;
+            Com_uni_protection_type.SelectedIndex = 0;
+            ComSdhPro.SelectedIndex = 0;
+            Com_Eth_uni_protection_type.SelectedIndex = 0;
             //    ComOduNniTsDetailClient_UNI_A.SelectedIndex = 0;
             //   ComOduTsDetail_Primary_nni.SelectedIndex = 0;
             ComCreatConnection.SelectedIndex = 0;
@@ -1021,7 +1032,6 @@ namespace NetConfClientSoftware
             ComEthUniVlanPriority.SelectedIndex = 0;
             ComEthUniVlanType.SelectedIndex = 0;
             ComEthServiceType.SelectedIndex = 0;
-            Com_Eth_uni_protection_type.SelectedIndex = 0;
             ComEthVlanAccessAction.SelectedIndex = 0;
             ComEthVlanPriority.SelectedIndex = 0;
             ComEthVlanType.SelectedIndex = 0;
@@ -1035,7 +1045,6 @@ namespace NetConfClientSoftware
             ComEthFtpVlanPriority_primary_nni.SelectedIndex = 0;
             ComEthFtpVlanType_primary_nni.SelectedIndex = 1;
             ComSdhSer.SelectedIndex = 0;
-            ComSdhPro.SelectedIndex = 7;
             //   ComSdhUniSdhType.SelectedIndex = 2;
             ComSdhSerMap.SelectedIndex = 0;
             //   ComSdhNniSdhtype_A.SelectedIndex = 2;
@@ -1175,7 +1184,7 @@ namespace NetConfClientSoftware
             {
                 上载全部XMLToolStripMenuItem.Enabled = false;
                 XmlDocument doc = new XmlDocument();
-                doc = Sendrpc(FindXML.FindGetAll(), id, ip);
+                doc = Sendrpc(GetXML.FindGetAll(), id, ip);
                 doc.Save(@"C:\netconf\" + ip + "_XmlAll.xml");
                 MessageBox.Show("上载成功！");
                 上载全部XMLToolStripMenuItem.Enabled = true;
@@ -1195,6 +1204,29 @@ namespace NetConfClientSoftware
         {
             try
             {
+                textBox_me_name.Text = "";
+                textBox_me_status.Text = "";
+                textBox_me_product_name.Text = "";
+                textBox_me_device_type.Text = "";
+                textBox_me_uuid.Text = "";
+                textBox_me_manufacturer.Text = "";
+                textBox_me_hardware_version.Text = "";
+                textBox_me_software_version.Text = "";
+                textBox_me_protocol_name.Text = "";
+                textBox_me_eq.Text = "";
+                textBox_me_ip_address.Text = "";
+                textBox_me_mask.Text = "";
+                textBox_me_gate_way1.Text = "";
+                textBox_me_gate_way2.Text = "";
+                textBox_me_ntp_enable.Text = "";
+                textBox_me_ntp_server_name.Text = "";
+                textBox_me_ntp_server_ipaddress.Text = "";
+                textBox_me_ntp_server_port.Text = "";
+                textBox_me_ntp_server_version.Text = "";
+                textBox_me_ntp_state.Text = "";
+                textBoxallslot.Text = "";
+                textBoxsn.Text = "";
+                comboBoxMcPort.Items.Clear();
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
@@ -1212,7 +1244,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.ME(), id, ip);
+                xmlDoc = Sendrpc(GetXML.ME(), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("me", "urn:ccsa:yang:acc-devm");
@@ -1234,18 +1266,25 @@ namespace NetConfClientSoftware
                     XmlNode layer_protocol_nameeth = itemNode.SelectSingleNode("me:layer-protocol-name[1]/text()[1]", root);
                     XmlNode layer_protocol_namesdh = itemNode.SelectSingleNode("me:layer-protocol-name[2]/text()[1]", root);
                     XmlNode layer_protocol_nameotn = itemNode.SelectSingleNode("me:layer-protocol-name[3]/text()[1]", root);
+                    XmlNode layer_protocol_nameosu = itemNode.SelectSingleNode("me:layer-protocol-name[4]/text()[1]", root);
                     XmlNodeList eq = itemNode.SelectNodes("me:eq", root);
                     XmlNode ntp_state = itemNode.SelectSingleNode("me:ntp-state", root);
+                    XmlNode total_slot_number = itemNode.SelectSingleNode("me:total-slot-number", root);
+                    XmlNode serial_number = itemNode.SelectSingleNode("me:serial-number", root);
+
                     string layer_protocol_name_eth = "";
                     string layer_protocol_name_sdh = "";
                     string layer_protocol_name_otn = "";
+                    string layer_protocol_name_osu = "";
                     if (layer_protocol_nameeth != null) layer_protocol_name_eth = layer_protocol_nameeth.InnerText;
                     if (layer_protocol_namesdh != null) layer_protocol_name_sdh = layer_protocol_namesdh.InnerText;
                     if (layer_protocol_nameotn != null) layer_protocol_name_otn = layer_protocol_nameotn.InnerText;
-                    string layer_protocol_name_all = layer_protocol_name_eth + layer_protocol_name_sdh + layer_protocol_name_otn;
+                    if (layer_protocol_nameosu != null) layer_protocol_name_osu = layer_protocol_nameosu.InnerText;
+                    string layer_protocol_name_all = layer_protocol_name_eth + layer_protocol_name_sdh + layer_protocol_name_otn + layer_protocol_name_osu;
                     layer_protocol_name_all = layer_protocol_name_all.Replace("acc-eth:", "");
                     layer_protocol_name_all = layer_protocol_name_all.Replace("acc-sdh", "");
                     layer_protocol_name_all = layer_protocol_name_all.Replace("acc-otn", "");
+                    layer_protocol_name_all = layer_protocol_name_all.Replace("acc-osu", "");
                     if (name != null) textBox_me_name.Text = name.InnerText;
                     if (status != null) textBox_me_status.Text = status.InnerText;
                     if (ip_address != null) textBox_me_ip_address.Text = ip_address.InnerText;
@@ -1255,13 +1294,22 @@ namespace NetConfClientSoftware
                     if (gate_way1 != null) textBox_me_gate_way1.Text = gate_way1.InnerText;
                     if (uuid != null) textBox_me_uuid.Text = uuid.InnerText;
                     if (manufacturer != null) textBox_me_manufacturer.Text = manufacturer.InnerText;
+                    if (serial_number != null) textBoxsn.Text = serial_number.InnerText;
+
                     if (product_name != null) textBox_me_product_name.Text = product_name.InnerText;
                     if (software_version != null) textBox_me_software_version.Text = software_version.InnerText;
                     if (hardware_version != null) textBox_me_hardware_version.Text = hardware_version.InnerText;
                     if (device_type != null) textBox_me_device_type.Text = device_type.InnerText;
                     if (layer_protocol_name_all != null) textBox_me_protocol_name.Text = layer_protocol_name_all;
+                    if (total_slot_number != null) textBoxallslot.Text = total_slot_number.InnerText;
                     if (eq != null) textBox_me_eq.Text = eq.Count.ToString();
-                    XmlNode mc_port = itemNode.SelectSingleNode("me:mc-port", root);
+                    XmlNodeList mc_port = itemNode.SelectNodes("me:mc-port", root);
+                    foreach (XmlNode itemNode1 in mc_port)
+                    {
+                      
+                        comboBoxMcPort.Items.Add(itemNode1.InnerText);
+                        comboBoxMcPort.SelectedIndex = 0;
+                    }
                     XmlNodeList net = itemNode.SelectNodes("//me:ntp-server", root);
                     foreach (XmlNode itemNode1 in net)
                     {
@@ -1315,33 +1363,100 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.EQS(), id, ip);
+                xmlDoc = Sendrpc(GetXML.EQS(), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("eqsxmlns", "urn:ccsa:yang:acc-devm");
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//eqsxmlns:eqs//eqsxmlns:eq", root);
                 foreach (XmlNode itemNode in itemNodes)
                 {
-                    XmlNode name = itemNode.SelectSingleNode("eqsxmlns:name", root);
-                    XmlNode woking_date = itemNode.SelectSingleNode("eqsxmlns:working-state", root);
-                    XmlNode plug_sate = itemNode.SelectSingleNode("eqsxmlns:plug-state", root);
-                    XmlNode eq_type = itemNode.SelectSingleNode("eqsxmlns:eq-type[1]", root);
-                    XmlNode eq_type2 = itemNode.SelectSingleNode("eqsxmlns:eq-type[2]", root);
-                    XmlNode xc_capability = itemNode.SelectSingleNode("eqsxmlns:xc-capability", root);
-                    XmlNode software_version = itemNode.SelectSingleNode("eqsxmlns:software-version", root);
-                    XmlNode hardware_version = itemNode.SelectSingleNode("eqsxmlns:hardware-version", root);
-                    int index = dataGridView_EQ.Rows.Add();
-                    if (name != null) { dataGridView_EQ.Rows[index].Cells["单板名称"].Value = name.InnerText; }
-                    if (woking_date != null) { dataGridView_EQ.Rows[index].Cells["状态"].Value = woking_date.InnerText; }
-                    if (plug_sate != null) { dataGridView_EQ.Rows[index].Cells["是否在位"].Value = plug_sate.InnerText; }
-                    if (eq_type != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText;
-                    if (eq_type2 != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText + "和" + eq_type2.InnerText;
-                    if (xc_capability != null) { dataGridView_EQ.Rows[index].Cells["XC能力"].Value = xc_capability.InnerText; }
-                    if (software_version != null) { dataGridView_EQ.Rows[index].Cells["软件版本"].Value = software_version.InnerText; }
-                    if (hardware_version != null) { dataGridView_EQ.Rows[index].Cells["硬件版本"].Value = hardware_version.InnerText; }
-                    dataGridView_EQ.Rows[index].Cells["操作"].Value = "硬复位";
-                    XmlNodeList net = itemNode.SelectNodes("eqsxmlns:ptp", root);
-                    if (net != null) { dataGridView_EQ.Rows[index].Cells["端口数量"].Value = net.Count.ToString(); }
+                    if (ips.Contains("移动")) {
+                        XmlNode name = itemNode.SelectSingleNode("eqsxmlns:name", root);
+
+                        XmlNode woking_date = itemNode.SelectSingleNode("eqsxmlns:working-state", root);
+                        XmlNode plug_sate = itemNode.SelectSingleNode("eqsxmlns:plug-state", root);
+                        XmlNode eq_type = itemNode.SelectSingleNode("eqsxmlns:eq-type[1]", root);
+                        XmlNode eq_type2 = itemNode.SelectSingleNode("eqsxmlns:eq-type[2]", root);
+                        XmlNode xc_capability = itemNode.SelectSingleNode("eqsxmlns:xc-capability", root);
+                        XmlNode software_version = itemNode.SelectSingleNode("eqsxmlns:software-version", root);
+                        XmlNode hardware_version = itemNode.SelectSingleNode("eqsxmlns:hardware-version", root);
+                        XmlNode model = itemNode.SelectSingleNode("eqsxmlns:model", root);
+                        XmlNode eq_type3 = itemNode.SelectSingleNode("eqsxmlns:eq-type[3]", root);
+
+                        int index = dataGridView_EQ.Rows.Add();
+                        if (model != null) { dataGridView_EQ.Rows[index].Cells["单板信息"].Value = model.InnerText; }
+                        if (name != null) { dataGridView_EQ.Rows[index].Cells["单板名称"].Value = name.InnerText; }
+
+                        if (woking_date != null) { dataGridView_EQ.Rows[index].Cells["状态"].Value = woking_date.InnerText; }
+                        if (plug_sate != null) { dataGridView_EQ.Rows[index].Cells["是否在位"].Value = plug_sate.InnerText; }
+                        if (eq_type != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText;
+                        if (eq_type2 != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText + "和" + eq_type2.InnerText;
+                        if (eq_type3 != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText + "和" + eq_type2.InnerText + "和" + eq_type3.InnerText;
+
+                        if (xc_capability != null) { dataGridView_EQ.Rows[index].Cells["XC能力"].Value = xc_capability.InnerText; }
+                        if (software_version != null) { dataGridView_EQ.Rows[index].Cells["软件版本"].Value = software_version.InnerText; }
+                        if (hardware_version != null) { dataGridView_EQ.Rows[index].Cells["硬件版本"].Value = hardware_version.InnerText; }
+                        XmlNodeList net = itemNode.SelectNodes("eqsxmlns:ptp", root);
+                        if (net != null) { dataGridView_EQ.Rows[index].Cells["端口数量"].Value = net.Count.ToString(); }
+                    }
+                    if (ips.Contains("电信"))
+                    {
+                        XmlNode name = itemNode.SelectSingleNode("eqsxmlns:name", root);
+                        XmlNode woking_date = itemNode.SelectSingleNode("eqsxmlns:working-state", root);
+                        XmlNode plug_sate = itemNode.SelectSingleNode("eqsxmlns:plug-state", root);
+                        XmlNode serial_number = itemNode.SelectSingleNode("eqsxmlns:serial-number", root);
+                        XmlNode eq_type = itemNode.SelectSingleNode("eqsxmlns:eq-type[1]", root);
+                        XmlNode eq_type2 = itemNode.SelectSingleNode("eqsxmlns:eq-type[2]", root);
+                        XmlNode xc_capability = itemNode.SelectSingleNode("eqsxmlns:xc-capability", root);
+                        XmlNode software_version = itemNode.SelectSingleNode("eqsxmlns:software-version", root);
+                        XmlNode hardware_version = itemNode.SelectSingleNode("eqsxmlns:hardware-version", root);
+                        XmlNode model = itemNode.SelectSingleNode("eqsxmlns:model", root);
+                        XmlNode eq_type3 = itemNode.SelectSingleNode("eqsxmlns:eq-type[3]", root);
+
+                        int index = dataGridView_EQ.Rows.Add();
+                        if (model != null) { dataGridView_EQ.Rows[index].Cells["单板信息"].Value = model.InnerText; }
+                        if (name != null) { dataGridView_EQ.Rows[index].Cells["单板名称"].Value = name.InnerText; }
+                        if (woking_date != null) { dataGridView_EQ.Rows[index].Cells["状态"].Value = woking_date.InnerText; }
+                        if (plug_sate != null) { dataGridView_EQ.Rows[index].Cells["是否在位"].Value = plug_sate.InnerText; }
+                        if (eq_type != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText;
+                        if (eq_type2 != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText + "和" + eq_type2.InnerText;
+                        if (eq_type3 != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText + "和" + eq_type2.InnerText + "和" + eq_type3.InnerText;
+                        if (xc_capability != null) { dataGridView_EQ.Rows[index].Cells["XC能力"].Value = xc_capability.InnerText; }
+                        if (serial_number != null) { dataGridView_EQ.Rows[index].Cells["序列号"].Value = serial_number.InnerText; }
+
+                        if (software_version != null) { dataGridView_EQ.Rows[index].Cells["软件版本"].Value = software_version.InnerText; }
+                        if (hardware_version != null) { dataGridView_EQ.Rows[index].Cells["硬件版本"].Value = hardware_version.InnerText; }
+                        XmlNodeList net = itemNode.SelectNodes("eqsxmlns:ptp", root);
+                        if (net != null) { dataGridView_EQ.Rows[index].Cells["端口数量"].Value = net.Count.ToString(); }
+                    }
+                    if (ips.Contains("联通"))
+                    {
+                        XmlNode name = itemNode.SelectSingleNode("eqsxmlns:name", root);
+                        XmlNode woking_date = itemNode.SelectSingleNode("eqsxmlns:eq-state", root);
+                        XmlNode plug_sate = itemNode.SelectSingleNode("eqsxmlns:plug-state", root);
+                        XmlNode eq_type = itemNode.SelectSingleNode("eqsxmlns:eq-type[1]", root);
+                        XmlNode eq_type2 = itemNode.SelectSingleNode("eqsxmlns:eq-type[2]", root);
+                        XmlNode eq_sn = itemNode.SelectSingleNode("eqsxmlns:eq-sn", root);
+                        XmlNode software_version = itemNode.SelectSingleNode("eqsxmlns:software-version", root);
+                        XmlNode hardware_version = itemNode.SelectSingleNode("eqsxmlns:hardware-version", root);
+                        XmlNode model = itemNode.SelectSingleNode("eqsxmlns:model", root);
+                        XmlNode eq_type3 = itemNode.SelectSingleNode("eqsxmlns:eq-type[3]", root);
+
+                        int index = dataGridView_EQ.Rows.Add();
+                        if (model != null) { dataGridView_EQ.Rows[index].Cells["单板信息"].Value = model.InnerText; }
+                        if (name != null) { dataGridView_EQ.Rows[index].Cells["单板名称"].Value = name.InnerText; }
+                        if (woking_date != null) { dataGridView_EQ.Rows[index].Cells["状态"].Value = woking_date.InnerText; }
+                        if (plug_sate != null) { dataGridView_EQ.Rows[index].Cells["是否在位"].Value = plug_sate.InnerText; }
+                        if (eq_type != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText;
+                        if (eq_type2 != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText + "和" + eq_type2.InnerText;
+                        if (eq_type3 != null) dataGridView_EQ.Rows[index].Cells["板卡类型"].Value = eq_type.InnerText + "和" + eq_type2.InnerText + "和" + eq_type3.InnerText;
+
+                        if (eq_sn != null) { dataGridView_EQ.Rows[index].Cells["序列号"].Value = eq_sn.InnerText; }
+                        if (software_version != null) { dataGridView_EQ.Rows[index].Cells["软件版本"].Value = software_version.InnerText; }
+                        if (hardware_version != null) { dataGridView_EQ.Rows[index].Cells["硬件版本"].Value = hardware_version.InnerText; }
+                        XmlNodeList net = itemNode.SelectNodes("eqsxmlns:ptp", root);
+                        if (net != null) { dataGridView_EQ.Rows[index].Cells["端口数量"].Value = net.Count.ToString(); }
+                    }
                     //XmlNode product-name = itemNode.SelectSingleNode("//me:name", root);
                     //XmlNode software-version = itemNode.SelectSingleNode("//me:status", root);
                     //if ((titleNode != null) && (dateNode != null))
@@ -1365,7 +1480,8 @@ namespace NetConfClientSoftware
         {
             try
             {
-                ComClientSideNni_UNI_A.Items.Clear();
+                ComClientSideNni_UNI.Items.Clear();
+                ComClientSideNni_UNI_second.Items.Clear();
                 ComODUPtpNamesecondary_nni2.Items.Clear();
                 comODUPtpNamePrimary_nni2.Items.Clear();
                 comODUPtpNamePrimary_nni.Items.Clear();
@@ -1387,13 +1503,15 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PtpsFtpsCtps(true, false, false), id, ip);
+                xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, false, false), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
                 root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
-                ComClientSideNni_UNI_A.Items.Add("无");
+                ComClientSideNni_UNI.Items.Add("无");
+                ComClientSideNni_UNI_second.Items.Add("无");
+
                 ComODUPtpNamesecondary_nni2.Items.Add("无");
                 comODUPtpNamePrimary_nni2.Items.Add("无");
                 ComODUPtpNamesecondary_nni.Items.Add("无");
@@ -1404,7 +1522,7 @@ namespace NetConfClientSoftware
                     XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
                     if (layer_protocol_name != null && interface_type != null)
                     {
-                        if (layer_protocol_name.InnerText.Contains("ODU"))
+                        if (layer_protocol_name.InnerText.Contains("ODU")||layer_protocol_name.InnerText.Contains("OSU"))
                         {
                             if (name != null)
                             {
@@ -1421,8 +1539,10 @@ namespace NetConfClientSoftware
                                 }
                                 if (interface_type.InnerText.Contains("UNI"))
                                 {
-                                    ComClientSideNni_UNI_A.Items.Add(name.InnerText);
-                                    ComClientSideNni_UNI_A.SelectedIndex = 0;
+                                    ComClientSideNni_UNI.Items.Add(name.InnerText);
+                                    ComClientSideNni_UNI.SelectedIndex = 0;
+                                    ComClientSideNni_UNI_second.Items.Add(name.InnerText);
+                                    ComClientSideNni_UNI_second.SelectedIndex = 0;
                                 }
                             }
                         }
@@ -1444,6 +1564,9 @@ namespace NetConfClientSoftware
         {
             try
             {
+                ComOduOduSignalType_UNI_A.Items.Clear();
+                ComOduSwitchApability_UNI_A.Items.Clear();
+                ComOduAdapataionType_UNI_A.Items.Clear();
                 if (ComOduOduSignalType_UNI_A.Text == "无")
                     return;
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
@@ -1463,11 +1586,13 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComClientSideNni_UNI_A.Text), id, ip);
+                xmlDoc = Sendrpc(GetXML.PTP(ComClientSideNni_UNI.Text), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
                 root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
+                root.AddNamespace("osuxmlns", "urn:ccsa:yang:acc-osu");
+
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
                 foreach (XmlNode itemNode in itemNodes)
                 {
@@ -1476,34 +1601,55 @@ namespace NetConfClientSoftware
                     XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
                     if (layer_protocol_name != null && interface_type != null)
                     {
-                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
+                        if (layer_protocol_name.InnerText.Contains("ODU")|| layer_protocol_name.InnerText.Contains("OSU"))
                         {
                             if (name != null)
                             {
-                                if (ComClientSideNni_UNI_A.Text == name.InnerText)
+                                if (ComClientSideNni_UNI.Text == name.InnerText)
                                 {
                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
-                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
+                                    if (layer_protocol_name.InnerText.Contains("OSU")){ itemNodesOduPtpPac = itemNode.SelectNodes("osuxmlns:osu-ptp-pac", root);}
+                                        foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                     {
                                         XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
                                         if (ts_detail != null) labelClientTs.Text = ts_detail.InnerText;
                                         XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
+
+                                        if (layer_protocol_name.InnerText.Contains("OSU")) { odu_signal_type = itemNodeOdu.SelectNodes("osuxmlns:osu-signal-type", root); }
                                         XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
                                         XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
                                         if (odu_signal_type != null)
                                         {
-                                            ComOduOduSignalType_UNI_A.Items.Clear();
-                                            for (int i = 1; i <= odu_signal_type.Count; i++)
-                                            {
-                                                XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                string result_type = odu_signal_type1.InnerText;
-                                                if (result_type.Contains(":"))
+                                            if (layer_protocol_name.InnerText.Contains("OSU")) {
+                                                ComOduOduSignalType_UNI_A.Items.Clear();
+                                                for (int i = 1; i <= odu_signal_type.Count; i++)
                                                 {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
+                                                    XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("osuxmlns:osu-signal-type[" + i + "]", root);
+                                                    string result_type = odu_signal_type1.InnerText;
+                                                    if (result_type.Contains(":"))
+                                                    {
+                                                        result_type = result_type.Split(new char[] { ':' })[1];
+                                                    }
+                                                    ComOduOduSignalType_UNI_A.Items.Add(result_type);
+                                                    ComOduOduSignalType_UNI_A.SelectedIndex = 0;
                                                 }
-                                                ComOduOduSignalType_UNI_A.Items.Add(result_type);
-                                                ComOduOduSignalType_UNI_A.SelectedIndex = 0;
                                             }
+                                            if (layer_protocol_name.InnerText.Contains("ODU"))
+                                            {
+                                                ComOduOduSignalType_UNI_A.Items.Clear();
+                                                for (int i = 1; i <= odu_signal_type.Count; i++)
+                                                {
+                                                    XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
+                                                    string result_type = odu_signal_type1.InnerText;
+                                                    if (result_type.Contains(":"))
+                                                    {
+                                                        result_type = result_type.Split(new char[] { ':' })[1];
+                                                    }
+                                                    ComOduOduSignalType_UNI_A.Items.Add(result_type);
+                                                    ComOduOduSignalType_UNI_A.SelectedIndex = 0;
+                                                }
+                                            }
+                                           
                                         }
                                         if (adaptation_type != null)
                                         {
@@ -1571,7 +1717,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(comODUPtpNamePrimary_nni.Text), id, ip);
+                xmlDoc = Sendrpc(GetXML.PTP(comODUPtpNamePrimary_nni.Text), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1611,9 +1757,9 @@ namespace NetConfClientSoftware
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
                                                 ComOduOduSignalType_Primary_nni.Items.Add(result_type);
-                                                ComOduOduSignalType_Primary_nni.SelectedIndex = 0;
+                                                ComOduOduSignalType_Primary_nni.SelectedIndex = ComOduOduSignalType_Primary_nni.Items.Count - 1;
                                                 ComOduOduSignalType_Secondary_nni.Items.Add(result_type);
-                                                ComOduOduSignalType_Secondary_nni.SelectedIndex = 0;
+                                                ComOduOduSignalType_Secondary_nni.SelectedIndex = ComOduOduSignalType_Secondary_nni.Items.Count - 1;
                                             }
                                         }
                                         if (adaptation_type != null)
@@ -1688,7 +1834,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComODUPtpNamesecondary_nni.Text), id, ip);
+                xmlDoc = Sendrpc(GetXML.PTP(ComODUPtpNamesecondary_nni.Text), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1727,7 +1873,7 @@ namespace NetConfClientSoftware
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
                                                 ComOduOduSignalType_Secondary_nni.Items.Add(result_type);
-                                                ComOduOduSignalType_Secondary_nni.SelectedIndex = 0;
+                                                ComOduOduSignalType_Secondary_nni.SelectedIndex = ComOduOduSignalType_Secondary_nni.Items.Count - 1;
                                             }
                                         }
                                         if (adaptation_type != null)
@@ -1796,7 +1942,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComODUPtpNamesecondary_nni2.Text), id, ip);
+                xmlDoc = Sendrpc(GetXML.PTP(ComODUPtpNamesecondary_nni2.Text), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -1835,7 +1981,7 @@ namespace NetConfClientSoftware
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
                                                 ComOduOduSignalType_Secondary_nni2.Items.Add(result_type);
-                                                ComOduOduSignalType_Secondary_nni2.SelectedIndex = 0;
+                                                ComOduOduSignalType_Secondary_nni2.SelectedIndex = ComOduOduSignalType_Secondary_nni2.Items.Count - 1;
                                             }
                                         }
                                         if (adaptation_type != null)
@@ -1903,13 +2049,14 @@ namespace NetConfClientSoftware
                     break;
             }
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-            string messg = Creat(CreateODU.Common(ODUservicemode,ips, TextOduLable.Text, TextOduService_type.Text, "ODU", TextOdusize.Text, Com_nni_protection_type.Text,
-                    ComClientSideNni_UNI_A.Text, ComOduNniTsDetailClient_UNI_A.Text, ComOduAdapataionType_UNI_A.Text, ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,
-    comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text,
-        ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text,
-    comODUPtpNamePrimary_nni2.Text, ComOduTsDetail_Primary_nni2.Text, ComOduAdapataionType_Primary_nni2.Text, ComOduOduSignalType_Primary_nni2.Text, ComOduSwitchApability_Primary_nni2.Text,
-        ComODUPtpNamesecondary_nni2.Text, ComOduTsDetail_Secondary_nni2.Text, ComOduAdapataionType_Secondary_nni2.Text, ComOduOduSignalType_Secondary_nni2.Text, ComOduSwitchApability_Secondary_nni2.Text
-        
+            string messg = Creat(CreateODU.Common(ODUservicemode,ips, TextOduLable.Text, TextOduService_type.Text, TextOduService_type.Text, TextOdusize.Text, Com_uni_protection_type.Text, Com_nni_protection_type.Text, Com_nni2_protection_type.Text,
+                    ComClientSideNni_UNI.Text,ComClientSideNni_UNI_second.Text,ComOduNniTsDetailClient_UNI_A.Text, ComOduAdapataionType_UNI_A.Text, ComOduOduSignalType_UNI_A.Text, ComOduSwitchApability_UNI_A.Text,
+                    comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComOsuTpn_Primary_nni.Text,
+                    ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text, ComOsuTpn_secondary_nni.Text,
+                    comODUPtpNamePrimary_nni2.Text, ComOduTsDetail_Primary_nni2.Text, ComOduAdapataionType_Primary_nni2.Text, ComOduOduSignalType_Primary_nni2.Text, ComOduSwitchApability_Primary_nni2.Text, ComOsuTpn_Primary_nni2.Text,
+                    ComODUPtpNamesecondary_nni2.Text, ComOduTsDetail_Secondary_nni2.Text, ComOduAdapataionType_Secondary_nni2.Text, ComOduOduSignalType_Secondary_nni2.Text, ComOduSwitchApability_Secondary_nni2.Text, ComOsuTpn_secondary_nni2.Text
+
+
     ), id, ip);
             MessageBox.Show(messg);
         }
@@ -2166,6 +2313,7 @@ namespace NetConfClientSoftware
         {
             try
             {
+                groupBoxETH_UNI.Controls.Add(groupBoxunivlan);
                 ComEthUniPtpName.Items.Clear();
                 ComEthSecondUniPtpName.Items.Clear();
                 comODUPtpNamePrimary_nni.Items.Clear();
@@ -2189,7 +2337,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PtpsFtpsCtps(true, false, false), id, ip);
+                xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, false, false), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -2263,11 +2411,13 @@ namespace NetConfClientSoftware
                     break;
             }
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-            string messg = Creat(CreateETH.Common(ips, ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_uni_protection_type.Text, ComEthServiceMappingMode.Text,
+            string messg = Creat(CreateETH.Common(ips, ComCreatConnection.Text, TextEthLabel.Text, ComEthServiceType.Text, "ETH", TextEthCir.Text, TextEthPir.Text, TextEthCbs.Text, TextEthPbs.Text, Com_Eth_uni_protection_type.Text, Com_nni_protection_type.Text, Com_nni2_protection_type.Text, ComEthServiceMappingMode.Text,
                     ComEthUniPtpName.Text, ComEthSecondUniPtpName.Text, ComEthClientVlanId.Text, ComEthVlanPriority.Text, ComEthVlanAccessAction.Text, ComEthVlanType.Text, ComEthUniVlanId.Text, ComEthUniVlanPriority.Text, ComEthUniVlanAccessAction.Text, ComEthUniVlanType.Text,
-    comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComEthFtpVlanID_primary_nni.Text, ComEthFtpVlanPriority_primary_nni.Text, ComEthFtpVlanAccess_primary_nni.Text, ComEthFtpVlanType_primary_nni.Text,
-        ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text,
-        ComEosSdhSignalType.Text, ComVCType.Text, TextMappingPath.Text, ComEosSdhSignalTypeProtect.Text, TextMappingPathProtect.Text, ComLCAS.Text, ComHoldOff.Text, ComWTR.Text, ComTSD.Text
+                    comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComEthFtpVlanID_primary_nni.Text, ComEthFtpVlanPriority_primary_nni.Text, ComEthFtpVlanAccess_primary_nni.Text, ComEthFtpVlanType_primary_nni.Text, ComOsuTpn_Primary_nni.Text,
+                    ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text, ComOsuTpn_secondary_nni.Text,
+                    ComEosSdhSignalType.Text, ComVCType.Text, TextMappingPath.Text, ComEosSdhSignalTypeProtect.Text, TextMappingPathProtect.Text, ComLCAS.Text, ComHoldOff.Text, ComWTR.Text, ComTSD.Text,
+                    comODUPtpNamePrimary_nni2.Text, ComOduTsDetail_Primary_nni2.Text, ComOduAdapataionType_Primary_nni2.Text, ComOduOduSignalType_Primary_nni2.Text, ComOduSwitchApability_Primary_nni2.Text, ComEthFtpVlanID_primary_nni2.Text, ComEthFtpVlanPriority_primary_nni2.Text, ComEthFtpVlanAccess_primary_nni2.Text, ComEthFtpVlanType_primary_nni2.Text, ComOsuTpn_Primary_nni2.Text,
+                    ComODUPtpNamesecondary_nni2.Text, ComOduTsDetail_Secondary_nni2.Text, ComOduAdapataionType_Secondary_nni2.Text, ComOduOduSignalType_Secondary_nni2.Text, ComOduSwitchApability_Secondary_nni2.Text, ComOsuTpn_secondary_nni2.Text
     ), id, ip);
             MessageBox.Show(messg);
         }
@@ -2279,7 +2429,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindXML.Connections();
+                xmlDoc1 = GetXML.Connections();
                 int id = int.Parse(treeViewNEID.SelectedNode.Name);
                 int line = -1;
                 for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -2490,64 +2640,6 @@ namespace NetConfClientSoftware
                 //   textDOS.AppendText(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + " " + "GPN模块获取失败，请链接格林威尔VPN后，再次尝试！" + "\r\n");
             }
         }
-        private void ButPerformanceFind_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                dataGridViewCurrentPerformance.Rows.Clear();
-                // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
-                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
-                XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindXML.FindPerformances();
-                int id = int.Parse(treeViewNEID.SelectedNode.Name);
-                int line = -1;
-                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
-                {
-                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
-                    {
-                        line = i;
-                        break;
-                    }
-                    if (line >= 0)
-                        break;
-                }
-                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                var xmlDoc = Sendrpc(xmlDoc1, id, ip);
-                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
-                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
-                root.AddNamespace("performancesxmlns", "urn:ccsa:yang:acc-performance");
-                XmlNodeList itemNodes = xmlDoc.SelectNodes("//performancesxmlns:performances//performancesxmlns:performance", root);
-                foreach (XmlNode itemNode in itemNodes)
-                {
-                    int index = dataGridViewCurrentPerformance.Rows.Add();
-                    XmlNode pm_parameter_name = itemNode.SelectSingleNode("performancesxmlns:pm-parameter-name", root);
-                    XmlNode start_time = itemNode.SelectSingleNode("performancesxmlns:start-time", root);
-                    XmlNode object_name = itemNode.SelectSingleNode("performancesxmlns:object-name", root);
-                    XmlNode object_type = itemNode.SelectSingleNode("performancesxmlns:object-type", root);
-                    XmlNode granularity = itemNode.SelectSingleNode("performancesxmlns:granularity", root);
-                    XmlNode digital_pm_value = itemNode.SelectSingleNode("performancesxmlns:digital-pm-value", root);
-                    XmlNode max_value = itemNode.SelectSingleNode("performancesxmlns:analog-pm-value/performancesxmlns:max-value", root);
-                    XmlNode min_value = itemNode.SelectSingleNode("performancesxmlns:analog-pm-value/performancesxmlns:min-value", root);
-                    XmlNode average_value = itemNode.SelectSingleNode("performancesxmlns:analog-pm-value/performancesxmlns:average-value", root);
-                    XmlNode current_value = itemNode.SelectSingleNode("performancesxmlns:analog-pm-value/performancesxmlns:current-value", root);
-                    if (pm_parameter_name != null) { dataGridViewCurrentPerformance.Rows[index].Cells["参数名称"].Value = pm_parameter_name.InnerText; }
-                    if (start_time != null) { dataGridViewCurrentPerformance.Rows[index].Cells["开始时间"].Value = start_time.InnerText; }
-                    if (object_name != null) { dataGridViewCurrentPerformance.Rows[index].Cells["对象名称"].Value = object_name.InnerText; }
-                    if (object_type != null) { dataGridViewCurrentPerformance.Rows[index].Cells["对象类型"].Value = object_type.InnerText; }
-                    if (granularity != null) { dataGridViewCurrentPerformance.Rows[index].Cells["周期类型"].Value = granularity.InnerText; }
-                    if (digital_pm_value != null) { dataGridViewCurrentPerformance.Rows[index].Cells["数字量性能值"].Value = digital_pm_value.InnerText; }
-                    if (max_value != null) { dataGridViewCurrentPerformance.Rows[index].Cells["最大值"].Value = max_value.InnerText; }
-                    if (min_value != null) { dataGridViewCurrentPerformance.Rows[index].Cells["最小值"].Value = min_value.InnerText; }
-                    if (average_value != null) { dataGridViewCurrentPerformance.Rows[index].Cells["平均值"].Value = average_value.InnerText; }
-                    if (current_value != null) { dataGridViewCurrentPerformance.Rows[index].Cells["当前值"].Value = current_value.InnerText; }
-                    LabPerCount.Text = (index + 1).ToString();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
         private void ButCurPerFindPort_Click(object sender, EventArgs e)
         {
             try
@@ -2571,7 +2663,7 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PtpsFtpsCtps(true, true, true), id, ip);
+                xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, true, true), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -2605,7 +2697,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindXML.FindPerformance(ComCurPerObjectName.Text, ComCurPerGranularity.Text);
+                xmlDoc1 = GetXML.FindPerformance(ComCurPerObjectName.Text, ComCurPerGranularity.Text);
                 int id = int.Parse(treeViewNEID.SelectedNode.Name);
                 int line = -1;
                 for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -2663,7 +2755,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindXML.FindHisPerformance(dateTimePickerStartime.Text, dateTimePickerEndtime.Text, ComCurPerGranularity.Text, ComCurPerObjectName.Text, "");
+                xmlDoc1 = GetXML.FindHisPerformance(dateTimePickerStartime.Text, dateTimePickerEndtime.Text, ComCurPerGranularity.Text, ComCurPerObjectName.Text, "");
                 int id = int.Parse(treeViewNEID.SelectedNode.Name);
                 int line = -1;
                 for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -2745,8 +2837,11 @@ namespace NetConfClientSoftware
             try
             {
                 ComSdhUniPtp.Items.Clear();
-                ComSdhNniPtp_A.Items.Clear();
-                ComSdhNniPtp_B.Items.Clear();
+                ComSdhUniPtp_Secondary.Items.Clear();
+                comODUPtpNamePrimary_nni.Items.Clear();
+                ComODUPtpNamesecondary_nni.Items.Clear();
+                ComODUPtpNamesecondary_nni2.Items.Clear();
+                comODUPtpNamePrimary_nni2.Items.Clear();
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc = new XmlDocument();
@@ -2764,13 +2859,17 @@ namespace NetConfClientSoftware
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PtpsFtpsCtps(true, false, false), id, ip);
+                xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, false, false), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
                 root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
-                ComSdhNniPtp_B.Items.Add("无");
+                ComSdhUniPtp.Items.Add("无");
+                ComSdhUniPtp_Secondary.Items.Add("无");
+                ComODUPtpNamesecondary_nni.Items.Add("无");
+                ComODUPtpNamesecondary_nni2.Items.Add("无");
+                comODUPtpNamePrimary_nni2.Items.Add("无");
                 foreach (XmlNode itemNode in itemNodes)
                 {
                     XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
@@ -2784,230 +2883,22 @@ namespace NetConfClientSoftware
                             {
                                 ComSdhUniPtp.Items.Add(name.InnerText);
                                 ComSdhUniPtp.SelectedIndex = 0;
+                                ComSdhUniPtp_Secondary.Items.Add(name.InnerText);
+                                ComSdhUniPtp_Secondary.SelectedIndex = 0;
                             }
                         }
                         if (layer_protocol_name.InnerText == "acc-otn:ODU")
                         {
                             if (name != null)
                             {
-                                ComSdhNniPtp_A.Items.Add(name.InnerText);
-                                ComSdhNniPtp_A.SelectedIndex = 0;
-                                ComSdhNniPtp_B.Items.Add(name.InnerText);
-                                ComSdhNniPtp_B.SelectedIndex = 0;
-                            }
-                        }
-                    }
-                }
-                // Console.Read();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
-            }
-        }
-        private void ComSdhNniPtp_A_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (ComSdhNniOdu_A.Text == "无")
-                    return;
-                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
-                XmlDocument xmlDoc = new XmlDocument();
-                //xmlDoc.Load(filename);
-                int id = int.Parse(treeViewNEID.SelectedNode.Name);
-                int line = -1;
-                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
-                {
-                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
-                    {
-                        line = i;
-                        break;
-                    }
-                    if (line >= 0)
-                        break;
-                }
-                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComSdhNniPtp_A.Text), id, ip);
-                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
-                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
-                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
-                root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
-                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
-                foreach (XmlNode itemNode in itemNodes)
-                {
-                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
-                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
-                    XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
-                    if (layer_protocol_name != null && interface_type != null)
-                    {
-                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
-                        {
-                            if (name != null)
-                            {
-                                if (ComSdhNniPtp_A.Text == name.InnerText)
-                                {
-                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
-                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
-                                    {
-                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
-                                        if (ts_detail != null) labelSdhNniPtp_A.Text = ts_detail.InnerText;
-                                        XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
-                                        XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
-                                        XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
-                                        if (odu_signal_type != null)
-                                        {
-                                            ComSdhNniOdu_A.Items.Clear();
-                                            for (int i = 1; i <= odu_signal_type.Count; i++)
-                                            {
-                                                XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                string result_type = odu_signal_type1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComSdhNniOdu_A.Items.Add(result_type);
-                                                ComSdhNniOdu_A.SelectedIndex = 0;
-                                            }
-                                        }
-                                        if (adaptation_type != null)
-                                        {
-                                            ComSdhNniAda_A.Items.Clear();
-                                            for (int i = 1; i <= adaptation_type.Count; i++)
-                                            {
-                                                XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-                                                string result_type = adaptation_type1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComSdhNniAda_A.Items.Add(result_type);
-                                                ComSdhNniAda_A.SelectedIndex = 0;
-                                            }
-                                        }
-                                        if (switch_capability != null)
-                                        {
-                                            ComSdhNniSwitch_A.Items.Clear();
-                                            for (int i = 1; i <= switch_capability.Count; i++)
-                                            {
-                                                XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                string result_type = switch_capability1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComSdhNniSwitch_A.Items.Add(result_type);
-                                                ComSdhNniSwitch_A.SelectedIndex = 0;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                // Console.Read();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
-            }
-        }
-        private void ComSdhNniPtp_B_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                if (ComSdhNniOdu_B.Text == "无")
-                    return;
-                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
-                XmlDocument xmlDoc = new XmlDocument();
-                //xmlDoc.Load(filename);
-                int id = int.Parse(treeViewNEID.SelectedNode.Name);
-                int line = -1;
-                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
-                {
-                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
-                    {
-                        line = i;
-                        break;
-                    }
-                    if (line >= 0)
-                        break;
-                }
-                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComSdhNniPtp_B.Text), id, ip);
-                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
-                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
-                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
-                root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
-                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
-                foreach (XmlNode itemNode in itemNodes)
-                {
-                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
-                    XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
-                    XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
-                    if (layer_protocol_name != null && interface_type != null)
-                    {
-                        if (layer_protocol_name.InnerText == "acc-otn:ODU")
-                        {
-                            if (name != null)
-                            {
-                                if (ComSdhNniPtp_B.Text == name.InnerText)
-                                {
-                                    XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("oduxmlns:odu-ptp-pac", root);
-                                    foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
-                                    {
-                                        XmlNode ts_detail = itemNodeOdu.SelectSingleNode("oduxmlns:ts-detail", root);
-                                        if (ts_detail != null) labelSdhNniPtp_B.Text = ts_detail.InnerText;
-                                        XmlNodeList odu_signal_type = itemNodeOdu.SelectNodes("oduxmlns:odu-signal-type", root);
-                                        XmlNodeList adaptation_type = itemNodeOdu.SelectNodes("oduxmlns:adaptation-type", root);
-                                        XmlNodeList switch_capability = itemNodeOdu.SelectNodes("oduxmlns:switch-capability", root);
-                                        if (odu_signal_type != null)
-                                        {
-                                            ComSdhNniOdu_B.Items.Clear();
-                                            for (int i = 1; i <= odu_signal_type.Count; i++)
-                                            {
-                                                XmlNode odu_signal_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:odu-signal-type[" + i + "]", root);
-                                                string result_type = odu_signal_type1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComSdhNniOdu_B.Items.Add(result_type);
-                                                ComSdhNniOdu_B.SelectedIndex = 0;
-                                            }
-                                        }
-                                        if (adaptation_type != null)
-                                        {
-                                            ComSdhNniAda_B.Items.Clear();
-                                            for (int i = 1; i <= adaptation_type.Count; i++)
-                                            {
-                                                XmlNode adaptation_type1 = itemNodeOdu.SelectSingleNode("oduxmlns:adaptation-type[" + i + "]", root);
-                                                string result_type = adaptation_type1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComSdhNniAda_B.Items.Add(result_type);
-                                                ComSdhNniAda_B.SelectedIndex = 0;
-                                            }
-                                        }
-                                        if (switch_capability != null)
-                                        {
-                                            ComSdhNniSwitch_B.Items.Clear();
-                                            for (int i = 1; i <= switch_capability.Count; i++)
-                                            {
-                                                XmlNode switch_capability1 = itemNodeOdu.SelectSingleNode("oduxmlns:switch-capability[" + i + "]", root);
-                                                string result_type = switch_capability1.InnerText;
-                                                if (result_type.Contains(":"))
-                                                {
-                                                    result_type = result_type.Split(new char[] { ':' })[1];
-                                                }
-                                                ComSdhNniSwitch_B.Items.Add(result_type);
-                                                ComSdhNniSwitch_B.SelectedIndex = 0;
-                                            }
-                                        }
-                                    }
-                                }
+                                comODUPtpNamePrimary_nni.Items.Add(name.InnerText);
+                                comODUPtpNamePrimary_nni.SelectedIndex = 0;
+                                ComODUPtpNamesecondary_nni.Items.Add(name.InnerText);
+                                ComODUPtpNamesecondary_nni.SelectedIndex = 0;
+                                comODUPtpNamePrimary_nni2.Items.Add(name.InnerText);
+                                comODUPtpNamePrimary_nni2.SelectedIndex = 0;
+                                ComODUPtpNamesecondary_nni2.Items.Add(name.InnerText);
+                                ComODUPtpNamesecondary_nni2.SelectedIndex = 0;
                             }
                         }
                     }
@@ -3033,23 +2924,23 @@ namespace NetConfClientSoftware
         private void ButSdhNniTs_A_Click(object sender, EventArgs e)
         {
             // 实例化FormInfo，并传入待修改初值  
-            var formInfo = new Form_Info(ComSdhNniVcType_A.Text);
+            var formInfo = new Form_Info(ComSdhNniVcType_primary_nni.Text);
             // 以对话框方式显示FormInfo  
             if (formInfo.ShowDialog() == DialogResult.OK)
             {
                 // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
-                TextSdhNniTs_A.Text = formInfo.Information;
+                TextSdhNniTs_primary_nni.Text = formInfo.Information;
             }
         }
         private void ButSdhNniTs_B_Click(object sender, EventArgs e)
         {
             // 实例化FormInfo，并传入待修改初值  
-            var formInfo = new Form_Info(ComSdhNniVcType_B.Text);
+            var formInfo = new Form_Info(ComSdhNniVcType_secondary_nni.Text);
             // 以对话框方式显示FormInfo  
             if (formInfo.ShowDialog() == DialogResult.OK)
             {
                 // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
-                TextSdhNniTs_B.Text = formInfo.Information;
+                TextSdhNniTs_secondary_nni.Text = formInfo.Information;
             }
         }
         private void ButCreatSDH_Click(object sender, EventArgs e)
@@ -3068,13 +2959,19 @@ namespace NetConfClientSoftware
             }
             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
             string sdhunits = "";   //TextSdhUniTs
+            string sdhunits_sec = "";   //TextSdhUniTs
             string sdhnnits_a = "";  //TextSdhNniTs_A
             string sdhnnits_b = "";    //TextSdhNniTs_B
+            string sdhnnits_a2 = "";  //TextSdhNniTs_A
+            string sdhnnits_b2 = "";    //TextSdhNniTs_B
             string[] sdhunitsbyte = TextSdhUniTs.Text.Split(',');
-            string[] sdhnnits_abyte = TextSdhNniTs_A.Text.Split(',');
-            string[] sdhnnits_bbyte = TextSdhNniTs_B.Text.Split(',');
+            string[] sdhunitsbyte_sec = TextSdhUniTs_Secondary.Text.Split(',');
+            string[] sdhnnits_abyte = TextSdhNniTs_primary_nni.Text.Split(',');
+            string[] sdhnnits_bbyte = TextSdhNniTs_secondary_nni.Text.Split(',');
+            string[] sdhnnits_abyte2 = TextSdhNniTs_primary_nni2.Text.Split(',');
+            string[] sdhnnits_bbyte2 = TextSdhNniTs_secondary_nni2.Text.Split(',');
             string messg0 = "";
-            if (sdhunitsbyte.Length == sdhnnits_abyte.Length)
+            if (sdhunitsbyte.Length == sdhnnits_abyte.Length || sdhnnits_abyte2.Length == sdhnnits_abyte.Length)
             {
                 string num = Regex.Replace(TextSdhlabel.Text, @"[^0-9]+", "");
                 string label = TextSdhlabel.Text;
@@ -3085,21 +2982,56 @@ namespace NetConfClientSoftware
                     return;
                 }
                 int result = int.Parse(num);
-                for (int i = 0; i < sdhunitsbyte.Length; i++)
-                {
-                    sdhunits = sdhunitsbyte[i];
-                    sdhnnits_a = sdhnnits_abyte[i];
-                    if (sdhnnits_bbyte.Length > 1)
+                if (sdhunitsbyte[0] !="") {
+                    for (int i = 0; i < sdhunitsbyte.Length; i++)
                     {
-                        sdhnnits_b = sdhnnits_bbyte[i];
+                        sdhunits = sdhunitsbyte[i];
+                        sdhnnits_a = sdhnnits_abyte[i];
+                        if (sdhnnits_bbyte[0] != "")
+                        {
+                            sdhnnits_b = sdhnnits_bbyte[i];
+                        }
+                        if (sdhunitsbyte_sec[0] != "")
+                        {
+                            sdhunits_sec = sdhunitsbyte_sec[i];
+                        }
+                        string messg1 = Creat(CreateSDH.Common(ips, label + (i + result).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, Com_nni_protection_type.Text, Com_nni2_protection_type.Text,ComSdhSerMap.Text,
+                                            ComSdhUniPtp.Text, ComSdhUniSdhType.Text, sdhunits,
+                                            ComSdhUniPtp_Secondary.Text, ComSdhUniSdhType_Secondary.Text, sdhunits_sec,
+                                            comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComSdhNniSdhtype_primary_nni.Text, ComSdhNniVcType_primary_nni.Text, sdhnnits_a,
+                                            ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text, ComSdhNniSdhtype_secondary_nni.Text, ComSdhNniVcType_secondary_nni.Text, sdhnnits_b,
+                                            comODUPtpNamePrimary_nni2.Text, ComOduTsDetail_Primary_nni2.Text, ComOduAdapataionType_Primary_nni2.Text, ComOduOduSignalType_Primary_nni2.Text, ComOduSwitchApability_Primary_nni2.Text, ComSdhNniSdhtype_primary_nni2.Text, ComSdhNniVcType_primary_nni2.Text, sdhnnits_a2,
+                                            ComODUPtpNamesecondary_nni2.Text, ComOduTsDetail_Secondary_nni2.Text, ComOduAdapataionType_Secondary_nni2.Text, ComOduOduSignalType_Secondary_nni2.Text, ComOduSwitchApability_Secondary_nni2.Text, ComSdhNniSdhtype_secondary_nni2.Text, ComSdhNniVcType_secondary_nni2.Text, sdhnnits_b2
+                                                ), id, ip);
+                        messg0 = messg0 + messg1 + "=" + (i + result).ToString() + "  ";
                     }
-                    string messg1 = Creat(CreateSDH.Common(ips, label + (i + result).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
-        ComSdhUniPtp.Text, ComSdhUniSdhType.Text, sdhunits,
-ComSdhNniPtp_A.Text, ComSdhNniTs_A.Text, ComSdhNniAda_A.Text, ComSdhNniOdu_A.Text, ComSdhNniSwitch_A.Text, ComSdhNniSdhtype_A.Text, ComSdhNniVcType_A.Text, sdhnnits_a,
-ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Text, ComSdhNniSwitch_B.Text, ComSdhNniSdhtype_B.Text, ComSdhNniVcType_B.Text, sdhnnits_a
-), id, ip);
-                    messg0 = messg0 + messg1 + "=" + (i + result).ToString() + "  ";
                 }
+                if (sdhnnits_abyte2[0] != "")
+                {
+                    for (int i = 0; i < sdhnnits_abyte2.Length; i++)
+                    {
+                        sdhnnits_a = sdhnnits_abyte[i];
+                        sdhnnits_a2 = sdhnnits_abyte2[i];
+                        if (sdhnnits_bbyte[0] != "")
+                        {
+                            sdhnnits_b = sdhnnits_bbyte[i];
+                        }
+                        if (sdhnnits_bbyte2[0] != "")
+                        {
+                            sdhnnits_b2 = sdhnnits_bbyte2[i];
+                        }
+                        string messg1 = Creat(CreateSDH.Common(ips, label + (i + result).ToString(), ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, Com_nni_protection_type.Text, Com_nni2_protection_type.Text, ComSdhSerMap.Text,
+                                            ComSdhUniPtp.Text, ComSdhUniSdhType.Text, sdhunits,
+                                            ComSdhUniPtp_Secondary.Text, ComSdhUniSdhType_Secondary.Text, sdhunits_sec,
+                                            comODUPtpNamePrimary_nni.Text, ComOduTsDetail_Primary_nni.Text, ComOduAdapataionType_Primary_nni.Text, ComOduOduSignalType_Primary_nni.Text, ComOduSwitchApability_Primary_nni.Text, ComSdhNniSdhtype_primary_nni.Text, ComSdhNniVcType_primary_nni.Text, sdhnnits_a,
+                                            ComODUPtpNamesecondary_nni.Text, ComOduTsDetail_Secondary_nni.Text, ComOduAdapataionType_Secondary_nni.Text, ComOduOduSignalType_Secondary_nni.Text, ComOduSwitchApability_Secondary_nni.Text, ComSdhNniSdhtype_secondary_nni.Text, ComSdhNniVcType_secondary_nni.Text, sdhnnits_b,
+                                            comODUPtpNamePrimary_nni2.Text, ComOduTsDetail_Primary_nni2.Text, ComOduAdapataionType_Primary_nni2.Text, ComOduOduSignalType_Primary_nni2.Text, ComOduSwitchApability_Primary_nni2.Text, ComSdhNniSdhtype_primary_nni2.Text, ComSdhNniVcType_primary_nni2.Text, sdhnnits_a2,
+                                            ComODUPtpNamesecondary_nni2.Text, ComOduTsDetail_Secondary_nni2.Text, ComOduAdapataionType_Secondary_nni2.Text, ComOduOduSignalType_Secondary_nni2.Text, ComOduSwitchApability_Secondary_nni2.Text, ComSdhNniSdhtype_secondary_nni2.Text, ComSdhNniVcType_secondary_nni2.Text, sdhnnits_b2
+                                                ), id, ip);
+                        messg0 = messg0 + messg1 + "=" + (i + result).ToString() + "  ";
+                    }
+                }
+
                 MessageBox.Show(messg0);
             }
             //        Creat(CreateSDH.Common(ips,TextSdhlabel.Text, ComSdhSer.Text, "SDH", TextSdhTotal.Text, ComSdhPro.Text, ComSdhSerMap.Text,
@@ -3116,8 +3048,6 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 dataGridViewPGS_Not.Rows.Clear();
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
-                XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindXML.FindPgs();
                 int id = int.Parse(treeViewNEID.SelectedNode.Name);
                 int line = -1;
                 for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -3131,7 +3061,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                var xmlDoc = Sendrpc(xmlDoc1, id, ip);
+                var xmlDoc = Sendrpc(GetXML.Pgs(), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("pgsxmlns", "urn:ccsa:yang:acc-protection-group");
@@ -3144,6 +3074,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
                         XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
                         XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode tcm = itemNode.SelectSingleNode("pgsxmlns:tcm", root);
                         XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-direction", root);
                         XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
                         XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
@@ -3156,6 +3087,8 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         if (pg_id != null) { dataGridViewPGS.Rows[index].Cells["保护组ID"].Value = pg_id.InnerText; }
                         if (protection_type != null) { dataGridViewPGS.Rows[index].Cells["保护类型"].Value = protection_type.InnerText; }
                         if (reversion_mode != null) { dataGridViewPGS.Rows[index].Cells["还原模式"].Value = reversion_mode.InnerText; }
+                        if (tcm != null) { dataGridViewPGS.Rows[index].Cells["TCM"].Value = tcm.InnerText; }
+
                         if (switch_direction != null) { dataGridViewPGS.Rows[index].Cells["开关方向"].Value = switch_direction.InnerText; }
                         if (sd_trigger != null) { dataGridViewPGS.Rows[index].Cells["SD触发器"].Value = sd_trigger.InnerText; }
                         if (WTR != null) { dataGridViewPGS.Rows[index].Cells["恢复等待时间"].Value = WTR.InnerText; }
@@ -3187,6 +3120,98 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         if (sd_trigger != null) { dataGridViewPGS.Rows[index].Cells["SD触发器"].Value = sd_trigger.InnerText; }
                         if (WTR != null) { dataGridViewPGS.Rows[index].Cells["恢复等待时间"].Value = WTR.InnerText; }
                         if (hold_off != null) { dataGridViewPGS.Rows[index].Cells["拖延时间"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS.Rows[index].Cells["主要端口"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS.Rows[index].Cells["次要端口"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS.Rows[index].Cells["倒换原因"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS.Rows[index].Cells["保护方向"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS.Rows[index].Cells["选择端口"].Value = selected_port.InnerText; }
+                    }
+                    if (ips.Contains("电信"))
+                    {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode create_type = itemNode.SelectSingleNode("pgsxmlns:create-type", root);
+                        XmlNode delete_cascade = itemNode.SelectSingleNode("pgsxmlns:delete-cascade", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode tcm = itemNode.SelectSingleNode("pgsxmlns:tcm", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-type", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
+                        if (pg_id != null) { dataGridViewPGS.Rows[index].Cells["保护组ID"].Value = pg_id.InnerText; }
+                        if (create_type != null) { dataGridViewPGS.Rows[index].Cells["创建方式"].Value = create_type.InnerText; }
+                        if (delete_cascade != null) { dataGridViewPGS.Rows[index].Cells["级联删除"].Value = delete_cascade.InnerText; }
+                        if (protection_type != null) { dataGridViewPGS.Rows[index].Cells["保护类型"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS.Rows[index].Cells["还原模式"].Value = reversion_mode.InnerText; }
+                        if (tcm != null) { dataGridViewPGS.Rows[index].Cells["TCM"].Value = tcm.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS.Rows[index].Cells["开关方向"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS.Rows[index].Cells["SD触发器"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS.Rows[index].Cells["恢复等待时间"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS.Rows[index].Cells["拖延时间"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS.Rows[index].Cells["主要端口"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS.Rows[index].Cells["次要端口"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS.Rows[index].Cells["倒换原因"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS.Rows[index].Cells["保护方向"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS.Rows[index].Cells["选择端口"].Value = selected_port.InnerText; }
+                    }
+                }
+                xmlDoc = Sendrpc(GetXML.Eq_Pgs(), id, ip);
+                root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("pgsxmlns", "urn:ccsa:yang:acc-protection-group");
+                itemNodes = xmlDoc.SelectNodes("//pgsxmlns:eq-pgs//pgsxmlns:eq-pg", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    int index = dataGridViewPGS.Rows.Add();
+                    if (ips.Contains("移动"))
+                    {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-eq", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-eq", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-eq", root);
+                        if (pg_id != null) { dataGridViewPGS.Rows[index].Cells["保护组ID"].Value = pg_id.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS.Rows[index].Cells["主要端口"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS.Rows[index].Cells["次要端口"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS.Rows[index].Cells["倒换原因"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS.Rows[index].Cells["保护方向"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS.Rows[index].Cells["选择端口"].Value = selected_port.InnerText; }
+                    }
+                    if (ips.Contains("联通"))
+                    {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-eq", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-eq", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-eq", root);
+                        if (pg_id != null) { dataGridViewPGS.Rows[index].Cells["保护组ID"].Value = pg_id.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS.Rows[index].Cells["主要端口"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS.Rows[index].Cells["次要端口"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS.Rows[index].Cells["倒换原因"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS.Rows[index].Cells["保护方向"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS.Rows[index].Cells["选择端口"].Value = selected_port.InnerText; }
+                    }
+                    if (ips.Contains("电信"))
+                    {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-eq", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-eq", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-eq", root);
+                        if (pg_id != null) { dataGridViewPGS.Rows[index].Cells["保护组ID"].Value = pg_id.InnerText; }
+                        if (protection_type != null) { dataGridViewPGS.Rows[index].Cells["保护类型"].Value = protection_type.InnerText; }
+
                         if (primary_port != null) { dataGridViewPGS.Rows[index].Cells["主要端口"].Value = primary_port.InnerText; }
                         if (secondary_port != null) { dataGridViewPGS.Rows[index].Cells["次要端口"].Value = secondary_port.InnerText; }
                         if (switch_reason != null) { dataGridViewPGS.Rows[index].Cells["倒换原因"].Value = switch_reason.InnerText; }
@@ -3233,7 +3258,34 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
                         if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
                         if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
-                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["开关方向N"].Value = switch_direction.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
+                    }
+                    if (ips.Contains("电信"))
+                    {
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-type", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
+                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
+                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
                         if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
                         if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
                         if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
@@ -3260,7 +3312,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
                         if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
                         if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
-                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["开关方向N"].Value = switch_direction.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
                         if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
                         if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
                         if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
@@ -3277,7 +3329,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 MessageBox.Show(ex.ToString());   //读取该节点的相关信息
             }
         }
-        private void Pgcommand(string _command, string _ditection)
+        private void Pgcommand(string _command, string _ditection,string _type)
         {
             try
             {
@@ -3311,15 +3363,40 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                     break;
                             }
                             string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                            var doc = Sendrpc(CreatePG.Command(pg_id, _command, _ditection), id, ip);//设备IP地址
-                            if (doc.OuterXml.Contains("error"))
+                            if (_command != "删除")
                             {
-                                MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                                var doc = new XmlDocument();
+                                if (_type == "port") {
+                                    doc = Sendrpc(CreatePG.Command(pg_id, _command, _ditection), id, ip);//设备IP地址
+                                }
+                                if (_type == "eq")
+                                {
+                                    doc = Sendrpc(CreatePG.Command_Eq_Pgs(pg_id, _command, _ditection), id, ip);//设备IP地址
+                                }
+
+                                if (doc.OuterXml.Contains("error"))
+                                {
+                                    MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                                }
+                                else
+                                {
+                                    // this.dataGridViewPGS.Rows.Remove(row);
+                                }
                             }
-                            else
+                            if ((_command == "删除")&&(_type == "port"))
                             {
-                                // this.dataGridViewPGS.Rows.Remove(row);
+                                var doc = Sendrpc(DeleteODU.Pg(pg_id), id, ip);//设备IP地址
+                                if (doc.OuterXml.Contains("error"))
+                                {
+                                    MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                                }
+                                else
+                                {
+                                    // this.dataGridViewPGS.Rows.Remove(row);
+                                }
                             }
+                           
+                           
                         }
                     }
                     //MessageBox.Show(All_pg_id + "\r\n已成功下发，重新点击在线查询即可更新。");
@@ -3334,27 +3411,27 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         }
         private void 强制倒换到主用toolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Pgcommand("force-switch", "to-primary");
+            Pgcommand("force-switch", "to-primary","port");
         }
         private void 强制倒换到备用ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Pgcommand("force-switch", "to-secondary");
+            Pgcommand("force-switch", "to-secondary", "port");
         }
         private void 人工倒换到主用ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Pgcommand("manual-switch", "to-primary");
+            Pgcommand("manual-switch", "to-primary", "port");
         }
         private void 人工倒换到备用ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Pgcommand("manual-switch", "to-secondary");
+            Pgcommand("manual-switch", "to-secondary", "port");
         }
         private void 清除ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Pgcommand("cleared", "to-secondary");
+            Pgcommand("cleared", "to-secondary", "port");
         }
         private void 锁定ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Pgcommand("lockout", "to-secondary");
+            Pgcommand("lockout", "to-secondary", "port");
         }
         private void 订阅ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -3540,7 +3617,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                                 XmlDocument xmlDoc = new XmlDocument();
                                 //xmlDoc.Load(filename);
-                                xmlDoc = Sendrpc(FindXML.CTP(_name), id, ip);
+                                xmlDoc = Sendrpc(GetXML.CTP(_name), id, ip);
                                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -3563,7 +3640,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                                     XmlNodeList itemNodesOduPtpPac = itemNode.SelectNodes("ctpxmlns:eth-ctp-pac", root);
                                                     foreach (XmlNode itemNodeOdu in itemNodesOduPtpPac)
                                                     {
-                                                        if (ips.Contains("移动"))
+                                                        if (ips.Contains("移动")|| ips.Contains("电信"))
                                                         {
                                                             XmlNode vlan_id = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-id", root);
                                                             XmlNode vlan_type = itemNodeOdu.SelectSingleNode("//ctpxmlns:vlan-type", root);
@@ -3729,6 +3806,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         }
         private void ButStartAutoRunningXML_Click(object sender, EventArgs e)
         {
+            AutoCount = int.Parse(comboBoxAutoCount.Text);
             if (ButStartAutoRunningXML.Text == "开始")
             {
                 if (Element.CTCC_Array.Count == 0 && Element.CUCC_Array.Count == 0 && Element.CMCC_Array.Count == 0)
@@ -3756,201 +3834,228 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         Thread CycleThread;
         private void AutoRunningXml()
         {
-            for (int i = 0; i < dataGridViewAuto.RowCount - 1; i++)
+            for (int g = 0; g < AutoCount; g++)
             {
-                // Thread.Sleep(50);
-                dataGridViewAuto.CurrentCell = dataGridViewAuto.Rows[i].Cells[0];
-                if (stop)
+                labelAutoCount.Text = (g + 1).ToString();
+                for (int i = 0; i < dataGridViewAuto.RowCount - 1; i++)
                 {
-                    MessageBox.Show("\r\n已经停止！");
-                    return;
+                    dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                    dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "";
+                    dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = "";
+                    dataGridViewAuto.Rows[i].Cells["测试结论"].Value = "";
                 }
-                if (on_off)
+                for (int i = 0; i < dataGridViewAuto.RowCount - 1; i++)
                 {
-                    MessageBox.Show("暂停中！\r\n");
-                    ma = new ManualResetEvent(false);
-                    ma.WaitOne();
-                }
-                if (dataGridViewAuto.Rows[i].Cells["Auto是否执行"].Value.ToString() == "否")
-                {
-                    continue;
-                }
-                int T = 50;
-                try
-                {
-                    T = int.Parse(dataGridViewAuto.Rows[i].Cells["Auto等待时间"].Value.ToString());
-                }
-                catch
-                {
-                }
-                Thread.Sleep(T);
-                DateTime startTime = System.DateTime.Now;
-                dataGridViewAuto.Rows[i].Cells["Auto开始时间"].Value = DateTime.Now.ToString("HH:mm:ss");
-                if (dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value != null && dataGridViewAuto.Rows[i].Cells["Auto预期"].Value != null)
-                {
-                    if ((dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString() != "") && (dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString() != ""))
+                    // Thread.Sleep(50);
+                    dataGridViewAuto.CurrentCell = dataGridViewAuto.Rows[i].Cells[0];
+                    if (stop)
                     {
-                        try
+                        MessageBox.Show("\r\n已经停止！");
+                        return;
+                    }
+                    if (on_off)
+                    {
+                        MessageBox.Show("暂停中！\r\n");
+                        ma = new ManualResetEvent(false);
+                        ma.WaitOne();
+                    }
+                    if (dataGridViewAuto.Rows[i].Cells["Auto是否执行"].Value.ToString() == "否")
+                    {
+                        continue;
+                    }
+                    int T = 50;
+                    try
+                    {
+                        T = int.Parse(dataGridViewAuto.Rows[i].Cells["Auto等待时间"].Value.ToString());
+                    }
+                    catch
+                    {
+                    }
+                    Thread.Sleep(T);
+                    DateTime startTime = System.DateTime.Now;
+                    dataGridViewAuto.Rows[i].Cells["Auto开始时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                    if (dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value != null && dataGridViewAuto.Rows[i].Cells["Auto预期"].Value != null)
+                    {
+                        if ((dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString() != "") && (dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString() != ""))
                         {
-                            XmlDocument xmlDoc = new XmlDocument();
-                            xmlDoc.LoadXml(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString());
-                            string ip = dataGridViewAuto.Rows[i].Cells["Autoip地址"].Value.ToString();
-                            int line = -1;
-                            for (int l = 0; l < dataGridViewNeInformation.Rows.Count; l++)
+                            try
                             {
-                                if (dataGridViewNeInformation.Rows[l].Cells["网元ip"].Value.ToString() == ip) //keyword要查的关键字
+                                XmlDocument xmlDoc = new XmlDocument();
+                                xmlDoc.LoadXml(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString());
+                                string ip = dataGridViewAuto.Rows[i].Cells["Autoip地址"].Value.ToString();
+                                int line = -1;
+                                for (int l = 0; l < dataGridViewNeInformation.Rows.Count; l++)
                                 {
-                                    line = l;
-                                    break;
-                                }
-                                if (line >= 0)
-                                    break;
-                            }
-                            int id = int.Parse(dataGridViewNeInformation.Rows[line].Cells["SSH_ID"].Value.ToString());
-                            // string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                            string ips = dataGridViewAuto.Rows[i].Cells["Auto运营商"].Value.ToString();
-                            var result = RPC.Send(xmlDoc, id, ip);
-                            dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
-                            DateTime endTime = System.DateTime.Now;
-                            TimeSpan ts = endTime - startTime;
-                            dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
-                            //时隙
-                            string[] strArrayP = dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString().Split(',');
-                            string end = "";
-                            bool key = false;
-                            foreach (var item in strArrayP)
-                            {
-                                if (item != "")
-                                {
-                                    /* 匹配节点名称+value枚举判断 */
-                                    if (dataGridViewAuto.Rows[i].Cells["Auto匹配类型"].Value.ToString().Contains("节点"))
+                                    if (dataGridViewNeInformation.Rows[l].Cells["网元ip"].Value.ToString() == ip) //keyword要查的关键字
                                     {
-                                        if (Element.Element_Value(result, item, "", ips) == true)
+                                        line = l;
+                                        break;
+                                    }
+                                    if (line >= 0)
+                                        break;
+                                }
+                                int id = int.Parse(dataGridViewNeInformation.Rows[line].Cells["SSH_ID"].Value.ToString());
+                                // string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                                string ips = dataGridViewAuto.Rows[i].Cells["Auto运营商"].Value.ToString();
+                                var result = RPC.Send(xmlDoc, id, ip);
+                                dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                                DateTime endTime = System.DateTime.Now;
+                                TimeSpan ts = endTime - startTime;
+                                dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
+                                //时隙
+                                string[] strArrayP = dataGridViewAuto.Rows[i].Cells["Auto预期"].Value.ToString().Split(',');
+                                string end = "";
+                                bool key = false;
+                                foreach (var item in strArrayP)
+                                {
+                                    if (item != "")
+                                    {
+                                        /* 匹配节点名称+value枚举判断 */
+                                        if (dataGridViewAuto.Rows[i].Cells["Auto匹配类型"].Value.ToString().Contains("节点"))
                                         {
-                                            if (ips.Contains("联通"))
+                                            if (Element.Element_Value(result, item, "", ips) == true)
                                             {
-                                                if (Element.CUCC_Array.Count != 0)
-                                                    for (int j = 0; j < Element.CUCC_Array.Count; j++)
-                                                    {
-                                                        if (Element.CUCC_Array[j][0] == item)
+                                                if (ips.Contains("联通"))
+                                                {
+                                                    if (Element.CUCC_Array.Count != 0)
+                                                        for (int j = 0; j < Element.CUCC_Array.Count; j++)
                                                         {
-                                                            end = end + item + "[枚举]是OK|" + "\n";
-                                                            key = true;
-                                                            break;
+                                                            if (Element.CUCC_Array[j][0] == item)
+                                                            {
+                                                                end = end + item + "[枚举]是OK|" + "\n";
+                                                                key = true;
+                                                                break;
+                                                            }
+                                                            key = false;
                                                         }
-                                                        key = false;
-                                                    }
+                                                }
+                                                if (ips.Contains("移动"))
+                                                {
+                                                    if (Element.CMCC_Array.Count != 0)
+                                                        for (int j = 0; j < Element.CMCC_Array.Count; j++)
+                                                        {
+                                                            if (Element.CMCC_Array[j][0] == item)
+                                                            {
+                                                                end = end + item + "[枚举]是OK|" + "\n";
+                                                                key = true;
+                                                                break;
+                                                            }
+                                                            key = false;
+                                                        }
+                                                }
+                                                if (ips.Contains("电信"))
+                                                {
+                                                    if (Element.CTCC_Array.Count != 0)
+                                                        for (int j = 0; j < Element.CTCC_Array.Count; j++)
+                                                        {
+                                                            if (Element.CTCC_Array[j][0] == item)
+                                                            {
+                                                                end = end + item + "[枚举]是OK|" + "\n";
+                                                                key = true;
+                                                                break;
+                                                            }
+                                                            key = false;
+                                                        }
+                                                }
+                                                if (!key)
+                                                    end = end + item + "是OK|" + "\n";
+                                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                                dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
+                                                dataGridViewAuto.Rows[i].Cells["测试结论"].Value = "通过";
+
                                             }
-                                            if (ips.Contains("移动"))
+                                            else
                                             {
-                                                if (Element.CMCC_Array.Count != 0)
-                                                    for (int j = 0; j < Element.CMCC_Array.Count; j++)
-                                                    {
-                                                        if (Element.CMCC_Array[j][0] == item)
+                                                if (ips.Contains("联通"))
+                                                {
+                                                    if (Element.CUCC_Array.Count != 0)
+                                                        for (int j = 0; j < Element.CUCC_Array.Count; j++)
                                                         {
-                                                            end = end + item + "[枚举]是OK|" + "\n";
-                                                            key = true;
-                                                            break;
+                                                            if (Element.CUCC_Array[j][0] == item)
+                                                            {
+                                                                end = end + item + "[枚举]是NOK参考:" + Element.CUCC_Array[j][2] + "|" + "\n";
+                                                                key = true;
+                                                                break;
+                                                            }
+                                                            key = false;
                                                         }
-                                                        key = false;
-                                                    }
+                                                }
+                                                if (ips.Contains("移动"))
+                                                {
+                                                    if (Element.CMCC_Array.Count != 0)
+                                                        for (int j = 0; j < Element.CMCC_Array.Count; j++)
+                                                        {
+                                                            if (Element.CMCC_Array[j][0] == item)
+                                                            {
+                                                                end = end + item + "[枚举]是NOK参考:" + Element.CMCC_Array[j][2] + "|" + "\n";
+                                                                key = true;
+                                                                break;
+                                                            }
+                                                            key = false;
+                                                        }
+                                                }
+                                                if (ips.Contains("电信"))
+                                                {
+                                                    if (Element.CTCC_Array.Count != 0)
+                                                        for (int j = 0; j < Element.CTCC_Array.Count; j++)
+                                                        {
+                                                            if (Element.CTCC_Array[j][0] == item)
+                                                            {
+                                                                end = end + item + "[枚举]是NOK参考:" + Element.CTCC_Array[j][2] + "|" + "\n";
+                                                                key = true;
+                                                                break;
+                                                            }
+                                                            key = false;
+                                                        }
+                                                }
+                                                if (!key)
+                                                    end = end + item + "是NOK|" + "\n";
+                                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
                                             }
-                                            if (ips.Contains("电信"))
+                                        }
+                                        /* 匹配节点内的值来进行包含判断 */
+                                        if (dataGridViewAuto.Rows[i].Cells["Auto匹配类型"].Value.ToString().Contains("值"))
+                                        {
+                                            if (result.Contains(item))
                                             {
-                                                if (Element.CTCC_Array.Count != 0)
-                                                    for (int j = 0; j < Element.CTCC_Array.Count; j++)
-                                                    {
-                                                        if (Element.CTCC_Array[j][0] == item)
-                                                        {
-                                                            end = end + item + "[枚举]是OK|" + "\n";
-                                                            key = true;
-                                                            break;
-                                                        }
-                                                        key = false;
-                                                    }
-                                            }
-                                            if (!key)
                                                 end = end + item + "是OK|" + "\n";
-                                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-                                            dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
-                                        }
-                                        else
-                                        {
-                                            if (ips.Contains("联通"))
-                                            {
-                                                if (Element.CUCC_Array.Count != 0)
-                                                    for (int j = 0; j < Element.CUCC_Array.Count; j++)
-                                                    {
-                                                        if (Element.CUCC_Array[j][0] == item)
-                                                        {
-                                                            end = end + item + "[枚举]是NOK参考:" + Element.CUCC_Array[j][2] + "|" + "\n";
-                                                            key = true;
-                                                            break;
-                                                        }
-                                                        key = false;
-                                                    }
+                                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                                dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
+                                                dataGridViewAuto.Rows[i].Cells["测试结论"].Value = "通过";
                                             }
-                                            if (ips.Contains("移动"))
+                                            else
                                             {
-                                                if (Element.CMCC_Array.Count != 0)
-                                                    for (int j = 0; j < Element.CMCC_Array.Count; j++)
-                                                    {
-                                                        if (Element.CMCC_Array[j][0] == item)
-                                                        {
-                                                            end = end + item + "[枚举]是NOK参考:" + Element.CMCC_Array[j][2] + "|" + "\n";
-                                                            key = true;
-                                                            break;
-                                                        }
-                                                        key = false;
-                                                    }
-                                            }
-                                            if (ips.Contains("电信"))
-                                            {
-                                                if (Element.CTCC_Array.Count != 0)
-                                                    for (int j = 0; j < Element.CTCC_Array.Count; j++)
-                                                    {
-                                                        if (Element.CTCC_Array[j][0] == item)
-                                                        {
-                                                            end = end + item + "[枚举]是NOK参考:" + Element.CTCC_Array[j][2] + "|" + "\n";
-                                                            key = true;
-                                                            break;
-                                                        }
-                                                        key = false;
-                                                    }
-                                            }
-                                            if (!key)
                                                 end = end + item + "是NOK|" + "\n";
-                                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-                                        }
-                                    }
-                                    /* 匹配节点内的值来进行包含判断 */
-                                    if (dataGridViewAuto.Rows[i].Cells["Auto匹配类型"].Value.ToString().Contains("值"))
-                                    {
-                                        if (result.Contains(item))
-                                        {
-                                            end = end + item + "是OK|" + "\n";
-                                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
-                                            dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
-                                        }
-                                        else
-                                        {
-                                            end = end + item + "是NOK|" + "\n";
-                                            dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = end;
+                                            }
                                         }
                                     }
                                 }
+                                if (end.Contains("NOK"))
+                                {
+                                    dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                                    dataGridViewAuto.Rows[i].Cells["测试结论"].Value = "不通过";
+                                }
+                                dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = XmlFormat.Xml(result);
                             }
-                            if (end.Contains("NOK"))
+                            catch (Exception ex)
                             {
+                                dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
+                                dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = ex.ToString();
                                 dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                                dataGridViewAuto.Rows[i].Cells["测试结论"].Value = "不通过";
+                                dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
+                                DateTime endTime = System.DateTime.Now;
+                                TimeSpan ts = endTime - startTime;
+                                dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min:" + ts.Seconds.ToString() + "s:" + ts.Milliseconds.ToString() + "ms";
                             }
-                            dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = XmlFormat.Xml(result);
                         }
-                        catch (Exception ex)
+                        else
                         {
                             dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
-                            dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = ex.ToString();
+                            dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = "空字符";
                             dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                            dataGridViewAuto.Rows[i].Cells["测试结论"].Value = "不通过";
                             dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                             DateTime endTime = System.DateTime.Now;
                             TimeSpan ts = endTime - startTime;
@@ -3960,27 +4065,19 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                     else
                     {
                         dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
-                        dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = "空字符";
+                        dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = "Null值";
                         dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
+                        dataGridViewAuto.Rows[i].Cells["测试结论"].Value = "不通过";
                         dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                         DateTime endTime = System.DateTime.Now;
                         TimeSpan ts = endTime - startTime;
                         dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min:" + ts.Seconds.ToString() + "s:" + ts.Milliseconds.ToString() + "ms";
                     }
                 }
-                else
-                {
-                    dataGridViewAuto.Rows[i].Cells["Auto结果"].Value = "NOK";
-                    dataGridViewAuto.Rows[i].Cells["Auto日志信息"].Value = "Null值";
-                    dataGridViewAuto.Rows[i].DefaultCellStyle.BackColor = Color.Yellow;
-                    dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
-                    DateTime endTime = System.DateTime.Now;
-                    TimeSpan ts = endTime - startTime;
-                    dataGridViewAuto.Rows[i].Cells["Auto耗时"].Value = ts.Minutes.ToString() + "min:" + ts.Seconds.ToString() + "s:" + ts.Milliseconds.ToString() + "ms";
-                }
+                ButStartAutoRunningXML.Text = "开始";
+                butCycleSuspend.Text = "暂停";
             }
-            ButStartAutoRunningXML.Text = "开始";
-            butCycleSuspend.Text = "暂停";
+            
             MessageBox.Show("运行完成");
         }
         private void ToolStripMenuItemAUto_Click(object sender, EventArgs e)
@@ -4123,8 +4220,10 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         }
         private void ButQeqPort_Click(object sender, EventArgs e)
         {
+
             try
             {
+                panel1.Controls.Add(groupBoxunivlan);
                 ComPtpCtpFtp.Items.Clear();
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
@@ -4143,7 +4242,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PtpsFtpsCtps(true, true, true), id, ip);
+                xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, true, true), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -4169,6 +4268,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         }
         private void ButFind_Click(object sender, EventArgs e)
         {
+           
             int id = int.Parse(treeViewNEID.SelectedNode.Name);
             int line = -1;
             for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -4185,19 +4285,19 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
             XmlDocument xmlDoc = new XmlDocument();
             if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
             {
-                xmlDoc = Sendrpc(FindXML.PTP(ComPtpCtpFtp.Text), id, ip);
+                xmlDoc = Sendrpc(GetXML.PTP(ComPtpCtpFtp.Text), id, ip);
             }
             if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
             {
-                xmlDoc = Sendrpc(FindXML.FTP(ComPtpCtpFtp.Text), id, ip);
+                xmlDoc = Sendrpc(GetXML.FTP(ComPtpCtpFtp.Text), id, ip);
             }
             if (ComPtpCtpFtp.Text.Contains("CTP"))
             {
-                xmlDoc = Sendrpc(FindXML.CTP(ComPtpCtpFtp.Text), id, ip);
+                xmlDoc = Sendrpc(GetXML.CTP(ComPtpCtpFtp.Text), id, ip);
             }
             if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
             {
-                xmlDoc = Sendrpc(FindXML.PtpsFtpsCtps(true, true, true), id, ip);
+                xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, true, true), id, ip);
             }
             LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
         }
@@ -4270,7 +4370,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 return;
             }
             LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
-            ButFind.PerformClick();
+            FindPort();
         }
         private void oDUFlex带宽调整ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -4383,7 +4483,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                                 XmlDocument xmlDoc = new XmlDocument();
                                 //xmlDoc.Load(filename);
-                                xmlDoc = Sendrpc(FindXML.CTP(_name), id, ip);
+                                xmlDoc = Sendrpc(GetXML.CTP(_name), id, ip);
                                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -4598,10 +4698,27 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         netConfClient[id].TimeOut = int.Parse(ComTimeOut.Text) * 1000;
                         dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接成功";
                         dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Style.BackColor = Color.GreenYellow;
+
+                        if (dataGridViewNeInformation.Rows[rowindex].Cells["运营商"].Value != null)
+                        {
+                            ips = dataGridViewNeInformation.Rows[rowindex].Cells["运营商"].Value.ToString();
+                            toolStripStatusLabelips.Text = ips;
+                            Thread sdhthread = new Thread(() => SDHchengetype(ips));
+                            sdhthread.Start();
+                        }
+                        if (dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value != null)
+                        {
+                            LabConncet.Text = dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value.ToString();
+                        }
+                        if (dataGridViewNeInformation.Rows[rowindex].Cells["网元ip"].Value != null)
+                        {
+                            TextIP.Text = dataGridViewNeInformation.Rows[rowindex].Cells["网元ip"].Value.ToString();
+                        }
                         for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                         {
                             if (treeViewNEID.Nodes[i].Name == id.ToString())
                             {
+                                MessageBox.Show(treeViewNEID.Nodes[i].Text + "：连接成功！");
                                 //treeViewNEID.Nodes[i].ForeColor = Color.Green;
                                 treeViewNEID.Nodes[i].ImageIndex = 2;
                                 treeViewNEID.Nodes[i].SelectedImageIndex = 2;
@@ -4611,7 +4728,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         try
                         {
                             XmlDocument xmlDoc = new XmlDocument();
-                            xmlDoc = Sendrpc(FindXML.ME(), id, ip);
+                            xmlDoc = Sendrpc(GetXML.ME(), id, ip);
                             XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                             root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                             root.AddNamespace("me", "urn:ccsa:yang:acc-devm");
@@ -4740,13 +4857,15 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 }
                 else
                 {
+                  
                     dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接失败";
                     dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Style.BackColor = Color.Yellow;
                     for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
                     {
                         if (treeViewNEID.Nodes[i].Name == id.ToString())
                         {
-                            //treeViewNEID.Nodes[i].ForeColor = Color.Red;
+
+                            MessageBox.Show(treeViewNEID.Nodes[i].Text + "：连接失败！");
                             treeViewNEID.Nodes[i].ImageIndex = 3;
                             treeViewNEID.Nodes[i].SelectedImageIndex = 3;
                             break;
@@ -4766,7 +4885,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 {
                     if (treeViewNEID.Nodes[i].Name == id.ToString())
                     {
-                        //treeViewNEID.Nodes[i].ForeColor = Color.Red;
+                        MessageBox.Show(treeViewNEID.Nodes[i].Text + "：连接失败！");
                         treeViewNEID.Nodes[i].ImageIndex = 3;
                         treeViewNEID.Nodes[i].SelectedImageIndex = 3;
                         break;
@@ -4803,6 +4922,8 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                     {
                         if (!row.IsNewRow)
                         {
+
+
                             if (dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value != null)
                             {
                                 if (dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Value.ToString() == "已开启")
@@ -4821,6 +4942,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                     netConfClient[id].Disconnect();
                                 }
                             }
+
                             dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Style.BackColor = Color.White;
                             dataGridViewNeInformation.Rows[row.Index].Cells["订阅"].Style.BackColor = Color.White;
                             dataGridViewNeInformation.Rows[row.Index].Cells["连接状态"].Value = "连接中...";
@@ -4835,13 +4957,29 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                             port = 830;
                             user = dataGridViewNeInformation.Rows[row.Index].Cells["用户名"].Value.ToString();
                             password = dataGridViewNeInformation.Rows[row.Index].Cells["密码"].Value.ToString();
+
+                            if (treeViewNEID.Nodes.Count > row.Index && row.Index >= 0)
+                            {
+                                treeViewNEID.SelectedNode = treeViewNEID.Nodes[row.Index];//选中
+                            }
+                                for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                            {
+                                if (treeViewNEID.Nodes[i].Name == id.ToString())
+                                {
+                                    treeViewNEID.Nodes[i].ForeColor = Color.Black;
+                                    treeViewNEID.Nodes[i].ImageIndex = 0;
+                                    treeViewNEID.Nodes[i].SelectedImageIndex = 4;
+                                    break;
+                                }
+                            }
+
                             Thread thread = new Thread(() => LoginNetconf(neip, port, user, password, id, row.Index));
                             thread.Start();
                             //LoginNetconf(neip, port, user, password, id, row.Index);
                         }
                         Thread.Sleep(2000);
                     }
-                    MessageBox.Show(neipall + "\r\n准备开始上线！");
+                   // MessageBox.Show(neipall + "\r\n准备开始上线！");
                 }
                 // 保存在实体类属性中
                 //保存密码选中状态
@@ -5033,10 +5171,15 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 ComEosSdhSignalTypeProtect.Items.Clear();
                 ComVCType.Items.Clear();
                 ComSdhUniSdhType.Items.Clear();
-                ComSdhNniSdhtype_A.Items.Clear();
-                ComSdhNniVcType_A.Items.Clear();
-                ComSdhNniSdhtype_B.Items.Clear();
-                ComSdhNniVcType_B.Items.Clear();
+                ComSdhNniSdhtype_primary_nni.Items.Clear();
+                ComSdhNniVcType_primary_nni.Items.Clear();
+                ComSdhNniSdhtype_secondary_nni.Items.Clear();
+                ComSdhNniVcType_secondary_nni.Items.Clear();
+                ComSdhUniSdhType_Secondary.Items.Clear();
+                ComSdhNniSdhtype_primary_nni2.Items.Clear();
+                ComSdhNniVcType_primary_nni2.Items.Clear();
+                ComSdhNniSdhtype_secondary_nni2.Items.Clear();
+                ComSdhNniVcType_secondary_nni2.Items.Clear();
                 ComEthServiceMappingMode.Enabled = false;
                 ComSdhSerMap.Enabled = false;
                 string[] collectionSDH = new string[4] { "STM1", "STM4", "STM16", "STM64" };
@@ -5045,24 +5188,34 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 {
                     ComEosSdhSignalType.Items.Add(item);
                     ComEosSdhSignalTypeProtect.Items.Add(item);
-                    ComSdhNniSdhtype_A.Items.Add(item);
-                    ComSdhNniSdhtype_B.Items.Add(item);
+                    ComSdhNniSdhtype_primary_nni.Items.Add(item);
+                    ComSdhNniSdhtype_secondary_nni.Items.Add(item);
+                    ComSdhNniSdhtype_primary_nni2.Items.Add(item);
+                    ComSdhNniSdhtype_secondary_nni2.Items.Add(item);
                 }
                 foreach (var item in collectionVC)
                 {
                     ComVCType.Items.Add(item);
                     ComSdhUniSdhType.Items.Add(item);
-                    ComSdhNniVcType_A.Items.Add(item);
-                    ComSdhNniVcType_B.Items.Add(item);
+                    ComSdhUniSdhType_Secondary.Items.Add(item);
+                    ComSdhNniVcType_primary_nni.Items.Add(item);
+                    ComSdhNniVcType_secondary_nni.Items.Add(item);
+                    ComSdhNniVcType_primary_nni2.Items.Add(item);
+                    ComSdhNniVcType_secondary_nni2.Items.Add(item);
                 }
                 ComEosSdhSignalType.SelectedIndex = 2;
                 ComEosSdhSignalTypeProtect.SelectedIndex = 2;
                 ComVCType.SelectedIndex = 2;
                 ComSdhUniSdhType.SelectedIndex = 2;
-                ComSdhNniSdhtype_A.SelectedIndex = 2;
-                ComSdhNniVcType_A.SelectedIndex = 2;
-                ComSdhNniSdhtype_B.SelectedIndex = 2;
-                ComSdhNniVcType_B.SelectedIndex = 2;
+                ComSdhNniSdhtype_primary_nni.SelectedIndex = 2;
+                ComSdhNniVcType_primary_nni.SelectedIndex = 2;
+                ComSdhNniSdhtype_secondary_nni.SelectedIndex = 2;
+                ComSdhNniVcType_secondary_nni.SelectedIndex = 2;
+                ComSdhUniSdhType_Secondary.SelectedIndex = 2;
+                ComSdhNniSdhtype_primary_nni2.SelectedIndex = 2;
+                ComSdhNniVcType_primary_nni2.SelectedIndex = 2;
+                ComSdhNniSdhtype_secondary_nni2.SelectedIndex = 2;
+                ComSdhNniVcType_secondary_nni2.SelectedIndex = 2;
             }
             if (ips.Contains("移动"))
             {
@@ -5070,10 +5223,15 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 ComEosSdhSignalTypeProtect.Items.Clear();
                 ComVCType.Items.Clear();
                 ComSdhUniSdhType.Items.Clear();
-                ComSdhNniSdhtype_A.Items.Clear();
-                ComSdhNniVcType_A.Items.Clear();
-                ComSdhNniSdhtype_B.Items.Clear();
-                ComSdhNniVcType_B.Items.Clear();
+                ComSdhNniSdhtype_primary_nni.Items.Clear();
+                ComSdhNniVcType_primary_nni.Items.Clear();
+                ComSdhNniSdhtype_secondary_nni.Items.Clear();
+                ComSdhNniVcType_secondary_nni.Items.Clear();
+                ComSdhUniSdhType_Secondary.Items.Clear();
+                ComSdhNniSdhtype_primary_nni2.Items.Clear();
+                ComSdhNniVcType_primary_nni2.Items.Clear();
+                ComSdhNniSdhtype_secondary_nni2.Items.Clear();
+                ComSdhNniVcType_secondary_nni2.Items.Clear();
                 ComEthServiceMappingMode.Enabled = true;
                 ComSdhSerMap.Enabled = true;
                 string[] collectionSDH = new string[4] { "STM-1", "STM-4", "STM-16", "STM-64" };
@@ -5082,24 +5240,34 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 {
                     ComEosSdhSignalType.Items.Add(item);
                     ComEosSdhSignalTypeProtect.Items.Add(item);
-                    ComSdhNniSdhtype_A.Items.Add(item);
-                    ComSdhNniSdhtype_B.Items.Add(item);
+                    ComSdhNniSdhtype_primary_nni.Items.Add(item);
+                    ComSdhNniSdhtype_secondary_nni.Items.Add(item);
+                    ComSdhNniSdhtype_primary_nni2.Items.Add(item);
+                    ComSdhNniSdhtype_secondary_nni2.Items.Add(item);
                 }
                 foreach (var item in collectionVC)
                 {
                     ComVCType.Items.Add(item);
                     ComSdhUniSdhType.Items.Add(item);
-                    ComSdhNniVcType_A.Items.Add(item);
-                    ComSdhNniVcType_B.Items.Add(item);
+                    ComSdhUniSdhType_Secondary.Items.Add(item);
+                    ComSdhNniVcType_primary_nni.Items.Add(item);
+                    ComSdhNniVcType_secondary_nni.Items.Add(item);
+                    ComSdhNniVcType_primary_nni2.Items.Add(item);
+                    ComSdhNniVcType_secondary_nni2.Items.Add(item);
                 }
                 ComEosSdhSignalType.SelectedIndex = 2;
                 ComEosSdhSignalTypeProtect.SelectedIndex = 2;
                 ComVCType.SelectedIndex = 2;
                 ComSdhUniSdhType.SelectedIndex = 2;
-                ComSdhNniSdhtype_A.SelectedIndex = 2;
-                ComSdhNniVcType_A.SelectedIndex = 2;
-                ComSdhNniSdhtype_B.SelectedIndex = 2;
-                ComSdhNniVcType_B.SelectedIndex = 2;
+                ComSdhNniSdhtype_primary_nni.SelectedIndex = 2;
+                ComSdhNniVcType_primary_nni.SelectedIndex = 2;
+                ComSdhNniSdhtype_secondary_nni.SelectedIndex = 2;
+                ComSdhNniVcType_secondary_nni.SelectedIndex = 2;
+                ComSdhUniSdhType_Secondary.SelectedIndex = 2;
+                ComSdhNniSdhtype_primary_nni2.SelectedIndex = 2;
+                ComSdhNniVcType_primary_nni2.SelectedIndex = 2;
+                ComSdhNniSdhtype_secondary_nni2.SelectedIndex = 2;
+                ComSdhNniVcType_secondary_nni2.SelectedIndex = 2;
                 if (Element.CMCC_Array.Count != 0)
                 {
 
@@ -5110,9 +5278,13 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                             Com_Eth_uni_protection_type.Items.Clear();
                             Com_nni_protection_type.Items.Clear();
                             Com_nni2_protection_type.Items.Clear();
+                            Com_uni_protection_type.Items.Clear();
+                            ComSdhPro.Items.Clear();
                             Com_Eth_uni_protection_type.Items.Add("无");
                             Com_nni_protection_type.Items.Add("无");
                             Com_nni2_protection_type.Items.Add("无");
+                            Com_uni_protection_type.Items.Add("无");
+                            ComSdhPro.Items.Add("无");
                             string[] value_ = Element.CMCC_Array[g][2].Split(',');
                             for (int l = 0; l < value_.Length; l++)
                             {
@@ -5120,11 +5292,15 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                 Com_Eth_uni_protection_type.Items.Add(value_[l]);
                                 Com_nni_protection_type.Items.Add(value_[l]);
                                 Com_nni2_protection_type.Items.Add(value_[l]);
+                                Com_uni_protection_type.Items.Add(value_[l]);
+                                ComSdhPro.Items.Add(value_[l]);
 
                             }
                             Com_Eth_uni_protection_type.SelectedIndex = 0;
                             Com_nni_protection_type.SelectedIndex = 0;
                             Com_nni2_protection_type.SelectedIndex = 0;
+                            Com_uni_protection_type.SelectedIndex = 0;
+                            ComSdhPro.SelectedIndex = 0;
 
                         }
                         //移动不是枚举的类型
@@ -5137,17 +5313,27 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         //    string[] value_ = Element.CMCC_Array[g][2].Split(',');
                         //    for (int l = 0; l < value_.Length; l++)
                         //    {
-
                         //        ComEthServiceMappingMode.Items.Add(value_[l]);
                         //        ComSdhSerMap.Items.Add(value_[l]);
-
                         //    }
                         //}
+                        ComEthServiceMappingMode.Items.Clear();
+                        ComSdhSerMap.Items.Clear();
+                        string[] adaptation_type = { "CBR-AMP", "CBR-BMP", "GFP-T", "GFP-F", "NULL", "PRBS", "CBRx", "GMP", "ODUij", "ODUj21", "ODUk" };
+                        foreach (var item in adaptation_type)
+                        {
+                             ComEthServiceMappingMode.Items.Add(item);
+                             ComSdhSerMap.Items.Add(item);
+                        }
+
+
                     }
                 }
 
             }
             if (ips.Contains("电信")) {
+                ComEthServiceMappingMode.Enabled = true;
+                ComSdhSerMap.Enabled = true;
                 if (Element.CTCC_Array.Count != 0)
                 {
 
@@ -5158,9 +5344,13 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                             Com_Eth_uni_protection_type.Items.Clear();
                             Com_nni_protection_type.Items.Clear();
                             Com_nni2_protection_type.Items.Clear();
+                            Com_uni_protection_type.Items.Clear();
+                            ComSdhPro.Items.Clear();
                             Com_Eth_uni_protection_type.Items.Add("无");
                             Com_nni_protection_type.Items.Add("无");
                             Com_nni2_protection_type.Items.Add("无");
+                            Com_uni_protection_type.Items.Add("无");
+                            ComSdhPro.Items.Add("无");
                             string[] value_ = Element.CTCC_Array[g][2].Split(',');
                             for (int l = 0; l < value_.Length; l++)
                             {
@@ -5168,11 +5358,16 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                 Com_Eth_uni_protection_type.Items.Add(value_[l]);
                                 Com_nni_protection_type.Items.Add(value_[l]);
                                 Com_nni2_protection_type.Items.Add(value_[l]);
+                                Com_uni_protection_type.Items.Add(value_[l]);
+                                ComSdhPro.Items.Add(value_[l]);
 
                             }
                             Com_Eth_uni_protection_type.SelectedIndex = 0;
                             Com_nni_protection_type.SelectedIndex = 0;
                             Com_nni2_protection_type.SelectedIndex = 0;
+                            Com_uni_protection_type.SelectedIndex = 0;
+                            ComSdhPro.SelectedIndex = 0;
+
                         }
                         if (Element.CTCC_Array[g][0] == "adaptation-type")
                         {
@@ -5190,16 +5385,20 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         }
                         if (Element.CTCC_Array[g][0] == "signal-type")
                         {
-                            ComSdhNniSdhtype_A.Items.Clear();
-                            ComSdhNniSdhtype_B.Items.Clear();
+                            ComSdhNniSdhtype_primary_nni.Items.Clear();
+                            ComSdhNniSdhtype_secondary_nni.Items.Clear();
                             ComEosSdhSignalType.Items.Clear();
                             ComEosSdhSignalTypeProtect.Items.Clear();
+                            ComSdhNniSdhtype_primary_nni2.Items.Clear();
+                            ComSdhNniSdhtype_secondary_nni2.Items.Clear();
                             string[] value_ = Element.CTCC_Array[g][2].Split(',');
                             for (int l = 0; l < value_.Length; l++)
                             {
 
-                                ComSdhNniSdhtype_A.Items.Add(value_[l]);
-                                ComSdhNniSdhtype_B.Items.Add(value_[l]);
+                                ComSdhNniSdhtype_primary_nni.Items.Add(value_[l]);
+                                ComSdhNniSdhtype_secondary_nni.Items.Add(value_[l]);
+                                ComSdhNniSdhtype_primary_nni2.Items.Add(value_[l]);
+                                ComSdhNniSdhtype_secondary_nni2.Items.Add(value_[l]);
                                 ComEosSdhSignalType.Items.Add(value_[l]);
                                 ComEosSdhSignalTypeProtect.Items.Add(value_[l]);
 
@@ -5209,16 +5408,22 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         {
                             ComVCType.Items.Clear();
                             ComSdhUniSdhType.Items.Clear();
-                            ComSdhNniVcType_A.Items.Clear();
-                            ComSdhNniVcType_B.Items.Clear();
+                            ComSdhNniVcType_primary_nni.Items.Clear();
+                            ComSdhNniVcType_secondary_nni.Items.Clear();
+                            ComSdhUniSdhType_Secondary.Items.Clear();
+                            ComSdhNniVcType_primary_nni2.Items.Clear();
+                            ComSdhNniVcType_secondary_nni2.Items.Clear();
                             string[] value_ = Element.CTCC_Array[g][2].Split(',');
                             for (int l = 0; l < value_.Length; l++)
                             {
 
                                 ComVCType.Items.Add(value_[l]);
                                 ComSdhUniSdhType.Items.Add(value_[l]);
-                                ComSdhNniVcType_A.Items.Add(value_[l]);
-                                ComSdhNniVcType_B.Items.Add(value_[l]);
+                                ComSdhNniVcType_primary_nni.Items.Add(value_[l]);
+                                ComSdhNniVcType_secondary_nni.Items.Add(value_[l]);
+                                ComSdhUniSdhType_Secondary.Items.Add(value_[l]);
+                                ComSdhNniVcType_primary_nni2.Items.Add(value_[l]);
+                                ComSdhNniVcType_secondary_nni2.Items.Add(value_[l]);
 
                             }
                         }
@@ -5332,7 +5537,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                                 XmlDocument xmlDoc = new XmlDocument();
                                 //xmlDoc.Load(filename);
-                                xmlDoc = Sendrpc(FindXML.Connection(_name), id, ip);
+                                xmlDoc = Sendrpc(GetXML.Connection(_name), id, ip);
                                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                                 root.AddNamespace("connectionxmlns", "urn:ccsa:yang:acc-connection");
@@ -5418,7 +5623,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         {
             int id = int.Parse(treeViewNEID.SelectedNode.Name);
             int line = -1;
-            for (int i = 0; i < dataGridViewCurrentPerformance.Rows.Count; i++)
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
             {
                 if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
                 {
@@ -5458,7 +5663,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                                 XmlDocument xmlDoc = new XmlDocument();
                                 //xmlDoc.Load(filename);
-                                xmlDoc = Sendrpc(FindXML.PTP(_name), id, ip);
+                                xmlDoc = Sendrpc(GetXML.PTP(_name), id, ip);
                                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                                 root.AddNamespace("ptp", "urn:ccsa:yang:acc-devm");
@@ -5520,7 +5725,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = FindXML.TCA(ComCurPerObjectName.Text, ComCurPerGranularity.Text);
+                xmlDoc1 = GetXML.TCA(ComCurPerObjectName.Text, ComCurPerGranularity.Text);
                 int id = int.Parse(treeViewNEID.SelectedNode.Name);
                 int line = -1;
                 for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -5798,7 +6003,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                             // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                                             XmlDocument xmlDoc = new XmlDocument();
                                             //xmlDoc.Load(filename);
-                                            xmlDoc = Sendrpc(FindXML.CTP(item), id, ip);
+                                            xmlDoc = Sendrpc(GetXML.CTP(item), id, ip);
                                             XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                                             root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                                             root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -5822,7 +6027,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                                             // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                                                             XmlDocument xmlDoc0 = new XmlDocument();
                                                             //xmlDoc.Load(filename);
-                                                            xmlDoc0 = Sendrpc(FindXML.FTP(server_tp.InnerText), id, ip);
+                                                            xmlDoc0 = Sendrpc(GetXML.FTP(server_tp.InnerText), id, ip);
                                                             XmlNamespaceManager root0 = new XmlNamespaceManager(xmlDoc0.NameTable);
                                                             root0.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                                                             root0.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -5907,11 +6112,36 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         {
             if (ComCreatConnection.Text.Contains("ETH"))
             {
+                TextEthLabel.Text = "ETH1";
                 groupBoxCreateEOS.Enabled = false;
+                panel_osu_primary_nni.Visible = false;
+                panel_osu_secondary_nni.Visible = false;
+                panel_osu_primary_nni2.Visible = false;
+                panel_osu_secondary_nni2.Visible = false;
             }
             if (ComCreatConnection.Text.Contains("EOS"))
             {
+                TextEthLabel.Text = "ETH1";
                 groupBoxCreateEOS.Enabled = true;
+                panel_osu_primary_nni.Visible = false;
+                panel_osu_secondary_nni.Visible = false;
+                panel_osu_primary_nni2.Visible = false;
+                panel_osu_secondary_nni2.Visible = false;
+            }
+            if (ComCreatConnection.Text.Contains("EO-OSU"))
+            {
+                TextEthLabel.Text = "EoOSU1";
+                groupBoxCreateEOS.Enabled = false;
+                panel_osu_primary_nni.Visible = true;
+                panel_osu_secondary_nni.Visible = true;
+                panel_osu_primary_nni2.Visible = true;
+                panel_osu_secondary_nni2.Visible = true;
+
+                ComEthServiceMappingMode.Enabled = false;
+
+            }
+            else {
+                ComEthServiceMappingMode.Enabled = true;
             }
         }
         private void ComEthServiceType_SelectedIndexChanged(object sender, EventArgs e)
@@ -5987,7 +6217,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                         break;
                 }
                 string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                xmlDoc = Sendrpc(FindXML.PTP(ComODUPtpNamesecondary_nni2.Text), id, ip);
+                xmlDoc = Sendrpc(GetXML.PTP(ComODUPtpNamesecondary_nni2.Text), id, ip);
                 XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
                 root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
                 root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
@@ -6026,7 +6256,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                                                     result_type = result_type.Split(new char[] { ':' })[1];
                                                 }
                                                 ComOduOduSignalType_Primary_nni2.Items.Add(result_type);
-                                                ComOduOduSignalType_Primary_nni2.SelectedIndex = 0;
+                                                ComOduOduSignalType_Primary_nni2.SelectedIndex = ComOduOduSignalType_Primary_nni2.Items.Count - 1;
                                             }
                                         }
                                         if (adaptation_type != null)
@@ -6076,7 +6306,9 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
         {
             if (comboBoxODUservicemode.Text.Contains("NNI-To-NNI业务"))
             {
-                ComClientSideNni_UNI_A.Text = "无";
+                ComClientSideNni_UNI.Text = "无";
+                ComClientSideNni_UNI_second.Text = "无";
+
                 groupBoxODUClient.Visible = false;
                 groupBoxODUprimary_nni2.Visible = true;
                 groupBoxsecondary_nni2.Visible = true;
@@ -6084,6 +6316,11 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 panel_secondary_nni.Visible = false;
                 panel_primary_nni2.Visible = false;
                 panel_secondary_nni2.Visible = false;
+                panel_sdh_primary_nni.Visible = false;
+                panel_sdh_secondary_nni.Visible = false;
+                panel_sdh_primary_nni2.Visible = false;
+                panel_sdh_secondary_nni2.Visible = false;
+
             }
             else
             {
@@ -6096,6 +6333,10 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 panel_secondary_nni.Visible = false;
                 panel_primary_nni2.Visible = false;
                 panel_secondary_nni2.Visible = false;
+                panel_sdh_primary_nni.Visible = false;
+                panel_sdh_secondary_nni.Visible = false;
+                panel_sdh_primary_nni2.Visible = false;
+                panel_sdh_secondary_nni2.Visible = false;
             }
         }
         private void comboBoxETHservicemode_SelectedIndexChanged(object sender, EventArgs e)
@@ -6103,6 +6344,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
             if (comboBoxETHservicemode.Text.Contains("NNI-To-NNI业务"))
             {
                 ComEthUniPtpName.Text = "无";
+                ComEthSecondUniPtpName.Text = "无";
                 ComEthClientVlanId.Text = "";
                 ComEthUniVlanId.Text = "";
                 groupBoxETH_UNI.Visible = false;
@@ -6114,6 +6356,10 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 panel_secondary_nni.Visible = true;
                 panel_primary_nni2.Visible = true;
                 panel_secondary_nni2.Visible = true;
+                panel_sdh_primary_nni.Visible = false;
+                panel_sdh_secondary_nni.Visible = false;
+                panel_sdh_primary_nni2.Visible = false;
+                panel_sdh_secondary_nni2.Visible = false;
             }
             else
             {
@@ -6128,6 +6374,52 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 panel_secondary_nni.Visible = true;
                 panel_primary_nni2.Visible = false;
                 panel_secondary_nni2.Visible = false;
+                panel_sdh_primary_nni.Visible = false;
+                panel_sdh_secondary_nni.Visible = false;
+                panel_sdh_primary_nni2.Visible = false;
+                panel_sdh_secondary_nni2.Visible = false;
+            }
+        }
+        private void comboBoxSDHservicemode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBoxSDHservicemode.Text.Contains("NNI-To-NNI业务"))
+            {
+                ComSdhUniPtp.Text = "无";
+                ComSdhUniPtp_Secondary.Text = "无";
+                ComSdhPro.Text = "无";
+                ComSdhUniPtp.Enabled = false;
+                ComSdhUniPtp_Secondary.Enabled = false;
+                //ComSdhPro.Text = "";
+                //TextSdhUniTs.Visible = false;
+                groupBoxODUprimary_nni2.Visible = true;
+                groupBoxsecondary_nni2.Visible = true;
+                panel_primary_nni.Visible = false;
+                panel_secondary_nni.Visible = false;
+                panel_primary_nni2.Visible = false;
+                panel_secondary_nni2.Visible = false;
+                panel_sdh_primary_nni.Visible = true;
+                panel_sdh_secondary_nni.Visible = true;
+                panel_sdh_primary_nni2.Visible = true;
+                panel_sdh_secondary_nni2.Visible = true;
+            }
+            else
+            {
+
+                //groupBoxETH_UNI.Visible = true;
+                comODUPtpNamePrimary_nni2.Text = "无";
+                ComODUPtpNamesecondary_nni2.Text = "无";
+                ComSdhUniPtp.Enabled = true;
+                ComSdhUniPtp_Secondary.Enabled = true;
+                groupBoxODUprimary_nni2.Visible = false;
+                groupBoxsecondary_nni2.Visible = false;
+                panel_primary_nni.Visible = false;
+                panel_secondary_nni.Visible = false;
+                panel_primary_nni2.Visible = false;
+                panel_secondary_nni2.Visible = false;
+                panel_sdh_primary_nni.Visible = true;
+                panel_sdh_secondary_nni.Visible = true;
+                panel_sdh_primary_nni2.Visible = false;
+                panel_sdh_secondary_nni2.Visible = false;
             }
         }
         private void 清空所有通知ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6227,26 +6519,6 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 ComOduTsDetail_Secondary_nni2.Text = formInfo.Information;
             }
         }
-        private void butlSdhNniPtp_A_Click(object sender, EventArgs e)
-        {
-            var formInfo = new Form_Oduk_TS(labelSdhNniPtp_A.Text);
-            // 以对话框方式显示FormInfo  
-            if (formInfo.ShowDialog() == DialogResult.OK)
-            {
-                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
-                ComSdhNniTs_A.Text = formInfo.Information;
-            }
-        }
-        private void butlSdhNniPtp_B_Click(object sender, EventArgs e)
-        {
-            var formInfo = new Form_Oduk_TS(labelSdhNniPtp_B.Text);
-            // 以对话框方式显示FormInfo  
-            if (formInfo.ShowDialog() == DialogResult.OK)
-            {
-                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
-                ComSdhNniTs_B.Text = formInfo.Information;
-            }
-        }
 
         private void dataGridViewAuto_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -6317,7 +6589,7 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
             {
                 TextLog.AppendText("加载电信YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
             }
-            MessageBox.Show("加载所有运营商YIN文件已完成！");
+            //MessageBox.Show("加载所有运营商YIN文件已完成！");
         }
 
         private void dataGridViewNeInformation_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -6365,8 +6637,2518 @@ ComSdhNniPtp_B.Text, ComSdhNniTs_B.Text, ComSdhNniAda_B.Text, ComSdhNniOdu_B.Tex
                 return;
             }
             LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
-            ButFind.PerformClick();
+            FindPort();
         }
 
+        private void ButSdhUniTs_Secondary_Click(object sender, EventArgs e)
+        {
+            // 实例化FormInfo，并传入待修改初值  
+            var formInfo = new Form_Info(ComSdhUniSdhType_Secondary.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                TextSdhUniTs_Secondary.Text = formInfo.Information;
+            }
+        }
+
+        private void ButSdhNniTs_primary_nni2_Click(object sender, EventArgs e)
+        {
+            var formInfo = new Form_Info(ComSdhNniVcType_primary_nni2.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                TextSdhNniTs_primary_nni2.Text = formInfo.Information;
+            }
+        }
+
+        private void ButSdhNniTs__secondary_nni2_Click(object sender, EventArgs e)
+        {
+            var formInfo = new Form_Info(ComSdhNniVcType_secondary_nni2.Text);
+            // 以对话框方式显示FormInfo  
+            if (formInfo.ShowDialog() == DialogResult.OK)
+            {
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                TextSdhNniTs_secondary_nni2.Text = formInfo.Information;
+            }
+        }
+
+        private void TextOduService_type_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (TextOduService_type.Text == "OSU") {
+                TextOduLable.Text = "OSU1";
+                ComOduSwitchApability_UNI_A.Enabled = false;
+                ComOduAdapataionType_UNI_A.Enabled = false;
+                ComOduNniTsDetailClient_UNI_A.Enabled = false;
+                butOduuni.Enabled = false;
+                panel_osu_primary_nni.Visible = true;
+                panel_osu_primary_nni2.Visible = true;
+                panel_osu_secondary_nni.Visible = true;
+                panel_osu_secondary_nni2.Visible = true;
+            }
+            if (TextOduService_type.Text == "ODU")
+            {
+                TextOduLable.Text = "ODU1";
+                ComOduSwitchApability_UNI_A.Enabled = true;
+                ComOduAdapataionType_UNI_A.Enabled = true;
+                ComOduNniTsDetailClient_UNI_A.Enabled = true;
+                butOduuni.Enabled = true;
+                panel_osu_primary_nni.Visible = false;
+                panel_osu_primary_nni2.Visible = false;
+                panel_osu_secondary_nni.Visible = false;
+                panel_osu_secondary_nni2.Visible = false;
+            }
+        }
+
+        private void ButEnableNTP_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            Creat(ModifyXML.Ntp(textBox_me_ntp_enable.Text, textBox_me_ntp_server_name.Text, textBox_me_ntp_server_ipaddress.Text, textBox_me_ntp_server_port.Text, textBox_me_ntp_server_version.Text),id,ip);
+            ButFindNeinfo.PerformClick();
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+
+
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+
+
+            if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                return;
+            }
+            if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                return;
+            }
+            if (ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                Creat(ModifyXML.Vlan_spec(ComPtpCtpFtp.Text, ComEthUniVlanId.Text, ComEthUniVlanPriority.Text, ComEthUniVlanAccessAction.Text, ComEthUniVlanType.Text, ComEthClientVlanId.Text, ComEthVlanPriority.Text, ComEthVlanAccessAction.Text, ComEthVlanType.Text), id, ip);
+                FindPort();
+            }
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+           
+        }
+
+        private void ButtonLoopBack_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            Creat(ModifyXML.Loop_back(ComPtpCtpFtp.Text, comboBoxLoopBack.Text), id, ip);
+            FindPort();
+        }
+
+        private void buttonLaserStatus_Click(object sender, EventArgs e)
+        {
+            
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            Creat(ModifyXML.Laser_status(ComPtpCtpFtp.Text, comboBoxLaserStatus.Text), id, ip);
+            FindPort();
+        }
+
+        private void buttonAdminState_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            Creat(ModifyXML.Admin_state(ComPtpCtpFtp.Text, comboBoxAdminState.Text), id, ip);
+            FindPort();
+        }
+
+        private void 从服务器更新YIN文件ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Element.CUCC_Array.Count != 0)
+            {
+                Element.CUCC_Array.Clear();
+            }
+            YIN_XML_URL(CUCC_YIN_URL, "联通");
+            if (Element.CUCC_Array.Count != 0)
+            {
+                // MessageBox.Show("加载联通YIN文件成功！");
+                TextLog.AppendText("服务器更新联通YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            else
+            {
+                TextLog.AppendText("服务器更新联通YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+            }
+
+            if (Element.CMCC_Array.Count != 0)
+            {
+                Element.CMCC_Array.Clear();
+            }
+            YIN_XML_URL(CMCC_YIN_URL, "移动");
+            if (Element.CMCC_Array.Count != 0)
+            {
+                TextLog.AppendText("服务器更新移动YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            else
+            {
+                TextLog.AppendText("服务器更新移动YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            if (Element.CTCC_Array.Count != 0)
+            {
+                Element.CTCC_Array.Clear();
+            }
+            YIN_XML_URL(CTCC_YIN_URL, "电信");
+            if (Element.CTCC_Array.Count != 0)
+            {
+                TextLog.AppendText("服务器更新电信YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            else
+            {
+                TextLog.AppendText("服务器更新电信YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+            }
+            MessageBox.Show("服务器更新所有运营商YIN文件已完成！");
+        }
+
+        private void 删除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pgcommand("删除", "to-secondary","port");
+        }
+
+        private void 创建保护组ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                string _pg_id = "", _create_type = "", _delete_cascade = "", _protection_type = "", _reversion_mode = "", _switch_type = "", _hold_off = "", _wait_to_restore_time = "", _sd_trigger = "", _primary_port = "", _secondary_port = "";
+                try
+                {
+                    if (ips.Contains("联通"))
+                    {
+                        
+                    }
+                    if (ips.Contains("移动"))
+                    {
+                        if (Element.CMCC_Array.Count != 0)
+                        {
+                            ArrayList cmccpro = new ArrayList();
+                            for (int g = 0; g < Element.CMCC_Array.Count; g++)
+                            {
+                                if (Element.CMCC_Array[g][0] == "protection-type")
+                                {
+                                    string[] value_ = Element.CMCC_Array[g][2].Split(',');
+                                    for (int l = 0; l < value_.Length; l++)
+                                    {
+                                        cmccpro.Add(value_[l]);
+                                        _protection_type = string.Join(",", (string[])cmccpro.ToArray(typeof(string)));
+
+                                    }
+
+                                }
+                            }
+                        }
+
+                    }
+                    if (ips.Contains("电信"))
+                    {
+                        ComEthServiceMappingMode.Enabled = true;
+                        ComSdhSerMap.Enabled = true;
+                        if (Element.CTCC_Array.Count != 0)
+                        {
+                            ArrayList ctccpro = new ArrayList();
+                            for (int g = 0; g < Element.CTCC_Array.Count; g++)
+                            {
+                                if (Element.CTCC_Array[g][0] == "protection-type")
+                                {
+                                    string[] value_ = Element.CTCC_Array[g][2].Split(',');
+                                    for (int l = 0; l < value_.Length; l++)
+                                    {
+
+                                        ctccpro.Add(value_[l]);
+                                        _protection_type = string.Join(",", (string[])ctccpro.ToArray(typeof(string)));
+
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    XmlDocument xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, false, false), id, ip);
+                    XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                    root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                    root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                    root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
+                    XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
+                    ArrayList list = new ArrayList();
+                    foreach (XmlNode itemNode in itemNodes)
+                    {
+                        XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+                        XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
+                        XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
+                        if (layer_protocol_name != null && interface_type != null)
+                        {
+                            if (layer_protocol_name.InnerText == "acc-sdh:SDH")
+                            {
+                                if (name != null)
+                                {
+                                   
+                                    list.Add(name.InnerText);
+                                    _primary_port = string.Join(",", (string[])list.ToArray(typeof(string)));
+                                    _secondary_port = string.Join(",", (string[])list.ToArray(typeof(string)));
+                                    //ComSdhUniPtp.Items.Add(name.InnerText);
+                                    //ComSdhUniPtp.SelectedIndex = 0;
+                                    //ComSdhUniPtp_Secondary.Items.Add(name.InnerText);
+                                    //ComSdhUniPtp_Secondary.SelectedIndex = 0;
+                                }
+                            }
+                            //if (layer_protocol_name.InnerText == "acc-otn:ODU")
+                            //{
+                            //    if (name != null)
+                            //    {
+                            //        ArrayList list = new ArrayList();
+                            //        list.Add(name.InnerText);
+                            //        _primary_port = string.Join(",", (string[])list.ToArray(typeof(string)));
+                            //        _secondary_port = string.Join(",", (string[])list.ToArray(typeof(string)));
+
+                            //        //comODUPtpNamePrimary_nni.Items.Add(name.InnerText);
+                            //        //comODUPtpNamePrimary_nni.SelectedIndex = 0;
+                            //        //ComODUPtpNamesecondary_nni.Items.Add(name.InnerText);
+                            //        //ComODUPtpNamesecondary_nni.SelectedIndex = 0;
+                            //        //comODUPtpNamePrimary_nni2.Items.Add(name.InnerText);
+                            //        //comODUPtpNamePrimary_nni2.SelectedIndex = 0;
+                            //        //ComODUPtpNamesecondary_nni2.Items.Add(name.InnerText);
+                            //        //ComODUPtpNamesecondary_nni2.SelectedIndex = 0;
+                            //    }
+                            //}
+                        }
+                    }
+                    // Console.Read();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+                }
+                // 实例化FormInfo，并传入待修改初值  
+                var FormCreatePg = new Form_Create_Pg(_pg_id, _create_type , _delete_cascade , _protection_type , _reversion_mode, _switch_type , _hold_off, _wait_to_restore_time , _sd_trigger , _primary_port , _secondary_port,"msp");
+                // 以对话框方式显示FormInfo  
+                if (FormCreatePg.ShowDialog() == DialogResult.OK)
+                {
+                    //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
+                    _pg_id = FormCreatePg._pg_id;
+                    _create_type = FormCreatePg._create_type;
+                    _delete_cascade = FormCreatePg._delete_cascade;
+                    _protection_type = FormCreatePg._protection_type;
+                    _reversion_mode = FormCreatePg._reversion_mode;
+                    _switch_type = FormCreatePg._switch_type;
+                    _hold_off = FormCreatePg._hold_off;
+                    _wait_to_restore_time = FormCreatePg._wait_to_restore_time;
+                    _sd_trigger = FormCreatePg._sd_trigger;
+                    _primary_port = FormCreatePg._primary_port;
+                    _secondary_port = FormCreatePg._secondary_port;
+                    string messg = Creat(CreatePG.Pg(_pg_id, _create_type, _delete_cascade, _protection_type, _reversion_mode, _switch_type, _hold_off, _wait_to_restore_time, _sd_trigger, _primary_port, _secondary_port), id, ip);
+                    MessageBox.Show(messg);
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void 创建OCH保护组ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                string _pg_id = "", _create_type = "", _delete_cascade = "", _protection_type = "", _reversion_mode = "", _switch_type = "", _hold_off = "", _wait_to_restore_time = "", _sd_trigger = "", _primary_port = "", _secondary_port = "";
+                try
+                {
+                    if (ips.Contains("联通"))
+                    {
+
+                    }
+                    if (ips.Contains("移动"))
+                    {
+                        if (Element.CMCC_Array.Count != 0)
+                        {
+                            ArrayList cmccpro = new ArrayList();
+                            for (int g = 0; g < Element.CMCC_Array.Count; g++)
+                            {
+                                if (Element.CMCC_Array[g][0] == "protection-type")
+                                {
+                                    string[] value_ = Element.CMCC_Array[g][2].Split(',');
+                                    for (int l = 0; l < value_.Length; l++)
+                                    {
+                                        cmccpro.Add(value_[l]);
+                                        _protection_type = string.Join(",", (string[])cmccpro.ToArray(typeof(string)));
+
+                                    }
+
+                                }
+                            }
+                        }
+
+                    }
+                    if (ips.Contains("电信"))
+                    {
+                        ComEthServiceMappingMode.Enabled = true;
+                        ComSdhSerMap.Enabled = true;
+                        if (Element.CTCC_Array.Count != 0)
+                        {
+                            ArrayList ctccpro = new ArrayList();
+                            for (int g = 0; g < Element.CTCC_Array.Count; g++)
+                            {
+                                if (Element.CTCC_Array[g][0] == "protection-type")
+                                {
+                                    string[] value_ = Element.CTCC_Array[g][2].Split(',');
+                                    for (int l = 0; l < value_.Length; l++)
+                                    {
+
+                                        ctccpro.Add(value_[l]);
+                                        _protection_type = string.Join(",", (string[])ctccpro.ToArray(typeof(string)));
+
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    XmlDocument xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, false, false), id, ip);
+                    XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                    root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                    root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                    root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
+                    XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp", root);
+                    ArrayList list = new ArrayList();
+                    foreach (XmlNode itemNode in itemNodes)
+                    {
+                        XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+                        XmlNode layer_protocol_name = itemNode.SelectSingleNode("ptpsxmlns:layer-protocol-name", root);
+                        XmlNode interface_type = itemNode.SelectSingleNode("ptpsxmlns:interface-type", root);
+                        if (layer_protocol_name != null && interface_type != null)
+                        {
+                            if (layer_protocol_name.InnerText == "acc-otn:ODU" && interface_type.InnerText.Contains("NNI"))
+                            {
+                                if (name != null)
+                                {
+                                    list.Add(name.InnerText);
+                                    _primary_port = string.Join(",", (string[])list.ToArray(typeof(string)));
+                                    _secondary_port = string.Join(",", (string[])list.ToArray(typeof(string)));
+
+                                    //comODUPtpNamePrimary_nni.Items.Add(name.InnerText);
+                                    //comODUPtpNamePrimary_nni.SelectedIndex = 0;
+                                    //ComODUPtpNamesecondary_nni.Items.Add(name.InnerText);
+                                    //ComODUPtpNamesecondary_nni.SelectedIndex = 0;
+                                    //comODUPtpNamePrimary_nni2.Items.Add(name.InnerText);
+                                    //comODUPtpNamePrimary_nni2.SelectedIndex = 0;
+                                    //ComODUPtpNamesecondary_nni2.Items.Add(name.InnerText);
+                                    //ComODUPtpNamesecondary_nni2.SelectedIndex = 0;
+                                }
+                            }
+                        }
+                    }
+                    // Console.Read();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+                }
+                // 实例化FormInfo，并传入待修改初值  
+                var FormCreatePg = new Form_Create_Pg(_pg_id, _create_type, _delete_cascade, _protection_type, _reversion_mode, _switch_type, _hold_off, _wait_to_restore_time, _sd_trigger, _primary_port, _secondary_port,"och");
+                // 以对话框方式显示FormInfo  
+                if (FormCreatePg.ShowDialog() == DialogResult.OK)
+                {
+                    //如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示
+                    _pg_id = FormCreatePg._pg_id;
+                    _create_type = FormCreatePg._create_type;
+                    _delete_cascade = FormCreatePg._delete_cascade;
+                    _protection_type = FormCreatePg._protection_type;
+                    _reversion_mode = FormCreatePg._reversion_mode;
+                    _switch_type = FormCreatePg._switch_type;
+                    _hold_off = FormCreatePg._hold_off;
+                    _wait_to_restore_time = FormCreatePg._wait_to_restore_time;
+                    _sd_trigger = FormCreatePg._sd_trigger;
+                    _primary_port = FormCreatePg._primary_port;
+                    _secondary_port = FormCreatePg._secondary_port;
+                    string messg = Creat(CreatePG.Pg(_pg_id, _create_type, _delete_cascade, _protection_type, _reversion_mode, _switch_type, _hold_off, _wait_to_restore_time, _sd_trigger, _primary_port, _secondary_port), id, ip);
+                    MessageBox.Show(messg);
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonMTU_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            Creat(ModifyXML.MTU(ComPtpCtpFtp.Text, comboBoxMTU.Text), id, ip);
+            FindPort();
+        }
+
+        private void buttonWorkingMode_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            Creat(ModifyXML.Working_Mode(ComPtpCtpFtp.Text, comboBoxWorkingMode.Text), id, ip);
+            FindPort();
+        }
+
+        private void buttonLLDP_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                return;
+            }
+            Creat(ModifyXML.LLDP(ComPtpCtpFtp.Text, comboBoxLLDP.Text), id, ip);
+            FindPort();
+        }
+
+        private void FindPort() {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            XmlDocument xmlDoc = new XmlDocument();
+            if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                xmlDoc = Sendrpc(GetXML.PTP(ComPtpCtpFtp.Text), id, ip);
+            }
+            if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                xmlDoc = Sendrpc(GetXML.FTP(ComPtpCtpFtp.Text), id, ip);
+            }
+            if (ComPtpCtpFtp.Text.Contains("CTP"))
+            {
+                xmlDoc = Sendrpc(GetXML.CTP(ComPtpCtpFtp.Text), id, ip);
+            }
+            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            {
+                xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, true, true), id, ip);
+            }
+            LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
+        }
+        private void ComPtpCtpFtp_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FindPort();
+        }
+
+        private void buttonModifyPassword_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+
+           MessageBox.Show( Creat(ModifyXML.Password(textBoxuser.Text, textBoxOldPassword.Text,textBoxNewPassword.Text), id, ip));
+        }
+
+        private void 软复位ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetSlot("soft-reset");
+        }
+
+        private void 硬复位ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetSlot("hard-reset");
+        }
+
+        private void ResetSlot(string _reset_type) {
+            try
+            {
+                string allconnection = "";
+                string connection = "";
+                foreach (DataGridViewRow row in this.dataGridView_EQ.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        connection = dataGridView_EQ.Rows[row.Index].Cells["单板名称"].Value.ToString();       //设备IP地址
+                        allconnection = allconnection + ", " + connection;
+                    }
+                }
+                if (MessageBox.Show("正在"+ _reset_type + "复位当前板卡:\r\n" + allconnection + "\r\n是否操作？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    foreach (DataGridViewRow row in this.dataGridView_EQ.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            connection = dataGridView_EQ.Rows[row.Index].Cells["单板名称"].Value.ToString();
+                            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                            int line = -1;
+                            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                            {
+                                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                                {
+                                    line = i;
+                                    break;
+                                }
+                                if (line >= 0)
+                                    break;
+                            }
+                            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                            var doc = Sendrpc(ModifyXML.Reset(connection, _reset_type), id, ip);//设备IP地址
+                            if (doc.OuterXml.Contains("error"))
+                            {
+                                MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                            }
+                        }
+                    }
+                    MessageBox.Show(allconnection + "\r\n已成功复位，重新点击刷新即可更新。");
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void 删除板卡ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string allconnection = "";
+                string connection = "";
+                foreach (DataGridViewRow row in this.dataGridView_EQ.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        connection = dataGridView_EQ.Rows[row.Index].Cells["单板名称"].Value.ToString();       //设备IP地址
+                        allconnection = allconnection + ", " + connection;
+                    }
+                }
+                if (MessageBox.Show("正在删除卸载当前板卡:\r\n" + allconnection + "\r\n是否操作？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    foreach (DataGridViewRow row in this.dataGridView_EQ.SelectedRows)
+                    {
+                        if (!row.IsNewRow)
+                        {
+                            connection = dataGridView_EQ.Rows[row.Index].Cells["单板名称"].Value.ToString();
+                            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                            int line = -1;
+                            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                            {
+                                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                                {
+                                    line = i;
+                                    break;
+                                }
+                                if (line >= 0)
+                                    break;
+                            }
+                            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                            var doc = Sendrpc(DeleteODU.EQ(connection), id, ip);//设备IP地址
+                            if (doc.OuterXml.Contains("error"))
+                            {
+                                MessageBox.Show("运行失败：\r\n" + doc.OuterXml);
+                            }
+                            else {
+                                dataGridView_EQ.Rows.Remove(row);
+                            }
+                        }
+                    }
+                    MessageBox.Show(allconnection + "\r\n已成功复位，重新点击刷新即可更新。");
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonUpload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                textBoxFileList.Clear();
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                XmlDocument xmlDoc = Sendrpc(FileManage.Upload_File(comboBoxFileType.Text, comboBoxFileName.Text, comboBoxSftpPath.Text, comboBoxUsername.Text, comboBoxPassword.Text), id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("file", "urn:ccsa:yang:acc-file");
+                XmlNode file_name = xmlDoc.SelectSingleNode("//file:file-name", root);
+                XmlNode md5 = xmlDoc.SelectSingleNode("//file:md5", root);
+                XmlNode file_size = xmlDoc.SelectSingleNode("//file:file-size", root);
+                string a = "",b="",c="";
+                if (file_name != null) a = file_name.InnerText;
+                if (md5 != null) b = md5.InnerText;
+                if (file_size != null) c = file_size.InnerText;
+                // Console.Read();
+                textBoxFileList.AppendText("文件名称：" + a +"\r\n" + "md5：" + b + "\r\n" + "文件大小：" + c + "\r\n");
+                if (xmlDoc.DocumentElement != null)
+                {
+
+                    if (xmlDoc.InnerText.Contains("erro"))
+                    {
+                        MessageBox.Show(XmlFormat.Xml(xmlDoc.OuterXml));
+                    }
+                    else
+                    {
+                        MessageBox.Show("运行完成");
+                    }
+                }
+
+            }
+            catch(Exception ex) {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private void buttonDownload_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                string Me = Creat(FileManage.Download_File(comboBoxFileType.Text, comboBoxFileName.Text, textBoxFileSize.Text,comboBoxSftpPath.Text, comboBoxUsername.Text, comboBoxPassword.Text), id, ip);
+                MessageBox.Show(Me);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private void buttonActiveFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                string Me = Creat(FileManage.Active_File(comboBoxFileType.Text, comboBoxFileName.Text), id, ip);
+                MessageBox.Show(Me);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonDownloadStatus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                textBoxDownload_Bytes.Text = "";
+                textBoxGetDownloadStatus.Text = "";
+                textBoxFail_Reason.Text = "";
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                //  string Me = Creat(FileManage.Active_File(comboBoxFileType.Text, comboBoxFileName.Text), id, ip);
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc = Sendrpc(FileManage.Get_Download_Status(comboBoxFileType.Text, comboBoxFileName.Text), id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("file", "urn:ccsa:yang:acc-file");
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//file:download-bytes", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    XmlNode download_bytes = xmlDoc.SelectSingleNode("//file:download-bytes", root);
+                    XmlNode status = xmlDoc.SelectSingleNode("//file:status", root);
+                    XmlNode fail_reason = xmlDoc.SelectSingleNode("//file:fail-reason", root);
+                    if (download_bytes != null) textBoxDownload_Bytes.Text = download_bytes.InnerText;
+                    if (status != null) textBoxGetDownloadStatus.Text = status.InnerText;
+                    if (fail_reason != null) textBoxFail_Reason.Text = fail_reason.InnerText;
+                    //XmlNode product-name = itemNode.SelectSingleNode("//me:name", root);
+                    //XmlNode software-version = itemNode.SelectSingleNode("//me:status", root);
+                    //if ((titleNode != null) && (dateNode != null))
+                    //    System.Diagnostics.Debug.WriteLine(dateNode.InnerText + ": " + titleNode.InnerText);
+                }
+                // Console.Read();
+                if (xmlDoc.DocumentElement != null)
+                {
+
+                    if (xmlDoc.InnerText.Contains("erro"))
+                    {
+                        MessageBox.Show(XmlFormat.Xml(xmlDoc.OuterXml));
+                    }
+                    else {
+                        MessageBox.Show("运行完成");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonDeleteFile_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                string Me = Creat(FileManage.Delete_file(comboBoxFileType.Text, comboBoxFileName.Text), id, ip);
+                MessageBox.Show(Me);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonGetActiveStatus_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                comboBoxFileName.Text = "";
+                textBoxGetDownloadStatus.Text = "";
+                textBoxFail_Reason.Text = "";
+                textBoxActiveTime.Text = "";
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                //  string Me = Creat(FileManage.Active_File(comboBoxFileType.Text, comboBoxFileName.Text), id, ip);
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc = Sendrpc(FileManage.Get_Active_Status(comboBoxFileType.Text), id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("file", "urn:ccsa:yang:acc-file");
+                XmlNode file_name = xmlDoc.SelectSingleNode("//file:file-name", root);
+                XmlNode active_time = xmlDoc.SelectSingleNode("//file:active-time", root);
+                XmlNode status = xmlDoc.SelectSingleNode("//file:status", root);
+                XmlNode fail_reason = xmlDoc.SelectSingleNode("//file:fail-reason", root);
+                if (file_name != null) comboBoxFileName.Text = file_name.InnerText;
+                if (active_time != null) textBoxActiveTime.Text = active_time.InnerText;
+                if (status != null) textBoxGetDownloadStatus.Text = status.InnerText;
+                if (fail_reason != null) textBoxFail_Reason.Text = fail_reason.InnerText;
+                // Console.Read();
+                if (xmlDoc.DocumentElement != null)
+                {
+
+                    if (xmlDoc.InnerText.Contains("erro"))
+                    {
+                        MessageBox.Show(XmlFormat.Xml(xmlDoc.OuterXml));
+                    }
+                    else
+                    {
+                        MessageBox.Show("运行完成");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonGetFileList_Click(object sender, EventArgs e)
+        {
+            try {
+
+                textBoxFileList.Clear();
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            //  string Me = Creat(FileManage.Active_File(comboBoxFileType.Text, comboBoxFileName.Text), id, ip);
+            XmlDocument xmlDoc = new XmlDocument();
+            xmlDoc = Sendrpc(FileManage.Get_File_List(comboBoxFileType.Text), id, ip);
+            XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+            root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            root.AddNamespace("file", "urn:ccsa:yang:acc-file");
+            XmlNodeList itemNodes = xmlDoc.SelectNodes("//file:file", root);
+            string a="" ,b="";
+            foreach (XmlNode itemNode in itemNodes)
+            {
+                XmlNode file_name = itemNode.SelectSingleNode("file:file-name", root);
+                XmlNode file_type = itemNode.SelectSingleNode("file:file-type", root);
+                if (file_name != null) a = file_name.InnerText;
+                if (file_type != null) b = file_type.InnerText;
+                textBoxFileList.AppendText( b + "\t" + a +"\r\n");
+            }
+                // Console.Read();
+                if (xmlDoc.DocumentElement != null)
+                {
+
+                    if (xmlDoc.InnerText.Contains("erro"))
+                    {
+                        MessageBox.Show(XmlFormat.Xml(xmlDoc.OuterXml));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("运行完成");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+}
+
+        private void buttonModifytime_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+
+            MessageBox.Show(Creat(ModifyXML.Set_Managed_Element_Time(dateTimePickerCurrentTime.Text), id, ip));
+        }
+
+        private void buttonGetTime_Click(object sender, EventArgs e)
+        {
+            try
+            {
+               
+                XmlDocument xmlDoc = new XmlDocument();
+                //xmlDoc.Load(filename);
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                xmlDoc = Sendrpc(GetXML.Get_Managed_Element_Time(), id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("me", "urn:ccsa:yang:acc-devm");
+                XmlNode date_time = xmlDoc.SelectSingleNode("//me:date-time", root);
+                if (date_time != null) dateTimePickerCurrentTime.Text = date_time.InnerText;
+                // Console.Read();
+                if (xmlDoc.DocumentElement != null)
+                {
+
+                    if (xmlDoc.InnerText.Contains("erro"))
+                    {
+                        MessageBox.Show(XmlFormat.Xml(xmlDoc.OuterXml));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("运行完成");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+            }
+        }
+
+        private void buttonModifyPCTime_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            dateTimePickerCurrentTime.Value = DateTime.Now;
+            dateTimePickerCurrentTime.CustomFormat = "yyyy-MM-ddTHH:mm:ss+08:00";
+            MessageBox.Show(Creat(ModifyXML.Set_Managed_Element_Time(dateTimePickerCurrentTime.Text), id, ip));
+        }
+
+        private void buttonMcPortModify_Click(object sender, EventArgs e)
+        {
+            int id = int.Parse(treeViewNEID.SelectedNode.Name);
+            int line = -1;
+            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+            {
+                if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                {
+                    line = i;
+                    break;
+                }
+                if (line >= 0)
+                    break;
+            }
+            string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+            Creat(ModifyXML.Mc_Port(comboBoxMcPort.Text, comboBoxMcPortModify.Text), id, ip);
+            buttonMcPortGet.PerformClick();
+        }
+
+        private void buttonMcPortGet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                XmlDocument xmlDoc = new XmlDocument();
+                //xmlDoc.Load(filename);
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                xmlDoc = Sendrpc(GetXML.Mc_Ports(comboBoxMcPort.Text), id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("me", "urn:ccsa:yang:acc-devm");
+                XmlNode admin_state = xmlDoc.SelectSingleNode("//me:admin-state", root); 
+                if (admin_state != null) textBoxMcPortAdminState.Text = admin_state.InnerText;
+                XmlNode operational_state = xmlDoc.SelectSingleNode("//me:operational-state", root); 
+                if (operational_state != null) textBoxMcPortOperState.Text = operational_state.InnerText;
+                // Console.Read();
+                if (xmlDoc.DocumentElement != null)
+                {
+
+                    if (xmlDoc.InnerText.Contains("erro"))
+                    {
+                        MessageBox.Show(XmlFormat.Xml(xmlDoc.OuterXml));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("运行完成");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+            }
+        }
+
+        private void 板卡人工倒换到主用ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pgcommand("manual-switch", "to-primary", "eq");
+
+        }
+
+        private void 板卡人工倒换到备用ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pgcommand("manual-switch", "to-secondary", "eq");
+
+        }
+
+        private void 板卡清除ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Pgcommand("cleared", "to-secondary", "eq");
+
+        }
+
+        private void 查看交互日志ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("notepad.exe", @"C:\netconf\Log\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + "GWTT-" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
+        }
+
+        private void 更改为当前ip地址ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in this.dataGridViewAuto.SelectedRows)
+            {
+                if (!row.IsNewRow)
+                {
+                    //((DataGridViewComboBoxCell)dataGridViewAuto.Rows[row.Index].Cells["Autoip地址"]).Items.Add("是");
+                    dataGridViewAuto.Rows[row.Index].Cells["Autoip地址"].Value = TextIP.Text;
+                }
+            }
+            MessageBox.Show("修改完成");
+        }
+
+        private void DeleteConnection() {
+            textBoxConnections.Clear();
+            textBoxTelnetLogs.Clear();
+            string[,] dxc = null;
+            int dxcrow = 0;
+            int dxccol = 0;
+            bool findts = false;
+            string dxctype = "client";
+            string dxcstr = "";
+            string ID = "", Rate = "", Dir = "", Source = "", sink = "", P_Source = "", P_Sink = "", LPG = "";
+            string ID_Stream = "", Rate_Stream = "", Dir_Stream = "", Source_Stream = "", sink_Stream = "", P_Source_Stream = "", P_Sink_Stream = "", LPG_Stream = "";
+            string connectstr = Connection_Arrange.Connect(TextIP.Text, "admin", "greenway");
+            //查询交叉ID和保护组
+            textBoxTelnetLogs.AppendText(connectstr);
+            textBoxTelnetLogs.AppendText("\r\n=========================================查询所在业务=========================================\r\n");
+            dxcstr = Connection_Arrange.Get_DXC();
+            textBoxTelnetLogs.AppendText(dxcstr);
+            if (!string.IsNullOrEmpty(dxcstr))
+            {
+                dxc = Connection_Arrange.StringToArray(dxcstr);
+                dxcrow = dxc.GetLength(0);
+                dxccol = dxc.GetLength(1);
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 5)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 4]))
+                        {
+                            if (dxc[i, 4] == dxctype + ":" + comboBoxSlot.Text + "/" + comboBoxPort.Text + "/" + comboBoxTs.Text)
+                            {
+                                ID = dxc[i, 1];
+                                Rate = dxc[i, 2];
+                                Dir = dxc[i, 3];
+                                Source = dxc[i, 4];
+                                sink = dxc[i, 5];
+                                P_Source = dxc[i, 6];
+                                P_Sink = dxc[i, 7];
+                                LPG = dxc[i, 9];
+                                textBoxConnections.AppendText("\r\n软件oduk交叉：\t" + "\r\n");
+                                textBoxConnections.AppendText("交叉ID：\t" + dxc[i, 1] + "\r\n");
+                                textBoxConnections.AppendText("速率：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("工作源时隙：\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("工作宿时隙：\t" + dxc[i, 5] + "\r\n");
+                                textBoxConnections.AppendText("保护源时隙：\t" + dxc[i, 6] + "\r\n");
+                                textBoxConnections.AppendText("保护宿时隙：\t" + dxc[i, 7] + "\r\n");
+                                textBoxConnections.AppendText("保护组ID：\t" + dxc[i, 9] + "\r\n");
+
+                                findts = true;
+                                break;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(dxc[i, 5]))
+                        {
+                            if (dxc[i, 5] == "logic" + ":" + comboBoxSlot.Text + "/" + comboBoxPort.Text + "/" + comboBoxTs.Text)
+                            {
+                                ID = dxc[i, 1];
+                                Rate = dxc[i, 2];
+                                Dir = dxc[i, 3];
+                                Source = dxc[i, 4];
+                                sink = dxc[i, 5];
+                                P_Source = dxc[i, 6];
+                                P_Sink = dxc[i, 7];
+                                LPG = dxc[i, 9];
+                                textBoxConnections.AppendText("\r\n软件oduk交叉：\t" + "\r\n");
+                                textBoxConnections.AppendText("交叉ID：\t" + dxc[i, 1] + "\r\n");
+                                textBoxConnections.AppendText("速率：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("工作源时隙：\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("工作宿时隙：\t" + dxc[i, 5] + "\r\n");
+                                textBoxConnections.AppendText("保护源时隙：\t" + dxc[i, 6] + "\r\n");
+                                textBoxConnections.AppendText("保护宿时隙：\t" + dxc[i, 7] + "\r\n");
+                                textBoxConnections.AppendText("保护组ID：\t" + dxc[i, 9] + "\r\n");
+                                findts = true;
+                                break;
+                            }
+                        }
+                    }
+
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件oduk交叉：不存在或错误 NOK" + "\r\n");
+                    textBoxTelnetLogs.AppendText("您勾选源时隙：\t" + comboBoxSlot.Text + "/" + comboBoxPort.Text + "/" + comboBoxTs.Text + "\r\n");
+                    ID = "空"; Rate = "空"; Dir = "空"; Source = "空"; sink = "空"; P_Source = "空"; P_Sink = "空"; LPG = "空";
+
+                }
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 5)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 4]))
+                        {
+                            if (dxc[i, 4] == sink)
+                            {
+                                ID_Stream = dxc[i, 1];
+                                Rate_Stream = dxc[i, 2];
+                                Dir_Stream = dxc[i, 3];
+                                Source_Stream = dxc[i, 4];
+                                sink_Stream = dxc[i, 5];
+                                P_Source_Stream = dxc[i, 6];
+                                P_Sink_Stream = dxc[i, 7];
+                                LPG_Stream = dxc[i, 9];
+                                textBoxConnections.AppendText("\r\n软件Stream交叉：\t" + "\r\n");
+                                textBoxConnections.AppendText("交叉ID：\t" + dxc[i, 1] + "\r\n");
+                                textBoxConnections.AppendText("速率：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("工作源时隙：\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("工作宿时隙：\t" + dxc[i, 5] + "\r\n");
+                                textBoxConnections.AppendText("保护源时隙：\t" + dxc[i, 6] + "\r\n");
+                                textBoxConnections.AppendText("保护宿时隙：\t" + dxc[i, 7] + "\r\n");
+                                textBoxConnections.AppendText("保护组ID：\t" + dxc[i, 9] + "\r\n");
+
+                                findts = true;
+                                break;
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(dxc[i, 5]))
+                        {
+                            if (dxc[i, 5] == dxctype + ":" + comboBoxSlot.Text + "/" + comboBoxPort.Text + "/" + comboBoxTs.Text)
+                            {
+                                ID_Stream = dxc[i, 1];
+                                Rate_Stream = dxc[i, 2];
+                                Dir_Stream = dxc[i, 3];
+                                Source_Stream = dxc[i, 4];
+                                sink_Stream = dxc[i, 5];
+                                P_Source_Stream = dxc[i, 6];
+                                P_Sink_Stream = dxc[i, 7];
+                                LPG_Stream = dxc[i, 9];
+                                textBoxConnections.AppendText("\r\n软件Stream交叉：\t" + "\r\n");
+                                textBoxConnections.AppendText("交叉ID：\t" + dxc[i, 1] + "\r\n");
+                                textBoxConnections.AppendText("速率：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("工作源时隙：\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("工作宿时隙：\t" + dxc[i, 5] + "\r\n");
+                                textBoxConnections.AppendText("保护源时隙：\t" + dxc[i, 6] + "\r\n");
+                                textBoxConnections.AppendText("保护宿时隙：\t" + dxc[i, 7] + "\r\n");
+                                textBoxConnections.AppendText("保护组ID：\t" + dxc[i, 9] + "\r\n");
+                                findts = true;
+                                break;
+                            }
+                        }
+                    }
+
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件Stream交叉：不存在或错误 NOK" + "\r\n");
+                    ID_Stream = "空"; Rate_Stream = "空"; Dir_Stream = "空"; Source_Stream = "空"; sink_Stream = "空"; P_Source_Stream = "空"; P_Sink_Stream = "空"; LPG_Stream = "空";
+                }
+
+
+            }
+            textBoxTelnetLogs.AppendText("\r\n=========================================删除UMS配置=========================================\r\n");
+            //删除UMS配置
+            dxcstr = Connection_Arrange.Get_UMS();
+            textBoxTelnetLogs.AppendText(dxcstr);
+            if (!string.IsNullOrEmpty(dxcstr))
+            {
+                dxc = Connection_Arrange.StringToArray(dxcstr);
+                dxcrow = dxc.GetLength(0);
+                dxccol = dxc.GetLength(1);
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol >= 5)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 5]))
+                        {
+                            if (dxc[i, 5] == ID && dxc[i, 2] == ("ums-cross"))
+                            {
+
+                                string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3] + " " + dxc[i, 4]);
+                                textBoxTelnetLogs.AppendText(dxcstrID);
+                                findts = true;
+                                break;
+                            }
+                        }
+                    }
+
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件UMS交叉：不存在或错误 NOK" + "\r\n");
+
+                }
+
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 8)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 8]))
+                        {
+                            if (Source.Contains("/"))
+                            {
+                                string [] _Source = Source.Split(new char[] { ':' });
+                                string[] portts = _Source[1].Split(new char[] { '/' });
+                                string Slot = portts[0];
+                                string Port = portts[1];
+                                string TS = portts[2];
+                                if (dxc[i, 5] == (Slot + "/" + Port) && dxc[i, 8] == (TS) && dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-ctp"))
+                                {
+                                    string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3] + " " + dxc[i, 4] + " " + dxc[i, 5] + " " + dxc[i, 6] + " " + dxc[i, 7] + " " + dxc[i, 8]);
+                                    textBoxTelnetLogs.AppendText(dxcstrID);
+                                    findts = true;
+                                }
+                            }
+
+                        }
+                        if (!string.IsNullOrEmpty(dxc[i, 8]))
+                        {
+                            if (sink.Contains("/"))
+                            {
+                                string[] _Source = sink.Split(new char[] { ':' });
+                                string[] portts = _Source[1].Split(new char[] { '/' });
+                                string Slot = portts[0];
+                                string Port = portts[1];
+                                string TS = portts[2];
+                                if (dxc[i, 5] == (Slot + "/" + Port) && dxc[i, 8] == (TS) && dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-ctp"))
+                                {
+                                    string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3] + " " + dxc[i, 4] + " " + dxc[i, 5] + " " + dxc[i, 6] + " " + dxc[i, 7] + " " + dxc[i, 8]);
+                                    textBoxTelnetLogs.AppendText(dxcstrID);
+                                    findts = true;
+                                }
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(dxc[i, 8]))
+                        {
+                            if (P_Source.Contains("/"))
+                            {
+                                string[] _Source = P_Source.Split(new char[] { ':' });
+                                string[] portts = _Source[1].Split(new char[] { '/' });
+                                string Slot = portts[0];
+                                string Port = portts[1];
+                                string TS = portts[2];
+                                if (dxc[i, 5] == (Slot + "/" + Port) && dxc[i, 8] == (TS) && dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-ctp"))
+                                {
+                                    string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3] + " " + dxc[i, 4] + " " + dxc[i, 5] + " " + dxc[i, 6] + " " + dxc[i, 7] + " " + dxc[i, 8]);
+                                    textBoxTelnetLogs.AppendText(dxcstrID);
+                                    findts = true;
+                                }
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(dxc[i, 8]))
+                        {
+                            if (P_Sink.Contains("/"))
+                            {
+                                string[] _Source = P_Sink.Split(new char[] { ':' });
+                                string[] portts = _Source[1].Split(new char[] { '/' });
+                                string Slot = portts[0];
+                                string Port = portts[1];
+                                string TS = portts[2];
+                                if (dxc[i, 5] == (Slot + "/" + Port) && dxc[i, 8] == (TS) && dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-ctp"))
+                                {
+                                    string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3] + " " + dxc[i, 4] + " " + dxc[i, 5] + " " + dxc[i, 6] + " " + dxc[i, 7] + " " + dxc[i, 8]);
+                                    textBoxTelnetLogs.AppendText(dxcstrID);
+                                    findts = true;
+                                }
+                            }
+                        }
+                        if (!string.IsNullOrEmpty(dxc[i, 8]))
+                        {
+                            if (sink.Contains("/"))
+                            {
+                                string[] _Source = sink.Split(new char[] { ':' });
+                                string[] portts = _Source[1].Split(new char[] { '/' });
+                                string Slot = portts[0];
+                                string Port = portts[1];
+                                string stream1 = portts[2];
+                                if (dxc[i, 4] == (Slot + "/" + Port) && dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-ftp"))
+                                {
+                                    string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3]);
+                                    textBoxTelnetLogs.AppendText(dxcstrID);
+                                    findts = true;
+                                }
+                            }
+                        }
+                    }
+
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件UMS的CTP配置：不存在或错误 NOK" + "\r\n");
+
+                }
+
+
+            }
+
+
+
+
+            textBoxTelnetLogs.AppendText("\r\n=========================================删除DXC交叉=========================================\r\n");
+            //删除交叉
+            if (!string.IsNullOrEmpty(ID) && ID != "空")
+            {
+                dxcstr = Connection_Arrange.Delete_DXC(ID);
+                textBoxTelnetLogs.AppendText(dxcstr);
+            }
+            if (!string.IsNullOrEmpty(ID_Stream) && ID_Stream != "空")
+            {
+                dxcstr = Connection_Arrange.Delete_DXC(ID_Stream);
+                textBoxTelnetLogs.AppendText(dxcstr);
+            }
+            if (!string.IsNullOrEmpty(LPG) && LPG != "空")
+            {
+                dxcstr = Connection_Arrange.Delete_UMS_LPG(LPG);
+                textBoxTelnetLogs.AppendText(dxcstr);
+            }
+            textBoxTelnetLogs.AppendText("\r\n=========================================删除CTP接口=========================================\r\n");
+            //删除CTP的物理时隙
+            dxcstr = Connection_Arrange.Get_CTP();
+            textBoxTelnetLogs.AppendText(dxcstr);
+            if (!string.IsNullOrEmpty(dxcstr))
+            {
+                dxc = Connection_Arrange.StringToArray(dxcstr);
+                dxcrow = dxc.GetLength(0);
+                dxccol = dxc.GetLength(1);
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 4)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 4]) && !dxc[i, 4].Contains("-"))
+                        {
+                            if (((dxc[i, 2] + ":" + dxc[i, 4]) == Source && dxc[i, 3].Contains("ODU")) || Source == "初始化")
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n工作源ODU的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                                //Source = dxc[i, 4];
+                                findts = true;
+                            }
+                            if (((dxc[i, 2] + ":" + dxc[i, 4]) == sink && dxc[i, 3].Contains("ODU")) || sink == "初始化")
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n工作宿ODU的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                                //sink = dxc[i, 4];
+                                findts = true;
+                            }
+                            if (((dxc[i, 2] + ":" + dxc[i, 4]) == P_Source && dxc[i, 3].Contains("ODU")) || P_Source == "初始化")
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n保护源ODU的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                                //P_Source = dxc[i, 4];
+                                findts = true;
+                            }
+                            if (((dxc[i, 2] + ":" + dxc[i, 4]) == P_Sink && dxc[i, 3].Contains("ODU")) || P_Sink == "初始化")
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n保护宿ODU的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                               // P_Sink = dxc[i, 4];
+                                findts = true;
+
+                            }
+                            if (((dxc[i, 2] + ":" + dxc[i, 4]) == Source_Stream && dxc[i, 3].Contains("stream")) || Source_Stream == "初始化" || (dxc[i, 2] + dxc[i, 3] + dxc[i, 4]) == "client" + "stream" + comboBoxSlot.Text + "/" + comboBoxPort.Text + "/" + comboBoxStream.Text)
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n工作源流的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                                //  Source_Stream = dxc[i, 4];
+                                findts = true;
+                            }
+                            if (((dxc[i, 2] + ":" + dxc[i, 4]) == sink_Stream && dxc[i, 3].Contains("stream")) || sink_Stream == "初始化" || (dxc[i, 2] + dxc[i, 3] + dxc[i, 4]) == "logic" + "stream" + comboBoxSlot.Text + "/" + comboBoxPort.Text + "/" + comboBoxStream.Text)
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n工作宿流的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                                // sink_Stream = dxc[i, 4];
+                                findts = true;
+
+                            }
+                            if (((dxc[i, 2] + ":" + dxc[i, 4]) == P_Source_Stream && dxc[i, 3].Contains("stream")) || P_Source_Stream == "初始化")
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n保护源流的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                                findts = true;
+
+                            }
+                            if (((dxc[i, 2] + ":" + dxc[i, 4]) == P_Sink_Stream && dxc[i, 3].Contains("stream")) || P_Sink_Stream == "初始化")
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n保护宿流的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                                findts = true;
+
+                            }
+                        }
+                    }
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n业务所在CTP接口：不存在或错误 NOK" + "\r\n");
+
+                }
+
+            }
+
+            textBoxTelnetLogs.AppendText("\r\n=========================================检查配置=========================================\r\n");
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_ETH_CTP());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_PTN_CTP());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_UMS());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_DXC());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_CTP());
+            MessageBox.Show("运行完成");
+        }
+        private void buttonGetConnection_Click(object sender, EventArgs e)
+        {
+            Thread t = new Thread(DeleteConnection);
+            t.Start();
+        }
+
+        private void buttonDeleteConnection_Click(object sender, EventArgs e)
+        {
+            Thread t = new Thread(DeleteConnectionAll);
+            t.Start();
+        }
+
+        private void 查看Telnet交互日志ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("notepad.exe", @"C:\netconf\Logs\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + TextIP.Text+"-" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
+        }
+        private void DeleteConnectionAll()
+        {
+            textBoxConnections.Clear();
+            textBoxTelnetLogs.Clear();
+            string[,] dxc = null;
+            int dxcrow = 0;
+            int dxccol = 0;
+            bool findts = false;
+            string dxctype = "client";
+            string dxcstr = "";
+            string ID = "", Rate = "", Dir = "", Source = "", sink = "", P_Source = "", P_Sink = "", LPG = "";
+            string ID_Stream = "", Rate_Stream = "", Dir_Stream = "", Source_Stream = "", sink_Stream = "", P_Source_Stream = "", P_Sink_Stream = "", LPG_Stream = "";
+            string connectstr = Connection_Arrange.Connect(TextIP.Text, "admin", "greenway");
+            //查询交叉ID和保护组
+            textBoxTelnetLogs.AppendText(connectstr);
+            textBoxTelnetLogs.AppendText("\r\n=========================================删除UMS配置=========================================\r\n");
+            //删除UMS配置
+            dxcstr = Connection_Arrange.Get_UMS();
+            textBoxTelnetLogs.AppendText(dxcstr);
+            if (!string.IsNullOrEmpty(dxcstr))
+            {
+                dxc = Connection_Arrange.StringToArray(dxcstr);
+                dxcrow = dxc.GetLength(0);
+                dxccol = dxc.GetLength(1);
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol >= 5)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 5]))
+                        {
+                            if (dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-cross"))
+                            {
+
+                                string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3] + " " + dxc[i, 4]);
+                                textBoxTelnetLogs.AppendText(dxcstrID);
+                                findts = true;
+                            }
+                        }
+                    }
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件UMS交叉：不存在或错误 NOK" + "\r\n");
+                }
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 8)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 8]))
+                        {
+                            if (dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-lpg"))
+                            {
+                                string dxcstrID = Connection_Arrange.Delete_UMS_LPG(dxc[i, 3]);
+                                textBoxTelnetLogs.AppendText(dxcstrID);
+                                findts = true;
+                            }
+                            if (dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-ctp"))
+                            {
+                                string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3] + " " + dxc[i, 4] + " " + dxc[i, 5] + " " + dxc[i, 6] + " " + dxc[i, 7] + " " + dxc[i, 8]);
+                                textBoxTelnetLogs.AppendText(dxcstrID);
+                                findts = true;
+                            }
+                            if (dxc[i, 1] == ("create") && dxc[i, 2] == ("ums-ftp"))
+                            {
+                                string dxcstrID = Connection_Arrange.Delete_UMS(dxc[i, 2] + " " + dxc[i, 3]);
+                                textBoxTelnetLogs.AppendText(dxcstrID);
+                                findts = true;
+                            }
+                        }
+
+                    }
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件UMS的CTP配置：不存在或错误 NOK" + "\r\n");
+
+                }
+            }
+            textBoxTelnetLogs.AppendText("\r\n=========================================查询所在业务=========================================\r\n");
+            dxcstr = Connection_Arrange.Get_DXC();
+            textBoxTelnetLogs.AppendText(dxcstr);
+            if (!string.IsNullOrEmpty(dxcstr))
+            {
+                dxc = Connection_Arrange.StringToArray(dxcstr);
+                dxcrow = dxc.GetLength(0);
+                dxccol = dxc.GetLength(1);
+                textBoxTelnetLogs.AppendText("\r\n=========================================删除DXC交叉=========================================\r\n");
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 5)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 4]))
+                        {
+
+
+                            if (dxc[i, 4].Contains("/")&& dxc[i, 2].Contains("ODU"))
+                            {
+                                ID = dxc[i, 1];
+                                Rate = dxc[i, 2];
+                                Dir = dxc[i, 3];
+                                Source = dxc[i, 4];
+                                sink = dxc[i, 5];
+                                P_Source = dxc[i, 6];
+                                P_Sink = dxc[i, 7];
+                                LPG = dxc[i, 9];
+                                textBoxConnections.AppendText("\r\n软件oduk交叉：\t" + "\r\n");
+                                textBoxConnections.AppendText("交叉ID：\t" + dxc[i, 1] + "\r\n");
+                                textBoxConnections.AppendText("速率：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("工作源时隙：\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("工作宿时隙：\t" + dxc[i, 5] + "\r\n");
+                                textBoxConnections.AppendText("保护源时隙：\t" + dxc[i, 6] + "\r\n");
+                                textBoxConnections.AppendText("保护宿时隙：\t" + dxc[i, 7] + "\r\n");
+                                textBoxConnections.AppendText("保护组ID：\t" + dxc[i, 9] + "\r\n");
+                                //删除交叉
+                                if (!string.IsNullOrEmpty(ID) && ID != "空")
+                                {
+                                    dxcstr = Connection_Arrange.Delete_DXC(ID);
+                                    textBoxTelnetLogs.AppendText(dxcstr);
+                                }
+                                findts = true;
+                                
+                            }
+                        }
+                    }
+
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件oduk交叉：不存在或错误 NOK" + "\r\n");
+                    textBoxTelnetLogs.AppendText("您勾选源时隙：\t" + comboBoxSlot.Text + "/" + comboBoxPort.Text + "/" + comboBoxTs.Text + "\r\n");
+                    ID = "空"; Rate = "空"; Dir = "空"; Source = "空"; sink = "空"; P_Source = "空"; P_Sink = "空"; LPG = "空";
+
+                }
+                textBoxTelnetLogs.AppendText("\r\n=========================================删除Stream交叉=========================================\r\n");
+
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 5)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 4]))
+                        {
+                            if (dxc[i, 4].Contains("/") && dxc[i, 2].Contains("stream"))
+                            {
+                                ID_Stream = dxc[i, 1];
+                                Rate_Stream = dxc[i, 2];
+                                Dir_Stream = dxc[i, 3];
+                                Source_Stream = dxc[i, 4];
+                                sink_Stream = dxc[i, 5];
+                                P_Source_Stream = dxc[i, 6];
+                                P_Sink_Stream = dxc[i, 7];
+                                LPG_Stream = dxc[i, 9];
+                                textBoxConnections.AppendText("\r\n软件Stream交叉：\t" + "\r\n");
+                                textBoxConnections.AppendText("交叉ID：\t" + dxc[i, 1] + "\r\n");
+                                textBoxConnections.AppendText("速率：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("工作源时隙：\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("工作宿时隙：\t" + dxc[i, 5] + "\r\n");
+                                textBoxConnections.AppendText("保护源时隙：\t" + dxc[i, 6] + "\r\n");
+                                textBoxConnections.AppendText("保护宿时隙：\t" + dxc[i, 7] + "\r\n");
+                                textBoxConnections.AppendText("保护组ID：\t" + dxc[i, 9] + "\r\n");
+                                if (!string.IsNullOrEmpty(ID_Stream) && ID_Stream != "空")
+                                {
+                                    dxcstr = Connection_Arrange.Delete_DXC(ID_Stream);
+                                    textBoxTelnetLogs.AppendText(dxcstr);
+                                }
+                                findts = true;
+                                
+                            }
+                        }
+                    }
+
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件Stream交叉：不存在或错误 NOK" + "\r\n");
+                    ID_Stream = "空"; Rate_Stream = "空"; Dir_Stream = "空"; Source_Stream = "空"; sink_Stream = "空"; P_Source_Stream = "空"; P_Sink_Stream = "空"; LPG_Stream = "空";
+                }
+
+                textBoxTelnetLogs.AppendText("\r\n=========================================删除OSU交叉=========================================\r\n");
+
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 5)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 4]))
+                        {
+                            if (dxc[i, 4].Contains("/") && dxc[i, 2].Contains("OSU"))
+                            {
+                                ID_Stream = dxc[i, 1];
+                                Rate_Stream = dxc[i, 2];
+                                Dir_Stream = dxc[i, 3];
+                                Source_Stream = dxc[i, 4];
+                                sink_Stream = dxc[i, 5];
+                                P_Source_Stream = dxc[i, 6];
+                                P_Sink_Stream = dxc[i, 7];
+                                LPG_Stream = dxc[i, 9];
+                                textBoxConnections.AppendText("\r\n软件OSU交叉：\t" + "\r\n");
+                                textBoxConnections.AppendText("交叉ID：\t" + dxc[i, 1] + "\r\n");
+                                textBoxConnections.AppendText("速率：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("工作源时隙：\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("工作宿时隙：\t" + dxc[i, 5] + "\r\n");
+                                textBoxConnections.AppendText("保护源时隙：\t" + dxc[i, 6] + "\r\n");
+                                textBoxConnections.AppendText("保护宿时隙：\t" + dxc[i, 7] + "\r\n");
+                                textBoxConnections.AppendText("保护组ID：\t" + dxc[i, 9] + "\r\n");
+                                if (!string.IsNullOrEmpty(ID_Stream) && ID_Stream != "空")
+                                {
+                                    dxcstr = Connection_Arrange.Delete_DXC(ID_Stream);
+                                    textBoxTelnetLogs.AppendText(dxcstr);
+                                }
+                                findts = true;
+
+                            }
+                        }
+                    }
+
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\n软件OSU交叉：不存在或错误 NOK" + "\r\n");
+                    ID_Stream = "空"; Rate_Stream = "空"; Dir_Stream = "空"; Source_Stream = "空"; sink_Stream = "空"; P_Source_Stream = "空"; P_Sink_Stream = "空"; LPG_Stream = "空";
+                }
+                textBoxTelnetLogs.AppendText("\r\n=========================================删除VC交叉=========================================\r\n");
+
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 5)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 4]))
+                        {
+                            if (dxc[i, 4].Contains("/") && dxc[i, 2].Contains("VC"))
+                            {
+                                ID_Stream = dxc[i, 1];
+                                Rate_Stream = dxc[i, 2];
+                                Dir_Stream = dxc[i, 3];
+                                Source_Stream = dxc[i, 4];
+                                sink_Stream = dxc[i, 5];
+                                P_Source_Stream = dxc[i, 6];
+                                P_Sink_Stream = dxc[i, 7];
+                                LPG_Stream = dxc[i, 9];
+                                textBoxConnections.AppendText("\r\nVC交叉：\t" + "\r\n");
+                                textBoxConnections.AppendText("交叉ID：\t" + dxc[i, 1] + "\r\n");
+                                textBoxConnections.AppendText("速率：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("工作源时隙：\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("工作宿时隙：\t" + dxc[i, 5] + "\r\n");
+                                textBoxConnections.AppendText("保护源时隙：\t" + dxc[i, 6] + "\r\n");
+                                textBoxConnections.AppendText("保护宿时隙：\t" + dxc[i, 7] + "\r\n");
+                                textBoxConnections.AppendText("保护组ID：\t" + dxc[i, 9] + "\r\n");
+                                if (!string.IsNullOrEmpty(ID_Stream) && ID_Stream != "空")
+                                {
+                                    dxcstr = Connection_Arrange.Delete_DXC(ID_Stream);
+                                    textBoxTelnetLogs.AppendText(dxcstr);
+                                }
+                                findts = true;
+
+                            }
+                        }
+                    }
+
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\nVC交叉：不存在或错误 NOK" + "\r\n");
+                    ID_Stream = "空"; Rate_Stream = "空"; Dir_Stream = "空"; Source_Stream = "空"; sink_Stream = "空"; P_Source_Stream = "空"; P_Sink_Stream = "空"; LPG_Stream = "空";
+                }
+            }
+            textBoxTelnetLogs.AppendText("\r\n=========================================删除CTP接口=========================================\r\n");
+            //删除CTP的物理时隙
+            dxcstr = Connection_Arrange.Get_CTP();
+            textBoxTelnetLogs.AppendText(dxcstr);
+            if (!string.IsNullOrEmpty(dxcstr))
+            {
+                dxc = Connection_Arrange.StringToArray(dxcstr);
+                dxcrow = dxc.GetLength(0);
+                dxccol = dxc.GetLength(1);
+                for (int i = 0; i < dxcrow; i++)
+                {
+                    if (dxccol > 4)
+                    {
+                        if (!string.IsNullOrEmpty(dxc[i, 4]) && !dxc[i, 4].Contains("-"))
+                        {
+                            if (dxc[i, 4].Contains("/"))
+                            {
+                                dxcstr = Connection_Arrange.Delete_CTP(dxc[i, 2], dxc[i, 3], dxc[i, 4], dxc[i, 7]);
+                                textBoxConnections.AppendText("\r\n的CTP接口：\t" + "\r\n");
+                                textBoxConnections.AppendText("dir：\t\t" + dxc[i, 2] + "\r\n");
+                                textBoxConnections.AppendText("rate：\t\t" + dxc[i, 3] + "\r\n");
+                                textBoxConnections.AppendText("port：\t\t" + dxc[i, 4] + "\r\n");
+                                textBoxConnections.AppendText("crtinfo：\t" + dxc[i, 7] + "\r\n");
+                                textBoxTelnetLogs.AppendText(dxcstr);
+                                findts = true;
+                            }
+                        }
+                    }
+
+                }
+                if (findts == false)
+                {
+                    textBoxTelnetLogs.AppendText("\r\nCTP接口：不存在或错误 NOK" + "\r\n");
+
+                }
+
+            }
+
+            textBoxTelnetLogs.AppendText("\r\n=========================================检查配置=========================================\r\n");
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_ETH_CTP());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_PTN_CTP());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_UMS());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_DXC());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_CTP());
+            MessageBox.Show("运行完成");
+        }
+
+        private void buttonConnectionGet_Click(object sender, EventArgs e)
+        {
+            Thread t = new Thread(OTNConfig);
+            t.Start();
+        }
+        private void OTNConfig() {
+
+            bool isAll = false;
+
+            DialogResult dr1 = MessageBox.Show("是否查询所有OTN配置？\r\n选择否则进行指定端口查询（请选择槽位和接口后进行）", "提示", MessageBoxButtons.YesNoCancel);
+            if (dr1 == DialogResult.Yes)
+            {
+                isAll = true; 
+            }
+            if (dr1 == DialogResult.No)
+            {
+                isAll = false;
+            }
+            if (dr1 == DialogResult.Cancel)
+            {
+                return;
+            }
+            textBoxConnections.Clear();
+            textBoxTelnetLogs.Clear();
+            string dxcstr = "";
+            string connectstr = Connection_Arrange.Connect(TextIP.Text, "admin", "greenway");
+            //查询交叉ID和保护组
+            textBoxTelnetLogs.AppendText(connectstr);
+            dxcstr = Connection_Arrange.Get_OTN();
+            dxcstr += Connection_Arrange.Get_PTN_CTP();
+            textBoxTelnetLogs.AppendText(dxcstr);
+            string[] PortConfig = dxcstr.Split(new char[] { '\n' });
+            string FindPortAll = "";
+            for (int i = 0; i < PortConfig.Length; i++)
+            {
+                if (!FindPortAll.Contains(PortConfig[i])) {
+
+                    if (PortConfig[i].Contains("interface ") && isAll)
+                    {
+                        FindPortAll += PortConfig[i] + ",";
+                        textBoxConnections.AppendText(PortConfig[i] + "\r\n");
+
+                        for (int j = 0; j < PortConfig.Length; j++)
+                        {
+                            if (PortConfig[j] == PortConfig[i])
+                            {
+                                for (int n = 0; n < PortConfig.Length; n++)
+                                {
+                                    if (!PortConfig[j + n].Contains("interface") && !PortConfig[j + n].Contains("exit"))
+                                    {
+                                        textBoxConnections.AppendText("   " + PortConfig[j + n] + "\r\n");
+                                    }
+                                    if (PortConfig[j + n].Contains("exit"))
+                                    {
+
+                                        break;
+                                    }
+                                }
+
+                            }
+                        }
+                        textBoxConnections.AppendText("     exit\r\n");
+                    }
+                    if (PortConfig[i].Contains("interface ") && isAll==false && PortConfig[i].Contains(" "+comboBoxSlot.Text+"/"+ comboBoxPort.Text+"\r"))
+                    {
+                        FindPortAll += PortConfig[i] + ",";
+                        textBoxConnections.AppendText(PortConfig[i] + "\r\n");
+
+                        for (int j = 0; j < PortConfig.Length; j++)
+                        {
+                            if (PortConfig[j] == PortConfig[i])
+                            {
+                                for (int n = 0; n < PortConfig.Length; n++)
+                                {
+                                    if (!PortConfig[j + n].Contains("interface") && !PortConfig[j + n].Contains("exit"))
+                                    {
+                                        textBoxConnections.AppendText("   " + PortConfig[j + n] + "\r\n");
+                                    }
+                                    if (PortConfig[j + n].Contains("exit"))
+                                    {
+
+                                        break;
+                                    }
+                                }
+
+                            }
+                        }
+                        textBoxConnections.AppendText("     exit\r\n");
+                    }
+                }
+            }
+            textBoxTelnetLogs.AppendText("\r\n=========================================检查配置=========================================\r\n");
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_ETH_CTP());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_PTN_CTP());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_UMS());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_DXC());
+            textBoxTelnetLogs.AppendText(Connection_Arrange.Get_CTP());
+            
+        }
+
+        private void buttonGetCurrentAlarm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridViewAlarm.Rows.Clear();
+                // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                XmlDocument xmlDoc1 = new XmlDocument();
+                xmlDoc1 = GetXML.Alarms(comboBoxAlarmPort.Text);
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                var xmlDoc = Sendrpc(xmlDoc1, id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("alarms", "urn:ccsa:yang:acc-alarms");
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//alarms:alarms//alarms:alarm", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    int index = dataGridViewAlarm.Rows.Add();
+                    XmlNode alarm_serial_no = itemNode.SelectSingleNode("alarms:alarm-serial-no", root);
+                    XmlNode object_name = itemNode.SelectSingleNode("alarms:object-name", root);
+                    XmlNode object_type = itemNode.SelectSingleNode("alarms:object-type", root);
+                    //XmlNode granularity = itemNode.SelectSingleNode("alarms:granularity", root);
+                    XmlNode alarm_code = itemNode.SelectSingleNode("alarms:alarm-code", root);
+                    XmlNode alarm_state = itemNode.SelectSingleNode("alarms:alarm-state", root);
+                    XmlNode perceived_severity = itemNode.SelectSingleNode("alarms:perceived-severity", root);
+                    XmlNode additional_text = itemNode.SelectSingleNode("alarms:additional-text", root);
+                    XmlNode start_time = itemNode.SelectSingleNode("alarms:start-time", root);
+                    XmlNode end_time = itemNode.SelectSingleNode("alarms:end-time", root);
+                    if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText; }
+                    if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["对象网元"].Value = treeViewNEID.SelectedNode.Text; }
+                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                    if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                    if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                    if (perceived_severity != null) {
+                        switch (perceived_severity.InnerText)
+                        {
+                            case "critical":
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "紧急" + perceived_severity.InnerText;
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.OrangeRed;
+                                //alarmlog.SubItems[5].BackColor = Color.Red;
+                                break;
+                            case "major":
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "重要" + perceived_severity.InnerText;
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Orange;
+                                break;
+                            case "minor":
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "次要" + perceived_severity.InnerText;
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Yellow;
+                                break;
+                            case "warning":
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "提示" + perceived_severity.InnerText;
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.DeepSkyBlue;
+                                break;
+                        }
+                      //  dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = perceived_severity.InnerText;
+                    }
+                    if (additional_text != null) { dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = additional_text.InnerText; }
+                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                    if (alarm_state != null) {
+                        if (alarm_state.InnerText == "start") {
+                            dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                        }
+                    }
+
+                    // LabPerCount.Text = (index + 1).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonGetPortList_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                comboBoxAlarmPort.Items.Clear();
+                comboBoxAlarmPort.Items.Add("全部端口");
+                //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                XmlDocument xmlDoc = new XmlDocument();
+                //xmlDoc.Load(filename);
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                xmlDoc = Sendrpc(GetXML.PtpsFtpsCtps(true, true, true), id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("ptpsxmlns", "urn:ccsa:yang:acc-devm");
+                //  root.AddNamespace("oduxmlns", "urn:ccsa:yang:acc-otn");
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//ptpsxmlns:ptps//ptpsxmlns:ptp|//ptpsxmlns:ftps//ptpsxmlns:ftp|//ptpsxmlns:ctps//ptpsxmlns:ctp", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    XmlNode name = itemNode.SelectSingleNode("ptpsxmlns:name", root);
+                    if (name != null)
+                    {
+                        comboBoxAlarmPort.Items.Add(name.InnerText);
+                        if (comboBoxAlarmPort.Items.Count > 0)
+                        {
+                            comboBoxAlarmPort.SelectedIndex = comboBoxAlarmPort.Items.Count - 1;
+                        }
+                    }
+                }
+                if (xmlDoc.DocumentElement != null)
+                    MessageBox.Show("运行完成");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+            }
+        }
+
+        private void buttonUTC_Click(object sender, EventArgs e)
+        {
+            if (ButUTC.Text.Contains("UTC"))
+            {
+                dateTimePickerStartTime.Value = DateTime.UtcNow;
+                dateTimePickerStopTime.Value = DateTime.UtcNow;
+                dateTimePickerStartTime.CustomFormat = "yyyy-MM-ddTHH:mm:ss.000Z";
+                dateTimePickerStopTime.CustomFormat = "yyyy-MM-ddTHH:mm:ss.000Z";
+                ButUTC.Text = "北京时间";
+            }
+            else
+            {
+                dateTimePickerStartTime.Value = DateTime.Now;
+                dateTimePickerStopTime.Value = DateTime.Now;
+                dateTimePickerStartTime.CustomFormat = "yyyy-MM-ddTHH:mm:ss+08:00";
+                dateTimePickerStopTime.CustomFormat = "yyyy-MM-ddTHH:mm:ss+08:00";
+                ButUTC.Text = "UTC时间";
+            }
+        }
+
+        private void buttonGetHistoryAlarm_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridViewAlarm.Rows.Clear();
+                // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                XmlDocument xmlDoc1 = new XmlDocument();
+                xmlDoc1 = GetXML.Get_History_Alarms(dateTimePickerStartTime.Text, dateTimePickerStopTime.Text);
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                var xmlDoc = Sendrpc(xmlDoc1, id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("alarms", "urn:ccsa:yang:acc-alarms");
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//alarms:alarms//alarms:alarm", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    int index = dataGridViewAlarm.Rows.Add();
+                    XmlNode alarm_serial_no = itemNode.SelectSingleNode("alarms:alarm-serial-no", root);
+                    XmlNode object_name = itemNode.SelectSingleNode("alarms:object-name", root);
+                    XmlNode object_type = itemNode.SelectSingleNode("alarms:object-type", root);
+                    //XmlNode granularity = itemNode.SelectSingleNode("alarms:granularity", root);
+                    XmlNode alarm_code = itemNode.SelectSingleNode("alarms:alarm-code", root);
+                    XmlNode alarm_state = itemNode.SelectSingleNode("alarms:alarm-state", root);
+                    XmlNode perceived_severity = itemNode.SelectSingleNode("alarms:perceived-severity", root);
+                    XmlNode additional_text = itemNode.SelectSingleNode("alarms:additional-text", root);
+                    XmlNode start_time = itemNode.SelectSingleNode("alarms:start-time", root);
+                    XmlNode end_time = itemNode.SelectSingleNode("alarms:end-time", root);
+                    if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = "alarm：" +  alarm_serial_no.InnerText; }
+                    if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["对象网元"].Value = treeViewNEID.SelectedNode.Text; }
+                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                    if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                    if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                    if (perceived_severity != null)
+                    {
+                        switch (perceived_severity.InnerText)
+                        {
+                            case "critical":
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "紧急" + perceived_severity.InnerText;
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.OrangeRed;
+                                //alarmlog.SubItems[5].BackColor = Color.Red;
+                                break;
+                            case "major":
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "重要" + perceived_severity.InnerText;
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Orange;
+                                break;
+                            case "minor":
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "次要" + perceived_severity.InnerText;
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Yellow;
+                                break;
+                            case "warning":
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "提示" + perceived_severity.InnerText;
+                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.DeepSkyBlue;
+                                break;
+                        }
+                        //  dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = perceived_severity.InnerText;
+                    }
+                    if (additional_text != null) { dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = additional_text.InnerText; }
+                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                    if (alarm_state != null)
+                    {
+                        if (alarm_state.InnerText == "start")
+                        {
+                            dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                        }
+                        if (alarm_state.InnerText == "end")
+                        {
+                            dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                        }
+                    }
+
+                    // LabPerCount.Text = (index + 1).ToString();
+                }
+                 itemNodes = xmlDoc.SelectNodes("//alarms:tcas//alarms:tca", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    int index = dataGridViewAlarm.Rows.Add();
+                    XmlNode tca_serial_no = itemNode.SelectSingleNode("alarms:tca-serial-no", root);
+                    XmlNode object_name = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:object-name", root);
+                    XmlNode object_type = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:object-type", root);
+                    XmlNode granularity = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:granularity", root);
+                    XmlNode pm_parameter_name = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:pm-parameter-name", root);
+                    XmlNode tca_state = itemNode.SelectSingleNode("alarms:tca-state", root);
+                    XmlNode threshold_value = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:threshold-value", root);
+                    XmlNode threshold_type = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:threshold-type", root);
+                    XmlNode current_value = itemNode.SelectSingleNode("alarms:current-value", root);
+                    XmlNode start_time = itemNode.SelectSingleNode("alarms:start-time", root);
+                    XmlNode end_time = itemNode.SelectSingleNode("alarms:end-time", root);
+                    if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = "tca:"+ tca_serial_no.InnerText; }
+                    if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["对象网元"].Value = treeViewNEID.SelectedNode.Text; }
+                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                    if (pm_parameter_name != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = pm_parameter_name.InnerText; }
+                    if (tca_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = tca_state.InnerText; }
+                    if (threshold_value != null && threshold_type != null && current_value!=null) {
+                        dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = "类型： " + threshold_type.InnerText + " 阈值： " + threshold_value.InnerText + " 当前值： " + current_value.InnerText;
+                    }
+                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "周期：" + granularity.InnerText; }
+                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                    if (tca_state != null)
+                    {
+                        if (tca_state.InnerText == "start")
+                        {
+                            dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                        }
+                        if (tca_state.InnerText == "end")
+                        {
+                            dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                        }
+                    }
+
+                    // LabPerCount.Text = (index + 1).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void buttonTcaAlarms_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                dataGridViewAlarm.Rows.Clear();
+                // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
+                // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
+                XmlDocument xmlDoc1 = new XmlDocument();
+                xmlDoc1 = GetXML.TcasAlarms(comboBoxAlarmPort.Text);
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                var xmlDoc = Sendrpc(xmlDoc1, id, ip);
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("alarms", "urn:ccsa:yang:acc-alarms");
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//alarms:tcas//alarms:tca", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                    int index = dataGridViewAlarm.Rows.Add();
+                    XmlNode tca_serial_no = itemNode.SelectSingleNode("alarms:tca-serial-no", root);
+                    XmlNode object_name = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:object-name", root);
+                    XmlNode object_type = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:object-type", root);
+                    XmlNode granularity = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:granularity", root);
+                    XmlNode pm_parameter_name = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:pm-parameter-name", root);
+                    XmlNode tca_state = itemNode.SelectSingleNode("alarms:tca-state", root);
+                    XmlNode threshold_value = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:threshold-value", root);
+                    XmlNode threshold_type = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:threshold-type", root);
+                    XmlNode current_value = itemNode.SelectSingleNode("alarms:current-value", root);
+                    XmlNode start_time = itemNode.SelectSingleNode("alarms:start-time", root);
+                    XmlNode end_time = itemNode.SelectSingleNode("alarms:end-time", root);
+                    if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = tca_serial_no.InnerText; }
+                    if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["对象网元"].Value = treeViewNEID.SelectedNode.Text; }
+                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                    if (pm_parameter_name != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = pm_parameter_name.InnerText; }
+                    if (tca_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = tca_state.InnerText; }
+                    if (threshold_value != null && threshold_type != null && current_value != null)
+                    {
+                        dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = "类型： " + threshold_type.InnerText + " 阈值： " + threshold_value.InnerText + " 当前值： " + current_value.InnerText;
+                    }
+                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "周期：" + granularity.InnerText; }
+                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                    if (tca_state != null)
+                    {
+                        if (tca_state.InnerText == "start")
+                        {
+                            dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                        }
+                        if (tca_state.InnerText == "end")
+                        {
+                            dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                        }
+                    }
+                    // LabPerCount.Text = (index + 1).ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void 预建MSP保护组ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
