@@ -8,6 +8,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Netconf")]
 
 [assembly: AssemblyDescription("" +
+    "2022.10.21 解决自动化测试通知导致判断用例通过错误的问题，也解决了通知漏报的问题" + "\r\n" +
+    "2022.10.20 新增双击业务查询显示CTP详细信息" + "\r\n" +
     "2022.08.30 解决移动EOS业务服务映射模式没有更新问题" + "\r\n" +
     "2022.06.26 尝试解决通知与回复模块的问题" + "\r\n" +
      "2022.06.20 解决通知与应答模块冲突问题" + "\r\n" +
@@ -93,5 +95,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2022.5.7.19")]
-[assembly: AssemblyFileVersion("2022.5.7.19")]
+[assembly: AssemblyVersion("2022.5.7.22")]
+[assembly: AssemblyFileVersion("2022.5.7.22")]

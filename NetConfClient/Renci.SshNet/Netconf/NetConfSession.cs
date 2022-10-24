@@ -21,7 +21,6 @@ namespace Renci.SshNet.NetConf
         private StringBuilder _rpcReply = new StringBuilder();
         private StringBuilder _rpcReplyNotification = new StringBuilder();
         private int _messageId;
-        private string _notificationstr ="";
 
         /// <summary>
         /// Gets NetConf server capabilities.
@@ -185,29 +184,29 @@ namespace Renci.SshNet.NetConf
             }
             return reply;
         }
-        private string a = "";
+       // private string a = "";
 
         public string SendReceiveRpcSub(int Timeout)
         {
-            //_datanotification.Clear();
-            //_rpcReplyNotification = new StringBuilder();
-            // _rpcReplyReceivedNotificaton.Reset();
-            // WaitOnHandleNotification(_rpcReplyReceivedNotificaton, -1);
-            // return _rpcReplyNotification.ToString();
+            _datanotification.Clear();
+            _rpcReplyNotification = new StringBuilder();
+            _rpcReplyReceivedNotificaton.Reset();
+            WaitOnHandleNotification(_rpcReplyReceivedNotificaton, -1);
+            return _rpcReplyNotification.ToString();
 
-            if (a != _notificationstr)
-            {
-                a = _notificationstr;
-                return _notificationstr;
-            }
-            else
-            {
-                _notificationstr = "";
-                a = "";
-                return _notificationstr;
+            //if (a != _notificationstr)
+            //{
+            //    a = _notificationstr;
+            //    return _notificationstr;
+            //}
+            //else
+            //{
+            //    _notificationstr = "";
+            //    a = "";
+            //    return _notificationstr;
 
-            }
-            //return _notificationstr;
+            //}
+            //  return _notificationstr;
 
         }
         public void SendReceiveRpcKeepLive()
@@ -347,56 +346,55 @@ namespace Renci.SshNet.NetConf
                     return;
                     //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
                 }
-
-                //if (!chunknotfication.Contains("##"))
-                //{
-                //    return;
-                //    //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
-                //}
                 
-                System.Diagnostics.Debug.WriteLine(chunk);
-                System.Diagnostics.Debug.WriteLine("\r\n 1.1版本服务器回复打印完毕");
-
+                System.Diagnostics.Debug.WriteLine(chunk + "\r\n----------1.1版本服务器回复打印完毕-------------");
+                WriteLogs("Log", "答复：", chunk);
                 chunk = _data.ToString();
                 _data.Clear();
-                //chunknotfication = _datanotification.ToString();
-
-                //_datanotification.Clear();
 
                 if (chunk.Contains("</rpc-reply>"))
                 {
-                    _rpcReply.Append(Regex.Replace(chunk, @"\n*#([\d\n\#]*)", ""));
-                    _rpcReplyReceived.Set();
-                }
-                if (chunk.Contains("</notification>"))
-                {
-
-                    //_rpcReplyNotification.Append(Regex.Replace(chunknotfication, @"\n#([\d\n\#]*)", ""));
-                    // _rpcReplyReceivedNotificaton.Set();
-                   // _notificationstr = Regex.Replace(chunk, @"\n#([\d\n\#]*)", "");
                     string[] arr = Regex.Split(chunk, "##", RegexOptions.IgnoreCase);
-
                     foreach (string s in arr)
                     {
-                        if (s.Contains("</notification>")) {
- 
-                            _notificationstr = Regex.Replace(s, @"\n*#([\d\n\#]*)", "");
-
-                        }
-                        if (s.Contains("</rpc-reply>")) {
-
-                            _rpcReply.Append(Regex.Replace(_notificationstr, @"\n*#([\d\n\#]*)", ""));
+                        if (s.Contains("</rpc-reply>"))
+                        {
+                            _rpcReply.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                             _rpcReplyReceived.Set();
                         }
-                        if (s.Contains("<rpc-reply>")&& !s.Contains("</rpc-reply>"))
+                        if (s.Contains("<notification") && s.Contains("</notification>"))
                         {
-
+                            _rpcReplyNotification.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
+                            _rpcReplyReceivedNotificaton.Set();
+                        }
+                        if (s.Contains("<notification") && !s.Contains("</notification>"))
+                        {
                             _data.Append(s);
-                            return;
                         }
                     }
                 }
-                WriteLogs("Log", "答复：", chunk);
+                if (chunk.Contains("</notification>"))
+                {
+                    string[] arr = Regex.Split(chunk, "##", RegexOptions.IgnoreCase);
+                    foreach (string s in arr)
+                    {
+                        if (s.Contains("</rpc-reply>")) {
+
+                            _rpcReply.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
+                            _rpcReplyReceived.Set();
+                        }
+                        if (s.Contains("</notification>"))
+                        {
+                            _rpcReplyNotification.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
+                             _rpcReplyReceivedNotificaton.Set();
+                        }
+                        if (s.Contains("<rpc-reply")&& !s.Contains("</rpc-reply>"))
+                        {
+                            _data.Append(s);
+                        }
+                    }
+                }
+
 
             }
             else  // Old protocol
@@ -420,21 +418,63 @@ namespace Renci.SshNet.NetConf
                 WriteLogs("Log", "答复：", chunk);
                 System.Diagnostics.Debug.WriteLine(chunk);
                 System.Diagnostics.Debug.WriteLine("\r\n 1.0版本服务器回复打印完毕");
-
                 chunk = _data.ToString();
                // chunknotfication = _datanotification.ToString();
                 _data.Clear();
                 _datanotification.Clear();
+                //if (chunk.Contains("</rpc-reply>"))
+                //{
+                //    _rpcReply.Append(chunk.Replace(Prompt, ""));
+                //    _rpcReplyReceived.Set();
+                //}
+                //if (chunk.Contains("</notification>"))
+                //{
+                //    _rpcReplyNotification.Append(chunk.Replace(Prompt, ""));
+                //    _rpcReplyReceivedNotificaton.Set();
+
+                //}
                 if (chunk.Contains("</rpc-reply>"))
                 {
-                    _rpcReply.Append(chunk.Replace(Prompt, ""));
-                    _rpcReplyReceived.Set();
+                    string[] arr = Regex.Split(chunk, Prompt, RegexOptions.IgnoreCase);
+                    foreach (string s in arr)
+                    {
+                        if (s.Contains("</rpc-reply>"))
+                        {
+                            _rpcReply.Append(chunk.Replace(Prompt, ""));
+                            _rpcReplyReceived.Set();
+                        }
+                        if (s.Contains("<notification") && s.Contains("</notification>"))
+                        {
+                            _rpcReplyNotification.Append(chunk.Replace(Prompt, ""));
+                            _rpcReplyReceivedNotificaton.Set();
+                        }
+                        if (s.Contains("<notification") && !s.Contains("</notification>"))
+                        {
+                            _data.Append(s);
+                        }
+                    }
                 }
                 if (chunk.Contains("</notification>"))
                 {
-                    //_rpcReplyNotification.Append(chunk.Replace(Prompt, ""));
-                    //_rpcReplyReceivedNotificaton.Set();
-                    _notificationstr = chunk.Replace(Prompt, "");
+                    string[] arr = Regex.Split(chunk, Prompt, RegexOptions.IgnoreCase);
+                    foreach (string s in arr)
+                    {
+                        if (s.Contains("</rpc-reply>"))
+                        {
+
+                            _rpcReply.Append(chunk.Replace(Prompt, ""));
+                            _rpcReplyReceived.Set();
+                        }
+                        if (s.Contains("</notification>"))
+                        {
+                            _rpcReplyNotification.Append(chunk.Replace(Prompt, ""));
+                            _rpcReplyReceivedNotificaton.Set();
+                        }
+                        if (s.Contains("<rpc-reply") && !s.Contains("</rpc-reply>"))
+                        {
+                            _data.Append(s);
+                        }
+                    }
                 }
 
             }

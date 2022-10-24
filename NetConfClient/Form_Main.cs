@@ -34,7 +34,7 @@ namespace NetConfClientSoftware
         public static string CUCC_YIN = @"C:\netconf\YANG\CUCC\YIN\";       //联通YIN文件
         public static string CTCC_YIN = @"C:\netconf\YANG\CTCC\YIN\";       //联通YIN文件
         public static string CMCC_YIN = @"C:\netconf\YANG\CMCC\YIN\";       //联通YIN文件
-        public static string FenGeFu = "----------------------------------------------------------------------------";//分隔符
+        public static string FenGeFu = "\r\n----------------------------------------------------------------------------\r\n";//分隔符
         public string XML_URL = "http://hunan128.com:888/NetconfXML/";   //XML在线文件地址
         public string gpnip = "";//设备IP地址
         public int gpnport = 830;//设备端口
@@ -75,7 +75,6 @@ namespace NetConfClientSoftware
         private string strFilePath = @"C:\netconf\Config.ini";
         private string strSec = ""; //INI文件名
         #endregion
-        DoubleBufferListView listViewAll = new DoubleBufferListView();
         public Form_Main()
         {
             InitializeComponent();
@@ -173,21 +172,21 @@ namespace NetConfClientSoftware
                 BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReQ(rpc); }));
                 //netConfClient[id].AutomaticMessageIdHandling = false;
                 DateTime dTimeEnd = System.DateTime.Now;
-                TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：\r\n" + FenGeFu + "\r\n");
-                TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
+                TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + FenGeFu);
                 RichTextReq.Text = XmlFormat.Xml(rpc.OuterXml);
                 DateTime dTimeServer = System.DateTime.Now;
                 var rpcResponse = netConfClient[id].SendReceiveRpc(rpc);
                 dTimeServer = System.DateTime.Now;
                 TimeSpan ts = dTimeServer - dTimeEnd;
                 LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
-                TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                TextLog.AppendText(XmlFormat.Xml(rpcResponse.OuterXml) + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
+                TextLog.AppendText(XmlFormat.Xml(rpcResponse.OuterXml) + FenGeFu);
                 BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(rpcResponse); }));
             }
             catch (Exception ex)
             {
-                TextLog.AppendText("Rpc服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc服务器：" + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
                 TextLog.AppendText(ex.Message + "\r\n");
                 MessageBox.Show(ex.ToString());
             }
@@ -218,10 +217,10 @@ namespace NetConfClientSoftware
                         TimeSpan ts = dTimeServer - dTimeEnd;
                         LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
                         上载全部XMLToolStripMenuItem.Enabled = true;
-                        TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                        TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ServerCapabilities.OuterXml) + "\r\n" + FenGeFu + "\r\n");
-                        TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：\r\n" + FenGeFu + "\r\n");
-                        TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ClientCapabilities.OuterXml) + "\r\n" + FenGeFu + "\r\n");
+                        TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
+                        TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ServerCapabilities.OuterXml) + FenGeFu);
+                        TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
+                        TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ClientCapabilities.OuterXml) + FenGeFu);
                         netConfClient[id].OperationTimeout = TimeSpan.FromSeconds(15);
                         netConfClient[id].TimeOut = int.Parse(ComTimeOut.Text) * 1000;
                     }));
@@ -551,105 +550,866 @@ namespace NetConfClientSoftware
 
             if (Sub[id])
             {
-                TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
                 TextLog.AppendText("订阅监听已经开启，请关注\r\n");
             }
             string rpcResponse = "";
             while (Sub[id])
             {
-                //System.Diagnostics.Debug.WriteLine("循环计时器："  + System.DateTime.Now.ToString()+"."+ System.DateTime.Now.Millisecond.ToString() +"\r\n");
                 rpcResponse = netConfClient[id].SendReceiveRpcSub();
                 if (rpcResponse != ""&& rpcResponse !="\n")
                 {
-                    //System.Diagnostics.Debug.WriteLine("有通知了哦：" + System.DateTime.Now.ToString() + "." + System.DateTime.Now.Millisecond.ToString() + "\r\n");
-                    TextLog.AppendText("Notification服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString()+"."+ System.DateTime.Now.Millisecond.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                    rpcResponse = XmlFormat.Xml(rpcResponse);
-                    notfication.LoadXml(rpcResponse);
-                    System.Diagnostics.Debug.WriteLine(rpcResponse);
-                    TextLog.AppendText(rpcResponse + "\r\n" + FenGeFu + "\r\n");
-                    BeginInvoke(new MethodInvoker(delegate ()
+                    try
                     {
+                        rpcResponse = XmlFormat.Xml(rpcResponse);
+                        notfication.LoadXml(rpcResponse);
+                       // System.Diagnostics.Debug.WriteLine(FenGeFu + rpcResponse + FenGeFu);
 
+                        //BeginInvoke(new MethodInvoker(delegate ()
+                        //{
+
+
+                        //}));
+                        Thread log = new Thread(() => Lognotification(rpcResponse, id));
+                        log.Start();
                         Thread mes = new Thread(() => ShowXML(notfication, id));
                         mes.Start();
-                        //ShowXML(notfication);
-                        // Pgnot(notfication);
-                        //LoadNotfication(notfication);
-                        Thread pg = new Thread(() => Pgnot(notfication));
+                        Thread pg = new Thread(() => Pgnot(notfication,ip));
                         pg.Start();
-                        Thread loadNotficationg = new Thread(() => LoadNotfication(notfication, ip));
-                        loadNotficationg.Start();
-                    }));
+                        Thread alarmNotfication = new Thread(() => AlarmNotfication(notfication,ip));
+                        alarmNotfication.Start();
+                        Thread attributeValueChange = new Thread(() => AttributeValueChange(notfication, ip));
+                        attributeValueChange.Start();
+                    }
+                    catch (Exception ex){
+                        TextLog.AppendText("\r\n"+ex.ToString()+"\r\n");
+                    }
+
+
                 }
             }
-            //TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+            //TextLog.AppendText("Notification服务器：" + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
             //TextLog.AppendText("订阅监听已经停止，请关注\r\n");
         }
-        private void LoadNotfication(XmlDocument dom, string ip)
+        private void Lognotification(string rpcResponse ,int id) {
+            TextLog.AppendText("Notification服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "." + System.DateTime.Now.Millisecond.ToString() + "应答：" + FenGeFu + rpcResponse + FenGeFu);
+        }
+        private void AttributeValueChange(XmlDocument xmlDoc, string ip)
         {
             try
             {
-                if (!dom.OuterXml.Contains("notification"))
+                if (!xmlDoc.OuterXml.Contains("attribute-value-change-notification"))
                 {
                     return;
                 }
-                ListViewItem lvi = listViewAll.Items.Add((listViewAll.Items.Count + 1).ToString());
-                lvi.SubItems.Add(ip);
-                foreach (XmlNode node in dom.ChildNodes)
+                string nename = "";
+                string ipsname = "";
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
                 {
-                    if (node.Name == "namespace" && node.ChildNodes.Count == 0 && string.IsNullOrEmpty(GetAttributeText1(node, "name")))
+                    if (dataGridViewNeInformation.Rows[i].Cells["网元ip"].Value.ToString() == ip) //keyword要查的关键字
                     {
-                        continue;
+                        nename = dataGridViewNeInformation.Rows[i].Cells["网元名称"].Value.ToString();
+                        ipsname = dataGridViewNeInformation.Rows[i].Cells["运营商"].Value.ToString();
+                        break;
                     }
-                    AddNode1(node, lvi);
+                }
+                int index = dataGridViewAttributeValueChange.Rows.Add();
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:notification:1.0");
+                root.AddNamespace("xmlns_name", "urn:ccsa:yang:acc-notifications");
+                XmlNode eventTime = xmlDoc.SelectSingleNode("/rpc:notification/rpc:eventTime", root);
+                if (eventTime != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更事件时间"].Value = eventTime.InnerText; }
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//xmlns_name:event", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+
+                    if (ipsname.Contains("移动"))
+                    {
+                        XmlNode event_serial_no = itemNode.SelectSingleNode("//xmlns_name:event-serial-no", root);
+                        XmlNode event_type = itemNode.SelectSingleNode("//xmlns_name:event-type", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("//xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("//xmlns_name:object-type", root);
+                        XmlNode attribute_name = itemNode.SelectSingleNode("//xmlns_name:attribute-name", root);
+                        XmlNode new_value = itemNode.SelectSingleNode("//xmlns_name:new-value", root);
+                        XmlNode old_value = itemNode.SelectSingleNode("//xmlns_name:old-value", root);
+                        dataGridViewAttributeValueChange.Rows[index].Cells["对象变更网元"].Value = nename;
+                        if (event_serial_no != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更事件编号"].Value = event_serial_no.InnerText; }
+                        if (event_type != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更事件类型"].Value = event_type.InnerText; }
+                        if (object_name != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更对象名称"].Value = object_name.InnerText; }
+                        if (object_type != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更对象类型"].Value = object_type.InnerText; }
+                        if (attribute_name != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更属性名称"].Value = attribute_name.InnerText; }
+                        if (new_value != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更新值"].Value = new_value.InnerText; }
+                        if (old_value != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更旧值"].Value = old_value.InnerText; }
+                    }
+                    if (ipsname.Contains("电信"))
+                    {
+                        XmlNode event_serial_no = itemNode.SelectSingleNode("//xmlns_name:event-serial-no", root);
+                        XmlNode event_type = itemNode.SelectSingleNode("//xmlns_name:event-type", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("//xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("//xmlns_name:object-type", root);
+                        XmlNode attribute_name = itemNode.SelectSingleNode("//xmlns_name:attribute-name", root);
+                        XmlNode new_value = itemNode.SelectSingleNode("//xmlns_name:new-value", root);
+                        XmlNode old_value = itemNode.SelectSingleNode("//xmlns_name:old-value", root);
+                        dataGridViewAttributeValueChange.Rows[index].Cells["对象变更网元"].Value = nename;
+                        if (event_serial_no != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更事件编号"].Value = event_serial_no.InnerText; }
+                        if (event_type != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更事件类型"].Value = event_type.InnerText; }
+                        if (object_name != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更对象名称"].Value = object_name.InnerText; }
+                        if (object_type != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更对象类型"].Value = object_type.InnerText; }
+                        if (attribute_name != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更属性名称"].Value = attribute_name.InnerText; }
+                        if (new_value != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更新值"].Value = new_value.InnerText; }
+                        if (old_value != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更旧值"].Value = old_value.InnerText; }
+                    }
+                    if (ipsname.Contains("联通"))
+                    {
+                        XmlNode event_serial_no = itemNode.SelectSingleNode("//xmlns_name:event-serial-no", root);
+                        XmlNode event_type = itemNode.SelectSingleNode("//xmlns_name:event-type", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("//xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("//xmlns_name:object-type", root);
+                        XmlNode attribute_name = itemNode.SelectSingleNode("//xmlns_name:attribute-name", root);
+                        XmlNode new_value = itemNode.SelectSingleNode("//xmlns_name:new-value", root);
+                        XmlNode old_value = itemNode.SelectSingleNode("//xmlns_name:old-value", root);
+                        dataGridViewAttributeValueChange.Rows[index].Cells["对象变更网元"].Value = nename;
+                        if (event_serial_no != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更事件编号"].Value = event_serial_no.InnerText; }
+                        if (event_type != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更事件类型"].Value = event_type.InnerText; }
+                        if (object_name != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更对象名称"].Value = object_name.InnerText; }
+                        if (object_type != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更对象类型"].Value = object_type.InnerText; }
+                        if (attribute_name != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更属性名称"].Value = attribute_name.InnerText; }
+                        if (new_value != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更新值"].Value = new_value.InnerText; }
+                        if (old_value != null) { dataGridViewAttributeValueChange.Rows[index].Cells["对象变更旧值"].Value = old_value.InnerText; }
+                    }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
             }
         }
-        static string GetAttributeText1(XmlNode inXmlNode, string name)
+        private void Pgnot(XmlDocument xmlDoc ,string ip)
         {
-            XmlAttribute attr = (inXmlNode.Attributes?[name]);
-            return attr?.Value;
-        }
-        private void AddNode1(XmlNode inXmlNode, ListViewItem lvi)
-        {
-            if (inXmlNode.HasChildNodes)
+            try
             {
-                string text = GetAttributeText1(inXmlNode, "name");
-                if (string.IsNullOrEmpty(text))
-                    text = inXmlNode.Name;
-                //for (int i = 0; i < inXmlNode.Attributes.Count; i++)
-                //{
-                //    text = text + " " + inXmlNode.Attributes[i].OuterXml;   //显示命名空间
-                //}
-                string newNode = null;
-                XmlNodeList nodeList = inXmlNode.ChildNodes;
-                for (int i = 0; i <= nodeList.Count - 1; i++)
+                if (!xmlDoc.OuterXml.Contains("pg-id"))
                 {
-                    XmlNode xNode = inXmlNode.ChildNodes[i];
-                    if (xNode.HasChildNodes)
+                    return;
+                }
+                string nename = "";
+                string ipsname = "";
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["网元ip"].Value.ToString() == ip) //keyword要查的关键字
                     {
-                        if (newNode == null)
-                        {
-                            newNode = text;
-                            lvi.SubItems.Add(text);
-                        }
-                    }
-                    else
-                    {
-                        string value = GetAttributeText1(xNode, "name");
-                        if (string.IsNullOrEmpty(value))
-                            value = (xNode.OuterXml).Trim();
-                        lvi.SubItems.Add(inXmlNode.Name + "(" + value + ")");
-                    }
-                    if (newNode != null)
-                    {
-                        AddNode1(xNode, lvi);
+                        nename = dataGridViewNeInformation.Rows[i].Cells["网元名称"].Value.ToString();
+                        ipsname = dataGridViewNeInformation.Rows[i].Cells["运营商"].Value.ToString();
+                        break;
                     }
                 }
+                int index = dataGridViewPGS_Not.Rows.Add();
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:notification:1.0");
+                root.AddNamespace("pgsxmlns", "urn:ccsa:yang:acc-protection-group");
+                XmlNode eventTime = xmlDoc.SelectSingleNode("/rpc:notification/rpc:eventTime", root);
+                if (eventTime != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组事件时间"].Value = eventTime.InnerText; }
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//pgsxmlns:pg", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+                  
+                    if (ipsname.Contains("移动"))
+                    {
+                        XmlNode protection_switch_serial_no = itemNode.SelectSingleNode("//pgsxmlns:protection-switch-serial-no", root);
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-direction", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
+                        if (protection_switch_serial_no != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组事件编号"].Value = protection_switch_serial_no.InnerText; }
+                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText;
+                            dataGridViewPGS_Not.Rows[index].Cells["保护组网元"].Value = nename;
+                        }
+                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
+                    }
+                    if (ipsname.Contains("电信"))
+                    {
+                        XmlNode protection_switch_serial_no = itemNode.SelectSingleNode("//pgsxmlns:protection-switch-serial-no", root);
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-type", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
+                        if (protection_switch_serial_no != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组事件编号"].Value = protection_switch_serial_no.InnerText; }
+                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText;
+                            dataGridViewPGS_Not.Rows[index].Cells["保护组网元"].Value = nename;
+                        }
+                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
+                    }
+                    if (ipsname.Contains("联通"))
+                    {
+                        XmlNode protection_switch_serial_no = itemNode.SelectSingleNode("//pgsxmlns:protection-switch-serial-no", root);
+                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
+                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
+                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
+                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-type", root);
+                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
+                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
+                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
+                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
+                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
+                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
+                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
+                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
+                        if (protection_switch_serial_no != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组事件编号"].Value = protection_switch_serial_no.InnerText; }
+                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText;
+                            dataGridViewPGS_Not.Rows[index].Cells["保护组网元"].Value = nename;
+                        }
+                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
+                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
+                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
+                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
+                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
+                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
+                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
+                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
+                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
+                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
+                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
+            }
+        }
+        private void AlarmNotfication(XmlDocument xmlDoc,string ip)
+        {
+            try
+            {
+                if (!xmlDoc.OuterXml.Contains("alarm-notification") && !xmlDoc.OuterXml.Contains("tca-notification"))
+                {
+                    return;
+                }
+                string nename = "";
+                string ipsname = "";
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["网元ip"].Value.ToString() == ip) //keyword要查的关键字
+                    {
+                        nename = dataGridViewNeInformation.Rows[i].Cells["网元名称"].Value.ToString();
+                        ipsname = dataGridViewNeInformation.Rows[i].Cells["运营商"].Value.ToString();
+                        break;
+                    }
+                }
+                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
+                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+                root.AddNamespace("xmlns_name", "urn:ccsa:yang:acc-alarms");
+                XmlNodeList itemNodes = xmlDoc.SelectNodes("//xmlns_name:alarm", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+
+                    if (ipsname.Contains("电信"))
+                    {
+                        XmlNode alarm_serial_no = itemNode.SelectSingleNode("xmlns_name:alarm-serial-no", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("xmlns_name:object-type", root);
+                        XmlNode alarm_code = itemNode.SelectSingleNode("xmlns_name:alarm-code", root);
+                        XmlNode alarm_state = itemNode.SelectSingleNode("xmlns_name:alarm-state", root);
+                        XmlNode perceived_severity = itemNode.SelectSingleNode("xmlns_name:perceived-severity", root);
+                        XmlNode additional_text = itemNode.SelectSingleNode("xmlns_name:additional-text", root);
+                        XmlNode start_time = itemNode.SelectSingleNode("xmlns_name:start-time", root);
+                        XmlNode end_time = itemNode.SelectSingleNode("xmlns_name:end-time", root);
+                        bool alarmFind = false;
+                        if (alarm_serial_no != null) {
+                            if (end_time != null)
+                            {
+                                if (dataGridViewAlarm.Rows.Count != 1)
+                                for (int i = 0; i < dataGridViewAlarm.Rows.Count; i++)
+                                {
+                                    if (dataGridViewAlarm.Rows[i].Cells["告警编号"].Value.ToString() == alarm_serial_no.InnerText && dataGridViewAlarm.Rows[i].Cells["告警网元"].Value.ToString() == nename) 
+                                    {
+                                        dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText;
+                                        if (alarm_state != null) { dataGridViewAlarm.Rows[i].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+                                            dataGridViewAlarm.Rows[i].Cells["确认告警"].Value = "已清除";
+                                            alarmFind = true;
+                                        break;
+                                    }
+                                }
+                                if (alarmFind == false)
+                                {
+                                    int index = dataGridViewAlarm.Rows.Add();
+                                    dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                    dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                    if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                    if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+
+                                    if (perceived_severity != null)
+                                    {
+                                        dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = perceived_severity.InnerText;
+                                        switch (perceived_severity.InnerText)
+                                        {
+                                            case "critical":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "紧急" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.OrangeRed;
+                                                break;
+                                            case "major":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "重要" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Orange;
+                                                break;
+                                            case "minor":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "次要" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Yellow;
+                                                break;
+                                            case "warning":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "提示" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.DeepSkyBlue;
+                                                break;
+                                        }
+                                    }
+                                    if (additional_text != null) { dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = additional_text.InnerText; }
+                                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                                }
+                                
+                            }
+                            else
+                            {
+                                int index = dataGridViewAlarm.Rows.Add();
+                                dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                if (perceived_severity != null)
+                                {
+                                    dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = perceived_severity.InnerText;
+                                    switch (perceived_severity.InnerText)
+                                    {
+                                        case "critical":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "紧急" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.OrangeRed;
+                                            break;
+                                        case "major":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "重要" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Orange;
+                                            break;
+                                        case "minor":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "次要" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Yellow;
+                                            break;
+                                        case "warning":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "提示" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.DeepSkyBlue;
+                                            break;
+                                    }
+                                }
+                                if (additional_text != null) { dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = additional_text.InnerText; }
+                                if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                            }
+                        }
+                    }
+                    if (ipsname.Contains("移动"))
+                    {
+                        XmlNode alarm_serial_no = itemNode.SelectSingleNode("xmlns_name:alarm-serial-no", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("xmlns_name:object-type", root);
+                        XmlNode alarm_code = itemNode.SelectSingleNode("xmlns_name:alarm-code", root);
+                        XmlNode alarm_state = itemNode.SelectSingleNode("xmlns_name:alarm-state", root);
+                        XmlNode perceived_severity = itemNode.SelectSingleNode("xmlns_name:perceived-severity", root);
+                        XmlNode additional_text = itemNode.SelectSingleNode("xmlns_name:additional-text", root);
+                        XmlNode start_time = itemNode.SelectSingleNode("xmlns_name:start-time", root);
+                        XmlNode end_time = itemNode.SelectSingleNode("xmlns_name:end-time", root);
+                        bool alarmFind = false;
+                        if (alarm_serial_no != null)
+                        {
+                            if (end_time != null)
+                            {
+                                if (dataGridViewAlarm.Rows.Count != 1)
+                                    for (int i = 0; i < dataGridViewAlarm.Rows.Count; i++)
+                                    {
+                                        if (dataGridViewAlarm.Rows[i].Cells["告警编号"].Value.ToString() == (int.Parse(alarm_serial_no.InnerText)-1).ToString() && dataGridViewAlarm.Rows[i].Cells["告警网元"].Value.ToString() == nename) //keyword要查的关键字
+                                        {
+                                            dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText;
+                                            if (alarm_state != null) { dataGridViewAlarm.Rows[i].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                            dataGridViewAlarm.Rows[i].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+                                            dataGridViewAlarm.Rows[i].Cells["确认告警"].Value = "已清除";
+                                            alarmFind = true;
+                                            break;
+                                        }
+                                    }
+                                if (alarmFind == false)
+                                {
+                                    int index = dataGridViewAlarm.Rows.Add();
+                                    dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                    dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                    if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                    if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+
+                                    if (perceived_severity != null)
+                                    {
+                                        dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = perceived_severity.InnerText;
+                                        switch (perceived_severity.InnerText)
+                                        {
+                                            case "critical":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "紧急" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.OrangeRed;
+                                                break;
+                                            case "major":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "重要" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Orange;
+                                                break;
+                                            case "minor":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "次要" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Yellow;
+                                                break;
+                                            case "warning":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "提示" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.DeepSkyBlue;
+                                                break;
+                                        }
+                                    }
+                                    if (additional_text != null) { dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = additional_text.InnerText; }
+                                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                                }
+
+                            }
+                            else
+                            {
+                                int index = dataGridViewAlarm.Rows.Add();
+                                dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                if (perceived_severity != null)
+                                {
+                                    dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = perceived_severity.InnerText;
+                                    switch (perceived_severity.InnerText)
+                                    {
+                                        case "critical":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "紧急" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.OrangeRed;
+                                            break;
+                                        case "major":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "重要" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Orange;
+                                            break;
+                                        case "minor":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "次要" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Yellow;
+                                            break;
+                                        case "warning":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "提示" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.DeepSkyBlue;
+                                            break;
+                                    }
+                                }
+                                if (additional_text != null) { dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = additional_text.InnerText; }
+                                if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                            }
+                        }
+                    }
+                    if (ipsname.Contains("联通"))
+                    {
+                        XmlNode alarm_serial_no = itemNode.SelectSingleNode("xmlns_name:alarm-serial-no", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("xmlns_name:object-type", root);
+                        XmlNode alarm_code = itemNode.SelectSingleNode("xmlns_name:alarm-code", root);
+                        XmlNode alarm_state = itemNode.SelectSingleNode("xmlns_name:alarm-state", root);
+                        XmlNode perceived_severity = itemNode.SelectSingleNode("xmlns_name:perceived-severity", root);
+                        XmlNode additional_text = itemNode.SelectSingleNode("xmlns_name:additional-text", root);
+                        XmlNode start_time = itemNode.SelectSingleNode("xmlns_name:start-time", root);
+                        XmlNode end_time = itemNode.SelectSingleNode("xmlns_name:end-time", root);
+                        bool alarmFind = false;
+                        if (alarm_serial_no != null)
+                        {
+                            if (end_time != null)
+                            {
+                                if (dataGridViewAlarm.Rows.Count != 1)
+                                    for (int i = 0; i < dataGridViewAlarm.Rows.Count; i++)
+                                    {
+                                        if (dataGridViewAlarm.Rows[i].Cells["告警编号"].Value.ToString() == (int.Parse(alarm_serial_no.InnerText) - 1).ToString() && dataGridViewAlarm.Rows[i].Cells["告警网元"].Value.ToString() == nename) //keyword要查的关键字
+                                        {
+                                            dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText;
+                                            if (alarm_state != null) { dataGridViewAlarm.Rows[i].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                            dataGridViewAlarm.Rows[i].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+                                            dataGridViewAlarm.Rows[i].Cells["确认告警"].Value = "已清除";
+                                            alarmFind = true;
+                                            break;
+                                        }
+                                    }
+                                if (alarmFind == false)
+                                {
+                                    int index = dataGridViewAlarm.Rows.Add();
+                                    dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                    dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                    if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                    if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+
+                                    if (perceived_severity != null)
+                                    {
+                                        dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = perceived_severity.InnerText;
+                                        switch (perceived_severity.InnerText)
+                                        {
+                                            case "critical":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "紧急" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.OrangeRed;
+                                                break;
+                                            case "major":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "重要" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Orange;
+                                                break;
+                                            case "minor":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "次要" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Yellow;
+                                                break;
+                                            case "warning":
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "提示" + perceived_severity.InnerText;
+                                                dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.DeepSkyBlue;
+                                                break;
+                                        }
+                                    }
+                                    if (additional_text != null) { dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = additional_text.InnerText; }
+                                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                                }
+
+                            }
+                            else
+                            {
+                                int index = dataGridViewAlarm.Rows.Add();
+                                dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                if (perceived_severity != null)
+                                {
+                                    dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = perceived_severity.InnerText;
+                                    switch (perceived_severity.InnerText)
+                                    {
+                                        case "critical":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "紧急" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.OrangeRed;
+                                            break;
+                                        case "major":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "重要" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Orange;
+                                            break;
+                                        case "minor":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "次要" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.Yellow;
+                                            break;
+                                        case "warning":
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "提示" + perceived_severity.InnerText;
+                                            dataGridViewAlarm.Rows[index].Cells["告警级别"].Style.BackColor = Color.DeepSkyBlue;
+                                            break;
+                                    }
+                                }
+                                if (additional_text != null) { dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = additional_text.InnerText; }
+                                if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                            }
+                        }
+                    }
+                }
+                itemNodes = xmlDoc.SelectNodes("//xmlns_name:tca", root);
+                foreach (XmlNode itemNode in itemNodes)
+                {
+
+                    if (ipsname.Contains("电信"))
+                    {
+                        XmlNode alarm_serial_no = itemNode.SelectSingleNode("xmlns_name:tca-serial-no", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("//xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("//xmlns_name:object-type", root);
+                        XmlNode alarm_code = itemNode.SelectSingleNode("//xmlns_name:pm-parameter-name", root);
+                        XmlNode alarm_state = itemNode.SelectSingleNode("xmlns_name:tca-state", root);
+                        XmlNode granularity = itemNode.SelectSingleNode("//xmlns_name:granularity", root);
+                        XmlNode threshold_type = itemNode.SelectSingleNode("//xmlns_name:threshold-type", root);
+                        XmlNode threshold_value = itemNode.SelectSingleNode("//xmlns_name:threshold-value", root);
+                        XmlNode current_value = itemNode.SelectSingleNode("xmlns_name:current-value", root);
+                        XmlNode start_time = itemNode.SelectSingleNode("xmlns_name:start-time", root);
+                        XmlNode end_time = itemNode.SelectSingleNode("xmlns_name:end-time", root);
+                        bool alarmFind = false;
+                        if (alarm_serial_no != null)
+                        {
+                            if (end_time != null)
+                            {
+                                if (dataGridViewAlarm.Rows.Count != 1)
+                                    for (int i = 0; i < dataGridViewAlarm.Rows.Count; i++)
+                                    {
+                                        if (dataGridViewAlarm.Rows[i].Cells["告警编号"].Value.ToString() == alarm_serial_no.InnerText && dataGridViewAlarm.Rows[i].Cells["告警网元"].Value.ToString() == nename)
+                                        {
+                                            dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText;
+                                            if (object_name != null) { dataGridViewAlarm.Rows[i].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                            if (object_type != null) { dataGridViewAlarm.Rows[i].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                            if (alarm_code != null) { dataGridViewAlarm.Rows[i].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                            if (alarm_state != null) { dataGridViewAlarm.Rows[i].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+                                            if (granularity != null) { dataGridViewAlarm.Rows[i].Cells["TCA周期"].Value = granularity.InnerText; }
+                                            if (threshold_type != null) { dataGridViewAlarm.Rows[i].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                            if (threshold_value != null) { dataGridViewAlarm.Rows[i].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                            if (current_value != null) { dataGridViewAlarm.Rows[i].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                            if (start_time != null) { dataGridViewAlarm.Rows[i].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                            if (end_time != null) { dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["确认告警"].Value = "已清除";
+                                            alarmFind = true;
+                                            break;
+                                        }
+                                    }
+                                if (alarmFind == false)
+                                {
+                                    int index = dataGridViewAlarm.Rows.Add();
+                                    dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                    dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                    if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                    if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+                                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["TCA周期"].Value = granularity.InnerText; }
+                                    if (threshold_type != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                    if (threshold_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                    if (current_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                                }
+
+                            }
+                            else
+                            {
+                                int index = dataGridViewAlarm.Rows.Add();
+                                dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["TCA周期"].Value = granularity.InnerText; }
+                                if (threshold_type != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                if (threshold_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                if (current_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                            }
+                        }
+                    }
+                    if (ipsname.Contains("移动"))
+                    {
+                        XmlNode alarm_serial_no = itemNode.SelectSingleNode("xmlns_name:tca-serial-no", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("//xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("//xmlns_name:object-type", root);
+                        XmlNode alarm_code = itemNode.SelectSingleNode("//xmlns_name:pm-parameter-name", root);
+                        XmlNode alarm_state = itemNode.SelectSingleNode("xmlns_name:tca-state", root);
+                        XmlNode granularity = itemNode.SelectSingleNode("//xmlns_name:granularity", root);
+                        XmlNode threshold_type = itemNode.SelectSingleNode("//xmlns_name:threshold-type", root);
+                        XmlNode threshold_value = itemNode.SelectSingleNode("//xmlns_name:threshold-value", root);
+                        XmlNode current_value = itemNode.SelectSingleNode("xmlns_name:current-value", root);
+                        XmlNode start_time = itemNode.SelectSingleNode("xmlns_name:start-time", root);
+                        XmlNode end_time = itemNode.SelectSingleNode("xmlns_name:end-time", root);
+                        bool alarmFind = false;
+                        if (alarm_serial_no != null)
+                        {
+                            if (end_time != null)
+                            {
+                                if (dataGridViewAlarm.Rows.Count != 1)
+                                    for (int i = 0; i < dataGridViewAlarm.Rows.Count; i++)
+                                    {
+                                        if (dataGridViewAlarm.Rows[i].Cells["告警编号"].Value.ToString() == (int.Parse(alarm_serial_no.InnerText) - 1).ToString() && dataGridViewAlarm.Rows[i].Cells["告警网元"].Value.ToString() == nename) //keyword要查的关键字
+                                        {
+                                            dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText;
+                                            if (object_name != null) { dataGridViewAlarm.Rows[i].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                            if (object_type != null) { dataGridViewAlarm.Rows[i].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                            if (alarm_code != null) { dataGridViewAlarm.Rows[i].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                            if (alarm_state != null) { dataGridViewAlarm.Rows[i].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+                                            if (granularity != null) { dataGridViewAlarm.Rows[i].Cells["TCA周期"].Value = granularity.InnerText; }
+                                            if (threshold_type != null) { dataGridViewAlarm.Rows[i].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                            if (threshold_value != null) { dataGridViewAlarm.Rows[i].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                            if (current_value != null) { dataGridViewAlarm.Rows[i].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                            if (start_time != null) { dataGridViewAlarm.Rows[i].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                            if (end_time != null) { dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["确认告警"].Value = "已清除";
+                                            alarmFind = true;
+                                            break;
+                                        }
+                                    }
+                                if (alarmFind == false)
+                                {
+                                    int index = dataGridViewAlarm.Rows.Add();
+                                    dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                    dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                    if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                    if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+
+                                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["TCA周期"].Value = granularity.InnerText; }
+                                    if (threshold_type != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                    if (threshold_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                    if (current_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                                }
+
+                            }
+                            else
+                            {
+                                int index = dataGridViewAlarm.Rows.Add();
+                                dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["TCA周期"].Value = granularity.InnerText; }
+                                if (threshold_type != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                if (threshold_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                if (current_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                            }
+                        }
+                    }
+                    if (ipsname.Contains("联通"))
+                    {
+                        XmlNode alarm_serial_no = itemNode.SelectSingleNode("xmlns_name:tca-serial-no", root);
+                        XmlNode object_name = itemNode.SelectSingleNode("//xmlns_name:object-name", root);
+                        XmlNode object_type = itemNode.SelectSingleNode("//xmlns_name:object-type", root);
+                        XmlNode alarm_code = itemNode.SelectSingleNode("//xmlns_name:pm-parameter-name", root);
+                        XmlNode alarm_state = itemNode.SelectSingleNode("xmlns_name:tca-state", root);
+                        XmlNode granularity = itemNode.SelectSingleNode("//xmlns_name:granularity", root);
+                        XmlNode threshold_type = itemNode.SelectSingleNode("//xmlns_name:threshold-type", root);
+                        XmlNode threshold_value = itemNode.SelectSingleNode("//xmlns_name:threshold-value", root);
+                        XmlNode current_value = itemNode.SelectSingleNode("xmlns_name:current-value", root);
+                        XmlNode start_time = itemNode.SelectSingleNode("xmlns_name:start-time", root);
+                        XmlNode end_time = itemNode.SelectSingleNode("xmlns_name:end-time", root);
+                        bool alarmFind = false;
+                        if (alarm_serial_no != null)
+                        {
+                            if (end_time != null)
+                            {
+                                if (dataGridViewAlarm.Rows.Count != 1)
+                                    for (int i = 0; i < dataGridViewAlarm.Rows.Count; i++)
+                                    {
+                                        if (dataGridViewAlarm.Rows[i].Cells["告警编号"].Value.ToString() == (int.Parse(alarm_serial_no.InnerText) - 1).ToString() && dataGridViewAlarm.Rows[i].Cells["告警网元"].Value.ToString() == nename) //keyword要查的关键字
+                                        {
+                                            dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText;
+                                            if (object_name != null) { dataGridViewAlarm.Rows[i].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                            if (object_type != null) { dataGridViewAlarm.Rows[i].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                            if (alarm_code != null) { dataGridViewAlarm.Rows[i].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                            if (alarm_state != null) { dataGridViewAlarm.Rows[i].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+                                            if (granularity != null) { dataGridViewAlarm.Rows[i].Cells["TCA周期"].Value = granularity.InnerText; }
+                                            if (threshold_type != null) { dataGridViewAlarm.Rows[i].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                            if (threshold_value != null) { dataGridViewAlarm.Rows[i].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                            if (current_value != null) { dataGridViewAlarm.Rows[i].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                            if (start_time != null) { dataGridViewAlarm.Rows[i].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                            if (end_time != null) { dataGridViewAlarm.Rows[i].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                            dataGridViewAlarm.Rows[i].Cells["确认告警"].Value = "已清除";
+                                            alarmFind = true;
+                                            break;
+                                        }
+                                    }
+                                if (alarmFind == false)
+                                {
+                                    int index = dataGridViewAlarm.Rows.Add();
+                                    dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                    dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                    if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                    if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                    if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                    if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
+
+                                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["TCA周期"].Value = granularity.InnerText; }
+                                    if (threshold_type != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                    if (threshold_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                    if (current_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                    if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                    if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
+                                    dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                                }
+
+                            }
+                            else
+                            {
+                                int index = dataGridViewAlarm.Rows.Add();
+                                dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = nename;
+                                dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText;
+                                if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
+                                if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
+                                if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
+                                if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                                if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["TCA周期"].Value = granularity.InnerText; }
+                                if (threshold_type != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值类型"].Value = threshold_type.InnerText; }
+                                if (threshold_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA阈值"].Value = threshold_value.InnerText; }
+                                if (current_value != null) { dataGridViewAlarm.Rows[index].Cells["TCA当前值"].Value = current_value.InnerText; }
+                                if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
+                                dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "未清除";
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
             }
         }
         /// <summary>
@@ -664,6 +1424,7 @@ namespace NetConfClientSoftware
                 {
                     return;
                 }
+
                 XmlReaderSettings settings = new XmlReaderSettings();
                 settings.IgnoreComments = true; //忽略xml文档中的注释
                 XmlNode xn = xmlDoc.DocumentElement;
@@ -707,120 +1468,47 @@ namespace NetConfClientSoftware
                         }
                     }
                 }
-                //listViewAll.BeginUpdate();//数据更新，UI暂时挂起，直到EndUpdate绘制控件，可以有效避免闪烁并大大提高加载速度
-                //listViewAll.Items.Add(item);
-                //listViewAll.EndUpdate();  //结束数据处理，UI界面一次性绘制。
-                string Alarm = "alarm-notification";
-                foreach (var type in item.SubItems)
-                {
-                    if (type.ToString().Contains(Alarm))
-                    {
-                        ListViewItem alarmlog = (ListViewItem)item.Clone();
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(0);
-                        if (alarmlog.SubItems[4].Text == "end")
-                        {
-                            int no = int.Parse(alarmlog.SubItems[0].Text) - 1;
-                            for (int i = 0; i < ListViewAlarm.Items.Count; i++)
-                            {
-                                if (ListViewAlarm.Items[i].SubItems[0].Text == no.ToString())
-                                {
-                                    ListViewAlarm.Items.RemoveAt(i);
-                                    i--;
-                                }
-                            }
-                            alarmlog.SubItems.Add("已清除");
-                            for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
-                            {
-                                if (treeViewNEID.Nodes[i].Name == id.ToString())
-                                {
-                                    alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
-                                    break;
-                                }
-                            }
-                        }
-                        if (alarmlog.SubItems[4].Text == "start")
-                        {
-                            alarmlog.SubItems.Add("");
-                            alarmlog.SubItems.Add("未清除");
-                            for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
-                            {
-                                if (treeViewNEID.Nodes[i].Name == id.ToString())
-                                {
-                                    alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
-                                    break;
-                                }
-                            }
-                        }
-                        alarmlog.UseItemStyleForSubItems = false;
-                        switch (alarmlog.SubItems[5].Text)
-                        {
-                            case "critical":
-                                alarmlog.SubItems[5].Text = "紧急" + alarmlog.SubItems[5].Text;
-                                alarmlog.BackColor = Color.OrangeRed;
-                                //alarmlog.SubItems[5].BackColor = Color.Red;
-                                break;
-                            case "major":
-                                alarmlog.SubItems[5].Text = "重要" + alarmlog.SubItems[5].Text;
-                                alarmlog.BackColor = Color.Orange;
-                                break;
-                            case "minor":
-                                alarmlog.SubItems[5].Text = "次要" + alarmlog.SubItems[5].Text;
-                                alarmlog.BackColor = Color.Yellow;
-                                break;
-                            case "warning":
-                                alarmlog.SubItems[5].Text = "提示" + alarmlog.SubItems[5].Text;
-                                alarmlog.BackColor = Color.DeepSkyBlue;
-                                break;
-                        }
-                        ListViewAlarm.Items.Add(alarmlog);
-                        //Thread mes = new Thread(() => CreatMesg(alarmlog, Alarm));
-                        //mes.Start();
-                    }
-                }
-                string tca = "tca-notification";
-                foreach (var type in item.SubItems)
-                {
-                    if (type.ToString().Contains(tca))
-                    {
-                        ListViewItem alarmlog = (ListViewItem)item.Clone();
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(0);
-                        if (alarmlog.SubItems[7].Text == "end")
-                        {
-                            int no = int.Parse(alarmlog.SubItems[0].Text) - 1;
-                            for (int i = 0; i < ListViewTcaAlarm.Items.Count; i++)
-                            {
-                                if (ListViewTcaAlarm.Items[i].SubItems[0].Text == no.ToString())
-                                {
-                                    ListViewTcaAlarm.Items.RemoveAt(i);
-                                    i--;
-                                }
-                            }
-                            alarmlog.SubItems.Add("已清除");
-                        }
-                        if (alarmlog.SubItems[7].Text == "start")
-                        {
-                            alarmlog.SubItems.Add("当前告警");
-                            alarmlog.SubItems.Add("未清除");
-                        }
-                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
-                        {
-                            if (treeViewNEID.Nodes[i].Name == id.ToString())
-                            {
-                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
-                                break;
-                            }
-                        }
-                        ListViewTcaAlarm.Items.Add(alarmlog);
-                        //Thread mes = new Thread(() => CreatMesg(alarmlog, tca));
-                        //mes.Start();
-                    }
-                }
+                //string tca = "tca-notification";
+                //foreach (var type in item.SubItems)
+                //{
+                //    if (type.ToString().Contains(tca))
+                //    {
+                //        ListViewItem alarmlog = (ListViewItem)item.Clone();
+                //        alarmlog.SubItems.RemoveAt(0);
+                //        alarmlog.SubItems.RemoveAt(0);
+                //        alarmlog.SubItems.RemoveAt(0);
+                //        alarmlog.SubItems.RemoveAt(0);
+                //        if (alarmlog.SubItems[7].Text == "end")
+                //        {
+                //            int no = int.Parse(alarmlog.SubItems[0].Text) - 1;
+                //            for (int i = 0; i < ListViewTcaAlarm.Items.Count; i++)
+                //            {
+                //                if (ListViewTcaAlarm.Items[i].SubItems[0].Text == no.ToString())
+                //                {
+                //                    ListViewTcaAlarm.Items.RemoveAt(i);
+                //                    i--;
+                //                }
+                //            }
+                //            alarmlog.SubItems.Add("已清除");
+                //        }
+                //        if (alarmlog.SubItems[7].Text == "start")
+                //        {
+                //            alarmlog.SubItems.Add("当前告警");
+                //            alarmlog.SubItems.Add("未清除");
+                //        }
+                //        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                //        {
+                //            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                //            {
+                //                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                //                break;
+                //            }
+                //        }
+                //        ListViewTcaAlarm.Items.Add(alarmlog);
+                //        //Thread mes = new Thread(() => CreatMesg(alarmlog, tca));
+                //        //mes.Start();
+                //    }
+                //}
                 string lldp = "lldp-change-notification";
                 foreach (var type in item.SubItems)
                 {
@@ -887,50 +1575,50 @@ namespace NetConfClientSoftware
                         //mes.Start();
                     }
                 }
-                string attribute = "attribute-value-change-notification";
-                foreach (var type in item.SubItems)
-                {
-                    if (type.ToString().Contains(attribute))
-                    {
-                        ListViewItem alarmlog = (ListViewItem)item.Clone();
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(1);
-                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
-                        {
-                            if (treeViewNEID.Nodes[i].Name == id.ToString())
-                            {
-                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
-                                break;
-                            }
-                        }
-                        listViewAttribute.Items.Add(alarmlog);
-                        //Thread mes = new Thread(() => CreatMesg(alarmlog, attribute));
-                        //mes.Start();
-                    }
-                }
-                string protection = "protection-switch-notification";
-                foreach (var type in item.SubItems)
-                {
-                    if (type.ToString().Contains(protection))
-                    {
-                        ListViewItem alarmlog = (ListViewItem)item.Clone();
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(0);
-                        alarmlog.SubItems.RemoveAt(1);
-                        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
-                        {
-                            if (treeViewNEID.Nodes[i].Name == id.ToString())
-                            {
-                                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
-                                break;
-                            }
-                        }
-                        listViewProtection.Items.Add(alarmlog);
-                        //Thread mes = new Thread(() => CreatMesg(alarmlog, protection));
-                        //mes.Start();
-                    }
-                }
+                //string attribute = "attribute-value-change-notification";
+                //foreach (var type in item.SubItems)
+                //{
+                //    if (type.ToString().Contains(attribute))
+                //    {
+                //        ListViewItem alarmlog = (ListViewItem)item.Clone();
+                //        alarmlog.SubItems.RemoveAt(0);
+                //        alarmlog.SubItems.RemoveAt(0);
+                //        alarmlog.SubItems.RemoveAt(1);
+                //        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                //        {
+                //            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                //            {
+                //                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                //                break;
+                //            }
+                //        }
+                //        listViewAttribute.Items.Add(alarmlog);
+                //        //Thread mes = new Thread(() => CreatMesg(alarmlog, attribute));
+                //        //mes.Start();
+                //    }
+                //}
+                //string protection = "protection-switch-notification";
+                //foreach (var type in item.SubItems)
+                //{
+                //    if (type.ToString().Contains(protection))
+                //    {
+                //        ListViewItem alarmlog = (ListViewItem)item.Clone();
+                //        alarmlog.SubItems.RemoveAt(0);
+                //        alarmlog.SubItems.RemoveAt(0);
+                //        alarmlog.SubItems.RemoveAt(1);
+                //        for (int i = 0; i < treeViewNEID.Nodes.Count; i++)
+                //        {
+                //            if (treeViewNEID.Nodes[i].Name == id.ToString())
+                //            {
+                //                alarmlog.SubItems.Add(treeViewNEID.Nodes[i].Text);
+                //                break;
+                //            }
+                //        }
+                //        listViewProtection.Items.Add(alarmlog);
+                //        //Thread mes = new Thread(() => CreatMesg(alarmlog, protection));
+                //        //mes.Start();
+                //    }
+                //}
                 string GHao = "g-hao-notification";
                 foreach (var type in item.SubItems)
                 {
@@ -953,11 +1641,7 @@ namespace NetConfClientSoftware
                         //mes.Start();
                     }
                 }
-                foreach (ColumnHeader ch in listViewAll.Columns)
-                {
-                    ch.Width = -1;//根据内容
-                    //ch.Width = -2;//根据标题
-                }
+
             }
             catch (Exception ex)
             {
@@ -996,19 +1680,6 @@ namespace NetConfClientSoftware
             }
             Thread.Sleep(10000);
             // Mesg.Close();
-        }
-        /// <summary>
-        /// 自定义listview控件，防止更新闪烁
-        /// </summary>
-        public class DoubleBufferListView : ListView
-        {
-            public DoubleBufferListView()
-            {
-                SetStyle(ControlStyles.DoubleBuffer |
-                    ControlStyles.OptimizedDoubleBuffer |
-                    ControlStyles.AllPaintingInWmPaint, true);
-                UpdateStyles();
-            }
         }
         /// <summary>
         /// 窗体加载事件
@@ -1056,23 +1727,7 @@ namespace NetConfClientSoftware
             Control.CheckForIllegalCrossThreadCalls = false;
             Readini();
             XML_URL_COMBOX(XML_URL);
-            this.listViewAll.Anchor = (((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right);
-            for (int i = 0; i < 30; i++)
-            {
-                listViewAll.Columns.Add("通知");
-            }
-            this.listViewAll.FullRowSelect = true;
-            this.listViewAll.GridLines = true;
-            this.listViewAll.HideSelection = false;
-            this.listViewAll.Location = new System.Drawing.Point(6, 6);
-            this.listViewAll.Name = "listViewAll";
-            this.listViewAll.Size = new System.Drawing.Size(1251, 499);
-            this.listViewAll.TabIndex = 2;
-            this.listViewAll.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewAll.UseCompatibleStateImageBehavior = false;
-            this.listViewAll.View = System.Windows.Forms.View.Details;
-            this.listViewAll.ContextMenuStrip = this.contextMenuStripNotification;
-            tabPageAllNotificontion.Controls.Add(listViewAll);
+
             if (File.Exists(neinfopath))
             {
                 try
@@ -2212,16 +2867,16 @@ namespace NetConfClientSoftware
                 }
                 rpc.LoadXml(rpcxml);
                 DateTime dTimeEnd = System.DateTime.Now;
-                TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：\r\n" + FenGeFu + "\r\n");
-                TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
+                TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + FenGeFu);
                 // RichTextReq.Text = sb.ToString();
                 DateTime dTimeServer = System.DateTime.Now;
                 var rpcResponse = netConfClient[id].SendReceiveRpc(rpc);
                 dTimeServer = System.DateTime.Now;
                 TimeSpan ts = dTimeServer - dTimeEnd;
                 LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
-                TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                TextLog.AppendText(XmlFormat.Xml(rpcResponse.OuterXml) + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
+                TextLog.AppendText(XmlFormat.Xml(rpcResponse.OuterXml) + FenGeFu);
                 //BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(rpcResponse); }));
                 if (rpcResponse.OuterXml.Contains("error-type"))
                 {
@@ -2236,7 +2891,7 @@ namespace NetConfClientSoftware
             }
             catch (Exception ex)
             {
-                TextLog.AppendText("Rpc服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc服务器：" + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
                 TextLog.AppendText(ex.Message + "\r\n");
                 MessageBox.Show("运行失败！原因如下：\r\n" + ex.ToString());
             }
@@ -2278,16 +2933,16 @@ namespace NetConfClientSoftware
                 }
                 rpc.LoadXml(rpcxml);
                 DateTime dTimeEnd = System.DateTime.Now;
-                TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：\r\n" + FenGeFu + "\r\n");
-                TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
+                TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + FenGeFu);
                 // RichTextReq.Text = sb.ToString();
                 DateTime dTimeServer = System.DateTime.Now;
                 var rpcResponse = netConfClient[id].SendReceiveRpc(rpc);
                 dTimeServer = System.DateTime.Now;
                 TimeSpan ts = dTimeServer - dTimeEnd;
                 LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
-                TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                TextLog.AppendText(XmlFormat.Xml(rpcResponse.OuterXml) + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
+                TextLog.AppendText(XmlFormat.Xml(rpcResponse.OuterXml) + FenGeFu);
                 // BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(rpcResponse); }));
                 if (rpcResponse.OuterXml.Contains("error"))
                 {
@@ -2302,7 +2957,7 @@ namespace NetConfClientSoftware
             }
             catch (Exception ex)
             {
-                TextLog.AppendText("Rpc服务器：" + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("Rpc服务器：" + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
                 TextLog.AppendText(ex.Message + "\r\n");
                 // MessageBox.Show("运行失败！原因如下：\r\n" + ex.ToString());
                 Messg = "运行失败！原因如下：\r\n" + ex.ToString();
@@ -3226,109 +3881,7 @@ namespace NetConfClientSoftware
                 MessageBox.Show(ex.ToString());   //读取该节点的相关信息
             }
         }
-        private void Pgnot(XmlDocument xmlDoc)
-        {
-            try
-            {
-                if (!xmlDoc.OuterXml.Contains("notification"))
-                {
-                    return;
-                }
-                XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc.NameTable);
-                root.AddNamespace("rpc", "urn:ietf:params:xml:ns:netconf:base:1.0");
-                root.AddNamespace("pgsxmlns", "urn:ccsa:yang:acc-protection-group");
-                XmlNodeList itemNodes = xmlDoc.SelectNodes("//pgsxmlns:pg", root);
-                foreach (XmlNode itemNode in itemNodes)
-                {
-                    int index = dataGridViewPGS_Not.Rows.Add();
-                    if (ips.Contains("移动"))
-                    {
-                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
-                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
-                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
-                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-direction", root);
-                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
-                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
-                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
-                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
-                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
-                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
-                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
-                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
-                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
-                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
-                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
-                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
-                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
-                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
-                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
-                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
-                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
-                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
-                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
-                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
-                    }
-                    if (ips.Contains("电信"))
-                    {
-                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
-                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
-                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
-                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-type", root);
-                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
-                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
-                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
-                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
-                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
-                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
-                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
-                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
-                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
-                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
-                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
-                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
-                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
-                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
-                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
-                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
-                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
-                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
-                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
-                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
-                    }
-                    if (ips.Contains("联通"))
-                    {
-                        XmlNode pg_id = itemNode.SelectSingleNode("pgsxmlns:pg-id", root);
-                        XmlNode protection_type = itemNode.SelectSingleNode("pgsxmlns:protection-type", root);
-                        XmlNode reversion_mode = itemNode.SelectSingleNode("pgsxmlns:reversion-mode", root);
-                        XmlNode switch_direction = itemNode.SelectSingleNode("pgsxmlns:switch-type", root);
-                        XmlNode sd_trigger = itemNode.SelectSingleNode("pgsxmlns:sd-trigger", root);
-                        XmlNode WTR = itemNode.SelectSingleNode("pgsxmlns:wait-to-restore-time", root);
-                        XmlNode hold_off = itemNode.SelectSingleNode("pgsxmlns:hold-off", root);
-                        XmlNode primary_port = itemNode.SelectSingleNode("pgsxmlns:primary-port", root);
-                        XmlNode secondary_port = itemNode.SelectSingleNode("pgsxmlns:secondary-port", root);
-                        XmlNode switch_reason = itemNode.SelectSingleNode("pgsxmlns:switch-reason", root);
-                        XmlNode protection_direction = itemNode.SelectSingleNode("pgsxmlns:protection-direction", root);
-                        XmlNode selected_port = itemNode.SelectSingleNode("pgsxmlns:selected-port", root);
-                        if (pg_id != null) { dataGridViewPGS_Not.Rows[index].Cells["保护组IDN"].Value = pg_id.InnerText; }
-                        if (protection_type != null) { dataGridViewPGS_Not.Rows[index].Cells["保护类型N"].Value = protection_type.InnerText; }
-                        if (reversion_mode != null) { dataGridViewPGS_Not.Rows[index].Cells["还原模式N"].Value = reversion_mode.InnerText; }
-                        if (switch_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换类型N"].Value = switch_direction.InnerText; }
-                        if (sd_trigger != null) { dataGridViewPGS_Not.Rows[index].Cells["SDN"].Value = sd_trigger.InnerText; }
-                        if (WTR != null) { dataGridViewPGS_Not.Rows[index].Cells["WTRN"].Value = WTR.InnerText; }
-                        if (hold_off != null) { dataGridViewPGS_Not.Rows[index].Cells["HoldOffN"].Value = hold_off.InnerText; }
-                        if (primary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["主要端口N"].Value = primary_port.InnerText; }
-                        if (secondary_port != null) { dataGridViewPGS_Not.Rows[index].Cells["次要端口N"].Value = secondary_port.InnerText; }
-                        if (switch_reason != null) { dataGridViewPGS_Not.Rows[index].Cells["倒换原因N"].Value = switch_reason.InnerText; }
-                        if (protection_direction != null) { dataGridViewPGS_Not.Rows[index].Cells["保护方向N"].Value = protection_direction.InnerText; }
-                        if (selected_port != null) { dataGridViewPGS_Not.Rows[index].Cells["选择端口N"].Value = selected_port.InnerText; }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());   //读取该节点的相关信息
-            }
-        }
+
         private void Pgcommand(string _command, string _ditection,string _type)
         {
             try
@@ -3453,8 +4006,8 @@ namespace NetConfClientSoftware
     "<create-subscription xmlns=\"urn:ietf:params:xml:ns:netconf:notification:1.0\" />" + "\r\n" +
     "</rpc > ";
             var sub = netConfClient[id].SendReceiveRpc(subscription);
-            TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-            TextLog.AppendText(sub.OuterXml + "\r\n" + FenGeFu + "\r\n");
+            TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
+            TextLog.AppendText(sub.OuterXml + FenGeFu);
             Sub[id] = true;
             Thread thread = new Thread(() => Subscription(id, ip));
             thread.Start();
@@ -4690,10 +5243,10 @@ namespace NetConfClientSoftware
                         dTimeServer = System.DateTime.Now;
                         TimeSpan ts = dTimeServer - dTimeEnd;
                         LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
-                        TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                        TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ServerCapabilities.OuterXml) + "\r\n" + FenGeFu + "\r\n");
-                        TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：\r\n" + FenGeFu + "\r\n");
-                        TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ClientCapabilities.OuterXml) + "\r\n" + FenGeFu + "\r\n");
+                        TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
+                        TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ServerCapabilities.OuterXml) + FenGeFu);
+                        TextLog.AppendText("Rpc本机：" + ip + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
+                        TextLog.AppendText(XmlFormat.Xml(netConfClient[id].ClientCapabilities.OuterXml) + FenGeFu);
                         netConfClient[id].OperationTimeout = TimeSpan.FromSeconds(15);
                         netConfClient[id].TimeOut = int.Parse(ComTimeOut.Text) * 1000;
                         dataGridViewNeInformation.Rows[rowindex].Cells["连接状态"].Value = "连接成功";
@@ -5466,8 +6019,8 @@ namespace NetConfClientSoftware
                                                                     "<create-subscription xmlns=\"urn:ietf:params:xml:ns:netconf:notification:1.0\" />" + "\r\n" +
                                                          "</rpc > ";
                                 var sub = netConfClient[id].SendReceiveRpc(subscription);
-                                TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：\r\n" + FenGeFu + "\r\n");
-                                TextLog.AppendText(sub.OuterXml + "\r\n" + FenGeFu + "\r\n");
+                                TextLog.AppendText("Rpc服务器：" + netConfClient[id].ConnectionInfo.Host + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
+                                TextLog.AppendText(sub.OuterXml + FenGeFu);
                                 Sub[id] = true;
                                 ThSub[row.Index] = new Thread(() => Subscription(id, neip));
                                 ThSub[row.Index].Start();
@@ -6424,33 +6977,26 @@ namespace NetConfClientSoftware
         }
         private void 清空所有通知ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListViewAlarm.Items.Clear();
-            ListViewTcaAlarm.Items.Clear();
-            listViewProtection.Items.Clear();
+            dataGridViewAlarm.Rows.Clear();
+            //ListViewTcaAlarm.Items.Clear();
             dataGridViewPGS_Not.Rows.Clear();
-            listViewAttribute.Items.Clear();
+            dataGridViewAttributeValueChange.Rows.Clear();
             listViewLLDP.Items.Clear();
             listViewPeer.Items.Clear();
             listViewGhao.Items.Clear();
             listViewCommon.Items.Clear();
-            listViewAll.Items.Clear();
         }
         private void 清空告警通知ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ListViewAlarm.Items.Clear();
-        }
-        private void 清空TCA告警通知ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ListViewTcaAlarm.Items.Clear();
+            dataGridViewAlarm.Rows.Clear();
         }
         private void 清空保护倒换通知ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listViewProtection.Items.Clear();
             dataGridViewPGS_Not.Rows.Clear();
         }
         private void 清空对象变更通知ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            listViewAttribute.Items.Clear();
+            dataGridViewAttributeValueChange.Rows.Clear();
         }
         private void 清空LLDP通知ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -6542,11 +7088,11 @@ namespace NetConfClientSoftware
             if (Element.CUCC_Array.Count != 0)
             {
                // MessageBox.Show("加载联通YIN文件成功！");
-                TextLog.AppendText("加载联通YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("加载联通YIN文件成功！" + FenGeFu);
             }
             else
             {
-                TextLog.AppendText("加载联通YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("加载联通YIN文件失败！" + FenGeFu);
             }
 
             if (Element.CMCC_Array.Count != 0)
@@ -6563,11 +7109,11 @@ namespace NetConfClientSoftware
             }
             if (Element.CMCC_Array.Count != 0)
             {
-                TextLog.AppendText("加载移动YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("加载移动YIN文件成功！" + FenGeFu);
             }
             else
             {
-                TextLog.AppendText("加载移动YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("加载移动YIN文件失败！" + FenGeFu);
             }
             if (Element.CTCC_Array.Count != 0)
             {
@@ -6583,11 +7129,11 @@ namespace NetConfClientSoftware
             }
             if (Element.CTCC_Array.Count != 0)
             {
-                TextLog.AppendText("加载电信YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("加载电信YIN文件成功！" + FenGeFu);
             }
             else
             {
-                TextLog.AppendText("加载电信YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("加载电信YIN文件失败！" + FenGeFu);
             }
             //MessageBox.Show("加载所有运营商YIN文件已完成！");
         }
@@ -6839,11 +7385,11 @@ namespace NetConfClientSoftware
             if (Element.CUCC_Array.Count != 0)
             {
                 // MessageBox.Show("加载联通YIN文件成功！");
-                TextLog.AppendText("服务器更新联通YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("服务器更新联通YIN文件成功！" + FenGeFu);
             }
             else
             {
-                TextLog.AppendText("服务器更新联通YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("服务器更新联通YIN文件失败！" + FenGeFu);
             }
 
             if (Element.CMCC_Array.Count != 0)
@@ -6853,11 +7399,11 @@ namespace NetConfClientSoftware
             YIN_XML_URL(CMCC_YIN_URL, "移动");
             if (Element.CMCC_Array.Count != 0)
             {
-                TextLog.AppendText("服务器更新移动YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("服务器更新移动YIN文件成功！" + FenGeFu);
             }
             else
             {
-                TextLog.AppendText("服务器更新移动YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("服务器更新移动YIN文件失败！" + FenGeFu);
             }
             if (Element.CTCC_Array.Count != 0)
             {
@@ -6866,11 +7412,11 @@ namespace NetConfClientSoftware
             YIN_XML_URL(CTCC_YIN_URL, "电信");
             if (Element.CTCC_Array.Count != 0)
             {
-                TextLog.AppendText("服务器更新电信YIN文件成功！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("服务器更新电信YIN文件成功！" + FenGeFu);
             }
             else
             {
-                TextLog.AppendText("服务器更新电信YIN文件失败！" + "\r\n" + FenGeFu + "\r\n");
+                TextLog.AppendText("服务器更新电信YIN文件失败！" + FenGeFu);
             }
             MessageBox.Show("服务器更新所有运营商YIN文件已完成！");
         }
@@ -8821,7 +9367,7 @@ namespace NetConfClientSoftware
                     XmlNode start_time = itemNode.SelectSingleNode("alarms:start-time", root);
                     XmlNode end_time = itemNode.SelectSingleNode("alarms:end-time", root);
                     if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = alarm_serial_no.InnerText; }
-                    if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["对象网元"].Value = treeViewNEID.SelectedNode.Text; }
+                    if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = treeViewNEID.SelectedNode.Text; }
                     if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
                     if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
                     if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
@@ -8978,11 +9524,12 @@ namespace NetConfClientSoftware
                     XmlNode start_time = itemNode.SelectSingleNode("alarms:start-time", root);
                     XmlNode end_time = itemNode.SelectSingleNode("alarms:end-time", root);
                     if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = "alarm：" +  alarm_serial_no.InnerText; }
-                    if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["对象网元"].Value = treeViewNEID.SelectedNode.Text; }
+                    if (alarm_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = treeViewNEID.SelectedNode.Text; }
                     if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
                     if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
                     if (alarm_code != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = alarm_code.InnerText; }
                     if (alarm_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = alarm_state.InnerText; }
+                    dataGridViewAlarm.Rows[index].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
                     if (perceived_severity != null)
                     {
                         switch (perceived_severity.InnerText)
@@ -9040,15 +9587,17 @@ namespace NetConfClientSoftware
                     XmlNode start_time = itemNode.SelectSingleNode("alarms:start-time", root);
                     XmlNode end_time = itemNode.SelectSingleNode("alarms:end-time", root);
                     if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = "tca:"+ tca_serial_no.InnerText; }
-                    if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["对象网元"].Value = treeViewNEID.SelectedNode.Text; }
+                    if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = treeViewNEID.SelectedNode.Text; }
                     if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
                     if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
                     if (pm_parameter_name != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = pm_parameter_name.InnerText; }
                     if (tca_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = tca_state.InnerText; }
                     if (threshold_value != null && threshold_type != null && current_value!=null) {
-                        dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = "类型： " + threshold_type.InnerText + " 阈值： " + threshold_value.InnerText + " 当前值： " + current_value.InnerText;
+                        dataGridViewAlarm.Rows[index].Cells["TCA阈值类型"].Value = threshold_type.InnerText;
+                        dataGridViewAlarm.Rows[index].Cells["TCA阈值"].Value = threshold_value.InnerText;
+                        dataGridViewAlarm.Rows[index].Cells["TCA当前值"].Value = current_value.InnerText;
                     }
-                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "周期：" + granularity.InnerText; }
+                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["TCA周期"].Value = granularity.InnerText; }
                     if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
                     if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
                     if (tca_state != null)
@@ -9060,6 +9609,7 @@ namespace NetConfClientSoftware
                         if (tca_state.InnerText == "end")
                         {
                             dataGridViewAlarm.Rows[index].Cells["确认告警"].Value = "已清除";
+                            dataGridViewAlarm.Rows[index].Cells["告警状态"].Style.BackColor = Color.GreenYellow;
                         }
                     }
 
@@ -9114,16 +9664,19 @@ namespace NetConfClientSoftware
                     XmlNode start_time = itemNode.SelectSingleNode("alarms:start-time", root);
                     XmlNode end_time = itemNode.SelectSingleNode("alarms:end-time", root);
                     if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警编号"].Value = tca_serial_no.InnerText; }
-                    if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["对象网元"].Value = treeViewNEID.SelectedNode.Text; }
+                    if (tca_serial_no != null) { dataGridViewAlarm.Rows[index].Cells["告警网元"].Value = treeViewNEID.SelectedNode.Text; }
                     if (object_name != null) { dataGridViewAlarm.Rows[index].Cells["告警对象名称"].Value = object_name.InnerText; }
                     if (object_type != null) { dataGridViewAlarm.Rows[index].Cells["告警对象类型"].Value = object_type.InnerText; }
                     if (pm_parameter_name != null) { dataGridViewAlarm.Rows[index].Cells["告警名称"].Value = pm_parameter_name.InnerText; }
                     if (tca_state != null) { dataGridViewAlarm.Rows[index].Cells["告警状态"].Value = tca_state.InnerText; }
                     if (threshold_value != null && threshold_type != null && current_value != null)
                     {
-                        dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = "类型： " + threshold_type.InnerText + " 阈值： " + threshold_value.InnerText + " 当前值： " + current_value.InnerText;
+                       // dataGridViewAlarm.Rows[index].Cells["告警描述"].Value = "类型： " + threshold_type.InnerText + " 阈值： " + threshold_value.InnerText + " 当前值： " + current_value.InnerText;
+                        dataGridViewAlarm.Rows[index].Cells["TCA阈值类型"].Value = threshold_type.InnerText;
+                        dataGridViewAlarm.Rows[index].Cells["TCA阈值"].Value = threshold_value.InnerText;
+                        dataGridViewAlarm.Rows[index].Cells["TCA当前值"].Value = current_value.InnerText;
                     }
-                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["告警级别"].Value = "周期：" + granularity.InnerText; }
+                    if (granularity != null) { dataGridViewAlarm.Rows[index].Cells["TCA周期"].Value = granularity.InnerText; }
                     if (end_time != null) { dataGridViewAlarm.Rows[index].Cells["告警结束时间"].Value = end_time.InnerText; }
                     if (start_time != null) { dataGridViewAlarm.Rows[index].Cells["告警开始时间"].Value = start_time.InnerText; }
                     if (tca_state != null)
@@ -9146,9 +9699,76 @@ namespace NetConfClientSoftware
             }
         }
 
-        private void 预建MSP保护组ToolStripMenuItem_Click(object sender, EventArgs e)
+        private void 业务详细信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            try
+            {
+                string PtpsFtpsCtps = "";
+                foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        PtpsFtpsCtps = dataGridViewEth.Rows[row.Index].Cells["CTP端口1"].Value.ToString();       //设备IP地址
+                        int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                        int line = -1;
+                        for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                        {
+                            if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                            {
+                                line = i;
+                                break;
+                            }
+                            if (line >= 0)
+                                break;
+                        }
+                        string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                        var Formoam = new Form_Connection_Info(id,ip, PtpsFtpsCtps);
+                        Formoam.Show();
+                    }
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
 
+        private void dataGridViewEth_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                string PtpsFtpsCtps = "";
+                foreach (DataGridViewRow row in this.dataGridViewEth.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        PtpsFtpsCtps = dataGridViewEth.Rows[row.Index].Cells["CTP端口1"].Value.ToString();       //设备IP地址
+                        int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                        int line = -1;
+                        for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                        {
+                            if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                            {
+                                line = i;
+                                break;
+                            }
+                            if (line >= 0)
+                                break;
+                        }
+                        string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                        var Formoam = new Form_Connection_Info(id, ip, PtpsFtpsCtps);
+                        Formoam.Show();
+                    }
+                }
+                // 保存在实体类属性中
+                //保存密码选中状态
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }
