@@ -31,7 +31,7 @@
     <PublisherName>NetconfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>23</ApplicationRevision>
+    <ApplicationRevision>31</ApplicationRevision>
     <ApplicationVersion>2022.5.7.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -125,6 +125,12 @@
     </Compile>
     <Compile Include="ConfigServices\FileManage.cs" />
     <Compile Include="Connection_Arrange.cs" />
+    <Compile Include="Form_Rep_Reply.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_Rep_Reply.Designer.cs">
+      <DependentUpon>Form_Rep_Reply.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Connection_Info.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -253,6 +259,9 @@
     <EmbeddedResource Include="AutoRuning\Form_AutoRunningNetconf.resx">
       <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_Rep_Reply.resx">
+      <DependentUpon>Form_Rep_Reply.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Connection_Info.resx">
       <DependentUpon>Form_Connection_Info.cs</DependentUpon>
     </EmbeddedResource>
@@ -312,6 +321,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="ClassDiagram.cd" />
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -338,12 +348,12 @@
   <ItemGroup>
     <PublishFile Include="img\sdn_logo.ico">
       <Visible>False</Visible>
-      <PublishState>Exclude</PublishState>
-      <IncludeHash>False</IncludeHash>
       <Group>
       </Group>
       <TargetPath>
       </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>False</IncludeHash>
       <FileType>File</FileType>
     </PublishFile>
   </ItemGroup>

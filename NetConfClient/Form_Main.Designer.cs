@@ -49,9 +49,6 @@ namespace NetConfClientSoftware
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -60,16 +57,29 @@ namespace NetConfClientSoftware
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
             this.ButSend = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -99,9 +109,7 @@ namespace NetConfClientSoftware
             this.从服务器更新YIN文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助HToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.关于AToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.分享SToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.双击网元即可上线ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查看交互日志ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查看Telnet交互日志ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -284,28 +292,14 @@ namespace NetConfClientSoftware
             this.treeViewPtpCtpFtp = new System.Windows.Forms.TreeView();
             this.调试主窗口 = new System.Windows.Forms.TabPage();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.TreeReq = new System.Windows.Forms.TreeView();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.TreeReP = new System.Windows.Forms.TreeView();
+            this.contextMenuStripXML = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.查看原始XML脚本ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.业务查询 = new System.Windows.Forms.TabPage();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.ButFindOdu_local = new System.Windows.Forms.Button();
             this.dataGridViewEth = new System.Windows.Forms.DataGridView();
-            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_ODU = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除业务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.业务详细信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -627,16 +621,6 @@ namespace NetConfClientSoftware
             this.保护组查询 = new System.Windows.Forms.TabPage();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.ButPGSFind = new System.Windows.Forms.Button();
-            this.dataGridViewPGS_Not = new System.Windows.Forms.DataGridView();
-            this.contextMenuStripNotification = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.清空所有通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空告警通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空保护倒换通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空对象变更通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空LLDP通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空Peer通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空GHao通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.清空一般配置通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridViewPGS = new System.Windows.Forms.DataGridView();
             this.保护组ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.创建方式 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -680,41 +664,75 @@ namespace NetConfClientSoftware
             this.buttonGetHistoryAlarm = new System.Windows.Forms.Button();
             this.buttonGetCurrentAlarm = new System.Windows.Forms.Button();
             this.dataGridViewAlarm = new System.Windows.Forms.DataGridView();
+            this.告警网元 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警对象名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警对象类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警级别 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCA周期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCA阈值 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCA当前值 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TCA阈值类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警开始时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警结束时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.确认告警 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警描述 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.contextMenuStripNotification = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.清空所有通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空告警通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空保护倒换通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空对象变更通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空LLDP通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空Peer通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.清空GHao通知ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.dataGridViewPGS_Not = new System.Windows.Forms.DataGridView();
+            this.保护组网元 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.保护组事件编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.保护组事件时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.保护组IDN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.保护类型N = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.还原模式N = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.倒换类型N = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.保护方向N = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SDN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.倒换原因N = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WTRN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.HoldOffN = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.选择端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.主要端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.次要端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage13 = new System.Windows.Forms.TabPage();
+            this.dataGridViewAttributeValueChange = new System.Windows.Forms.DataGridView();
+            this.对象变更网元 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.对象变更事件编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.对象变更事件时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.对象变更事件类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.对象变更对象名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.对象变更对象类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.对象变更属性名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.对象变更新值 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.对象变更旧值 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage14 = new System.Windows.Forms.TabPage();
-            this.listViewLLDP = new System.Windows.Forms.ListView();
-            this.eventTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.PTP_name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.LLDP_peer_chassis_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lldp_peer_port_id = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.lldp_peer_system_name = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dataGridViewLLDP = new System.Windows.Forms.DataGridView();
+            this.LLDP网元 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LLDP事件时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LLDP对象名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LLDP对端MAC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LLDP对端端口 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LLDP对端系统名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage15 = new System.Windows.Forms.TabPage();
-            this.listViewPeer = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader34 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.dataGridViewPeerChange = new System.Windows.Forms.DataGridView();
+            this.Peer网元 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Peer事件时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Peer端口名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Peer对端IP地址 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Peer对端端口TCPID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage16 = new System.Windows.Forms.TabPage();
-            this.listViewGhao = new System.Windows.Forms.ListView();
-            this.columnHeader24 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader28 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader29 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader30 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.tabPage18 = new System.Windows.Forms.TabPage();
-            this.listViewCommon = new System.Windows.Forms.ListView();
-            this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader20 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader21 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader22 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader23 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader36 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.自动化测试 = new System.Windows.Forms.TabPage();
             this.labelAutoCount = new System.Windows.Forms.Label();
             this.label149 = new System.Windows.Forms.Label();
@@ -750,7 +768,11 @@ namespace NetConfClientSoftware
             this.更改为当前ip地址ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.日志信息 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this.TextLog = new System.Windows.Forms.TextBox();
+            this.buttonLogClear = new System.Windows.Forms.Button();
+            this.textBoxLogFind = new System.Windows.Forms.TextBox();
+            this.buttonLogFind = new System.Windows.Forms.Button();
             this.Telnet = new System.Windows.Forms.TabPage();
             this.splitContainer5 = new System.Windows.Forms.SplitContainer();
             this.textBoxConnections = new System.Windows.Forms.TextBox();
@@ -782,46 +804,19 @@ namespace NetConfClientSoftware
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.treeViewNEID = new System.Windows.Forms.TreeView();
             this.imageListTree = new System.Windows.Forms.ImageList(this.components);
-            this.告警网元 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警对象名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警对象类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警级别 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCA周期 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCA阈值 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCA当前值 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TCA阈值类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警开始时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警结束时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.确认告警 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.告警描述 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.保护组网元 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.保护组事件编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.保护组事件时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.保护组IDN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.保护类型N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.还原模式N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.倒换类型N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.保护方向N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SDN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.倒换原因N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WTRN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.HoldOffN = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.选择端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.主要端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.次要端口N = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewAttributeValueChange = new System.Windows.Forms.DataGridView();
-            this.对象变更网元 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.对象变更事件编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.对象变更事件时间 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.对象变更事件类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.对象变更对象名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.对象变更对象类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.对象变更属性名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.对象变更新值 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.对象变更旧值 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -854,12 +849,8 @@ namespace NetConfClientSoftware
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
-            this.splitContainer2.Panel1.SuspendLayout();
-            this.splitContainer2.Panel2.SuspendLayout();
-            this.splitContainer2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.contextMenuStripXML.SuspendLayout();
             this.业务查询.SuspendLayout();
             this.groupBox22.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEth)).BeginInit();
@@ -901,26 +892,31 @@ namespace NetConfClientSoftware
             this.contextMenuStripParameter.SuspendLayout();
             this.保护组查询.SuspendLayout();
             this.groupBox17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS_Not)).BeginInit();
-            this.contextMenuStripNotification.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS)).BeginInit();
             this.contextMenuStripPGS.SuspendLayout();
             this.告警和通知.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlarm)).BeginInit();
+            this.contextMenuStripNotification.SuspendLayout();
             this.tabPage12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS_Not)).BeginInit();
             this.tabPage13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAttributeValueChange)).BeginInit();
             this.tabPage14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLLDP)).BeginInit();
             this.tabPage15.SuspendLayout();
-            this.tabPage16.SuspendLayout();
-            this.tabPage18.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPeerChange)).BeginInit();
             this.自动化测试.SuspendLayout();
             this.groupBox28.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAuto)).BeginInit();
             this.contextMenuStripAuto.SuspendLayout();
             this.日志信息.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).BeginInit();
+            this.splitContainer6.Panel1.SuspendLayout();
+            this.splitContainer6.Panel2.SuspendLayout();
+            this.splitContainer6.SuspendLayout();
             this.Telnet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -933,7 +929,6 @@ namespace NetConfClientSoftware
             this.splitContainer4.Panel2.SuspendLayout();
             this.splitContainer4.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAttributeValueChange)).BeginInit();
             this.SuspendLayout();
             // 
             // ButSend
@@ -941,7 +936,7 @@ namespace NetConfClientSoftware
             this.ButSend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ButSend.BackColor = System.Drawing.Color.Transparent;
             this.ButSend.ForeColor = System.Drawing.Color.RoyalBlue;
-            this.ButSend.Location = new System.Drawing.Point(514, 14);
+            this.ButSend.Location = new System.Drawing.Point(444, 10);
             this.ButSend.Name = "ButSend";
             this.ButSend.Size = new System.Drawing.Size(127, 30);
             this.ButSend.TabIndex = 0;
@@ -957,7 +952,7 @@ namespace NetConfClientSoftware
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(650, 524);
+            this.groupBox1.Size = new System.Drawing.Size(580, 612);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "请求(Rpc)";
@@ -968,7 +963,7 @@ namespace NetConfClientSoftware
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 55);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(644, 419);
+            this.panel4.Size = new System.Drawing.Size(574, 507);
             this.panel4.TabIndex = 25;
             // 
             // RichTextReq
@@ -980,7 +975,7 @@ namespace NetConfClientSoftware
             this.RichTextReq.Multiline = true;
             this.RichTextReq.Name = "RichTextReq";
             this.RichTextReq.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.RichTextReq.Size = new System.Drawing.Size(644, 419);
+            this.RichTextReq.Size = new System.Drawing.Size(574, 507);
             this.RichTextReq.TabIndex = 21;
             this.RichTextReq.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextReq_KeyDown);
             // 
@@ -993,7 +988,7 @@ namespace NetConfClientSoftware
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(3, 17);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(644, 38);
+            this.panel3.Size = new System.Drawing.Size(574, 38);
             this.panel3.TabIndex = 24;
             // 
             // ComTimeOut
@@ -1025,13 +1020,15 @@ namespace NetConfClientSoftware
             // 
             // ComXml
             // 
+            this.ComXml.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ComXml.IntegralHeight = false;
             this.ComXml.ItemHeight = 12;
             this.ComXml.Location = new System.Drawing.Point(330, 7);
             this.ComXml.MaxDropDownItems = 50;
             this.ComXml.MaxLength = 100;
             this.ComXml.Name = "ComXml";
-            this.ComXml.Size = new System.Drawing.Size(311, 20);
+            this.ComXml.Size = new System.Drawing.Size(241, 20);
             this.ComXml.TabIndex = 9;
             this.ComXml.SelectedIndexChanged += new System.EventHandler(this.ComXml_SelectedIndexChanged);
             // 
@@ -1049,16 +1046,16 @@ namespace NetConfClientSoftware
             this.panel2.Controls.Add(this.ButSend);
             this.panel2.Controls.Add(this.XML转Tree);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 474);
+            this.panel2.Location = new System.Drawing.Point(3, 562);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(644, 47);
+            this.panel2.Size = new System.Drawing.Size(574, 47);
             this.panel2.TabIndex = 23;
             // 
             // XML转Tree
             // 
             this.XML转Tree.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.XML转Tree.Enabled = false;
-            this.XML转Tree.Location = new System.Drawing.Point(387, 14);
+            this.XML转Tree.Location = new System.Drawing.Point(317, 10);
             this.XML转Tree.Name = "XML转Tree";
             this.XML转Tree.Size = new System.Drawing.Size(110, 29);
             this.XML转Tree.TabIndex = 22;
@@ -1074,12 +1071,11 @@ namespace NetConfClientSoftware
             this.工具TToolStripMenuItem,
             this.帮助HToolStripMenuItem,
             this.分享SToolStripMenuItem,
-            this.双击网元即可上线ToolStripMenuItem,
             this.查看交互日志ToolStripMenuItem,
             this.查看Telnet交互日志ToolStripMenuItem});
             this.menuStrip_Winfrom.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_Winfrom.Name = "menuStrip_Winfrom";
-            this.menuStrip_Winfrom.Size = new System.Drawing.Size(1375, 25);
+            this.menuStrip_Winfrom.Size = new System.Drawing.Size(1374, 25);
             this.menuStrip_Winfrom.TabIndex = 16;
             this.menuStrip_Winfrom.Text = "menuStrip1";
             // 
@@ -1204,23 +1200,16 @@ namespace NetConfClientSoftware
             // 帮助HToolStripMenuItem
             // 
             this.帮助HToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator5,
-            this.关于AToolStripMenuItem});
+            this.toolStripSeparator5});
             this.帮助HToolStripMenuItem.Name = "帮助HToolStripMenuItem";
             this.帮助HToolStripMenuItem.Size = new System.Drawing.Size(61, 21);
             this.帮助HToolStripMenuItem.Text = "帮助(&H)";
+            this.帮助HToolStripMenuItem.Click += new System.EventHandler(this.帮助HToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(122, 6);
-            // 
-            // 关于AToolStripMenuItem
-            // 
-            this.关于AToolStripMenuItem.Name = "关于AToolStripMenuItem";
-            this.关于AToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
-            this.关于AToolStripMenuItem.Text = "关于(&A)...";
-            this.关于AToolStripMenuItem.Click += new System.EventHandler(this.关于AToolStripMenuItem_Click);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(57, 6);
             // 
             // 分享SToolStripMenuItem
             // 
@@ -1228,12 +1217,6 @@ namespace NetConfClientSoftware
             this.分享SToolStripMenuItem.Size = new System.Drawing.Size(107, 21);
             this.分享SToolStripMenuItem.Text = "分享下载链接(S)";
             this.分享SToolStripMenuItem.Click += new System.EventHandler(this.分享SToolStripMenuItem_Click);
-            // 
-            // 双击网元即可上线ToolStripMenuItem
-            // 
-            this.双击网元即可上线ToolStripMenuItem.Name = "双击网元即可上线ToolStripMenuItem";
-            this.双击网元即可上线ToolStripMenuItem.Size = new System.Drawing.Size(116, 21);
-            this.双击网元即可上线ToolStripMenuItem.Text = "双击网元即可上线";
             // 
             // 查看交互日志ToolStripMenuItem
             // 
@@ -1292,6 +1275,7 @@ namespace NetConfClientSoftware
             // 
             // dataGridViewNeInformation
             // 
+            this.dataGridViewNeInformation.AllowUserToResizeColumns = false;
             this.dataGridViewNeInformation.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
@@ -1304,7 +1288,7 @@ namespace NetConfClientSoftware
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewNeInformation.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewNeInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewNeInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewNeInformation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SSH_ID,
             this.网元ip,
@@ -2540,6 +2524,8 @@ namespace NetConfClientSoftware
             // 
             // dataGridView_EQ
             // 
+            this.dataGridView_EQ.AllowUserToResizeColumns = false;
+            this.dataGridView_EQ.AllowUserToResizeRows = false;
             this.dataGridView_EQ.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -2552,7 +2538,7 @@ namespace NetConfClientSoftware
             dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView_EQ.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
-            this.dataGridView_EQ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_EQ.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView_EQ.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.单板名称,
             this.单板信息,
@@ -2575,6 +2561,7 @@ namespace NetConfClientSoftware
             this.dataGridView_EQ.DefaultCellStyle = dataGridViewCellStyle10;
             this.dataGridView_EQ.Location = new System.Drawing.Point(6, 20);
             this.dataGridView_EQ.Name = "dataGridView_EQ";
+            this.dataGridView_EQ.ReadOnly = true;
             this.dataGridView_EQ.RowHeadersVisible = false;
             this.dataGridView_EQ.RowTemplate.Height = 23;
             this.dataGridView_EQ.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -2586,59 +2573,69 @@ namespace NetConfClientSoftware
             this.单板名称.FillWeight = 321.4284F;
             this.单板名称.HeaderText = "单板名称";
             this.单板名称.Name = "单板名称";
+            this.单板名称.ReadOnly = true;
             // 
             // 单板信息
             // 
             this.单板信息.HeaderText = "单板信息";
             this.单板信息.Name = "单板信息";
+            this.单板信息.ReadOnly = true;
             // 
             // 是否在位
             // 
             this.是否在位.FillWeight = 78.85413F;
             this.是否在位.HeaderText = "是否在位";
             this.是否在位.Name = "是否在位";
+            this.是否在位.ReadOnly = true;
             // 
             // 状态
             // 
             this.状态.FillWeight = 63.41261F;
             this.状态.HeaderText = "状态";
             this.状态.Name = "状态";
+            this.状态.ReadOnly = true;
             // 
             // 板卡类型
             // 
             this.板卡类型.FillWeight = 64.09102F;
             this.板卡类型.HeaderText = "板卡类型";
             this.板卡类型.Name = "板卡类型";
+            this.板卡类型.ReadOnly = true;
             // 
             // 序列号
             // 
             this.序列号.FillWeight = 86.6889F;
             this.序列号.HeaderText = "序列号";
             this.序列号.Name = "序列号";
+            this.序列号.ReadOnly = true;
             // 
             // XC能力
             // 
             this.XC能力.FillWeight = 64.71203F;
             this.XC能力.HeaderText = "XC能力";
             this.XC能力.Name = "XC能力";
+            this.XC能力.ReadOnly = true;
             // 
             // 端口数量
             // 
             this.端口数量.FillWeight = 66.40532F;
             this.端口数量.HeaderText = "端口数量";
             this.端口数量.Name = "端口数量";
+            this.端口数量.ReadOnly = true;
             // 
             // 软件版本
             // 
             this.软件版本.FillWeight = 79.8559F;
             this.软件版本.HeaderText = "软件版本";
             this.软件版本.Name = "软件版本";
+            this.软件版本.ReadOnly = true;
             // 
             // 硬件版本
             // 
             this.硬件版本.FillWeight = 79.14317F;
             this.硬件版本.HeaderText = "硬件版本";
             this.硬件版本.Name = "硬件版本";
+            this.硬件版本.ReadOnly = true;
             // 
             // contextMenuStripReset
             // 
@@ -3107,53 +3104,14 @@ namespace NetConfClientSoftware
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
+            this.splitContainer1.Panel1.Controls.Add(this.groupBox1);
             // 
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox4);
             this.splitContainer1.Size = new System.Drawing.Size(1167, 612);
-            this.splitContainer1.SplitterDistance = 650;
+            this.splitContainer1.SplitterDistance = 580;
             this.splitContainer1.TabIndex = 13;
-            // 
-            // splitContainer2
-            // 
-            this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer2.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer2.Name = "splitContainer2";
-            this.splitContainer2.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer2.Panel1
-            // 
-            this.splitContainer2.Panel1.Controls.Add(this.groupBox3);
-            // 
-            // splitContainer2.Panel2
-            // 
-            this.splitContainer2.Panel2.Controls.Add(this.groupBox1);
-            this.splitContainer2.Size = new System.Drawing.Size(650, 612);
-            this.splitContainer2.SplitterDistance = 84;
-            this.splitContainer2.TabIndex = 13;
-            // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.TreeReq);
-            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox3.Location = new System.Drawing.Point(0, 0);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(650, 84);
-            this.groupBox3.TabIndex = 13;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "请求(Rpc)树状图";
-            // 
-            // TreeReq
-            // 
-            this.TreeReq.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TreeReq.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
-            this.TreeReq.Location = new System.Drawing.Point(3, 17);
-            this.TreeReq.Name = "TreeReq";
-            this.TreeReq.Size = new System.Drawing.Size(644, 64);
-            this.TreeReq.TabIndex = 11;
-            this.TreeReq.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.TreeReq_DrawNode);
             // 
             // groupBox4
             // 
@@ -3161,22 +3119,38 @@ namespace NetConfClientSoftware
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(0, 0);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(513, 612);
+            this.groupBox4.Size = new System.Drawing.Size(583, 612);
             this.groupBox4.TabIndex = 12;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "答复(Rpc-reply)树状图";
             // 
             // TreeReP
             // 
+            this.TreeReP.ContextMenuStrip = this.contextMenuStripXML;
             this.TreeReP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TreeReP.DrawMode = System.Windows.Forms.TreeViewDrawMode.OwnerDrawText;
             this.TreeReP.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.TreeReP.ItemHeight = 14;
             this.TreeReP.Location = new System.Drawing.Point(3, 17);
             this.TreeReP.Name = "TreeReP";
-            this.TreeReP.Size = new System.Drawing.Size(507, 592);
+            this.TreeReP.Size = new System.Drawing.Size(577, 592);
             this.TreeReP.TabIndex = 10;
             this.TreeReP.DrawNode += new System.Windows.Forms.DrawTreeNodeEventHandler(this.TreeReP_DrawNode);
+            this.TreeReP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.TreeReP_MouseDoubleClick);
+            // 
+            // contextMenuStripXML
+            // 
+            this.contextMenuStripXML.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.查看原始XML脚本ToolStripMenuItem});
+            this.contextMenuStripXML.Name = "contextMenuStripXML";
+            this.contextMenuStripXML.Size = new System.Drawing.Size(175, 26);
+            // 
+            // 查看原始XML脚本ToolStripMenuItem
+            // 
+            this.查看原始XML脚本ToolStripMenuItem.Name = "查看原始XML脚本ToolStripMenuItem";
+            this.查看原始XML脚本ToolStripMenuItem.Size = new System.Drawing.Size(174, 22);
+            this.查看原始XML脚本ToolStripMenuItem.Text = "查看原始XML脚本";
+            this.查看原始XML脚本ToolStripMenuItem.Click += new System.EventHandler(this.查看原始XML脚本ToolStripMenuItem_Click);
             // 
             // 业务查询
             // 
@@ -3218,6 +3192,7 @@ namespace NetConfClientSoftware
             // 
             // dataGridViewEth
             // 
+            this.dataGridViewEth.AllowUserToResizeRows = false;
             this.dataGridViewEth.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -3229,7 +3204,7 @@ namespace NetConfClientSoftware
             dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewEth.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
-            this.dataGridViewEth.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewEth.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewEth.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.连接名称,
             this.标签别名,
@@ -3255,6 +3230,7 @@ namespace NetConfClientSoftware
             this.dataGridViewEth.DefaultCellStyle = dataGridViewCellStyle12;
             this.dataGridViewEth.Location = new System.Drawing.Point(6, 20);
             this.dataGridViewEth.Name = "dataGridViewEth";
+            this.dataGridViewEth.ReadOnly = true;
             dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle13.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -3269,85 +3245,6 @@ namespace NetConfClientSoftware
             this.dataGridViewEth.Size = new System.Drawing.Size(1151, 502);
             this.dataGridViewEth.TabIndex = 0;
             this.dataGridViewEth.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEth_CellDoubleClick);
-            // 
-            // 连接名称
-            // 
-            this.连接名称.HeaderText = "连接名称";
-            this.连接名称.Name = "连接名称";
-            this.连接名称.Width = 120;
-            // 
-            // 标签别名
-            // 
-            this.标签别名.HeaderText = "标签别名";
-            this.标签别名.Name = "标签别名";
-            this.标签别名.Width = 60;
-            // 
-            // 当前状态
-            // 
-            this.当前状态.HeaderText = "当前状态";
-            this.当前状态.Name = "当前状态";
-            this.当前状态.Width = 40;
-            // 
-            // 管理状态
-            // 
-            this.管理状态.HeaderText = "管理状态";
-            this.管理状态.Name = "管理状态";
-            this.管理状态.Width = 60;
-            // 
-            // 当前层协议
-            // 
-            this.当前层协议.HeaderText = "当前层协议";
-            this.当前层协议.Name = "当前层协议";
-            this.当前层协议.Width = 80;
-            // 
-            // 服务类型
-            // 
-            this.服务类型.HeaderText = "服务类型";
-            this.服务类型.Name = "服务类型";
-            this.服务类型.Width = 40;
-            // 
-            // 业务总带宽
-            // 
-            this.业务总带宽.HeaderText = "业务总带宽";
-            this.业务总带宽.Name = "业务总带宽";
-            this.业务总带宽.Width = 60;
-            // 
-            // 承诺带宽
-            // 
-            this.承诺带宽.HeaderText = "承诺带宽";
-            this.承诺带宽.Name = "承诺带宽";
-            this.承诺带宽.Width = 40;
-            // 
-            // 峰值带宽
-            // 
-            this.峰值带宽.HeaderText = "峰值带宽";
-            this.峰值带宽.Name = "峰值带宽";
-            this.峰值带宽.Width = 40;
-            // 
-            // 承诺突发
-            // 
-            this.承诺突发.HeaderText = "承诺突发";
-            this.承诺突发.Name = "承诺突发";
-            this.承诺突发.Width = 40;
-            // 
-            // 峰值突发
-            // 
-            this.峰值突发.HeaderText = "峰值突发";
-            this.峰值突发.Name = "峰值突发";
-            this.峰值突发.Width = 40;
-            // 
-            // CTP端口1
-            // 
-            this.CTP端口1.HeaderText = "所有CTP端口";
-            this.CTP端口1.Name = "CTP端口1";
-            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CTP端口1.Width = 600;
-            // 
-            // CTP端口2
-            // 
-            this.CTP端口2.HeaderText = "PTP-CTP端口";
-            this.CTP端口2.Name = "CTP端口2";
-            this.CTP端口2.Width = 300;
             // 
             // contextMenuStrip_ODU
             // 
@@ -6719,7 +6616,7 @@ namespace NetConfClientSoftware
             dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewCurrentPerformance.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle15;
-            this.dataGridViewCurrentPerformance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewCurrentPerformance.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewCurrentPerformance.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.参数名称,
             this.对象类型,
@@ -6743,6 +6640,7 @@ namespace NetConfClientSoftware
             this.dataGridViewCurrentPerformance.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewCurrentPerformance.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewCurrentPerformance.Name = "dataGridViewCurrentPerformance";
+            this.dataGridViewCurrentPerformance.ReadOnly = true;
             dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle17.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -6761,58 +6659,68 @@ namespace NetConfClientSoftware
             // 
             this.参数名称.HeaderText = "参数名称";
             this.参数名称.Name = "参数名称";
+            this.参数名称.ReadOnly = true;
             // 
             // 对象类型
             // 
             this.对象类型.HeaderText = "对象类型";
             this.对象类型.Name = "对象类型";
+            this.对象类型.ReadOnly = true;
             this.对象类型.Width = 80;
             // 
             // 对象名称
             // 
             this.对象名称.HeaderText = "对象名称";
             this.对象名称.Name = "对象名称";
+            this.对象名称.ReadOnly = true;
             this.对象名称.Width = 300;
             // 
             // 周期类型
             // 
             this.周期类型.HeaderText = "周期类型";
             this.周期类型.Name = "周期类型";
+            this.周期类型.ReadOnly = true;
             this.周期类型.Width = 80;
             // 
             // 数字量性能值
             // 
             this.数字量性能值.HeaderText = "数字量性能值";
             this.数字量性能值.Name = "数字量性能值";
+            this.数字量性能值.ReadOnly = true;
             // 
             // 最大值
             // 
             this.最大值.HeaderText = "最大值";
             this.最大值.Name = "最大值";
+            this.最大值.ReadOnly = true;
             this.最大值.Width = 80;
             // 
             // 最小值
             // 
             this.最小值.HeaderText = "最小值";
             this.最小值.Name = "最小值";
+            this.最小值.ReadOnly = true;
             this.最小值.Width = 80;
             // 
             // 平均值
             // 
             this.平均值.HeaderText = "平均值";
             this.平均值.Name = "平均值";
+            this.平均值.ReadOnly = true;
             this.平均值.Width = 80;
             // 
             // 当前值
             // 
             this.当前值.HeaderText = "当前值";
             this.当前值.Name = "当前值";
+            this.当前值.ReadOnly = true;
             this.当前值.Width = 80;
             // 
             // 开始时间
             // 
             this.开始时间.HeaderText = "开始时间";
             this.开始时间.Name = "开始时间";
+            this.开始时间.ReadOnly = true;
             this.开始时间.Width = 200;
             // 
             // contextMenuStripParameter
@@ -6864,133 +6772,9 @@ namespace NetConfClientSoftware
             this.ButPGSFind.UseVisualStyleBackColor = true;
             this.ButPGSFind.Click += new System.EventHandler(this.ButPGSFind_Click);
             // 
-            // dataGridViewPGS_Not
-            // 
-            this.dataGridViewPGS_Not.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle26.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewPGS_Not.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
-            this.dataGridViewPGS_Not.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewPGS_Not.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.保护组网元,
-            this.保护组事件编号,
-            this.保护组事件时间,
-            this.保护组IDN,
-            this.保护类型N,
-            this.还原模式N,
-            this.倒换类型N,
-            this.保护方向N,
-            this.SDN,
-            this.倒换原因N,
-            this.WTRN,
-            this.HoldOffN,
-            this.选择端口N,
-            this.主要端口N,
-            this.次要端口N});
-            this.dataGridViewPGS_Not.ContextMenuStrip = this.contextMenuStripNotification;
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle27.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewPGS_Not.DefaultCellStyle = dataGridViewCellStyle27;
-            this.dataGridViewPGS_Not.Location = new System.Drawing.Point(3, 3);
-            this.dataGridViewPGS_Not.Name = "dataGridViewPGS_Not";
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewPGS_Not.RowHeadersDefaultCellStyle = dataGridViewCellStyle28;
-            this.dataGridViewPGS_Not.RowHeadersVisible = false;
-            this.dataGridViewPGS_Not.RowTemplate.Height = 23;
-            this.dataGridViewPGS_Not.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewPGS_Not.Size = new System.Drawing.Size(1159, 586);
-            this.dataGridViewPGS_Not.TabIndex = 1;
-            // 
-            // contextMenuStripNotification
-            // 
-            this.contextMenuStripNotification.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.清空所有通知ToolStripMenuItem,
-            this.清空告警通知ToolStripMenuItem,
-            this.清空保护倒换通知ToolStripMenuItem,
-            this.清空对象变更通知ToolStripMenuItem,
-            this.清空LLDP通知ToolStripMenuItem,
-            this.清空Peer通知ToolStripMenuItem,
-            this.清空GHao通知ToolStripMenuItem,
-            this.清空一般配置通知ToolStripMenuItem});
-            this.contextMenuStripNotification.Name = "contextMenuStripNotification";
-            this.contextMenuStripNotification.Size = new System.Drawing.Size(232, 180);
-            // 
-            // 清空所有通知ToolStripMenuItem
-            // 
-            this.清空所有通知ToolStripMenuItem.Name = "清空所有通知ToolStripMenuItem";
-            this.清空所有通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.清空所有通知ToolStripMenuItem.Text = "清空All所有通知";
-            this.清空所有通知ToolStripMenuItem.Click += new System.EventHandler(this.清空所有通知ToolStripMenuItem_Click);
-            // 
-            // 清空告警通知ToolStripMenuItem
-            // 
-            this.清空告警通知ToolStripMenuItem.Name = "清空告警通知ToolStripMenuItem";
-            this.清空告警通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.清空告警通知ToolStripMenuItem.Text = "清空Alarm告警通知";
-            this.清空告警通知ToolStripMenuItem.Click += new System.EventHandler(this.清空告警通知ToolStripMenuItem_Click);
-            // 
-            // 清空保护倒换通知ToolStripMenuItem
-            // 
-            this.清空保护倒换通知ToolStripMenuItem.Name = "清空保护倒换通知ToolStripMenuItem";
-            this.清空保护倒换通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.清空保护倒换通知ToolStripMenuItem.Text = "清空Protection保护倒换通知";
-            this.清空保护倒换通知ToolStripMenuItem.Click += new System.EventHandler(this.清空保护倒换通知ToolStripMenuItem_Click);
-            // 
-            // 清空对象变更通知ToolStripMenuItem
-            // 
-            this.清空对象变更通知ToolStripMenuItem.Name = "清空对象变更通知ToolStripMenuItem";
-            this.清空对象变更通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.清空对象变更通知ToolStripMenuItem.Text = "清空Attribute对象变更通知";
-            this.清空对象变更通知ToolStripMenuItem.Click += new System.EventHandler(this.清空对象变更通知ToolStripMenuItem_Click);
-            // 
-            // 清空LLDP通知ToolStripMenuItem
-            // 
-            this.清空LLDP通知ToolStripMenuItem.Name = "清空LLDP通知ToolStripMenuItem";
-            this.清空LLDP通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.清空LLDP通知ToolStripMenuItem.Text = "清空LLDP通知";
-            this.清空LLDP通知ToolStripMenuItem.Click += new System.EventHandler(this.清空LLDP通知ToolStripMenuItem_Click);
-            // 
-            // 清空Peer通知ToolStripMenuItem
-            // 
-            this.清空Peer通知ToolStripMenuItem.Name = "清空Peer通知ToolStripMenuItem";
-            this.清空Peer通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.清空Peer通知ToolStripMenuItem.Text = "清空Peer通知";
-            this.清空Peer通知ToolStripMenuItem.Click += new System.EventHandler(this.清空Peer通知ToolStripMenuItem_Click);
-            // 
-            // 清空GHao通知ToolStripMenuItem
-            // 
-            this.清空GHao通知ToolStripMenuItem.Name = "清空GHao通知ToolStripMenuItem";
-            this.清空GHao通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.清空GHao通知ToolStripMenuItem.Text = "清空G.Hao通知";
-            this.清空GHao通知ToolStripMenuItem.Click += new System.EventHandler(this.清空GHao通知ToolStripMenuItem_Click);
-            // 
-            // 清空一般配置通知ToolStripMenuItem
-            // 
-            this.清空一般配置通知ToolStripMenuItem.Name = "清空一般配置通知ToolStripMenuItem";
-            this.清空一般配置通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
-            this.清空一般配置通知ToolStripMenuItem.Text = "清空Common一般配置通知";
-            this.清空一般配置通知ToolStripMenuItem.Click += new System.EventHandler(this.清空一般配置通知ToolStripMenuItem_Click);
-            // 
             // dataGridViewPGS
             // 
+            this.dataGridViewPGS.AllowUserToResizeRows = false;
             this.dataGridViewPGS.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -7002,7 +6786,7 @@ namespace NetConfClientSoftware
             dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewPGS.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle18;
-            this.dataGridViewPGS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewPGS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewPGS.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.保护组ID,
             this.创建方式,
@@ -7030,6 +6814,7 @@ namespace NetConfClientSoftware
             this.dataGridViewPGS.DefaultCellStyle = dataGridViewCellStyle19;
             this.dataGridViewPGS.Location = new System.Drawing.Point(6, 20);
             this.dataGridViewPGS.Name = "dataGridViewPGS";
+            this.dataGridViewPGS.ReadOnly = true;
             dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle20.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -7048,90 +6833,105 @@ namespace NetConfClientSoftware
             // 
             this.保护组ID.HeaderText = "保护组ID";
             this.保护组ID.Name = "保护组ID";
+            this.保护组ID.ReadOnly = true;
             this.保护组ID.Width = 80;
             // 
             // 创建方式
             // 
             this.创建方式.HeaderText = "创建方式";
             this.创建方式.Name = "创建方式";
+            this.创建方式.ReadOnly = true;
             this.创建方式.Width = 80;
             // 
             // 级联删除
             // 
             this.级联删除.HeaderText = "级联删除";
             this.级联删除.Name = "级联删除";
+            this.级联删除.ReadOnly = true;
             this.级联删除.Width = 80;
             // 
             // 保护类型
             // 
             this.保护类型.HeaderText = "保护类型";
             this.保护类型.Name = "保护类型";
+            this.保护类型.ReadOnly = true;
             this.保护类型.Width = 80;
             // 
             // TCM
             // 
             this.TCM.HeaderText = "TCM";
             this.TCM.Name = "TCM";
+            this.TCM.ReadOnly = true;
             this.TCM.Width = 80;
             // 
             // 还原模式
             // 
             this.还原模式.HeaderText = "返回模式";
             this.还原模式.Name = "还原模式";
+            this.还原模式.ReadOnly = true;
             this.还原模式.Width = 80;
             // 
             // 开关方向
             // 
             this.开关方向.HeaderText = "倒换类型";
             this.开关方向.Name = "开关方向";
+            this.开关方向.ReadOnly = true;
             this.开关方向.Width = 80;
             // 
             // 保护方向
             // 
             this.保护方向.HeaderText = "倒换方向";
             this.保护方向.Name = "保护方向";
+            this.保护方向.ReadOnly = true;
             this.保护方向.Width = 80;
             // 
             // SD触发器
             // 
             this.SD触发器.HeaderText = "SD";
             this.SD触发器.Name = "SD触发器";
+            this.SD触发器.ReadOnly = true;
             this.SD触发器.Width = 80;
             // 
             // 倒换原因
             // 
             this.倒换原因.HeaderText = "保护状态";
             this.倒换原因.Name = "倒换原因";
+            this.倒换原因.ReadOnly = true;
             this.倒换原因.Width = 80;
             // 
             // 恢复等待时间
             // 
             this.恢复等待时间.HeaderText = "WTR";
             this.恢复等待时间.Name = "恢复等待时间";
+            this.恢复等待时间.ReadOnly = true;
             this.恢复等待时间.Width = 60;
             // 
             // 拖延时间
             // 
             this.拖延时间.HeaderText = "HoldOff";
             this.拖延时间.Name = "拖延时间";
+            this.拖延时间.ReadOnly = true;
             this.拖延时间.Width = 60;
             // 
             // 选择端口
             // 
             this.选择端口.HeaderText = "选择端口";
             this.选择端口.Name = "选择端口";
+            this.选择端口.ReadOnly = true;
             this.选择端口.Width = 280;
             // 
             // 主要端口
             // 
             this.主要端口.HeaderText = "主用端口";
             this.主要端口.Name = "主要端口";
+            this.主要端口.ReadOnly = true;
             this.主要端口.Width = 280;
             // 
             // 次要端口
             // 
             this.次要端口.HeaderText = "备用端口";
             this.次要端口.Name = "次要端口";
+            this.次要端口.ReadOnly = true;
             this.次要端口.Width = 280;
             // 
             // contextMenuStripPGS
@@ -7254,7 +7054,8 @@ namespace NetConfClientSoftware
             this.tabControl2.Controls.Add(this.tabPage14);
             this.tabControl2.Controls.Add(this.tabPage15);
             this.tabControl2.Controls.Add(this.tabPage16);
-            this.tabControl2.Controls.Add(this.tabPage18);
+            this.tabControl2.Controls.Add(this.tabPage1);
+            this.tabControl2.Controls.Add(this.tabPage2);
             this.tabControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl2.Location = new System.Drawing.Point(0, 0);
             this.tabControl2.Name = "tabControl2";
@@ -7390,6 +7191,7 @@ namespace NetConfClientSoftware
             // 
             // dataGridViewAlarm
             // 
+            this.dataGridViewAlarm.AllowUserToResizeRows = false;
             dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle21.BackColor = System.Drawing.Color.WhiteSmoke;
             this.dataGridViewAlarm.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
@@ -7404,7 +7206,7 @@ namespace NetConfClientSoftware
             dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewAlarm.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
-            this.dataGridViewAlarm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewAlarm.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewAlarm.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.告警网元,
             this.告警编号,
@@ -7432,6 +7234,7 @@ namespace NetConfClientSoftware
             this.dataGridViewAlarm.DefaultCellStyle = dataGridViewCellStyle23;
             this.dataGridViewAlarm.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewAlarm.Name = "dataGridViewAlarm";
+            this.dataGridViewAlarm.ReadOnly = true;
             dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle24.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -7445,8 +7248,167 @@ namespace NetConfClientSoftware
             this.dataGridViewAlarm.RowsDefaultCellStyle = dataGridViewCellStyle25;
             this.dataGridViewAlarm.RowTemplate.Height = 23;
             this.dataGridViewAlarm.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAlarm.Size = new System.Drawing.Size(1165, 529);
+            this.dataGridViewAlarm.Size = new System.Drawing.Size(1159, 535);
             this.dataGridViewAlarm.TabIndex = 2;
+            // 
+            // 告警网元
+            // 
+            this.告警网元.HeaderText = "告警网元";
+            this.告警网元.Name = "告警网元";
+            this.告警网元.ReadOnly = true;
+            // 
+            // 告警编号
+            // 
+            this.告警编号.HeaderText = "告警编号";
+            this.告警编号.Name = "告警编号";
+            this.告警编号.ReadOnly = true;
+            this.告警编号.Width = 80;
+            // 
+            // 告警对象名称
+            // 
+            this.告警对象名称.HeaderText = "告警对象名称";
+            this.告警对象名称.Name = "告警对象名称";
+            this.告警对象名称.ReadOnly = true;
+            this.告警对象名称.Width = 250;
+            // 
+            // 告警对象类型
+            // 
+            this.告警对象类型.HeaderText = "告警对象类型";
+            this.告警对象类型.Name = "告警对象类型";
+            this.告警对象类型.ReadOnly = true;
+            // 
+            // 告警名称
+            // 
+            this.告警名称.HeaderText = "告警名称";
+            this.告警名称.Name = "告警名称";
+            this.告警名称.ReadOnly = true;
+            // 
+            // 告警状态
+            // 
+            this.告警状态.HeaderText = "告警状态";
+            this.告警状态.Name = "告警状态";
+            this.告警状态.ReadOnly = true;
+            this.告警状态.Width = 80;
+            // 
+            // 告警级别
+            // 
+            this.告警级别.HeaderText = "告警级别";
+            this.告警级别.Name = "告警级别";
+            this.告警级别.ReadOnly = true;
+            this.告警级别.Width = 120;
+            // 
+            // TCA周期
+            // 
+            this.TCA周期.HeaderText = "TCA周期";
+            this.TCA周期.Name = "TCA周期";
+            this.TCA周期.ReadOnly = true;
+            // 
+            // TCA阈值
+            // 
+            this.TCA阈值.HeaderText = "TCA阈值";
+            this.TCA阈值.Name = "TCA阈值";
+            this.TCA阈值.ReadOnly = true;
+            // 
+            // TCA当前值
+            // 
+            this.TCA当前值.HeaderText = "TCA当前值";
+            this.TCA当前值.Name = "TCA当前值";
+            this.TCA当前值.ReadOnly = true;
+            // 
+            // TCA阈值类型
+            // 
+            this.TCA阈值类型.HeaderText = "TCA阈值类型";
+            this.TCA阈值类型.Name = "TCA阈值类型";
+            this.TCA阈值类型.ReadOnly = true;
+            // 
+            // 告警开始时间
+            // 
+            this.告警开始时间.HeaderText = "告警开始时间";
+            this.告警开始时间.Name = "告警开始时间";
+            this.告警开始时间.ReadOnly = true;
+            this.告警开始时间.Width = 200;
+            // 
+            // 告警结束时间
+            // 
+            this.告警结束时间.HeaderText = "告警结束时间";
+            this.告警结束时间.Name = "告警结束时间";
+            this.告警结束时间.ReadOnly = true;
+            this.告警结束时间.Width = 200;
+            // 
+            // 确认告警
+            // 
+            this.确认告警.HeaderText = "确认告警";
+            this.确认告警.Name = "确认告警";
+            this.确认告警.ReadOnly = true;
+            // 
+            // 告警描述
+            // 
+            this.告警描述.HeaderText = "告警描述";
+            this.告警描述.Name = "告警描述";
+            this.告警描述.ReadOnly = true;
+            this.告警描述.Width = 300;
+            // 
+            // contextMenuStripNotification
+            // 
+            this.contextMenuStripNotification.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.清空所有通知ToolStripMenuItem,
+            this.清空告警通知ToolStripMenuItem,
+            this.清空保护倒换通知ToolStripMenuItem,
+            this.清空对象变更通知ToolStripMenuItem,
+            this.清空LLDP通知ToolStripMenuItem,
+            this.清空Peer通知ToolStripMenuItem,
+            this.清空GHao通知ToolStripMenuItem});
+            this.contextMenuStripNotification.Name = "contextMenuStripNotification";
+            this.contextMenuStripNotification.Size = new System.Drawing.Size(232, 158);
+            // 
+            // 清空所有通知ToolStripMenuItem
+            // 
+            this.清空所有通知ToolStripMenuItem.Name = "清空所有通知ToolStripMenuItem";
+            this.清空所有通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空所有通知ToolStripMenuItem.Text = "清空All所有通知";
+            this.清空所有通知ToolStripMenuItem.Click += new System.EventHandler(this.清空所有通知ToolStripMenuItem_Click);
+            // 
+            // 清空告警通知ToolStripMenuItem
+            // 
+            this.清空告警通知ToolStripMenuItem.Name = "清空告警通知ToolStripMenuItem";
+            this.清空告警通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空告警通知ToolStripMenuItem.Text = "清空Alarm告警通知";
+            this.清空告警通知ToolStripMenuItem.Click += new System.EventHandler(this.清空告警通知ToolStripMenuItem_Click);
+            // 
+            // 清空保护倒换通知ToolStripMenuItem
+            // 
+            this.清空保护倒换通知ToolStripMenuItem.Name = "清空保护倒换通知ToolStripMenuItem";
+            this.清空保护倒换通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空保护倒换通知ToolStripMenuItem.Text = "清空Protection保护倒换通知";
+            this.清空保护倒换通知ToolStripMenuItem.Click += new System.EventHandler(this.清空保护倒换通知ToolStripMenuItem_Click);
+            // 
+            // 清空对象变更通知ToolStripMenuItem
+            // 
+            this.清空对象变更通知ToolStripMenuItem.Name = "清空对象变更通知ToolStripMenuItem";
+            this.清空对象变更通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空对象变更通知ToolStripMenuItem.Text = "清空Attribute对象变更通知";
+            this.清空对象变更通知ToolStripMenuItem.Click += new System.EventHandler(this.清空对象变更通知ToolStripMenuItem_Click);
+            // 
+            // 清空LLDP通知ToolStripMenuItem
+            // 
+            this.清空LLDP通知ToolStripMenuItem.Name = "清空LLDP通知ToolStripMenuItem";
+            this.清空LLDP通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空LLDP通知ToolStripMenuItem.Text = "清空LLDP通知";
+            this.清空LLDP通知ToolStripMenuItem.Click += new System.EventHandler(this.清空LLDP通知ToolStripMenuItem_Click);
+            // 
+            // 清空Peer通知ToolStripMenuItem
+            // 
+            this.清空Peer通知ToolStripMenuItem.Name = "清空Peer通知ToolStripMenuItem";
+            this.清空Peer通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空Peer通知ToolStripMenuItem.Text = "清空Peer通知";
+            this.清空Peer通知ToolStripMenuItem.Click += new System.EventHandler(this.清空Peer通知ToolStripMenuItem_Click);
+            // 
+            // 清空GHao通知ToolStripMenuItem
+            // 
+            this.清空GHao通知ToolStripMenuItem.Name = "清空GHao通知ToolStripMenuItem";
+            this.清空GHao通知ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.清空GHao通知ToolStripMenuItem.Text = "清空G.Hao通知";
+            this.清空GHao通知ToolStripMenuItem.Click += new System.EventHandler(this.清空GHao通知ToolStripMenuItem_Click);
             // 
             // tabPage12
             // 
@@ -7458,6 +7420,164 @@ namespace NetConfClientSoftware
             this.tabPage12.Text = "保护倒换";
             this.tabPage12.UseVisualStyleBackColor = true;
             // 
+            // dataGridViewPGS_Not
+            // 
+            this.dataGridViewPGS_Not.AllowUserToResizeRows = false;
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle26.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle26.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPGS_Not.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
+            this.dataGridViewPGS_Not.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewPGS_Not.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.保护组网元,
+            this.保护组事件编号,
+            this.保护组事件时间,
+            this.保护组IDN,
+            this.保护类型N,
+            this.还原模式N,
+            this.倒换类型N,
+            this.保护方向N,
+            this.SDN,
+            this.倒换原因N,
+            this.WTRN,
+            this.HoldOffN,
+            this.选择端口N,
+            this.主要端口N,
+            this.次要端口N});
+            this.dataGridViewPGS_Not.ContextMenuStrip = this.contextMenuStripNotification;
+            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle27.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewPGS_Not.DefaultCellStyle = dataGridViewCellStyle27;
+            this.dataGridViewPGS_Not.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewPGS_Not.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewPGS_Not.Name = "dataGridViewPGS_Not";
+            this.dataGridViewPGS_Not.ReadOnly = true;
+            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle28.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPGS_Not.RowHeadersDefaultCellStyle = dataGridViewCellStyle28;
+            this.dataGridViewPGS_Not.RowHeadersVisible = false;
+            this.dataGridViewPGS_Not.RowTemplate.Height = 23;
+            this.dataGridViewPGS_Not.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewPGS_Not.Size = new System.Drawing.Size(1165, 592);
+            this.dataGridViewPGS_Not.TabIndex = 1;
+            // 
+            // 保护组网元
+            // 
+            this.保护组网元.HeaderText = "保护组网元";
+            this.保护组网元.Name = "保护组网元";
+            this.保护组网元.ReadOnly = true;
+            // 
+            // 保护组事件编号
+            // 
+            this.保护组事件编号.HeaderText = "事件编号";
+            this.保护组事件编号.Name = "保护组事件编号";
+            this.保护组事件编号.ReadOnly = true;
+            // 
+            // 保护组事件时间
+            // 
+            this.保护组事件时间.HeaderText = "保护组事件时间";
+            this.保护组事件时间.Name = "保护组事件时间";
+            this.保护组事件时间.ReadOnly = true;
+            this.保护组事件时间.Width = 200;
+            // 
+            // 保护组IDN
+            // 
+            this.保护组IDN.HeaderText = "保护组ID";
+            this.保护组IDN.Name = "保护组IDN";
+            this.保护组IDN.ReadOnly = true;
+            this.保护组IDN.Width = 80;
+            // 
+            // 保护类型N
+            // 
+            this.保护类型N.HeaderText = "保护类型";
+            this.保护类型N.Name = "保护类型N";
+            this.保护类型N.ReadOnly = true;
+            this.保护类型N.Width = 80;
+            // 
+            // 还原模式N
+            // 
+            this.还原模式N.HeaderText = "还原模式";
+            this.还原模式N.Name = "还原模式N";
+            this.还原模式N.ReadOnly = true;
+            this.还原模式N.Width = 80;
+            // 
+            // 倒换类型N
+            // 
+            this.倒换类型N.HeaderText = "倒换类型";
+            this.倒换类型N.Name = "倒换类型N";
+            this.倒换类型N.ReadOnly = true;
+            this.倒换类型N.Width = 80;
+            // 
+            // 保护方向N
+            // 
+            this.保护方向N.HeaderText = "保护方向";
+            this.保护方向N.Name = "保护方向N";
+            this.保护方向N.ReadOnly = true;
+            this.保护方向N.Width = 80;
+            // 
+            // SDN
+            // 
+            this.SDN.HeaderText = "SD";
+            this.SDN.Name = "SDN";
+            this.SDN.ReadOnly = true;
+            this.SDN.Width = 80;
+            // 
+            // 倒换原因N
+            // 
+            this.倒换原因N.HeaderText = "倒换原因";
+            this.倒换原因N.Name = "倒换原因N";
+            this.倒换原因N.ReadOnly = true;
+            this.倒换原因N.Width = 80;
+            // 
+            // WTRN
+            // 
+            this.WTRN.HeaderText = "WTR";
+            this.WTRN.Name = "WTRN";
+            this.WTRN.ReadOnly = true;
+            this.WTRN.Width = 60;
+            // 
+            // HoldOffN
+            // 
+            this.HoldOffN.HeaderText = "HoldOff";
+            this.HoldOffN.Name = "HoldOffN";
+            this.HoldOffN.ReadOnly = true;
+            this.HoldOffN.Width = 60;
+            // 
+            // 选择端口N
+            // 
+            this.选择端口N.HeaderText = "选择端口";
+            this.选择端口N.Name = "选择端口N";
+            this.选择端口N.ReadOnly = true;
+            this.选择端口N.Width = 280;
+            // 
+            // 主要端口N
+            // 
+            this.主要端口N.HeaderText = "主用端口";
+            this.主要端口N.Name = "主要端口N";
+            this.主要端口N.ReadOnly = true;
+            this.主要端口N.Width = 280;
+            // 
+            // 次要端口N
+            // 
+            this.次要端口N.HeaderText = "备用端口";
+            this.次要端口N.Name = "次要端口N";
+            this.次要端口N.ReadOnly = true;
+            this.次要端口N.Width = 280;
+            // 
             // tabPage13
             // 
             this.tabPage13.Controls.Add(this.dataGridViewAttributeValueChange);
@@ -7465,12 +7585,128 @@ namespace NetConfClientSoftware
             this.tabPage13.Name = "tabPage13";
             this.tabPage13.Size = new System.Drawing.Size(1165, 592);
             this.tabPage13.TabIndex = 3;
-            this.tabPage13.Text = "对象变更";
+            this.tabPage13.Text = "对象变更/通用";
             this.tabPage13.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewAttributeValueChange
+            // 
+            this.dataGridViewAttributeValueChange.AllowUserToResizeRows = false;
+            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle29.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewAttributeValueChange.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle30.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAttributeValueChange.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle30;
+            this.dataGridViewAttributeValueChange.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewAttributeValueChange.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.对象变更网元,
+            this.对象变更事件编号,
+            this.对象变更事件时间,
+            this.对象变更事件类型,
+            this.对象变更对象名称,
+            this.对象变更对象类型,
+            this.对象变更属性名称,
+            this.对象变更新值,
+            this.对象变更旧值});
+            this.dataGridViewAttributeValueChange.ContextMenuStrip = this.contextMenuStripNotification;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle31.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewAttributeValueChange.DefaultCellStyle = dataGridViewCellStyle31;
+            this.dataGridViewAttributeValueChange.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewAttributeValueChange.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewAttributeValueChange.Name = "dataGridViewAttributeValueChange";
+            this.dataGridViewAttributeValueChange.ReadOnly = true;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAttributeValueChange.RowHeadersDefaultCellStyle = dataGridViewCellStyle32;
+            this.dataGridViewAttributeValueChange.RowHeadersVisible = false;
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewAttributeValueChange.RowsDefaultCellStyle = dataGridViewCellStyle33;
+            this.dataGridViewAttributeValueChange.RowTemplate.Height = 23;
+            this.dataGridViewAttributeValueChange.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewAttributeValueChange.Size = new System.Drawing.Size(1165, 592);
+            this.dataGridViewAttributeValueChange.TabIndex = 3;
+            // 
+            // 对象变更网元
+            // 
+            this.对象变更网元.HeaderText = "网元";
+            this.对象变更网元.Name = "对象变更网元";
+            this.对象变更网元.ReadOnly = true;
+            // 
+            // 对象变更事件编号
+            // 
+            this.对象变更事件编号.HeaderText = "事件编号";
+            this.对象变更事件编号.Name = "对象变更事件编号";
+            this.对象变更事件编号.ReadOnly = true;
+            this.对象变更事件编号.Width = 80;
+            // 
+            // 对象变更事件时间
+            // 
+            this.对象变更事件时间.HeaderText = "事件时间";
+            this.对象变更事件时间.Name = "对象变更事件时间";
+            this.对象变更事件时间.ReadOnly = true;
+            this.对象变更事件时间.Width = 180;
+            // 
+            // 对象变更事件类型
+            // 
+            this.对象变更事件类型.HeaderText = "事件类型";
+            this.对象变更事件类型.Name = "对象变更事件类型";
+            this.对象变更事件类型.ReadOnly = true;
+            this.对象变更事件类型.Width = 160;
+            // 
+            // 对象变更对象名称
+            // 
+            this.对象变更对象名称.HeaderText = "对象名称";
+            this.对象变更对象名称.Name = "对象变更对象名称";
+            this.对象变更对象名称.ReadOnly = true;
+            this.对象变更对象名称.Width = 220;
+            // 
+            // 对象变更对象类型
+            // 
+            this.对象变更对象类型.HeaderText = "对象类型";
+            this.对象变更对象类型.Name = "对象变更对象类型";
+            this.对象变更对象类型.ReadOnly = true;
+            this.对象变更对象类型.Width = 80;
+            // 
+            // 对象变更属性名称
+            // 
+            this.对象变更属性名称.HeaderText = "属性名称";
+            this.对象变更属性名称.Name = "对象变更属性名称";
+            this.对象变更属性名称.ReadOnly = true;
+            this.对象变更属性名称.Width = 160;
+            // 
+            // 对象变更新值
+            // 
+            this.对象变更新值.HeaderText = "新值";
+            this.对象变更新值.Name = "对象变更新值";
+            this.对象变更新值.ReadOnly = true;
+            this.对象变更新值.Width = 80;
+            // 
+            // 对象变更旧值
+            // 
+            this.对象变更旧值.HeaderText = "旧值";
+            this.对象变更旧值.Name = "对象变更旧值";
+            this.对象变更旧值.ReadOnly = true;
+            this.对象变更旧值.Width = 80;
             // 
             // tabPage14
             // 
-            this.tabPage14.Controls.Add(this.listViewLLDP);
+            this.tabPage14.Controls.Add(this.dataGridViewLLDP);
             this.tabPage14.Location = new System.Drawing.Point(4, 22);
             this.tabPage14.Name = "tabPage14";
             this.tabPage14.Size = new System.Drawing.Size(1165, 592);
@@ -7478,60 +7714,101 @@ namespace NetConfClientSoftware
             this.tabPage14.Text = "LLDP链路信息";
             this.tabPage14.UseVisualStyleBackColor = true;
             // 
-            // listViewLLDP
+            // dataGridViewLLDP
             // 
-            this.listViewLLDP.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.eventTime,
-            this.PTP_name,
-            this.LLDP_peer_chassis_id,
-            this.lldp_peer_port_id,
-            this.lldp_peer_system_name,
-            this.columnHeader33});
-            this.listViewLLDP.ContextMenuStrip = this.contextMenuStripNotification;
-            this.listViewLLDP.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewLLDP.FullRowSelect = true;
-            this.listViewLLDP.GridLines = true;
-            this.listViewLLDP.HideSelection = false;
-            this.listViewLLDP.Location = new System.Drawing.Point(0, 0);
-            this.listViewLLDP.Name = "listViewLLDP";
-            this.listViewLLDP.Size = new System.Drawing.Size(1165, 592);
-            this.listViewLLDP.TabIndex = 1;
-            this.listViewLLDP.UseCompatibleStateImageBehavior = false;
-            this.listViewLLDP.View = System.Windows.Forms.View.Details;
+            this.dataGridViewLLDP.AllowUserToResizeRows = false;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle34.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewLLDP.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle35.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle35.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewLLDP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle35;
+            this.dataGridViewLLDP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewLLDP.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.LLDP网元,
+            this.LLDP事件时间,
+            this.LLDP对象名称,
+            this.LLDP对端MAC,
+            this.LLDP对端端口,
+            this.LLDP对端系统名称});
+            this.dataGridViewLLDP.ContextMenuStrip = this.contextMenuStripNotification;
+            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle36.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewLLDP.DefaultCellStyle = dataGridViewCellStyle36;
+            this.dataGridViewLLDP.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewLLDP.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewLLDP.Name = "dataGridViewLLDP";
+            this.dataGridViewLLDP.ReadOnly = true;
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle37.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewLLDP.RowHeadersDefaultCellStyle = dataGridViewCellStyle37;
+            this.dataGridViewLLDP.RowHeadersVisible = false;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewLLDP.RowsDefaultCellStyle = dataGridViewCellStyle38;
+            this.dataGridViewLLDP.RowTemplate.Height = 23;
+            this.dataGridViewLLDP.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewLLDP.Size = new System.Drawing.Size(1165, 592);
+            this.dataGridViewLLDP.TabIndex = 4;
             // 
-            // eventTime
+            // LLDP网元
             // 
-            this.eventTime.Text = "事件时间";
-            this.eventTime.Width = 180;
+            this.LLDP网元.HeaderText = "网元";
+            this.LLDP网元.Name = "LLDP网元";
+            this.LLDP网元.ReadOnly = true;
             // 
-            // PTP_name
+            // LLDP事件时间
             // 
-            this.PTP_name.Text = "对象名称";
-            this.PTP_name.Width = 300;
+            this.LLDP事件时间.HeaderText = "事件时间";
+            this.LLDP事件时间.Name = "LLDP事件时间";
+            this.LLDP事件时间.ReadOnly = true;
+            this.LLDP事件时间.Width = 180;
             // 
-            // LLDP_peer_chassis_id
+            // LLDP对象名称
             // 
-            this.LLDP_peer_chassis_id.Text = "LLDP对端MAC地址";
-            this.LLDP_peer_chassis_id.Width = 250;
+            this.LLDP对象名称.HeaderText = "对象名称";
+            this.LLDP对象名称.Name = "LLDP对象名称";
+            this.LLDP对象名称.ReadOnly = true;
+            this.LLDP对象名称.Width = 240;
             // 
-            // lldp_peer_port_id
+            // LLDP对端MAC
             // 
-            this.lldp_peer_port_id.Text = "LLDP对端端口";
-            this.lldp_peer_port_id.Width = 150;
+            this.LLDP对端MAC.HeaderText = "对端MAC";
+            this.LLDP对端MAC.Name = "LLDP对端MAC";
+            this.LLDP对端MAC.ReadOnly = true;
+            this.LLDP对端MAC.Width = 180;
             // 
-            // lldp_peer_system_name
+            // LLDP对端端口
             // 
-            this.lldp_peer_system_name.Text = "LLDP对端名称";
-            this.lldp_peer_system_name.Width = 150;
+            this.LLDP对端端口.HeaderText = "对端端口";
+            this.LLDP对端端口.Name = "LLDP对端端口";
+            this.LLDP对端端口.ReadOnly = true;
+            this.LLDP对端端口.Width = 170;
             // 
-            // columnHeader33
+            // LLDP对端系统名称
             // 
-            this.columnHeader33.Text = "网元对象";
-            this.columnHeader33.Width = 122;
+            this.LLDP对端系统名称.HeaderText = "对端系统名称";
+            this.LLDP对端系统名称.Name = "LLDP对端系统名称";
+            this.LLDP对端系统名称.ReadOnly = true;
+            this.LLDP对端系统名称.Width = 280;
             // 
             // tabPage15
             // 
-            this.tabPage15.Controls.Add(this.listViewPeer);
+            this.tabPage15.Controls.Add(this.dataGridViewPeerChange);
             this.tabPage15.Location = new System.Drawing.Point(4, 22);
             this.tabPage15.Name = "tabPage15";
             this.tabPage15.Size = new System.Drawing.Size(1165, 592);
@@ -7539,183 +7816,116 @@ namespace NetConfClientSoftware
             this.tabPage15.Text = "Peer链路信息";
             this.tabPage15.UseVisualStyleBackColor = true;
             // 
-            // listViewPeer
+            // dataGridViewPeerChange
             // 
-            this.listViewPeer.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4,
-            this.columnHeader34});
-            this.listViewPeer.ContextMenuStrip = this.contextMenuStripNotification;
-            this.listViewPeer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewPeer.FullRowSelect = true;
-            this.listViewPeer.GridLines = true;
-            this.listViewPeer.HideSelection = false;
-            this.listViewPeer.Location = new System.Drawing.Point(0, 0);
-            this.listViewPeer.Name = "listViewPeer";
-            this.listViewPeer.Size = new System.Drawing.Size(1165, 592);
-            this.listViewPeer.TabIndex = 2;
-            this.listViewPeer.UseCompatibleStateImageBehavior = false;
-            this.listViewPeer.View = System.Windows.Forms.View.Details;
+            this.dataGridViewPeerChange.AllowUserToResizeRows = false;
+            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle39.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewPeerChange.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle40.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle40.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle40.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle40.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle40.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPeerChange.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle40;
+            this.dataGridViewPeerChange.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewPeerChange.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Peer网元,
+            this.Peer事件时间,
+            this.Peer端口名称,
+            this.Peer对端IP地址,
+            this.Peer对端端口TCPID});
+            this.dataGridViewPeerChange.ContextMenuStrip = this.contextMenuStripNotification;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewPeerChange.DefaultCellStyle = dataGridViewCellStyle41;
+            this.dataGridViewPeerChange.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewPeerChange.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewPeerChange.Name = "dataGridViewPeerChange";
+            this.dataGridViewPeerChange.ReadOnly = true;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle42.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewPeerChange.RowHeadersDefaultCellStyle = dataGridViewCellStyle42;
+            this.dataGridViewPeerChange.RowHeadersVisible = false;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewPeerChange.RowsDefaultCellStyle = dataGridViewCellStyle43;
+            this.dataGridViewPeerChange.RowTemplate.Height = 23;
+            this.dataGridViewPeerChange.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridViewPeerChange.Size = new System.Drawing.Size(1165, 592);
+            this.dataGridViewPeerChange.TabIndex = 5;
             // 
-            // columnHeader1
+            // Peer网元
             // 
-            this.columnHeader1.Text = "事件时间";
-            this.columnHeader1.Width = 180;
+            this.Peer网元.HeaderText = "网元";
+            this.Peer网元.Name = "Peer网元";
+            this.Peer网元.ReadOnly = true;
             // 
-            // columnHeader2
+            // Peer事件时间
             // 
-            this.columnHeader2.Text = "对象名称";
-            this.columnHeader2.Width = 300;
+            this.Peer事件时间.HeaderText = "事件时间";
+            this.Peer事件时间.Name = "Peer事件时间";
+            this.Peer事件时间.ReadOnly = true;
+            this.Peer事件时间.Width = 180;
             // 
-            // columnHeader3
+            // Peer端口名称
             // 
-            this.columnHeader3.Text = "对端IP地址";
-            this.columnHeader3.Width = 250;
+            this.Peer端口名称.HeaderText = "端口名称";
+            this.Peer端口名称.Name = "Peer端口名称";
+            this.Peer端口名称.ReadOnly = true;
+            this.Peer端口名称.Width = 240;
             // 
-            // columnHeader4
+            // Peer对端IP地址
             // 
-            this.columnHeader4.Text = "对端PTP-CTP的ID";
-            this.columnHeader4.Width = 150;
+            this.Peer对端IP地址.HeaderText = "对端IP地址";
+            this.Peer对端IP地址.Name = "Peer对端IP地址";
+            this.Peer对端IP地址.ReadOnly = true;
+            this.Peer对端IP地址.Width = 180;
             // 
-            // columnHeader34
+            // Peer对端端口TCPID
             // 
-            this.columnHeader34.Text = "网元对象";
-            this.columnHeader34.Width = 153;
+            this.Peer对端端口TCPID.HeaderText = "对端端口TCPID";
+            this.Peer对端端口TCPID.Name = "Peer对端端口TCPID";
+            this.Peer对端端口TCPID.ReadOnly = true;
+            this.Peer对端端口TCPID.Width = 170;
             // 
             // tabPage16
             // 
-            this.tabPage16.Controls.Add(this.listViewGhao);
             this.tabPage16.Location = new System.Drawing.Point(4, 22);
             this.tabPage16.Name = "tabPage16";
             this.tabPage16.Size = new System.Drawing.Size(1165, 592);
             this.tabPage16.TabIndex = 6;
-            this.tabPage16.Text = "G.Hao带宽调整";
+            this.tabPage16.Text = "Oduflex带宽调整";
             this.tabPage16.UseVisualStyleBackColor = true;
             // 
-            // listViewGhao
+            // tabPage1
             // 
-            this.listViewGhao.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader24,
-            this.columnHeader25,
-            this.columnHeader27,
-            this.columnHeader26,
-            this.columnHeader28,
-            this.columnHeader29,
-            this.columnHeader30,
-            this.columnHeader35});
-            this.listViewGhao.ContextMenuStrip = this.contextMenuStripNotification;
-            this.listViewGhao.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewGhao.FullRowSelect = true;
-            this.listViewGhao.GridLines = true;
-            this.listViewGhao.HideSelection = false;
-            this.listViewGhao.Location = new System.Drawing.Point(0, 0);
-            this.listViewGhao.Name = "listViewGhao";
-            this.listViewGhao.Size = new System.Drawing.Size(1165, 592);
-            this.listViewGhao.TabIndex = 3;
-            this.listViewGhao.UseCompatibleStateImageBehavior = false;
-            this.listViewGhao.View = System.Windows.Forms.View.Details;
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(1165, 592);
+            this.tabPage1.TabIndex = 7;
+            this.tabPage1.Text = "OSU带宽调整";
+            this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // columnHeader24
+            // tabPage2
             // 
-            this.columnHeader24.Text = "通知";
-            this.columnHeader24.Width = 100;
-            // 
-            // columnHeader25
-            // 
-            this.columnHeader25.Text = "事件";
-            this.columnHeader25.Width = 100;
-            // 
-            // columnHeader27
-            // 
-            this.columnHeader27.Text = "事件时间";
-            this.columnHeader27.Width = 150;
-            // 
-            // columnHeader26
-            // 
-            this.columnHeader26.Text = "通知类型";
-            this.columnHeader26.Width = 150;
-            // 
-            // columnHeader28
-            // 
-            this.columnHeader28.Text = "通知串号";
-            // 
-            // columnHeader29
-            // 
-            this.columnHeader29.Text = "对象名称";
-            this.columnHeader29.Width = 300;
-            // 
-            // columnHeader30
-            // 
-            this.columnHeader30.Text = "修改后的状态";
-            this.columnHeader30.Width = 150;
-            // 
-            // columnHeader35
-            // 
-            this.columnHeader35.Text = "网元对象";
-            this.columnHeader35.Width = 120;
-            // 
-            // tabPage18
-            // 
-            this.tabPage18.Controls.Add(this.listViewCommon);
-            this.tabPage18.Location = new System.Drawing.Point(4, 22);
-            this.tabPage18.Name = "tabPage18";
-            this.tabPage18.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage18.Size = new System.Drawing.Size(1165, 592);
-            this.tabPage18.TabIndex = 8;
-            this.tabPage18.Text = "通用配置通知";
-            this.tabPage18.UseVisualStyleBackColor = true;
-            // 
-            // listViewCommon
-            // 
-            this.listViewCommon.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader19,
-            this.columnHeader20,
-            this.columnHeader21,
-            this.columnHeader22,
-            this.columnHeader23,
-            this.columnHeader36});
-            this.listViewCommon.ContextMenuStrip = this.contextMenuStripNotification;
-            this.listViewCommon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listViewCommon.FullRowSelect = true;
-            this.listViewCommon.GridLines = true;
-            this.listViewCommon.HideSelection = false;
-            this.listViewCommon.Location = new System.Drawing.Point(3, 3);
-            this.listViewCommon.Name = "listViewCommon";
-            this.listViewCommon.Size = new System.Drawing.Size(1159, 586);
-            this.listViewCommon.TabIndex = 2;
-            this.listViewCommon.UseCompatibleStateImageBehavior = false;
-            this.listViewCommon.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader19
-            // 
-            this.columnHeader19.Text = "事件时间";
-            this.columnHeader19.Width = 180;
-            // 
-            // columnHeader20
-            // 
-            this.columnHeader20.Text = "事件编号";
-            // 
-            // columnHeader21
-            // 
-            this.columnHeader21.Text = "事件类型";
-            this.columnHeader21.Width = 150;
-            // 
-            // columnHeader22
-            // 
-            this.columnHeader22.Text = "对象名称";
-            this.columnHeader22.Width = 371;
-            // 
-            // columnHeader23
-            // 
-            this.columnHeader23.Text = "对象类型";
-            this.columnHeader23.Width = 100;
-            // 
-            // columnHeader36
-            // 
-            this.columnHeader36.Text = "网元对象";
-            this.columnHeader36.Width = 136;
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Size = new System.Drawing.Size(1165, 592);
+            this.tabPage2.TabIndex = 8;
+            this.tabPage2.Text = "FTR上线离线";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // 自动化测试
             // 
@@ -7837,16 +8047,16 @@ namespace NetConfClientSoftware
             // 
             // dataGridViewAuto
             // 
-            dataGridViewCellStyle34.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewAuto.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle34;
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle35.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle35.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAuto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle44.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.dataGridViewAuto.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle44;
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle45.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle45.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle45.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle45.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle45.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle45.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAuto.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle45;
             this.dataGridViewAuto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewAuto.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Auto编号,
@@ -7867,25 +8077,25 @@ namespace NetConfClientSoftware
             this.Auto耗时,
             this.Auto问题定位建议});
             this.dataGridViewAuto.ContextMenuStrip = this.contextMenuStripAuto;
-            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle37.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewAuto.DefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle47.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle47.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle47.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle47.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle47.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewAuto.DefaultCellStyle = dataGridViewCellStyle47;
             this.dataGridViewAuto.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewAuto.Location = new System.Drawing.Point(3, 17);
             this.dataGridViewAuto.Name = "dataGridViewAuto";
-            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle38.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle38.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAuto.RowHeadersDefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle48.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle48.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle48.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle48.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle48.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewAuto.RowHeadersDefaultCellStyle = dataGridViewCellStyle48;
             this.dataGridViewAuto.RowHeadersVisible = false;
             this.dataGridViewAuto.RowTemplate.Height = 23;
             this.dataGridViewAuto.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
@@ -7906,8 +8116,8 @@ namespace NetConfClientSoftware
             // 
             // Auto是否执行
             // 
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Auto是否执行.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Auto是否执行.DefaultCellStyle = dataGridViewCellStyle46;
             this.Auto是否执行.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.Nothing;
             this.Auto是否执行.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.Auto是否执行.HeaderText = "是否执行";
@@ -8050,23 +8260,76 @@ namespace NetConfClientSoftware
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.TextLog);
+            this.groupBox2.Controls.Add(this.splitContainer6);
             this.groupBox2.Location = new System.Drawing.Point(6, 6);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(1168, 609);
             this.groupBox2.TabIndex = 12;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "答复所有日志信息";
+            this.groupBox2.Text = "所有日志信息";
+            // 
+            // splitContainer6
+            // 
+            this.splitContainer6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer6.Location = new System.Drawing.Point(3, 17);
+            this.splitContainer6.Name = "splitContainer6";
+            // 
+            // splitContainer6.Panel1
+            // 
+            this.splitContainer6.Panel1.Controls.Add(this.TextLog);
+            // 
+            // splitContainer6.Panel2
+            // 
+            this.splitContainer6.Panel2.Controls.Add(this.buttonLogClear);
+            this.splitContainer6.Panel2.Controls.Add(this.textBoxLogFind);
+            this.splitContainer6.Panel2.Controls.Add(this.buttonLogFind);
+            this.splitContainer6.Size = new System.Drawing.Size(1162, 589);
+            this.splitContainer6.SplitterDistance = 922;
+            this.splitContainer6.TabIndex = 11;
             // 
             // TextLog
             // 
             this.TextLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TextLog.Location = new System.Drawing.Point(3, 17);
+            this.TextLog.Location = new System.Drawing.Point(0, 0);
             this.TextLog.Multiline = true;
             this.TextLog.Name = "TextLog";
             this.TextLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.TextLog.Size = new System.Drawing.Size(1162, 589);
+            this.TextLog.Size = new System.Drawing.Size(922, 589);
             this.TextLog.TabIndex = 8;
+            // 
+            // buttonLogClear
+            // 
+            this.buttonLogClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonLogClear.Location = new System.Drawing.Point(3, 512);
+            this.buttonLogClear.Name = "buttonLogClear";
+            this.buttonLogClear.Size = new System.Drawing.Size(115, 71);
+            this.buttonLogClear.TabIndex = 11;
+            this.buttonLogClear.Text = "清空";
+            this.buttonLogClear.UseVisualStyleBackColor = true;
+            this.buttonLogClear.Click += new System.EventHandler(this.buttonLogClear_Click);
+            // 
+            // textBoxLogFind
+            // 
+            this.textBoxLogFind.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxLogFind.Location = new System.Drawing.Point(2, 3);
+            this.textBoxLogFind.Multiline = true;
+            this.textBoxLogFind.Name = "textBoxLogFind";
+            this.textBoxLogFind.Size = new System.Drawing.Size(231, 506);
+            this.textBoxLogFind.TabIndex = 9;
+            // 
+            // buttonLogFind
+            // 
+            this.buttonLogFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonLogFind.Location = new System.Drawing.Point(118, 512);
+            this.buttonLogFind.Name = "buttonLogFind";
+            this.buttonLogFind.Size = new System.Drawing.Size(115, 71);
+            this.buttonLogFind.TabIndex = 10;
+            this.buttonLogFind.Text = "查找";
+            this.buttonLogFind.UseVisualStyleBackColor = true;
+            this.buttonLogFind.Click += new System.EventHandler(this.buttonLogFind_Click);
             // 
             // Telnet
             // 
@@ -8297,7 +8560,7 @@ namespace NetConfClientSoftware
             this.toolStripStatusLabelips});
             this.statusStrip.Location = new System.Drawing.Point(0, 669);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1375, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1374, 22);
             this.statusStrip.TabIndex = 23;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -8379,8 +8642,8 @@ namespace NetConfClientSoftware
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.tabControl1);
-            this.splitContainer4.Size = new System.Drawing.Size(1375, 644);
-            this.splitContainer4.SplitterDistance = 190;
+            this.splitContainer4.Size = new System.Drawing.Size(1374, 644);
+            this.splitContainer4.SplitterDistance = 189;
             this.splitContainer4.TabIndex = 25;
             // 
             // groupBox13
@@ -8389,18 +8652,16 @@ namespace NetConfClientSoftware
             this.groupBox13.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox13.Location = new System.Drawing.Point(0, 0);
             this.groupBox13.Name = "groupBox13";
-            this.groupBox13.Size = new System.Drawing.Size(190, 644);
+            this.groupBox13.Size = new System.Drawing.Size(189, 644);
             this.groupBox13.TabIndex = 13;
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "网元管理器";
             // 
             // treeViewNEID
             // 
-            this.treeViewNEID.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.treeViewNEID.BackColor = System.Drawing.SystemColors.Window;
             this.treeViewNEID.ContextMenuStrip = this.ConnectionDevice;
+            this.treeViewNEID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewNEID.Font = new System.Drawing.Font("微软雅黑", 14F);
             this.treeViewNEID.HideSelection = false;
             this.treeViewNEID.Indent = 19;
@@ -8408,7 +8669,7 @@ namespace NetConfClientSoftware
             this.treeViewNEID.Location = new System.Drawing.Point(3, 17);
             this.treeViewNEID.Name = "treeViewNEID";
             this.treeViewNEID.ShowRootLines = false;
-            this.treeViewNEID.Size = new System.Drawing.Size(184, 621);
+            this.treeViewNEID.Size = new System.Drawing.Size(183, 624);
             this.treeViewNEID.TabIndex = 10;
             this.treeViewNEID.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewNEID_NodeMouseClick);
             this.treeViewNEID.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewNEID_NodeMouseDoubleClick);
@@ -8424,289 +8685,104 @@ namespace NetConfClientSoftware
             this.imageListTree.Images.SetKeyName(4, "if_orange.png");
             this.imageListTree.Images.SetKeyName(5, "if_yellow.png");
             // 
-            // 告警网元
+            // 连接名称
             // 
-            this.告警网元.HeaderText = "告警网元";
-            this.告警网元.Name = "告警网元";
+            this.连接名称.HeaderText = "连接名称";
+            this.连接名称.Name = "连接名称";
+            this.连接名称.ReadOnly = true;
+            this.连接名称.Width = 120;
             // 
-            // 告警编号
+            // 标签别名
             // 
-            this.告警编号.HeaderText = "告警编号";
-            this.告警编号.Name = "告警编号";
-            this.告警编号.Width = 80;
+            this.标签别名.HeaderText = "lable";
+            this.标签别名.Name = "标签别名";
+            this.标签别名.ReadOnly = true;
+            this.标签别名.Width = 60;
             // 
-            // 告警对象名称
+            // 当前状态
             // 
-            this.告警对象名称.HeaderText = "告警对象名称";
-            this.告警对象名称.Name = "告警对象名称";
-            this.告警对象名称.Width = 250;
+            this.当前状态.HeaderText = "当前状态";
+            this.当前状态.Name = "当前状态";
+            this.当前状态.ReadOnly = true;
+            this.当前状态.Width = 40;
             // 
-            // 告警对象类型
+            // 管理状态
             // 
-            this.告警对象类型.HeaderText = "告警对象类型";
-            this.告警对象类型.Name = "告警对象类型";
+            this.管理状态.HeaderText = "管理状态";
+            this.管理状态.Name = "管理状态";
+            this.管理状态.ReadOnly = true;
+            this.管理状态.Width = 60;
             // 
-            // 告警名称
+            // 当前层协议
             // 
-            this.告警名称.HeaderText = "告警名称";
-            this.告警名称.Name = "告警名称";
+            this.当前层协议.HeaderText = "当前层协议";
+            this.当前层协议.Name = "当前层协议";
+            this.当前层协议.ReadOnly = true;
+            this.当前层协议.Width = 80;
             // 
-            // 告警状态
+            // 服务类型
             // 
-            this.告警状态.HeaderText = "告警状态";
-            this.告警状态.Name = "告警状态";
-            this.告警状态.Width = 80;
+            this.服务类型.HeaderText = "服务类型";
+            this.服务类型.Name = "服务类型";
+            this.服务类型.ReadOnly = true;
+            this.服务类型.Width = 40;
             // 
-            // 告警级别
+            // 业务总带宽
             // 
-            this.告警级别.HeaderText = "告警级别";
-            this.告警级别.Name = "告警级别";
-            this.告警级别.Width = 120;
+            this.业务总带宽.HeaderText = "totalSize";
+            this.业务总带宽.Name = "业务总带宽";
+            this.业务总带宽.ReadOnly = true;
+            this.业务总带宽.Width = 60;
             // 
-            // TCA周期
+            // 承诺带宽
             // 
-            this.TCA周期.HeaderText = "TCA周期";
-            this.TCA周期.Name = "TCA周期";
+            this.承诺带宽.HeaderText = "cir";
+            this.承诺带宽.Name = "承诺带宽";
+            this.承诺带宽.ReadOnly = true;
+            this.承诺带宽.Width = 40;
             // 
-            // TCA阈值
+            // 峰值带宽
             // 
-            this.TCA阈值.HeaderText = "TCA阈值";
-            this.TCA阈值.Name = "TCA阈值";
+            this.峰值带宽.HeaderText = "pir";
+            this.峰值带宽.Name = "峰值带宽";
+            this.峰值带宽.ReadOnly = true;
+            this.峰值带宽.Width = 40;
             // 
-            // TCA当前值
+            // 承诺突发
             // 
-            this.TCA当前值.HeaderText = "TCA当前值";
-            this.TCA当前值.Name = "TCA当前值";
+            this.承诺突发.HeaderText = "cbs";
+            this.承诺突发.Name = "承诺突发";
+            this.承诺突发.ReadOnly = true;
+            this.承诺突发.Width = 40;
             // 
-            // TCA阈值类型
+            // 峰值突发
             // 
-            this.TCA阈值类型.HeaderText = "TCA阈值类型";
-            this.TCA阈值类型.Name = "TCA阈值类型";
+            this.峰值突发.HeaderText = "pbs";
+            this.峰值突发.Name = "峰值突发";
+            this.峰值突发.ReadOnly = true;
+            this.峰值突发.Width = 40;
             // 
-            // 告警开始时间
+            // CTP端口1
             // 
-            this.告警开始时间.HeaderText = "告警开始时间";
-            this.告警开始时间.Name = "告警开始时间";
-            this.告警开始时间.Width = 200;
+            this.CTP端口1.HeaderText = "所有CTP端口";
+            this.CTP端口1.Name = "CTP端口1";
+            this.CTP端口1.ReadOnly = true;
+            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CTP端口1.Width = 600;
             // 
-            // 告警结束时间
+            // CTP端口2
             // 
-            this.告警结束时间.HeaderText = "告警结束时间";
-            this.告警结束时间.Name = "告警结束时间";
-            this.告警结束时间.Width = 200;
-            // 
-            // 确认告警
-            // 
-            this.确认告警.HeaderText = "确认告警";
-            this.确认告警.Name = "确认告警";
-            // 
-            // 告警描述
-            // 
-            this.告警描述.HeaderText = "告警描述";
-            this.告警描述.Name = "告警描述";
-            this.告警描述.Width = 300;
-            // 
-            // 保护组网元
-            // 
-            this.保护组网元.HeaderText = "保护组网元";
-            this.保护组网元.Name = "保护组网元";
-            // 
-            // 保护组事件编号
-            // 
-            this.保护组事件编号.HeaderText = "事件编号";
-            this.保护组事件编号.Name = "保护组事件编号";
-            // 
-            // 保护组事件时间
-            // 
-            this.保护组事件时间.HeaderText = "保护组事件时间";
-            this.保护组事件时间.Name = "保护组事件时间";
-            this.保护组事件时间.Width = 200;
-            // 
-            // 保护组IDN
-            // 
-            this.保护组IDN.HeaderText = "保护组ID";
-            this.保护组IDN.Name = "保护组IDN";
-            this.保护组IDN.Width = 80;
-            // 
-            // 保护类型N
-            // 
-            this.保护类型N.HeaderText = "保护类型";
-            this.保护类型N.Name = "保护类型N";
-            this.保护类型N.Width = 80;
-            // 
-            // 还原模式N
-            // 
-            this.还原模式N.HeaderText = "还原模式";
-            this.还原模式N.Name = "还原模式N";
-            this.还原模式N.Width = 80;
-            // 
-            // 倒换类型N
-            // 
-            this.倒换类型N.HeaderText = "倒换类型";
-            this.倒换类型N.Name = "倒换类型N";
-            this.倒换类型N.Width = 80;
-            // 
-            // 保护方向N
-            // 
-            this.保护方向N.HeaderText = "保护方向";
-            this.保护方向N.Name = "保护方向N";
-            this.保护方向N.Width = 80;
-            // 
-            // SDN
-            // 
-            this.SDN.HeaderText = "SD";
-            this.SDN.Name = "SDN";
-            this.SDN.Width = 80;
-            // 
-            // 倒换原因N
-            // 
-            this.倒换原因N.HeaderText = "倒换原因";
-            this.倒换原因N.Name = "倒换原因N";
-            this.倒换原因N.Width = 80;
-            // 
-            // WTRN
-            // 
-            this.WTRN.HeaderText = "WTR";
-            this.WTRN.Name = "WTRN";
-            this.WTRN.Width = 60;
-            // 
-            // HoldOffN
-            // 
-            this.HoldOffN.HeaderText = "HoldOff";
-            this.HoldOffN.Name = "HoldOffN";
-            this.HoldOffN.Width = 60;
-            // 
-            // 选择端口N
-            // 
-            this.选择端口N.HeaderText = "选择端口";
-            this.选择端口N.Name = "选择端口N";
-            this.选择端口N.Width = 280;
-            // 
-            // 主要端口N
-            // 
-            this.主要端口N.HeaderText = "主用端口";
-            this.主要端口N.Name = "主要端口N";
-            this.主要端口N.Width = 280;
-            // 
-            // 次要端口N
-            // 
-            this.次要端口N.HeaderText = "备用端口";
-            this.次要端口N.Name = "次要端口N";
-            this.次要端口N.Width = 280;
-            // 
-            // dataGridViewAttributeValueChange
-            // 
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = System.Drawing.Color.WhiteSmoke;
-            this.dataGridViewAttributeValueChange.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle29;
-            this.dataGridViewAttributeValueChange.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle30.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAttributeValueChange.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle30;
-            this.dataGridViewAttributeValueChange.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewAttributeValueChange.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.对象变更网元,
-            this.对象变更事件编号,
-            this.对象变更事件时间,
-            this.对象变更事件类型,
-            this.对象变更对象名称,
-            this.对象变更对象类型,
-            this.对象变更属性名称,
-            this.对象变更新值,
-            this.对象变更旧值});
-            this.dataGridViewAttributeValueChange.ContextMenuStrip = this.contextMenuStripNotification;
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle31.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewAttributeValueChange.DefaultCellStyle = dataGridViewCellStyle31;
-            this.dataGridViewAttributeValueChange.Location = new System.Drawing.Point(0, 3);
-            this.dataGridViewAttributeValueChange.Name = "dataGridViewAttributeValueChange";
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle32.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle32.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle32.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewAttributeValueChange.RowHeadersDefaultCellStyle = dataGridViewCellStyle32;
-            this.dataGridViewAttributeValueChange.RowHeadersVisible = false;
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridViewAttributeValueChange.RowsDefaultCellStyle = dataGridViewCellStyle33;
-            this.dataGridViewAttributeValueChange.RowTemplate.Height = 23;
-            this.dataGridViewAttributeValueChange.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridViewAttributeValueChange.Size = new System.Drawing.Size(1166, 558);
-            this.dataGridViewAttributeValueChange.TabIndex = 3;
-            // 
-            // 对象变更网元
-            // 
-            this.对象变更网元.HeaderText = "网元";
-            this.对象变更网元.Name = "对象变更网元";
-            // 
-            // 对象变更事件编号
-            // 
-            this.对象变更事件编号.HeaderText = "事件编号";
-            this.对象变更事件编号.Name = "对象变更事件编号";
-            this.对象变更事件编号.Width = 80;
-            // 
-            // 对象变更事件时间
-            // 
-            this.对象变更事件时间.HeaderText = "事件时间";
-            this.对象变更事件时间.Name = "对象变更事件时间";
-            this.对象变更事件时间.Width = 180;
-            // 
-            // 对象变更事件类型
-            // 
-            this.对象变更事件类型.HeaderText = "事件类型";
-            this.对象变更事件类型.Name = "对象变更事件类型";
-            this.对象变更事件类型.Width = 160;
-            // 
-            // 对象变更对象名称
-            // 
-            this.对象变更对象名称.HeaderText = "对象名称";
-            this.对象变更对象名称.Name = "对象变更对象名称";
-            this.对象变更对象名称.Width = 220;
-            // 
-            // 对象变更对象类型
-            // 
-            this.对象变更对象类型.HeaderText = "对象类型";
-            this.对象变更对象类型.Name = "对象变更对象类型";
-            this.对象变更对象类型.Width = 80;
-            // 
-            // 对象变更属性名称
-            // 
-            this.对象变更属性名称.HeaderText = "属性名称";
-            this.对象变更属性名称.Name = "对象变更属性名称";
-            this.对象变更属性名称.Width = 160;
-            // 
-            // 对象变更新值
-            // 
-            this.对象变更新值.HeaderText = "新值";
-            this.对象变更新值.Name = "对象变更新值";
-            this.对象变更新值.Width = 80;
-            // 
-            // 对象变更旧值
-            // 
-            this.对象变更旧值.HeaderText = "旧值";
-            this.对象变更旧值.Name = "对象变更旧值";
-            this.对象变更旧值.Width = 80;
+            this.CTP端口2.HeaderText = "PTP-CTP端口";
+            this.CTP端口2.Name = "CTP端口2";
+            this.CTP端口2.ReadOnly = true;
+            this.CTP端口2.Width = 300;
             // 
             // Form_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1375, 691);
+            this.ClientSize = new System.Drawing.Size(1374, 691);
             this.Controls.Add(this.splitContainer4);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip_Winfrom);
@@ -8754,12 +8830,8 @@ namespace NetConfClientSoftware
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.splitContainer2.Panel1.ResumeLayout(false);
-            this.splitContainer2.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
-            this.splitContainer2.ResumeLayout(false);
-            this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.contextMenuStripXML.ResumeLayout(false);
             this.业务查询.ResumeLayout(false);
             this.groupBox22.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEth)).EndInit();
@@ -8827,8 +8899,6 @@ namespace NetConfClientSoftware
             this.contextMenuStripParameter.ResumeLayout(false);
             this.保护组查询.ResumeLayout(false);
             this.groupBox17.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS_Not)).EndInit();
-            this.contextMenuStripNotification.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS)).EndInit();
             this.contextMenuStripPGS.ResumeLayout(false);
             this.告警和通知.ResumeLayout(false);
@@ -8836,12 +8906,15 @@ namespace NetConfClientSoftware
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAlarm)).EndInit();
+            this.contextMenuStripNotification.ResumeLayout(false);
             this.tabPage12.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPGS_Not)).EndInit();
             this.tabPage13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAttributeValueChange)).EndInit();
             this.tabPage14.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewLLDP)).EndInit();
             this.tabPage15.ResumeLayout(false);
-            this.tabPage16.ResumeLayout(false);
-            this.tabPage18.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewPeerChange)).EndInit();
             this.自动化测试.ResumeLayout(false);
             this.自动化测试.PerformLayout();
             this.groupBox28.ResumeLayout(false);
@@ -8849,7 +8922,12 @@ namespace NetConfClientSoftware
             this.contextMenuStripAuto.ResumeLayout(false);
             this.日志信息.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.splitContainer6.Panel1.ResumeLayout(false);
+            this.splitContainer6.Panel1.PerformLayout();
+            this.splitContainer6.Panel2.ResumeLayout(false);
+            this.splitContainer6.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
+            this.splitContainer6.ResumeLayout(false);
             this.Telnet.ResumeLayout(false);
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel1.PerformLayout();
@@ -8866,7 +8944,6 @@ namespace NetConfClientSoftware
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
             this.splitContainer4.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewAttributeValueChange)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -8886,12 +8963,10 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.ToolStripMenuItem 工具TToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 帮助HToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem 关于AToolStripMenuItem;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage 调试主窗口;
         private System.Windows.Forms.TabPage 透传业务;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.ComboBox ComTimeOut;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
@@ -8905,31 +8980,11 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.TabPage tabPage14;
         private System.Windows.Forms.TabPage tabPage15;
         private System.Windows.Forms.TabPage tabPage16;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TreeView TreeReq;
-        private System.Windows.Forms.ListView listViewLLDP;
-        private System.Windows.Forms.ColumnHeader eventTime;
-        private System.Windows.Forms.ColumnHeader PTP_name;
-        private System.Windows.Forms.ColumnHeader LLDP_peer_chassis_id;
-        private System.Windows.Forms.ColumnHeader lldp_peer_port_id;
-        private System.Windows.Forms.ColumnHeader lldp_peer_system_name;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TreeView TreeReP;
         private System.Windows.Forms.TabPage 日志信息;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox TextLog;
-        private System.Windows.Forms.ListView listViewPeer;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.TabPage tabPage18;
-        private System.Windows.Forms.ListView listViewCommon;
-        private System.Windows.Forms.ColumnHeader columnHeader19;
-        private System.Windows.Forms.ColumnHeader columnHeader20;
-        private System.Windows.Forms.ColumnHeader columnHeader21;
-        private System.Windows.Forms.ColumnHeader columnHeader22;
-        private System.Windows.Forms.ColumnHeader columnHeader23;
         private System.Windows.Forms.Button ButCreatODU;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label7;
@@ -9209,14 +9264,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.Button ButStartAutoRunningXML;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripAuto;
         private System.Windows.Forms.ToolStripMenuItem 详细信息ToolStripMenuItem;
-        private System.Windows.Forms.ListView listViewGhao;
-        private System.Windows.Forms.ColumnHeader columnHeader24;
-        private System.Windows.Forms.ColumnHeader columnHeader25;
-        private System.Windows.Forms.ColumnHeader columnHeader27;
-        private System.Windows.Forms.ColumnHeader columnHeader26;
-        private System.Windows.Forms.ColumnHeader columnHeader28;
-        private System.Windows.Forms.ColumnHeader columnHeader29;
-        private System.Windows.Forms.ColumnHeader columnHeader30;
         private System.Windows.Forms.Button ButUTC;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.TreeView treeViewPtpCtpFtp;
@@ -9260,10 +9307,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.ToolStripMenuItem cTP限速调整ToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripParameter;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemPrameters;
-        private System.Windows.Forms.ColumnHeader columnHeader33;
-        private System.Windows.Forms.ColumnHeader columnHeader34;
-        private System.Windows.Forms.ColumnHeader columnHeader35;
-        private System.Windows.Forms.ColumnHeader columnHeader36;
         private System.Windows.Forms.Button buttontcafind;
         private System.Windows.Forms.Button XML转Tree;
         private System.Windows.Forms.ImageList imageListTree;
@@ -9336,20 +9379,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.ToolStripMenuItem 清空LLDP通知ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 清空Peer通知ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 清空GHao通知ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 清空一般配置通知ToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 标签别名;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 当前状态;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 管理状态;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 当前层协议;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 服务类型;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 业务总带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值带宽;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺突发;
-        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
         private System.Windows.Forms.Button butOduuni;
         private System.Windows.Forms.Label label_ts_primary_nni;
         private System.Windows.Forms.Label label_ts_sec_nni;
@@ -9363,7 +9392,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.ComboBox ComEthSecondUniPtpName;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.ToolStripMenuItem 加载所有运营商YIN文件ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 双击网元即可上线ToolStripMenuItem;
         private System.Windows.Forms.Button ButModifyInterface;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.ComboBox cominterfacetype;
@@ -9626,6 +9654,40 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn 对象变更属性名称;
         private System.Windows.Forms.DataGridViewTextBoxColumn 对象变更新值;
         private System.Windows.Forms.DataGridViewTextBoxColumn 对象变更旧值;
+        private System.Windows.Forms.DataGridView dataGridViewLLDP;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LLDP网元;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LLDP事件时间;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LLDP对象名称;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LLDP对端MAC;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LLDP对端端口;
+        private System.Windows.Forms.DataGridViewTextBoxColumn LLDP对端系统名称;
+        private System.Windows.Forms.DataGridView dataGridViewPeerChange;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Peer网元;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Peer事件时间;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Peer端口名称;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Peer对端IP地址;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Peer对端端口TCPID;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button buttonLogFind;
+        private System.Windows.Forms.TextBox textBoxLogFind;
+        private System.Windows.Forms.SplitContainer splitContainer6;
+        private System.Windows.Forms.Button buttonLogClear;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripXML;
+        private System.Windows.Forms.ToolStripMenuItem 查看原始XML脚本ToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 标签别名;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 当前状态;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 管理状态;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 当前层协议;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 服务类型;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 业务总带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值带宽;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 承诺突发;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
     }
 }
 

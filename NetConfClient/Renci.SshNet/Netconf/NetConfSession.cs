@@ -13,7 +13,6 @@ namespace Renci.SshNet.NetConf
     {
         private const string Prompt = "]]>]]>";
         private readonly StringBuilder _data = new StringBuilder();
-        private readonly StringBuilder _datanotification = new StringBuilder();
         public bool _usingFramingProtocol = true;
         private EventWaitHandle _serverCapabilitiesConfirmed = new AutoResetEvent(false);
         private EventWaitHandle _rpcReplyReceived = new AutoResetEvent(false);
@@ -97,7 +96,7 @@ namespace Renci.SshNet.NetConf
         }
         public XmlDocument SendReceiveRpc(XmlDocument rpc, bool automaticMessageIdHandling, int Timeout)
         {
-            _data.Clear();
+            //_data.Clear();
             XmlNamespaceManager nsMgr = null;
             if (automaticMessageIdHandling)
             {
@@ -188,25 +187,10 @@ namespace Renci.SshNet.NetConf
 
         public string SendReceiveRpcSub(int Timeout)
         {
-            _datanotification.Clear();
             _rpcReplyNotification = new StringBuilder();
             _rpcReplyReceivedNotificaton.Reset();
             WaitOnHandleNotification(_rpcReplyReceivedNotificaton, -1);
             return _rpcReplyNotification.ToString();
-
-            //if (a != _notificationstr)
-            //{
-            //    a = _notificationstr;
-            //    return _notificationstr;
-            //}
-            //else
-            //{
-            //    _notificationstr = "";
-            //    a = "";
-            //    return _notificationstr;
-
-            //}
-            //  return _notificationstr;
 
         }
         public void SendReceiveRpcKeepLive()
@@ -234,7 +218,6 @@ namespace Renci.SshNet.NetConf
         protected override void OnChannelOpen()
         {
             _data.Clear();
-            _datanotification.Clear();
             // var message = string.Format("{0}{1}", ClientCapabilities.InnerXml, Prompt);
             var command = PrettyXml(ClientCapabilities.InnerXml);
             SendData(Encoding.UTF8.GetBytes(command.ToString() + Prompt));
@@ -337,7 +320,6 @@ namespace Renci.SshNet.NetConf
             if (_usingFramingProtocol)
             {
                 _data.Append(chunk);
-               // _datanotification.Append(chunknotfication);
 
                 if (!chunk.Contains("##"))
                 {
@@ -362,14 +344,14 @@ namespace Renci.SshNet.NetConf
                             _rpcReply.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                             _rpcReplyReceived.Set();
                         }
-                        if (s.Contains("<notification") && s.Contains("</notification>"))
+                        if (s.Contains("</notification>"))
                         {
                             _rpcReplyNotification.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                             _rpcReplyReceivedNotificaton.Set();
                         }
-                        if (s.Contains("<notification") && !s.Contains("</notification>"))
+                        if ((s.Contains("<notification")) && (!s.Contains("</notification>")))
                         {
-                            _data.Append(s);
+                            _data.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                         }
                     }
                 }
@@ -388,9 +370,9 @@ namespace Renci.SshNet.NetConf
                             _rpcReplyNotification.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                              _rpcReplyReceivedNotificaton.Set();
                         }
-                        if (s.Contains("<rpc-reply")&& !s.Contains("</rpc-reply>"))
+                        if ((s.Contains("<rpc-reply"))&& (!s.Contains("</rpc-reply>")))
                         {
-                            _data.Append(s);
+                            _data.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                         }
                     }
                 }
@@ -400,7 +382,6 @@ namespace Renci.SshNet.NetConf
             else  // Old protocol
             {
                 _data.Append(chunk);
-               // _datanotification.Append(chunknotfication);
 
                 if (!chunk.Contains(Prompt))
                 {
@@ -419,20 +400,18 @@ namespace Renci.SshNet.NetConf
                 System.Diagnostics.Debug.WriteLine(chunk);
                 System.Diagnostics.Debug.WriteLine("\r\n 1.0版本服务器回复打印完毕");
                 chunk = _data.ToString();
-               // chunknotfication = _datanotification.ToString();
                 _data.Clear();
-                _datanotification.Clear();
-                //if (chunk.Contains("</rpc-reply>"))
-                //{
-                //    _rpcReply.Append(chunk.Replace(Prompt, ""));
-                //    _rpcReplyReceived.Set();
-                //}
-                //if (chunk.Contains("</notification>"))
-                //{
-                //    _rpcReplyNotification.Append(chunk.Replace(Prompt, ""));
-                //    _rpcReplyReceivedNotificaton.Set();
+                if (chunk.Contains("</rpc-reply>"))
+                {
+                    _rpcReply.Append(chunk.Replace(Prompt, ""));
+                    _rpcReplyReceived.Set();
+                }
+                if (chunk.Contains("</notification>"))
+                {
+                    _rpcReplyNotification.Append(chunk.Replace(Prompt, ""));
+                    _rpcReplyReceivedNotificaton.Set();
 
-                //}
+                }
                 if (chunk.Contains("</rpc-reply>"))
                 {
                     string[] arr = Regex.Split(chunk, Prompt, RegexOptions.IgnoreCase);
@@ -462,12 +441,12 @@ namespace Renci.SshNet.NetConf
                         if (s.Contains("</rpc-reply>"))
                         {
 
-                            _rpcReply.Append(chunk.Replace(Prompt, ""));
+                            _rpcReply.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                             _rpcReplyReceived.Set();
                         }
                         if (s.Contains("</notification>"))
                         {
-                            _rpcReplyNotification.Append(chunk.Replace(Prompt, ""));
+                            _rpcReplyNotification.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                             _rpcReplyReceivedNotificaton.Set();
                         }
                         if (s.Contains("<rpc-reply") && !s.Contains("</rpc-reply>"))

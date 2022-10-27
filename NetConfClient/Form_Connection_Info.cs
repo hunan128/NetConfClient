@@ -35,11 +35,16 @@ namespace NetConfClientSoftware
                 if (item != "")
                 {
                     ComPtpCtpFtp.Items.Add(item);
+                    int index = dataGridViewPtpFtpCtps.Rows.Add();
+                    dataGridViewPtpFtpCtps.Rows[index].Cells["业务关联端口"].Value = item;
+                    dataGridViewPtpFtpCtps.Rows[index].ReadOnly = true;
                 }
 
             }
             if(strArray!=null)
             ComPtpCtpFtp.SelectedIndex = 0;
+           
+
         }
 
         private void ComPtpCtpFtp_SelectedIndexChanged(object sender, EventArgs e)
@@ -164,24 +169,126 @@ namespace NetConfClientSoftware
 
         private void buttonFind_Click(object sender, EventArgs e)
         {
+            GetPtpFtpCtps(ComPtpCtpFtp.Text);
+        }
+
+        private void GetPtpFtpCtps(string port) {
             XmlDocument xmlDoc = new XmlDocument();
-            if (ComPtpCtpFtp.Text.Contains("PTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            if (port.Contains("PTP") && !port.Contains("CTP"))
             {
-                xmlDoc.LoadXml(RPC.Send(GetXML.PTP(ComPtpCtpFtp.Text), id, ip));
+                xmlDoc.LoadXml(RPC.Send(GetXML.PTP(port), id, ip));
             }
-            if (ComPtpCtpFtp.Text.Contains("FTP") && !ComPtpCtpFtp.Text.Contains("CTP"))
+            if (port.Contains("FTP") && !port.Contains("CTP"))
             {
-                xmlDoc.LoadXml(RPC.Send(GetXML.FTP(ComPtpCtpFtp.Text), id, ip));
+                xmlDoc.LoadXml(RPC.Send(GetXML.FTP(port), id, ip));
             }
-            if (ComPtpCtpFtp.Text.Contains("CTP"))
+            if (port.Contains("CTP"))
             {
-                xmlDoc.LoadXml(RPC.Send(GetXML.CTP(ComPtpCtpFtp.Text), id, ip));
+                xmlDoc.LoadXml(RPC.Send(GetXML.CTP(port), id, ip));
             }
-            if (string.IsNullOrEmpty(ComPtpCtpFtp.Text))
+            if (string.IsNullOrEmpty(port))
             {
                 xmlDoc.LoadXml(RPC.Send(GetXML.PtpsFtpsCtps(true, true, true), id, ip));
             }
             LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
+        }
+        private void dataGridViewPtpFtpCtps_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                string PtpsFtpsCtps = "";
+                foreach (DataGridViewRow row in this.dataGridViewPtpFtpCtps.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        PtpsFtpsCtps = dataGridViewPtpFtpCtps.Rows[row.Index].Cells["业务关联端口"].Value.ToString();       //设备IP地址
+                        GetPtpFtpCtps(PtpsFtpsCtps);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void 内环ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string PtpsFtpsCtps = "";
+                foreach (DataGridViewRow row in this.dataGridViewPtpFtpCtps.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        PtpsFtpsCtps = dataGridViewPtpFtpCtps.Rows[row.Index].Cells["业务关联端口"].Value.ToString();       //设备IP地址
+                        if (string.IsNullOrEmpty(dataGridViewPtpFtpCtps.Rows[row.Index].Cells["业务关联端口"].Value.ToString()))
+                        {
+                            return;
+                        }
+                        RPC.Send(ModifyXML.Loop_back(PtpsFtpsCtps, "terminal-loopback"), id, ip);
+                        dataGridViewPtpFtpCtps.Rows[row.Index].Cells["环回"].Value = "内环(terminal-loopback)";
+                        GetPtpFtpCtps(PtpsFtpsCtps);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+        }
+
+        private void 外环ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string PtpsFtpsCtps = "";
+                foreach (DataGridViewRow row in this.dataGridViewPtpFtpCtps.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        PtpsFtpsCtps = dataGridViewPtpFtpCtps.Rows[row.Index].Cells["业务关联端口"].Value.ToString();       //设备IP地址
+                        if (string.IsNullOrEmpty(dataGridViewPtpFtpCtps.Rows[row.Index].Cells["业务关联端口"].Value.ToString()))
+                        {
+                            return;
+                        }
+                        RPC.Send(ModifyXML.Loop_back(PtpsFtpsCtps, "facility-loopback"), id, ip);
+                        dataGridViewPtpFtpCtps.Rows[row.Index].Cells["环回"].Value = "外环(facility-loopback)";
+                        GetPtpFtpCtps(PtpsFtpsCtps);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void 不环回ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string PtpsFtpsCtps = "";
+                foreach (DataGridViewRow row in this.dataGridViewPtpFtpCtps.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        PtpsFtpsCtps = dataGridViewPtpFtpCtps.Rows[row.Index].Cells["业务关联端口"].Value.ToString();       //设备IP地址
+                        if (string.IsNullOrEmpty(dataGridViewPtpFtpCtps.Rows[row.Index].Cells["业务关联端口"].Value.ToString()))
+                        {
+                            return;
+                        }
+                        RPC.Send(ModifyXML.Loop_back(PtpsFtpsCtps, "non-loopback"), id, ip);
+                        dataGridViewPtpFtpCtps.Rows[row.Index].Cells["环回"].Value = "不环回(non-loopback)";
+                        GetPtpFtpCtps(PtpsFtpsCtps);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

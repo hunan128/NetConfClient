@@ -8,11 +8,16 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Netconf")]
 
 [assembly: AssemblyDescription("" +
+     "2022.10.27 优化业务详细信息，增加环回配置" + "\r\n" +
+    "2022.10.26 优化XML脚本调试返回显示双击支持查看对比原始XML数据" + "\r\n" +
+    "2022.10.25 新增log查找功能" + "\r\n" +
+    "2022.10.25 LLDP、Peer通知修改完成" + "\r\n" +
+    "2022.10.24 告警、保护组、属性变更、通用通知已经实现新方案接收订阅通知，其他的待完善..." + "\r\n" +
     "2022.10.21 解决自动化测试通知导致判断用例通过错误的问题，也解决了通知漏报的问题" + "\r\n" +
     "2022.10.20 新增双击业务查询显示CTP详细信息" + "\r\n" +
     "2022.08.30 解决移动EOS业务服务映射模式没有更新问题" + "\r\n" +
     "2022.06.26 尝试解决通知与回复模块的问题" + "\r\n" +
-     "2022.06.20 解决通知与应答模块冲突问题" + "\r\n" +
+    "2022.06.20 解决通知与应答模块冲突问题" + "\r\n" +
     "2022.06.16 增加循环执行自动化用例" + "\r\n" +
     "2022.05.30 修改了性能模块的功能增加了全部周期" + "\r\n" +
     "2022.05.20 新增告警查询模块" + "\r\n" +
@@ -95,5 +100,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2022.5.7.22")]
-[assembly: AssemblyFileVersion("2022.5.7.22")]
+[assembly: AssemblyVersion("2022.5.7.30")]
+[assembly: AssemblyFileVersion("2022.5.7.30")]
