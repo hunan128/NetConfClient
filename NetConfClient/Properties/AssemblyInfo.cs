@@ -104,5 +104,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2022.5.7.37")]
-[assembly: AssemblyFileVersion("2022.5.7.37")]
+[assembly: AssemblyVersion("2022.5.7.38")]
+[assembly: AssemblyFileVersion("2022.5.7.38")]

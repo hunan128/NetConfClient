@@ -42,7 +42,7 @@ namespace NetConfClientSoftware
         {
             ArrayList al = new ArrayList();
 
-            string strRegex = @"([\-\d\.\(\)\（\）\ \w]+)(xml|yin)";
+            string strRegex = @"(?<=>)([\-\d\.\(\)\（\）\ \w]+)(xml|yin)";
 
             Regex r = new Regex(strRegex, RegexOptions.IgnoreCase);
             MatchCollection m = r.Matches(htmlCode);

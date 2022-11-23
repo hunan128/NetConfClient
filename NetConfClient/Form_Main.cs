@@ -313,7 +313,7 @@ namespace NetConfClientSoftware
             }
             foreach (string s in fileNames)
             {
-                if (s.Contains("xml") || s.Contains("XML"))
+                if (s.Contains(".xml") || s.Contains(".XML"))
                 {
                     ComXml.Items.Add(s);
                     if (ComXml.Items.Count > 0)
@@ -488,9 +488,9 @@ namespace NetConfClientSoftware
                     Readfile(defaultfilePath);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                // MessageBox.Show(ex.Message);
+               
             }
             #endregion
         }
@@ -1929,6 +1929,7 @@ namespace NetConfClientSoftware
             //   ComSdhNniTs_B.SelectedIndex = 0;
             Control.CheckForIllegalCrossThreadCalls = false;
             Readini();
+            toolStripStatusLabelXMLPath.Text = defaultfilePath;
             XML_URL_COMBOX(XML_URL);
 
             if (File.Exists(neinfopath))
@@ -5943,6 +5944,10 @@ namespace NetConfClientSoftware
                 {
                     TextIP.Text = dataGridViewNeInformation.Rows[e.Node.Index].Cells["网元ip"].Value.ToString();
                 }
+                if (dataGridViewNeInformation.Rows[e.Node.Index].Cells["SSH_ID"].Value != null)
+                {
+                    TextID.Text = dataGridViewNeInformation.Rows[e.Node.Index].Cells["SSH_ID"].Value.ToString();
+                }
                 // treeViewNEID.SelectedNode.ImageIndex = 2;
                 //treeViewNEID.SelectedNode.SelectedImageIndex = 2;
                 //  dataGridViewNeInformation.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -6403,6 +6408,10 @@ namespace NetConfClientSoftware
                 if (dataGridViewNeInformation.Rows[e.RowIndex].Cells["网元ip"].Value != null)
                 {
                     TextIP.Text = dataGridViewNeInformation.Rows[e.RowIndex].Cells["网元ip"].Value.ToString();
+                }
+                if (dataGridViewNeInformation.Rows[e.RowIndex].Cells["SSH_ID"].Value != null)
+                {
+                    TextID.Text = dataGridViewNeInformation.Rows[e.RowIndex].Cells["SSH_ID"].Value.ToString();
                 }
             }
         }
@@ -10211,6 +10220,37 @@ namespace NetConfClientSoftware
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void 保存当前XMLtoolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (defaultfilePath == "")
+            {
+                MessageBox.Show("请先点击文件---打开一个存放XML文件的目录，然后再次尝试！");
+                return;
+            }
+            DialogResult dr = MessageBox.Show(defaultfilePath + ComXml.Text + "\r\n保存到这里请点击 “确定” !  如果不需要保存请点击   “取消”  !\r\n" +
+                "或者在 智能XML脚本 文本框编辑标题后，再次保存会自动创建新文件", "提示", MessageBoxButtons.OKCancel);
+            if (dr == DialogResult.OK)
+            {
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(fastColoredTextBoxReq.Text);
+                doc.Save(defaultfilePath + ComXml.Text);
+            }
+        }
+
+        private void 复制ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Clipboard.Clear();//清空剪切板内容
+            Clipboard.SetData(DataFormats.Text, fastColoredTextBoxReq.Text);//复制内容到剪切板
+            AutoClosingMessageBox autoClosingMessageBox = new AutoClosingMessageBox();
+            //显示2000ms(即2秒)后消失
+            autoClosingMessageBox.Show("XML已复制，请粘贴使用", "提示：", 2000);
+        }
+
+        private void 清空ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            fastColoredTextBoxReq.Text = "";
         }
     }
 }
