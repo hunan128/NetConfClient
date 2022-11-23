@@ -1308,5 +1308,61 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
+
+        public static XmlDocument AlarmsMaskState(string _object_name, string _object_type ,string _alarm_code,string _mask_state)
+        {
+
+
+            XmlDocument commonXml = new XmlDocument();
+            //  创建XML文档，存在就删除再生成
+            XmlDeclaration dec = commonXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+            commonXml.AppendChild(dec);
+            //  创建根结点
+            XmlElement rpc = commonXml.CreateElement("rpc");
+
+            rpc.SetAttribute("message-id", "1");
+            rpc.SetAttribute("xmlns", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            commonXml.AppendChild(rpc);
+            //创建信息节点
+            XmlElement edit_config = commonXml.CreateElement("edit-config");
+            rpc.AppendChild(edit_config);
+            //创建tatget
+            XmlElement target = commonXml.CreateElement("target");
+            edit_config.AppendChild(target);
+            //创建running
+            XmlElement running = commonXml.CreateElement("running");
+            target.AppendChild(running);
+
+            //连接删除
+            XmlElement config = commonXml.CreateElement("config");
+            config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
+            edit_config.AppendChild(config);
+
+            //performances
+            XmlElement alarms = commonXml.CreateElement("alarm-mask-states");
+            alarms.SetAttribute("xmlns", "urn:ccsa:yang:acc-alarms");
+            config.AppendChild(alarms);
+
+
+            XmlElement alarm = commonXml.CreateElement("alarm-mask-state");
+            alarms.AppendChild(alarm);
+            if (_object_name != "" && _object_name != "全部端口")
+            {
+                XmlElement object_name = commonXml.CreateElement("object-name");
+                object_name.InnerText = _object_name;
+                alarm.AppendChild(object_name);
+                XmlElement object_type = commonXml.CreateElement("object-type");
+                object_type.InnerText = _object_type;
+                alarm.AppendChild(object_type);
+                XmlElement alarm_code = commonXml.CreateElement("alarm-code");
+                alarm_code.InnerText = _alarm_code;
+                alarm.AppendChild(alarm_code);
+                XmlElement mask_state = commonXml.CreateElement("mask-state");
+                mask_state.InnerText = _mask_state;
+                alarm.AppendChild(mask_state);
+            }
+            return commonXml;
+
+        }
     }
 }

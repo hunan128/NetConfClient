@@ -150,50 +150,51 @@ namespace NetConfClientSoftware
             }
             try
             {
-                if (netConfClient[id] == null)
-                {
-                    MessageBox.Show(ip + "：设备离线");
-                    return;
-                }
-                if (!netConfClient[id].IsConnected)
-                {
-                    //断开连接ToolStripMenuItem.PerformClick();
-                    MessageBox.Show(ip + "：设备离线");
-                    return;
-                }
-                TreeReP.Nodes.Clear();
-                Rpc_Reply = "";
-                string rpcxml = "";
-                XmlDocument rpc = new XmlDocument();
-                if (!RichTextReq.Text.Contains("rpc"))
-                {
-                    string RpcTop = "<?xml version=\"1.0\" encoding=\"utf-8\"?><rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"4\">";
-                    string RpcEnd = "</rpc>";
-                    rpcxml = RpcTop + RichTextReq.Text + RpcEnd;
-                    if (netConfClient != null)
-                        netConfClient[id].AutomaticMessageIdHandling = true;
-                }
-                else
-                {
-                    rpcxml = RichTextReq.Text;
-                    if (netConfClient != null)
-                        netConfClient[id].AutomaticMessageIdHandling = false;
-                }
-
-                rpc.LoadXml(rpcxml);
-                DateTime dTimeEnd = System.DateTime.Now;
-                TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
-                TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + FenGeFu);
-                RichTextReq.Text = XmlFormat.Xml(rpc.OuterXml);
-                DateTime dTimeServer = System.DateTime.Now;
-                var rpcResponse = netConfClient[id].SendReceiveRpc(rpc);
-                dTimeServer = System.DateTime.Now;
-                TimeSpan ts = dTimeServer - dTimeEnd;
-                LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
-                TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
-                Rpc_Reply = XmlFormat.Xml(rpcResponse.OuterXml);
-                TextLog.AppendText(Rpc_Reply + FenGeFu);
-                BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(rpcResponse); }));
+                BeginInvoke(new MethodInvoker(delegate () {
+                    if (netConfClient[id] == null)
+                    {
+                        MessageBox.Show(ip + "：设备离线");
+                        return;
+                    }
+                    if (!netConfClient[id].IsConnected)
+                    {
+                        //断开连接ToolStripMenuItem.PerformClick();
+                        MessageBox.Show(ip + "：设备离线");
+                        return;
+                    }
+                    TreeReP.Nodes.Clear();
+                    Rpc_Reply = "";
+                    string rpcxml = "";
+                    XmlDocument rpc = new XmlDocument();
+                    if (!fastColoredTextBoxReq.Text.Contains("rpc"))
+                    {
+                        string RpcTop = "<?xml version=\"1.0\" encoding=\"utf-8\"?><rpc xmlns=\"urn:ietf:params:xml:ns:netconf:base:1.0\" message-id=\"4\">";
+                        string RpcEnd = "</rpc>";
+                        rpcxml = RpcTop + fastColoredTextBoxReq.Text + RpcEnd;
+                        if (netConfClient != null)
+                            netConfClient[id].AutomaticMessageIdHandling = true;
+                    }
+                    else
+                    {
+                        rpcxml = fastColoredTextBoxReq.Text;
+                        if (netConfClient != null)
+                            netConfClient[id].AutomaticMessageIdHandling = false;
+                    }
+                    rpc.LoadXml(rpcxml);
+                    DateTime dTimeEnd = System.DateTime.Now;
+                    TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
+                    TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + FenGeFu);
+                    fastColoredTextBoxReq.Text = XmlFormat.Xml(rpc.OuterXml);
+                    DateTime dTimeServer = System.DateTime.Now;
+                    var rpcResponse = netConfClient[id].SendReceiveRpc(rpc);
+                    dTimeServer = System.DateTime.Now;
+                    TimeSpan ts = dTimeServer - dTimeEnd;
+                    LabResponsTime.Text = ts.Minutes.ToString() + "min：" + ts.Seconds.ToString() + "s：" + ts.Milliseconds.ToString() + "ms";
+                    TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString() + "应答：" + FenGeFu);
+                    Rpc_Reply = XmlFormat.Xml(rpcResponse.OuterXml);
+                    TextLog.AppendText(Rpc_Reply + FenGeFu);
+                    LoadTreeFromXmlDocument_TreeReP(rpcResponse);
+                }));
             }
             catch (Exception ex)
             {
@@ -335,13 +336,13 @@ namespace NetConfClientSoftware
             if (!File.Exists(filename))
             {
                 xmldoc.Load(XML_URL + ComXml.Text);
-                RichTextReq.Text = XmlFormat.Xml(xmldoc.OuterXml);
+                fastColoredTextBoxReq.Text = XmlFormat.Xml(xmldoc.OuterXml);
                 xmldoc.Save(filename);
             }
             else
             {
                 xmldoc.Load(filename);
-                RichTextReq.Text = XmlFormat.Xml(xmldoc.OuterXml);
+                fastColoredTextBoxReq.Text = XmlFormat.Xml(xmldoc.OuterXml);
             }
         }
         /// <summary>
@@ -2061,7 +2062,7 @@ namespace NetConfClientSoftware
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void RichTextReq_KeyDown(object sender, KeyEventArgs e)
+        private void fastColoredTextBoxReq_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control == true && e.KeyCode == Keys.S)
             {
@@ -3116,7 +3117,7 @@ namespace NetConfClientSoftware
                 DateTime dTimeEnd = System.DateTime.Now;
                 TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
                 TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + FenGeFu);
-                // RichTextReq.Text = sb.ToString();
+                // fastColoredTextBoxReq.Text = sb.ToString();
                 DateTime dTimeServer = System.DateTime.Now;
                 var rpcResponse = netConfClient[id].SendReceiveRpc(rpc);
                 dTimeServer = System.DateTime.Now;
@@ -3191,7 +3192,7 @@ namespace NetConfClientSoftware
                 DateTime dTimeEnd = System.DateTime.Now;
                 TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString() + "请求：" + FenGeFu);
                 TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + FenGeFu);
-                // RichTextReq.Text = sb.ToString();
+                // fastColoredTextBoxReq.Text = sb.ToString();
                 DateTime dTimeServer = System.DateTime.Now;
                 var rpcResponse = netConfClient[id].SendReceiveRpc(rpc);
                 dTimeServer = System.DateTime.Now;
@@ -3666,7 +3667,7 @@ namespace NetConfClientSoftware
                 // string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
                 XmlDocument xmlDoc1 = new XmlDocument();
-                xmlDoc1 = GetXML.FindHisPerformance(dateTimePickerStartime.Text, dateTimePickerEndtime.Text, ComCurPerGranularity.Text, ComCurPerObjectName.Text, "");
+                xmlDoc1 = GetXML.FindHisPerformance(dateTimePickerStartime.Text, dateTimePickerEndtime.Text, ComCurPerGranularity.Text, ComCurPerObjectName.Text, "",ips);
                 int id = int.Parse(treeViewNEID.SelectedNode.Name);
                 int line = -1;
                 for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -4281,7 +4282,7 @@ namespace NetConfClientSoftware
             if (dr1 == DialogResult.Yes)
             {
                 XmlDocument doc = new XmlDocument();
-                doc.LoadXml(RichTextReq.Text);
+                doc.LoadXml(fastColoredTextBoxReq.Text);
                 doc.Save(defaultfilePath + ComXml.Text);
             }
         }
@@ -6557,7 +6558,7 @@ namespace NetConfClientSoftware
         private void button1_Click(object sender, EventArgs e)
         {
             XmlDocument xml = new XmlDocument();
-            xml.LoadXml(RichTextReq.Text);
+            xml.LoadXml(fastColoredTextBoxReq.Text);
             TreeReP.Nodes.Clear();
             BeginInvoke(new MethodInvoker(delegate () { LoadTreeFromXmlDocument_TreeReP(xml); }));
         }
@@ -9581,7 +9582,7 @@ namespace NetConfClientSoftware
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//alarms:alarms//alarms:alarm", root);
                 foreach (XmlNode itemNode in itemNodes)
                 {
-                    int index = 0;
+                    int index = dataGridViewAlarm.Rows.Add();
                     XmlNode alarm_serial_no = itemNode.SelectSingleNode("alarms:alarm-serial-no", root);
                     XmlNode object_name = itemNode.SelectSingleNode("alarms:object-name", root);
                     XmlNode object_type = itemNode.SelectSingleNode("alarms:object-type", root);
@@ -9738,7 +9739,7 @@ namespace NetConfClientSoftware
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//alarms:alarms//alarms:alarm", root);
                 foreach (XmlNode itemNode in itemNodes)
                 {
-                    int index = 0;
+                    int index = dataGridViewAlarm.Rows.Add();
                     XmlNode alarm_serial_no = itemNode.SelectSingleNode("alarms:alarm-serial-no", root);
                     XmlNode object_name = itemNode.SelectSingleNode("alarms:object-name", root);
                     XmlNode object_type = itemNode.SelectSingleNode("alarms:object-type", root);
@@ -9800,7 +9801,7 @@ namespace NetConfClientSoftware
                  itemNodes = xmlDoc.SelectNodes("//alarms:tcas//alarms:tca", root);
                 foreach (XmlNode itemNode in itemNodes)
                 {
-                    int index = 0;
+                    int index = dataGridViewAlarm.Rows.Add();
                     XmlNode tca_serial_no = itemNode.SelectSingleNode("alarms:tca-serial-no", root);
                     XmlNode object_name = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:object-name", root);
                     XmlNode object_type = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:object-type", root);
@@ -9877,7 +9878,7 @@ namespace NetConfClientSoftware
                 XmlNodeList itemNodes = xmlDoc.SelectNodes("//alarms:tcas//alarms:tca", root);
                 foreach (XmlNode itemNode in itemNodes)
                 {
-                    int index = 0;
+                    int index = dataGridViewAlarm.Rows.Add();
                     XmlNode tca_serial_no = itemNode.SelectSingleNode("alarms:tca-serial-no", root);
                     XmlNode object_name = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:object-name", root);
                     XmlNode object_type = itemNode.SelectSingleNode("alarms:tca-parameter//alarms:object-type", root);
@@ -10168,6 +10169,48 @@ namespace NetConfClientSoftware
         {
             var rpc = new Form_Rep_reply(Rpc_Reply);
             rpc.Show();
+        }
+
+        private void 清空ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("正在清空所有LOG日志，确认删除？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                TextLog.Text = "";
+        }
+
+        private void 告警抑制屏蔽ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string PtpsFtpsCtps = "";
+                string object_type = "";
+                int id = int.Parse(treeViewNEID.SelectedNode.Name);
+                int line = -1;
+                for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
+                {
+                    if (dataGridViewNeInformation.Rows[i].Cells["SSH_ID"].Value.ToString() == id.ToString()) //keyword要查的关键字
+                    {
+                        line = i;
+                        break;
+                    }
+                    if (line >= 0)
+                        break;
+                }
+                string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
+                foreach (DataGridViewRow row in this.dataGridViewAlarm.SelectedRows)
+                {
+                    if (!row.IsNewRow)
+                    {
+                        PtpsFtpsCtps = dataGridViewAlarm.Rows[row.Index].Cells["告警对象名称"].Value.ToString();       //设备IP地址
+                        object_type = dataGridViewAlarm.Rows[row.Index].Cells["告警对象类型"].Value.ToString();
+                    }
+                }
+                var Formoam = new Form_alarm_mask_states(id, ip, PtpsFtpsCtps,object_type);
+                Formoam.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

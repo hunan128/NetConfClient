@@ -12,7 +12,8 @@
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <IsWebBootstrapper>true</IsWebBootstrapper>
     <PublishUrl>ftp://hunan128.com/netconfclient/</PublishUrl>
     <Install>true</Install>
@@ -31,7 +32,7 @@
     <PublisherName>NetconfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>31</ApplicationRevision>
+    <ApplicationRevision>37</ApplicationRevision>
     <ApplicationVersion>2022.5.7.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -77,6 +78,9 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FastColoredTextBox, Version=2.16.23.0, Culture=neutral, PublicKeyToken=fb8aa12b994ef61b, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastColoredTextBoxchinese.1.0.0\lib\net40\FastColoredTextBox.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.1.3.1\lib\net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
@@ -125,6 +129,12 @@
     </Compile>
     <Compile Include="ConfigServices\FileManage.cs" />
     <Compile Include="Connection_Arrange.cs" />
+    <Compile Include="Form_alarm_mask_states.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form_alarm_mask_states.Designer.cs">
+      <DependentUpon>Form_alarm_mask_states.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_Rep_Reply.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -259,8 +269,12 @@
     <EmbeddedResource Include="AutoRuning\Form_AutoRunningNetconf.resx">
       <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Form_alarm_mask_states.resx">
+      <DependentUpon>Form_alarm_mask_states.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form_Rep_Reply.resx">
       <DependentUpon>Form_Rep_Reply.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Connection_Info.resx">
       <DependentUpon>Form_Connection_Info.cs</DependentUpon>
@@ -309,6 +323,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form_Main.resx">
       <DependentUpon>Form_Main.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -369,6 +384,9 @@
       <Project>{0c01e343-5e94-42b7-b312-02699befa506}</Project>
       <Name>Renci.SshNet</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

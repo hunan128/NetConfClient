@@ -83,7 +83,7 @@ namespace NetConfClientSoftware
             this.ButSend = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.RichTextReq = new System.Windows.Forms.TextBox();
+            this.fastColoredTextBoxReq = new FastColoredTextBoxNS.FastColoredTextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.ComTimeOut = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -93,8 +93,6 @@ namespace NetConfClientSoftware
             this.XML转Tree = new System.Windows.Forms.Button();
             this.menuStrip_Winfrom = new System.Windows.Forms.MenuStrip();
             this.文件FToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.ToolStripMenuItemAUto = new System.Windows.Forms.ToolStripMenuItem();
             this.导出用例报表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.保存ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -300,6 +298,19 @@ namespace NetConfClientSoftware
             this.groupBox22 = new System.Windows.Forms.GroupBox();
             this.ButFindOdu_local = new System.Windows.Forms.Button();
             this.dataGridViewEth = new System.Windows.Forms.DataGridView();
+            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.contextMenuStrip_ODU = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.删除业务ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.业务详细信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -770,7 +781,8 @@ namespace NetConfClientSoftware
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.splitContainer6 = new System.Windows.Forms.SplitContainer();
             this.TextLog = new System.Windows.Forms.TextBox();
-            this.buttonLogClear = new System.Windows.Forms.Button();
+            this.contextMenuStripCLearLog = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.清空ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBoxLogFind = new System.Windows.Forms.TextBox();
             this.buttonLogFind = new System.Windows.Forms.Button();
             this.Telnet = new System.Windows.Forms.TabPage();
@@ -804,21 +816,12 @@ namespace NetConfClientSoftware
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.treeViewNEID = new System.Windows.Forms.TreeView();
             this.imageListTree = new System.Windows.Forms.ImageList(this.components);
-            this.连接名称 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.标签别名 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.管理状态 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.当前层协议 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.服务类型 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.业务总带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值带宽 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.承诺突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.峰值突发 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CTP端口2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.告警抑制屏蔽ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItemAUto = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxReq)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
             this.menuStrip_Winfrom.SuspendLayout();
@@ -917,6 +920,7 @@ namespace NetConfClientSoftware
             this.splitContainer6.Panel1.SuspendLayout();
             this.splitContainer6.Panel2.SuspendLayout();
             this.splitContainer6.SuspendLayout();
+            this.contextMenuStripCLearLog.SuspendLayout();
             this.Telnet.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer5)).BeginInit();
             this.splitContainer5.Panel1.SuspendLayout();
@@ -959,25 +963,55 @@ namespace NetConfClientSoftware
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.RichTextReq);
+            this.panel4.Controls.Add(this.fastColoredTextBoxReq);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 55);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(574, 507);
             this.panel4.TabIndex = 25;
             // 
-            // RichTextReq
+            // fastColoredTextBoxReq
             // 
-            this.RichTextReq.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.RichTextReq.ForeColor = System.Drawing.Color.Blue;
-            this.RichTextReq.Location = new System.Drawing.Point(0, 0);
-            this.RichTextReq.MaxLength = 32767000;
-            this.RichTextReq.Multiline = true;
-            this.RichTextReq.Name = "RichTextReq";
-            this.RichTextReq.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.RichTextReq.Size = new System.Drawing.Size(574, 507);
-            this.RichTextReq.TabIndex = 21;
-            this.RichTextReq.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RichTextReq_KeyDown);
+            this.fastColoredTextBoxReq.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBoxReq.AutoIndentCharsPatterns = "";
+            this.fastColoredTextBoxReq.AutoScrollMinSize = new System.Drawing.Size(23, 13);
+            this.fastColoredTextBoxReq.BackBrush = null;
+            this.fastColoredTextBoxReq.BracketsHighlightStrategy = FastColoredTextBoxNS.BracketsHighlightStrategy.Strategy2;
+            this.fastColoredTextBoxReq.CharCnWidth = 13;
+            this.fastColoredTextBoxReq.CharHeight = 13;
+            this.fastColoredTextBoxReq.CharWidth = 6;
+            this.fastColoredTextBoxReq.CommentPrefix = null;
+            this.fastColoredTextBoxReq.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBoxReq.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBoxReq.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBoxReq.Font = new System.Drawing.Font("宋体", 9F);
+            this.fastColoredTextBoxReq.IsReplaceMode = false;
+            this.fastColoredTextBoxReq.Language = FastColoredTextBoxNS.Language.XML;
+            this.fastColoredTextBoxReq.LeftBracket = '<';
+            this.fastColoredTextBoxReq.LeftBracket2 = '(';
+            this.fastColoredTextBoxReq.Location = new System.Drawing.Point(0, 0);
+            this.fastColoredTextBoxReq.Name = "fastColoredTextBoxReq";
+            this.fastColoredTextBoxReq.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBoxReq.RightBracket = '>';
+            this.fastColoredTextBoxReq.RightBracket2 = ')';
+            this.fastColoredTextBoxReq.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBoxReq.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBoxReq.ServiceColors")));
+            this.fastColoredTextBoxReq.ShowCaretWhenInactive = true;
+            this.fastColoredTextBoxReq.ShowFoldingLines = true;
+            this.fastColoredTextBoxReq.Size = new System.Drawing.Size(574, 507);
+            this.fastColoredTextBoxReq.TabIndex = 24;
+            this.fastColoredTextBoxReq.Zoom = 100;
+            this.fastColoredTextBoxReq.KeyDown += new System.Windows.Forms.KeyEventHandler(this.fastColoredTextBoxReq_KeyDown);
             // 
             // panel3
             // 
@@ -1092,24 +1126,6 @@ namespace NetConfClientSoftware
             this.文件FToolStripMenuItem.Name = "文件FToolStripMenuItem";
             this.文件FToolStripMenuItem.Size = new System.Drawing.Size(58, 21);
             this.文件FToolStripMenuItem.Text = "文件(&F)";
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
-            this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
-            this.toolStripMenuItem1.Text = "导入XML目录";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.打开OToolStripMenuItem_Click);
-            // 
-            // ToolStripMenuItemAUto
-            // 
-            this.ToolStripMenuItemAUto.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemAUto.Image")));
-            this.ToolStripMenuItemAUto.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.ToolStripMenuItemAUto.Name = "ToolStripMenuItemAUto";
-            this.ToolStripMenuItemAUto.Size = new System.Drawing.Size(150, 22);
-            this.ToolStripMenuItemAUto.Text = "导入测试用例";
-            this.ToolStripMenuItemAUto.Click += new System.EventHandler(this.ToolStripMenuItemAUto_Click);
             // 
             // 导出用例报表ToolStripMenuItem
             // 
@@ -3246,6 +3262,98 @@ namespace NetConfClientSoftware
             this.dataGridViewEth.TabIndex = 0;
             this.dataGridViewEth.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewEth_CellDoubleClick);
             // 
+            // 连接名称
+            // 
+            this.连接名称.HeaderText = "连接名称";
+            this.连接名称.Name = "连接名称";
+            this.连接名称.ReadOnly = true;
+            this.连接名称.Width = 120;
+            // 
+            // 标签别名
+            // 
+            this.标签别名.HeaderText = "lable";
+            this.标签别名.Name = "标签别名";
+            this.标签别名.ReadOnly = true;
+            this.标签别名.Width = 60;
+            // 
+            // 当前状态
+            // 
+            this.当前状态.HeaderText = "当前状态";
+            this.当前状态.Name = "当前状态";
+            this.当前状态.ReadOnly = true;
+            this.当前状态.Width = 40;
+            // 
+            // 管理状态
+            // 
+            this.管理状态.HeaderText = "管理状态";
+            this.管理状态.Name = "管理状态";
+            this.管理状态.ReadOnly = true;
+            this.管理状态.Width = 60;
+            // 
+            // 当前层协议
+            // 
+            this.当前层协议.HeaderText = "当前层协议";
+            this.当前层协议.Name = "当前层协议";
+            this.当前层协议.ReadOnly = true;
+            this.当前层协议.Width = 80;
+            // 
+            // 服务类型
+            // 
+            this.服务类型.HeaderText = "服务类型";
+            this.服务类型.Name = "服务类型";
+            this.服务类型.ReadOnly = true;
+            this.服务类型.Width = 40;
+            // 
+            // 业务总带宽
+            // 
+            this.业务总带宽.HeaderText = "totalSize";
+            this.业务总带宽.Name = "业务总带宽";
+            this.业务总带宽.ReadOnly = true;
+            this.业务总带宽.Width = 60;
+            // 
+            // 承诺带宽
+            // 
+            this.承诺带宽.HeaderText = "cir";
+            this.承诺带宽.Name = "承诺带宽";
+            this.承诺带宽.ReadOnly = true;
+            this.承诺带宽.Width = 40;
+            // 
+            // 峰值带宽
+            // 
+            this.峰值带宽.HeaderText = "pir";
+            this.峰值带宽.Name = "峰值带宽";
+            this.峰值带宽.ReadOnly = true;
+            this.峰值带宽.Width = 40;
+            // 
+            // 承诺突发
+            // 
+            this.承诺突发.HeaderText = "cbs";
+            this.承诺突发.Name = "承诺突发";
+            this.承诺突发.ReadOnly = true;
+            this.承诺突发.Width = 40;
+            // 
+            // 峰值突发
+            // 
+            this.峰值突发.HeaderText = "pbs";
+            this.峰值突发.Name = "峰值突发";
+            this.峰值突发.ReadOnly = true;
+            this.峰值突发.Width = 40;
+            // 
+            // CTP端口1
+            // 
+            this.CTP端口1.HeaderText = "所有CTP端口";
+            this.CTP端口1.Name = "CTP端口1";
+            this.CTP端口1.ReadOnly = true;
+            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.CTP端口1.Width = 600;
+            // 
+            // CTP端口2
+            // 
+            this.CTP端口2.HeaderText = "PTP-CTP端口";
+            this.CTP端口2.Name = "CTP端口2";
+            this.CTP端口2.ReadOnly = true;
+            this.CTP端口2.Width = 300;
+            // 
             // contextMenuStrip_ODU
             // 
             this.contextMenuStrip_ODU.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -3528,7 +3636,8 @@ namespace NetConfClientSoftware
             this.ComEthFtpVlanAccess_primary_nni.Items.AddRange(new object[] {
             "keep",
             "exchange",
-            "push_pop"});
+            "push_pop",
+            "pop_push"});
             this.ComEthFtpVlanAccess_primary_nni.Location = new System.Drawing.Point(128, 42);
             this.ComEthFtpVlanAccess_primary_nni.Name = "ComEthFtpVlanAccess_primary_nni";
             this.ComEthFtpVlanAccess_primary_nni.Size = new System.Drawing.Size(94, 20);
@@ -3915,7 +4024,8 @@ namespace NetConfClientSoftware
             this.ComEthFtpVlanAccess_secondary_nni.Items.AddRange(new object[] {
             "keep",
             "exchange",
-            "push_pop"});
+            "push_pop",
+            "pop_push"});
             this.ComEthFtpVlanAccess_secondary_nni.Location = new System.Drawing.Point(128, 42);
             this.ComEthFtpVlanAccess_secondary_nni.Name = "ComEthFtpVlanAccess_secondary_nni";
             this.ComEthFtpVlanAccess_secondary_nni.Size = new System.Drawing.Size(94, 20);
@@ -4305,7 +4415,8 @@ namespace NetConfClientSoftware
             this.ComEthFtpVlanAccess_primary_nni2.Items.AddRange(new object[] {
             "keep",
             "exchange",
-            "push_pop"});
+            "push_pop",
+            "pop_push"});
             this.ComEthFtpVlanAccess_primary_nni2.Location = new System.Drawing.Point(128, 41);
             this.ComEthFtpVlanAccess_primary_nni2.Name = "ComEthFtpVlanAccess_primary_nni2";
             this.ComEthFtpVlanAccess_primary_nni2.Size = new System.Drawing.Size(94, 20);
@@ -4669,7 +4780,8 @@ namespace NetConfClientSoftware
             this.ComEthFtpVlanAccess_secondary_nni2.Items.AddRange(new object[] {
             "keep",
             "exchange",
-            "push_pop"});
+            "push_pop",
+            "pop_push"});
             this.ComEthFtpVlanAccess_secondary_nni2.Location = new System.Drawing.Point(128, 41);
             this.ComEthFtpVlanAccess_secondary_nni2.Name = "ComEthFtpVlanAccess_secondary_nni2";
             this.ComEthFtpVlanAccess_secondary_nni2.Size = new System.Drawing.Size(94, 20);
@@ -5491,7 +5603,8 @@ namespace NetConfClientSoftware
             this.ComEthVlanAccessAction.Items.AddRange(new object[] {
             "keep",
             "exchange",
-            "push_pop"});
+            "push_pop",
+            "pop_push"});
             this.ComEthVlanAccessAction.Location = new System.Drawing.Point(186, 12);
             this.ComEthVlanAccessAction.Name = "ComEthVlanAccessAction";
             this.ComEthVlanAccessAction.Size = new System.Drawing.Size(78, 20);
@@ -5616,7 +5729,8 @@ namespace NetConfClientSoftware
             this.ComEthUniVlanAccessAction.Items.AddRange(new object[] {
             "keep",
             "exchange",
-            "push_pop"});
+            "push_pop",
+            "pop_push"});
             this.ComEthUniVlanAccessAction.Location = new System.Drawing.Point(443, 12);
             this.ComEthUniVlanAccessAction.Name = "ComEthUniVlanAccessAction";
             this.ComEthUniVlanAccessAction.Size = new System.Drawing.Size(78, 20);
@@ -7357,9 +7471,10 @@ namespace NetConfClientSoftware
             this.清空对象变更通知ToolStripMenuItem,
             this.清空LLDP通知ToolStripMenuItem,
             this.清空Peer通知ToolStripMenuItem,
-            this.清空GHao通知ToolStripMenuItem});
+            this.清空GHao通知ToolStripMenuItem,
+            this.告警抑制屏蔽ToolStripMenuItem});
             this.contextMenuStripNotification.Name = "contextMenuStripNotification";
-            this.contextMenuStripNotification.Size = new System.Drawing.Size(232, 158);
+            this.contextMenuStripNotification.Size = new System.Drawing.Size(232, 180);
             // 
             // 清空所有通知ToolStripMenuItem
             // 
@@ -8280,7 +8395,6 @@ namespace NetConfClientSoftware
             // 
             // splitContainer6.Panel2
             // 
-            this.splitContainer6.Panel2.Controls.Add(this.buttonLogClear);
             this.splitContainer6.Panel2.Controls.Add(this.textBoxLogFind);
             this.splitContainer6.Panel2.Controls.Add(this.buttonLogFind);
             this.splitContainer6.Size = new System.Drawing.Size(1162, 589);
@@ -8289,6 +8403,7 @@ namespace NetConfClientSoftware
             // 
             // TextLog
             // 
+            this.TextLog.ContextMenuStrip = this.contextMenuStripCLearLog;
             this.TextLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TextLog.Location = new System.Drawing.Point(0, 0);
             this.TextLog.Multiline = true;
@@ -8297,35 +8412,35 @@ namespace NetConfClientSoftware
             this.TextLog.Size = new System.Drawing.Size(922, 589);
             this.TextLog.TabIndex = 8;
             // 
-            // buttonLogClear
+            // contextMenuStripCLearLog
             // 
-            this.buttonLogClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.buttonLogClear.Location = new System.Drawing.Point(3, 512);
-            this.buttonLogClear.Name = "buttonLogClear";
-            this.buttonLogClear.Size = new System.Drawing.Size(115, 71);
-            this.buttonLogClear.TabIndex = 11;
-            this.buttonLogClear.Text = "清空";
-            this.buttonLogClear.UseVisualStyleBackColor = true;
-            this.buttonLogClear.Click += new System.EventHandler(this.buttonLogClear_Click);
+            this.contextMenuStripCLearLog.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.清空ToolStripMenuItem});
+            this.contextMenuStripCLearLog.Name = "contextMenuStripCLearLog";
+            this.contextMenuStripCLearLog.Size = new System.Drawing.Size(101, 26);
+            // 
+            // 清空ToolStripMenuItem
+            // 
+            this.清空ToolStripMenuItem.Name = "清空ToolStripMenuItem";
+            this.清空ToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.清空ToolStripMenuItem.Text = "清空";
+            this.清空ToolStripMenuItem.Click += new System.EventHandler(this.清空ToolStripMenuItem_Click);
             // 
             // textBoxLogFind
             // 
-            this.textBoxLogFind.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxLogFind.Location = new System.Drawing.Point(2, 3);
+            this.textBoxLogFind.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBoxLogFind.Location = new System.Drawing.Point(0, 0);
             this.textBoxLogFind.Multiline = true;
             this.textBoxLogFind.Name = "textBoxLogFind";
-            this.textBoxLogFind.Size = new System.Drawing.Size(231, 506);
+            this.textBoxLogFind.Size = new System.Drawing.Size(236, 518);
             this.textBoxLogFind.TabIndex = 9;
             // 
             // buttonLogFind
             // 
-            this.buttonLogFind.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonLogFind.Location = new System.Drawing.Point(118, 512);
+            this.buttonLogFind.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.buttonLogFind.Location = new System.Drawing.Point(0, 518);
             this.buttonLogFind.Name = "buttonLogFind";
-            this.buttonLogFind.Size = new System.Drawing.Size(115, 71);
+            this.buttonLogFind.Size = new System.Drawing.Size(236, 71);
             this.buttonLogFind.TabIndex = 10;
             this.buttonLogFind.Text = "查找";
             this.buttonLogFind.UseVisualStyleBackColor = true;
@@ -8685,97 +8800,30 @@ namespace NetConfClientSoftware
             this.imageListTree.Images.SetKeyName(4, "if_orange.png");
             this.imageListTree.Images.SetKeyName(5, "if_yellow.png");
             // 
-            // 连接名称
+            // 告警抑制屏蔽ToolStripMenuItem
             // 
-            this.连接名称.HeaderText = "连接名称";
-            this.连接名称.Name = "连接名称";
-            this.连接名称.ReadOnly = true;
-            this.连接名称.Width = 120;
+            this.告警抑制屏蔽ToolStripMenuItem.Name = "告警抑制屏蔽ToolStripMenuItem";
+            this.告警抑制屏蔽ToolStripMenuItem.Size = new System.Drawing.Size(231, 22);
+            this.告警抑制屏蔽ToolStripMenuItem.Text = "告警抑制(屏蔽)";
+            this.告警抑制屏蔽ToolStripMenuItem.Click += new System.EventHandler(this.告警抑制屏蔽ToolStripMenuItem_Click);
             // 
-            // 标签别名
+            // toolStripMenuItem1
             // 
-            this.标签别名.HeaderText = "lable";
-            this.标签别名.Name = "标签别名";
-            this.标签别名.ReadOnly = true;
-            this.标签别名.Width = 60;
+            this.toolStripMenuItem1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripMenuItem1.Image")));
+            this.toolStripMenuItem1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(150, 22);
+            this.toolStripMenuItem1.Text = "导入XML目录";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.打开OToolStripMenuItem_Click);
             // 
-            // 当前状态
+            // ToolStripMenuItemAUto
             // 
-            this.当前状态.HeaderText = "当前状态";
-            this.当前状态.Name = "当前状态";
-            this.当前状态.ReadOnly = true;
-            this.当前状态.Width = 40;
-            // 
-            // 管理状态
-            // 
-            this.管理状态.HeaderText = "管理状态";
-            this.管理状态.Name = "管理状态";
-            this.管理状态.ReadOnly = true;
-            this.管理状态.Width = 60;
-            // 
-            // 当前层协议
-            // 
-            this.当前层协议.HeaderText = "当前层协议";
-            this.当前层协议.Name = "当前层协议";
-            this.当前层协议.ReadOnly = true;
-            this.当前层协议.Width = 80;
-            // 
-            // 服务类型
-            // 
-            this.服务类型.HeaderText = "服务类型";
-            this.服务类型.Name = "服务类型";
-            this.服务类型.ReadOnly = true;
-            this.服务类型.Width = 40;
-            // 
-            // 业务总带宽
-            // 
-            this.业务总带宽.HeaderText = "totalSize";
-            this.业务总带宽.Name = "业务总带宽";
-            this.业务总带宽.ReadOnly = true;
-            this.业务总带宽.Width = 60;
-            // 
-            // 承诺带宽
-            // 
-            this.承诺带宽.HeaderText = "cir";
-            this.承诺带宽.Name = "承诺带宽";
-            this.承诺带宽.ReadOnly = true;
-            this.承诺带宽.Width = 40;
-            // 
-            // 峰值带宽
-            // 
-            this.峰值带宽.HeaderText = "pir";
-            this.峰值带宽.Name = "峰值带宽";
-            this.峰值带宽.ReadOnly = true;
-            this.峰值带宽.Width = 40;
-            // 
-            // 承诺突发
-            // 
-            this.承诺突发.HeaderText = "cbs";
-            this.承诺突发.Name = "承诺突发";
-            this.承诺突发.ReadOnly = true;
-            this.承诺突发.Width = 40;
-            // 
-            // 峰值突发
-            // 
-            this.峰值突发.HeaderText = "pbs";
-            this.峰值突发.Name = "峰值突发";
-            this.峰值突发.ReadOnly = true;
-            this.峰值突发.Width = 40;
-            // 
-            // CTP端口1
-            // 
-            this.CTP端口1.HeaderText = "所有CTP端口";
-            this.CTP端口1.Name = "CTP端口1";
-            this.CTP端口1.ReadOnly = true;
-            this.CTP端口1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.CTP端口1.Width = 600;
-            // 
-            // CTP端口2
-            // 
-            this.CTP端口2.HeaderText = "PTP-CTP端口";
-            this.CTP端口2.Name = "CTP端口2";
-            this.CTP端口2.ReadOnly = true;
-            this.CTP端口2.Width = 300;
+            this.ToolStripMenuItemAUto.Image = ((System.Drawing.Image)(resources.GetObject("ToolStripMenuItemAUto.Image")));
+            this.ToolStripMenuItemAUto.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.ToolStripMenuItemAUto.Name = "ToolStripMenuItemAUto";
+            this.ToolStripMenuItemAUto.Size = new System.Drawing.Size(150, 22);
+            this.ToolStripMenuItemAUto.Text = "导入测试用例";
+            this.ToolStripMenuItemAUto.Click += new System.EventHandler(this.ToolStripMenuItemAUto_Click);
             // 
             // Form_Main
             // 
@@ -8794,7 +8842,7 @@ namespace NetConfClientSoftware
             this.Load += new System.EventHandler(this.Main_Form_Load);
             this.groupBox1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBoxReq)).EndInit();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -8928,6 +8976,7 @@ namespace NetConfClientSoftware
             this.splitContainer6.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer6)).EndInit();
             this.splitContainer6.ResumeLayout(false);
+            this.contextMenuStripCLearLog.ResumeLayout(false);
             this.Telnet.ResumeLayout(false);
             this.splitContainer5.Panel1.ResumeLayout(false);
             this.splitContainer5.Panel1.PerformLayout();
@@ -8984,7 +9033,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.TreeView TreeReP;
         private System.Windows.Forms.TabPage 日志信息;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox TextLog;
         private System.Windows.Forms.Button ButCreatODU;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label7;
@@ -9253,7 +9301,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.ToolStripMenuItem OAM配置ToolStripMenuItem;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelips;
-        private System.Windows.Forms.TextBox RichTextReq;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.TabPage 自动化测试;
         private System.Windows.Forms.GroupBox groupBox28;
@@ -9672,7 +9719,6 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.Button buttonLogFind;
         private System.Windows.Forms.TextBox textBoxLogFind;
         private System.Windows.Forms.SplitContainer splitContainer6;
-        private System.Windows.Forms.Button buttonLogClear;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripXML;
         private System.Windows.Forms.ToolStripMenuItem 查看原始XML脚本ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn 连接名称;
@@ -9688,6 +9734,11 @@ namespace NetConfClientSoftware
         private System.Windows.Forms.DataGridViewTextBoxColumn 峰值突发;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口1;
         private System.Windows.Forms.DataGridViewTextBoxColumn CTP端口2;
+        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBoxReq;
+        private System.Windows.Forms.TextBox TextLog;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripCLearLog;
+        private System.Windows.Forms.ToolStripMenuItem 清空ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 告警抑制屏蔽ToolStripMenuItem;
     }
 }
 

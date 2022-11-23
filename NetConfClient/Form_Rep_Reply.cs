@@ -27,7 +27,9 @@ namespace NetConfClientSoftware
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.LoadXml(Rpc_Reply);
             LoadTreeFromXmlDocument_TreePtpCtpFtp(xmlDoc);
-            textBoxXML.Text = Rpc_Reply;
+            //textBoxXML.Text = Rpc_Reply;
+            
+            fastColoredTextBox1.Text = Rpc_Reply;
         }
 
         private void LoadTreeFromXmlDocument_TreePtpCtpFtp(XmlDocument dom)

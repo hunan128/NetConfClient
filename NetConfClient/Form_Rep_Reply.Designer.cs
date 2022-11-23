@@ -28,17 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Rep_reply));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.treeViewXML = new System.Windows.Forms.TreeView();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.textBoxXML = new System.Windows.Forms.TextBox();
+            this.fastColoredTextBox1 = new FastColoredTextBoxNS.FastColoredTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // splitContainer1
@@ -83,7 +86,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.textBoxXML);
+            this.groupBox1.Controls.Add(this.fastColoredTextBox1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
@@ -92,17 +95,46 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "XML";
             // 
-            // textBoxXML
+            // fastColoredTextBox1
             // 
-            this.textBoxXML.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBoxXML.ForeColor = System.Drawing.Color.Blue;
-            this.textBoxXML.Location = new System.Drawing.Point(3, 17);
-            this.textBoxXML.MaxLength = 32767000;
-            this.textBoxXML.Multiline = true;
-            this.textBoxXML.Name = "textBoxXML";
-            this.textBoxXML.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxXML.Size = new System.Drawing.Size(672, 661);
-            this.textBoxXML.TabIndex = 22;
+            this.fastColoredTextBox1.AutoCompleteBracketsList = new char[] {
+        '(',
+        ')',
+        '{',
+        '}',
+        '[',
+        ']',
+        '\"',
+        '\"',
+        '\'',
+        '\''};
+            this.fastColoredTextBox1.AutoIndentCharsPatterns = "";
+            this.fastColoredTextBox1.AutoScrollMinSize = new System.Drawing.Size(23, 13);
+            this.fastColoredTextBox1.BackBrush = null;
+            this.fastColoredTextBox1.CharCnWidth = 13;
+            this.fastColoredTextBox1.CharHeight = 13;
+            this.fastColoredTextBox1.CharWidth = 6;
+            this.fastColoredTextBox1.CommentPrefix = null;
+            this.fastColoredTextBox1.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.fastColoredTextBox1.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.fastColoredTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.fastColoredTextBox1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.fastColoredTextBox1.IsReplaceMode = false;
+            this.fastColoredTextBox1.Language = FastColoredTextBoxNS.Language.XML;
+            this.fastColoredTextBox1.LeftBracket = '<';
+            this.fastColoredTextBox1.LeftBracket2 = '(';
+            this.fastColoredTextBox1.Location = new System.Drawing.Point(3, 17);
+            this.fastColoredTextBox1.Name = "fastColoredTextBox1";
+            this.fastColoredTextBox1.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBox1.RightBracket = '>';
+            this.fastColoredTextBox1.RightBracket2 = ')';
+            this.fastColoredTextBox1.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.fastColoredTextBox1.ServiceColors = ((FastColoredTextBoxNS.ServiceColors)(resources.GetObject("fastColoredTextBox1.ServiceColors")));
+            this.fastColoredTextBox1.ShowCaretWhenInactive = true;
+            this.fastColoredTextBox1.ShowFoldingLines = true;
+            this.fastColoredTextBox1.Size = new System.Drawing.Size(672, 661);
+            this.fastColoredTextBox1.TabIndex = 0;
+            this.fastColoredTextBox1.Zoom = 100;
             // 
             // Form_Rep_reply
             // 
@@ -119,7 +151,7 @@
             this.splitContainer1.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -130,6 +162,6 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.TreeView treeViewXML;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TextBox textBoxXML;
+        private FastColoredTextBoxNS.FastColoredTextBox fastColoredTextBox1;
     }
 }
