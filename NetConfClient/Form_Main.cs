@@ -4274,18 +4274,7 @@ namespace NetConfClientSoftware
 
         private void 保存ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (defaultfilePath == "")
-            {
-                MessageBox.Show("请先点击文件---打开一个存放XML文件的目录，然后再次尝试！");
-                return;
-            }
-            DialogResult dr1 = MessageBox.Show(defaultfilePath + ComXml.Text + "  保存到这里请点击 “是” !\r\n  如果不需要保存请点击   “取消”  !", "提示", MessageBoxButtons.YesNo);
-            if (dr1 == DialogResult.Yes)
-            {
-                XmlDocument doc = new XmlDocument();
-                doc.LoadXml(fastColoredTextBoxReq.Text);
-                doc.Save(defaultfilePath + ComXml.Text);
-            }
+            保存当前XMLtoolStripMenuItem.PerformClick();
         }
         private void 断开连接ToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -10229,13 +10218,16 @@ namespace NetConfClientSoftware
                 MessageBox.Show("请先点击文件---打开一个存放XML文件的目录，然后再次尝试！");
                 return;
             }
-            DialogResult dr = MessageBox.Show(defaultfilePath + ComXml.Text + "\r\n保存到这里请点击 “确定” !  如果不需要保存请点击   “取消”  !\r\n" +
-                "或者在 智能XML脚本 文本框编辑标题后，再次保存会自动创建新文件", "提示", MessageBoxButtons.OKCancel);
-            if (dr == DialogResult.OK)
+            var Form = new FormSaveXML(".xml");
+            if (Form.ShowDialog() == DialogResult.OK)
             {
-                XmlDocument doc = new XmlDocument();
+                // 如果点击了FromInfo的“确定”按钮，获取修改后的信息并显示  
+                string savexmlname= Form._name; 
+                 XmlDocument doc = new XmlDocument();
                 doc.LoadXml(fastColoredTextBoxReq.Text);
-                doc.Save(defaultfilePath + ComXml.Text);
+                doc.Save(defaultfilePath + savexmlname);
+                ComXml.Items.Add(savexmlname);
+                MessageBox.Show("已保存至"+ defaultfilePath + savexmlname );
             }
         }
 

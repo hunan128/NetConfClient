@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Netconf")]
 
 [assembly: AssemblyDescription("" +
+    "2022.12.05 优化保存XML脚本流程" + "\r\n" +
     "2022.11.23 解决了XML脚本调试编写窗口卡死的问题" + "\r\n" +
     "2022.11.17 新增告警抑制功能，告警模块右键可找到" + "\r\n" +
      "2022.11.02 新增pop_push的VLAN动作" + "\r\n" +
@@ -104,5 +105,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2022.5.7.38")]
-[assembly: AssemblyFileVersion("2022.5.7.38")]
+[assembly: AssemblyVersion("2022.5.7.39")]
+[assembly: AssemblyFileVersion("2022.5.7.39")]

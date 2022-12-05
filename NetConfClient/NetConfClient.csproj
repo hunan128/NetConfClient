@@ -32,7 +32,7 @@
     <PublisherName>NetconfClient</PublisherName>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>index.html</WebPage>
-    <ApplicationRevision>39</ApplicationRevision>
+    <ApplicationRevision>40</ApplicationRevision>
     <ApplicationVersion>2022.5.7.%2a</ApplicationVersion>
     <UseApplicationTrust>true</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -130,6 +130,12 @@
     <Compile Include="AutoClosingMessageBox.cs" />
     <Compile Include="ConfigServices\FileManage.cs" />
     <Compile Include="Connection_Arrange.cs" />
+    <Compile Include="FormSaveXML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSaveXML.Designer.cs">
+      <DependentUpon>FormSaveXML.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form_alarm_mask_states.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -269,6 +275,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="AutoRuning\Form_AutoRunningNetconf.resx">
       <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSaveXML.resx">
+      <DependentUpon>FormSaveXML.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form_alarm_mask_states.resx">
       <DependentUpon>Form_alarm_mask_states.cs</DependentUpon>
