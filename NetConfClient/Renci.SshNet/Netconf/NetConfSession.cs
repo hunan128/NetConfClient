@@ -20,7 +20,18 @@ namespace Renci.SshNet.NetConf
         private StringBuilder _rpcReply = new StringBuilder();
         private StringBuilder _rpcReplyNotification = new StringBuilder();
         private int _messageId;
+        private string _hostip = "0.0.0.0";
+        private int _port = 0;
+        private string _username = "null";
+        private string _password = "null";
 
+        public void HostInformation(string hostip, int port, string username, string password)
+        {
+            _hostip = hostip;
+            _port = port;
+            _username = username;
+            _password = password;
+        }
         /// <summary>
         /// Gets NetConf server capabilities.
         /// </summary>
@@ -111,25 +122,13 @@ namespace Renci.SshNet.NetConf
             //_usingFramingProtocol = false;
             if (_usingFramingProtocol)
             {
-                //var command = PrettyXml(rpc.OuterXml);
-
-
-                //var command = new StringBuilder();
-                //command.AppendFormat("\n#{0}\n", PrettyXml(rpc.OuterXml).Length);
-                //string top = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
-                //command.Append(PrettyXml(rpc.OuterXml));
-                //command.Append("\n##\n");
-                //SendData(Encoding.UTF8.GetBytes(command.ToString()));
-                //System.Diagnostics.Debug.WriteLine("1.1版本+RPC请求打印日志：\r\n" + command);
-
                 string rpcsend1 = rpc.OuterXml;
-                //int size = PrettyXml(rpcsend1).Length;
                 int size = Encoding.UTF8.GetByteCount(PrettyXml(rpcsend1));
                 string rpctop = "\n#" + size.ToString() + "\n";
                 string end = "\n##\n";
                 string rpcsend = rpctop + PrettyXml(rpcsend1) + end;
                 SendData(Encoding.UTF8.GetBytes(rpcsend));
-                WriteLogs("Log", "请求：", "1.1版本+RPC请求打印日志：\r\n" + rpcsend);
+                WriteLogs("Logs", "请求：", "1.1版本+RPC请求打印日志：\r\n" + rpcsend);
                 System.Diagnostics.Debug.WriteLine("1.1版本+RPC请求打印日志：\r\n" + rpcsend);
                 WaitOnHandle(_rpcReplyReceived, Timeout);
                 for (int i = 0; i < 1; i++)
@@ -152,7 +151,7 @@ namespace Renci.SshNet.NetConf
             else
             {
                 SendData(Encoding.UTF8.GetBytes(PrettyXml(rpc.OuterXml) + Prompt));
-                WriteLogs("Log", "请求：", "1.0版本+RPC请求打印日志：\r\n" + PrettyXml(rpc.OuterXml) + Prompt);
+                WriteLogs("Logs", "请求：", "1.0版本+RPC请求打印日志：\r\n" + PrettyXml(rpc.OuterXml) + Prompt);
                 System.Diagnostics.Debug.WriteLine("1.0版本+RPC请求打印日志：\r\n" + PrettyXml(rpc.OuterXml) + Prompt);
 
                 WaitOnHandle(_rpcReplyReceived, Timeout);
@@ -222,10 +221,9 @@ namespace Renci.SshNet.NetConf
             var command = PrettyXml(ClientCapabilities.InnerXml);
             SendData(Encoding.UTF8.GetBytes(command.ToString() + Prompt));
             // SendData(Encoding.UTF8.GetBytes(message));
-            WriteLogs("Log", "认证请求：", command.ToString() + Prompt);
+            WriteLogs("Logs", "认证请求：", command.ToString() + Prompt);
 
             System.Diagnostics.Debug.WriteLine(command.ToString() + Prompt);
-
 
             WaitOnHandle(_serverCapabilitiesConfirmed, 30000);
         }
@@ -236,7 +234,7 @@ namespace Renci.SshNet.NetConf
         /// <param name="fileName"></param>
         /// <param name="type"></param>
         /// <param name="content"></param>
-        public static void WriteLogs(string fileName, string type, string content)
+        public  void WriteLogs(string fileName, string type, string content)
         {
             try
             {
@@ -253,7 +251,7 @@ namespace Renci.SshNet.NetConf
                     {
                         Directory.CreateDirectory(path);
                     }
-                    path = path + "\\" +  "GWTT-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+                    path = path + "\\" + _hostip + "-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
                     if (!File.Exists(path))
                     {
                         FileStream fs = File.Create(path);
@@ -261,23 +259,26 @@ namespace Renci.SshNet.NetConf
                     }
                     if (File.Exists(path))
                     {
-                        //StreamWriter sw = new StreamWriter(path, true, System.Text.Encoding.Default);
-                        //sw.WriteLine(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + type + "-->" + content);
-                        ////  sw.WriteLine("----------------------------------------");
-                        //sw.Close();
                         using (StreamWriter sw = new StreamWriter(path, true, Encoding.Default))
                         {
-                            string s = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + type + "-->\r\n" + "-------------------------------------------------------------------------------------------------------\r\n" + content;
+                            string s = 
+                                DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") 
+                                + type 
+                                + "-->\r\n" 
+                                + "-------------------------------------------------------------------------------------------------------\r\n" 
+                                + content;
                             sw.WriteLine(s);
                             sw.WriteLine("-------------------------------------------------------------------------------------------------------");
-                            sw.Close();
+                            sw.Close(); 
+
                         }
 
                     }
                 }
             }
-            catch
+            catch 
             {
+
             }
 
         }
@@ -291,14 +292,14 @@ namespace Renci.SshNet.NetConf
 
                 if (!chunk.Contains(Prompt))
                 {
-                    WriteLogs("Log", "认证答复：", chunk);
+                    WriteLogs("Logs", "认证答复：", chunk);
                     System.Diagnostics.Debug.WriteLine(chunk);
                     return;
                 }
                 try
                 {
                     System.Diagnostics.Debug.WriteLine(chunk);
-                    WriteLogs("Log", "认证答复：", chunk);
+                    WriteLogs("Logs", "认证答复：", chunk);
                     chunk = _data.ToString();
                     _data.Clear();
 
@@ -323,14 +324,14 @@ namespace Renci.SshNet.NetConf
 
                 if (!chunk.Contains("##"))
                 {
-                    WriteLogs("Log", "答复：", chunk);
+                    WriteLogs("Logs", "答复：", chunk);
                     System.Diagnostics.Debug.WriteLine(chunk);
                     return;
                     //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
                 }
                 
                 System.Diagnostics.Debug.WriteLine(chunk + "\r\n----------1.1版本服务器回复打印完毕-------------");
-                WriteLogs("Log", "答复：", chunk);
+                WriteLogs("Logs", "答复：", chunk);
                 chunk = _data.ToString();
                 _data.Clear();
 
@@ -385,7 +386,7 @@ namespace Renci.SshNet.NetConf
 
                 if (!chunk.Contains(Prompt))
                 {
-                    WriteLogs("Log", "答复：", chunk);
+                    WriteLogs("Logs", "答复：", chunk);
                     System.Diagnostics.Debug.WriteLine(chunk);
                     return;
                     //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
@@ -396,7 +397,7 @@ namespace Renci.SshNet.NetConf
                 //    return;
                 //    //throw new NetConfServerException("Server XML message does not end with the prompt " + _prompt);
                 //}
-                WriteLogs("Log", "答复：", chunk);
+                WriteLogs("Logs", "答复：", chunk);
                 System.Diagnostics.Debug.WriteLine(chunk);
                 System.Diagnostics.Debug.WriteLine("\r\n 1.0版本服务器回复打印完毕");
                 chunk = _data.ToString();

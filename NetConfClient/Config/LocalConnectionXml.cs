@@ -9,7 +9,7 @@ namespace NetConfClientSoftware
 {
     class LocalConnectionXml
     {
-        public void CreatXmlTree(string xmlPath,string ip,int port, string user, string password,int id,string name,string ips)
+        public void CreatXmlTree(string xmlPath,string ip,int port, string user, string password,int id,string name,string ISP)
         {
             if (string.IsNullOrEmpty(name)) {
                 name = ip;
@@ -23,7 +23,7 @@ namespace NetConfClientSoftware
                         new XElement("user", user),
                         new XElement("password", password),
                         new XElement("name", name),
-                        new XElement("ips", ips) ) 
+                        new XElement("ISP", ISP) ) 
                         )
                   );
 
@@ -37,7 +37,7 @@ namespace NetConfClientSoftware
             xw.Flush();
             xw.Close();
         }
-        public void Add(string xmlPath, string ip, int port, string user, string password, int id, string name, string ips)
+        public void Add(string xmlPath, string ip, int port, string user, string password, int id, string name, string ISP)
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(xmlPath);
@@ -74,8 +74,8 @@ namespace NetConfClientSoftware
             }
             
             newNode.AppendChild(newNodename);
-            XmlNode newNodeips = xmlDoc.CreateNode("element", "ips", "");
-            newNodeips.InnerText = ips;
+            XmlNode newNodeips = xmlDoc.CreateNode("element", "ISP", "");
+            newNodeips.InnerText = ISP;
             newNode.AppendChild(newNodeips);
             //添加为根元素的第一层子结点
             xmlDoc.Save(xmlPath);
@@ -106,7 +106,7 @@ namespace NetConfClientSoftware
             }
             xmlDoc.Save(xmlPath);
         }
-        public void Modify(string xmlPath, string ip, int port, string user, string password, int id, string name, string ips)
+        public void Modify(string xmlPath, string ip, int port, string user, string password, int id, string name, string ISP)
         {
             XmlDocument xmlDoc = new XmlDocument();
             xmlDoc.Load(xmlPath);

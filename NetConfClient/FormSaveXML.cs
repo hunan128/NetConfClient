@@ -18,8 +18,7 @@ namespace NetConfClientSoftware
         public FormSaveXML(string _name) : this()
         {
             // 在TextBox中显示信息初值  
-            //textBoxInfo.Text = info;
-           // this.textBoxXmlName.Text = _name;
+            labelsaveXML.Text = "XML存放路径：" + _name;
 
         }
 

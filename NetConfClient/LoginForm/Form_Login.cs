@@ -196,7 +196,7 @@ namespace NetConfClientSoftware
                 MySqlDataReader sqlDataReader = cmd.ExecuteReader();
                 if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                 {
-                    MessageBox.Show("联网认证成功：用户名、密码、机器码、License认证成功");
+                    //MessageBox.Show("联网认证成功：用户名、密码、机器码、License认证成功");
                     FindCount(user);
                     InserCount(user);
                     user = textBoxUser.Text;
@@ -222,7 +222,7 @@ namespace NetConfClientSoftware
                         sqlDataReader = cmd.ExecuteReader();
                         if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                         {
-                            MessageBox.Show("联网认证成功：用户名、密码、Licence认证成功");
+                            //MessageBox.Show("联网认证成功：用户名、密码、Licence认证成功");
                             FindCount(user);
                             InserCount(user);
                             user = textBoxUser.Text;
@@ -241,7 +241,7 @@ namespace NetConfClientSoftware
                             sqlDataReader = cmd.ExecuteReader();
                             if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                             {
-                                MessageBox.Show("联网认证成功：用户名、密码、机器码认证成功");
+                                //MessageBox.Show("联网认证成功：用户名、密码、机器码认证成功");
                                 FindCount(user);
                                 InserCount(user);
                                 user = textBoxUser.Text;
@@ -260,7 +260,7 @@ namespace NetConfClientSoftware
                                 sqlDataReader = cmd.ExecuteReader();
                                 if (sqlDataReader.HasRows)  //如果能查到，说明该用户密码存在
                                 {
-                                    MessageBox.Show("联网认证成功：用户名、密码认证成功");
+                                    //MessageBox.Show("联网认证成功：用户名、密码认证成功");
                                     FindCount(user);
                                     InserCount(user);
                                     user = textBoxUser.Text;
@@ -304,7 +304,7 @@ namespace NetConfClientSoftware
                 }
                // conn.Close();
             }
-            catch (Exception ex){
+            catch{
                 conn.Close();
                 //MessageBox.Show(ex.ToString());
                 // Getini();

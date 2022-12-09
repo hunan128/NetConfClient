@@ -114,8 +114,10 @@ namespace NetConfClientSoftware
                                 value = xNode.Name;
                                 if (i == 0)
                                 {
-                                    TreeNode textnode = new TreeNode();
-                                    textnode.Text = text;
+                                    TreeNode textnode = new TreeNode
+                                    {
+                                        Text = text
+                                    };
                                     textnode.Nodes.Add(value);
                                     nodes.Add(textnode);
                                 }

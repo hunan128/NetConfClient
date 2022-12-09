@@ -70,9 +70,9 @@ namespace NetConfClientSoftware
             return al;
         }
         // 把网址写入xml文件 
-        public static void WriteToXml(string strURL, ArrayList alHyperLinks,string ips)
+        public static void WriteToXml(string strURL, ArrayList alHyperLinks,string ISP)
         {
-            XmlTextWriter writer = new XmlTextWriter(@"C:\netconf\"+ips+".xml", Encoding.UTF8);
+            XmlTextWriter writer = new XmlTextWriter(@"C:\netconf\"+ISP+".xml", Encoding.UTF8);
 
             writer.Formatting = Formatting.Indented;
             writer.WriteStartDocument(false);

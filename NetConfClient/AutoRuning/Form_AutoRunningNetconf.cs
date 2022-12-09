@@ -54,7 +54,7 @@ namespace NetConfClientSoftware
         {
             get { return ComTitle.Text; }
         }
-        public string Ips
+        public string ISP
         {
             get { return comips.Text; }
         }

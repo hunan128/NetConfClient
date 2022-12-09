@@ -94,7 +94,7 @@ namespace NetConfClientSoftware
                     sn = ContentValue(strSec, "sn");
                 }
             }
-            catch (Exception ex)
+            catch
             {
 
                 // MessageBox.Show(ex.Message);

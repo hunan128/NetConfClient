@@ -8,7 +8,7 @@ namespace NetConfClientSoftware
 {
     class CreateOAM
     {
-        public static XmlDocument Create(string _ctp_name,string _mep_id,string _remote_mep_id,string _meg_id,string _md_name,string _mel,string _cc_interval,string _lm_interval,string _dm_interval,string ips)
+        public static XmlDocument Create(string _ctp_name,string _mep_id,string _remote_mep_id,string _meg_id,string _md_name,string _mel,string _cc_interval,string _lm_interval,string _dm_interval,string ISP)
         {
 
             XmlDocument commonXml = new XmlDocument();
@@ -37,7 +37,7 @@ namespace NetConfClientSoftware
             //config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
             edit_config.AppendChild(config);
 
-            if (ips.Contains("移动")) {
+            if (ISP.Contains("移动")) {
                 //配置connections
                 XmlElement ctps = commonXml.CreateElement("ctps");
                 ctps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
@@ -96,7 +96,7 @@ namespace NetConfClientSoftware
                 dm_interval.InnerText = _dm_interval;
                 oam_config.AppendChild(dm_interval);
             }
-            if (ips.Contains("联通"))
+            if (ISP.Contains("联通"))
             {
                 //配置connections
                 XmlElement ctps = commonXml.CreateElement("ctps");
@@ -156,7 +156,7 @@ namespace NetConfClientSoftware
                 dm_interval.InnerText = _dm_interval;
                 oam_config.AppendChild(dm_interval);
             }
-            if (ips.Contains("电信"))
+            if (ISP.Contains("电信"))
             {
                 //配置connections
                 XmlElement ctps = commonXml.CreateElement("ctps");
@@ -223,7 +223,7 @@ namespace NetConfClientSoftware
 
 
 
-        public static XmlDocument State(string _ctp_name, string _dm_state, string _tm_state, string _lm_state, string _cc_state,string ips)
+        public static XmlDocument State(string _ctp_name, string _dm_state, string _tm_state, string _lm_state, string _cc_state,string ISP)
         {
 
             XmlDocument commonXml = new XmlDocument();
@@ -252,7 +252,7 @@ namespace NetConfClientSoftware
             //config.SetAttribute("xmlns:nc", "urn:ietf:params:xml:ns:netconf:base:1.0");
             edit_config.AppendChild(config);
 
-            if (ips.Contains("移动")) {
+            if (ISP.Contains("移动")) {
                 //配置connections
                 XmlElement ctps = commonXml.CreateElement("ctps");
                 ctps.SetAttribute("xmlns", "urn:ccsa:yang:acc-devm");
@@ -292,7 +292,7 @@ namespace NetConfClientSoftware
                 cc_state.InnerText = _cc_state;
                 oam_state_pac.AppendChild(cc_state);
             }
-            if (ips.Contains("联通"))
+            if (ISP.Contains("联通"))
             {
                 //配置connections
                 XmlElement ctps = commonXml.CreateElement("ctps");
@@ -333,7 +333,7 @@ namespace NetConfClientSoftware
                 cc_state.InnerText = _cc_state;
                 oam_state_pac.AppendChild(cc_state);
             }
-            if (ips.Contains("电信"))
+            if (ISP.Contains("电信"))
             {
                 //配置connections
                 XmlElement ctps = commonXml.CreateElement("ctps");

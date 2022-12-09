@@ -34,6 +34,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.comboBoxIPS = new System.Windows.Forms.ComboBox();
+            this.labelsaveXML = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // textBoxXmlName
@@ -47,7 +49,7 @@
             // buttonOK
             // 
             this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonOK.Location = new System.Drawing.Point(356, 71);
+            this.buttonOK.Location = new System.Drawing.Point(249, 73);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 2;
@@ -84,7 +86,9 @@
             "05-带保护业务-",
             "06-保护组-",
             "07-告警-",
-            "08-性能-"});
+            "08-性能-",
+            "09-时钟-",
+            "10-文件上下载-"});
             this.comboBoxType.Location = new System.Drawing.Point(143, 36);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(100, 20);
@@ -104,11 +108,32 @@
             this.comboBoxIPS.TabIndex = 7;
             this.comboBoxIPS.Text = "01-电信-";
             // 
+            // labelsaveXML
+            // 
+            this.labelsaveXML.AutoSize = true;
+            this.labelsaveXML.Location = new System.Drawing.Point(13, 13);
+            this.labelsaveXML.Name = "labelsaveXML";
+            this.labelsaveXML.Size = new System.Drawing.Size(71, 12);
+            this.labelsaveXML.TabIndex = 8;
+            this.labelsaveXML.Text = "XML存放路径";
+            // 
+            // button1
+            // 
+            this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.button1.Location = new System.Drawing.Point(356, 73);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "取消";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // FormSaveXML
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(474, 125);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.labelsaveXML);
             this.Controls.Add(this.comboBoxIPS);
             this.Controls.Add(this.comboBoxType);
             this.Controls.Add(this.label3);
@@ -130,5 +155,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxType;
         private System.Windows.Forms.ComboBox comboBoxIPS;
+        private System.Windows.Forms.Label labelsaveXML;
+        private System.Windows.Forms.Button button1;
     }
 }

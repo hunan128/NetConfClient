@@ -8,7 +8,7 @@ namespace NetConfClientSoftware
 {
     class CreateODU
     {
-        public static XmlDocument Common(string ODUservicemode,string IPS,string _label,string _service_type,string _layer_protoco_name,string _total_size,string _uni_protection_type,string _nni_protection_type, string _nni2_protection_type,
+        public static XmlDocument Common(string ODUservicemode,string ISP,string _label,string _service_type,string _layer_protoco_name,string _total_size,string _uni_protection_type,string _nni_protection_type, string _nni2_protection_type,
             string _client_nni_name, string _client_nni_name_second, string _client_ts,string _client_ada,string _client_odu,string _client_switch,
             string _primary_nni_name,string _primary_ts,string _primary_ada,string _primary_odu,string _primary_switch, string _primary_tpn,
             string _secondary_nni_name, string _secondary_ts, string _secondary_ada, string _secondary_odu, string _secondary_switch, string _secondary_tpn,
@@ -22,7 +22,7 @@ namespace NetConfClientSoftware
             {
                 _layer_protoco_name = "acc-osu:" + _layer_protoco_name;
             }
-            if (IPS.Contains("联通")) {
+            if (ISP.Contains("联通")) {
                 xmlns = "otn-types:";
                 _client_odu = xmlns + _client_odu;
                 _client_switch = xmlns + _client_switch;
@@ -35,7 +35,7 @@ namespace NetConfClientSoftware
                 _secondary_odu2 = xmlns + _secondary_odu2;
                 _secondary_switch2 = xmlns + _secondary_switch2;
             }
-            if (IPS.Contains("移动")) {
+            if (ISP.Contains("移动")) {
                 xmlns = "acc-otn-types:";
                 _client_ada = xmlns + _client_ada;
                 _client_odu = xmlns + _client_odu;
@@ -47,7 +47,7 @@ namespace NetConfClientSoftware
                 _secondary_odu = xmlns + _secondary_odu;
                 _secondary_switch = xmlns + _secondary_switch;
             }
-            if (IPS.Contains("电信"))
+            if (ISP.Contains("电信"))
             {
                 xmlns = "acc-enum:";
                 _client_ada = xmlns + _client_ada;
@@ -82,34 +82,34 @@ namespace NetConfClientSoftware
                 XmlElement create_odu_connection = commonXml.CreateElement("create-odu-connection");
                 create_odu_connection.SetAttribute("xmlns", "urn:ccsa:yang:acc-otn");
                 rpc.AppendChild(create_odu_connection);
-                if (IPS.Contains("移动"))
+                if (ISP.Contains("移动"))
                 {
                     //lable
                     XmlElement label = commonXml.CreateElement("label");
                     label.InnerText = _label;
                     create_odu_connection.AppendChild(label);
                 }
-                if (IPS.Contains("联通"))
+                if (ISP.Contains("联通"))
                 {
                     //lable
                     XmlElement connection = commonXml.CreateElement("connection-name");
                     connection.InnerText = "CONNECTION=" + _label;
                     create_odu_connection.AppendChild(connection);
                 }
-                if (IPS.Contains("电信"))
+                if (ISP.Contains("电信"))
                 {
                     //lable
                     XmlElement label = commonXml.CreateElement("label");
                     label.InnerText = _label;
                     create_odu_connection.AppendChild(label);
                 }
-                if (IPS == "")
+                if (ISP == "")
                 {
 
                     return commonXml;
 
                 }
-                if (IPS.Contains("移动"))
+                if (ISP.Contains("移动"))
                 {
 
                     //服务类型
@@ -331,7 +331,7 @@ namespace NetConfClientSoftware
                     }
 
                 }
-                if (IPS.Contains("联通"))
+                if (ISP.Contains("联通"))
                 {
 
                     //服务类型
@@ -546,7 +546,7 @@ namespace NetConfClientSoftware
                     }
 
                 }
-                if (IPS.Contains("电信"))
+                if (ISP.Contains("电信"))
                 {
 
                     //服务类型
@@ -776,34 +776,34 @@ namespace NetConfClientSoftware
                 XmlElement create_odu_connection = commonXml.CreateElement("create-osu-connection");
                 create_odu_connection.SetAttribute("xmlns", "urn:ccsa:yang:acc-osu");
                 rpc.AppendChild(create_odu_connection);
-                if (IPS.Contains("移动"))
+                if (ISP.Contains("移动"))
                 {
                     //lable
                     XmlElement label = commonXml.CreateElement("label");
                     label.InnerText = _label;
                     create_odu_connection.AppendChild(label);
                 }
-                if (IPS.Contains("联通"))
+                if (ISP.Contains("联通"))
                 {
                     //lable
                     XmlElement connection = commonXml.CreateElement("connection-name");
                     connection.InnerText = "CONNECTION=" + _label;
                     create_odu_connection.AppendChild(connection);
                 }
-                if (IPS.Contains("电信"))
+                if (ISP.Contains("电信"))
                 {
                     //lable
                     XmlElement label = commonXml.CreateElement("label");
                     label.InnerText = _label;
                     create_odu_connection.AppendChild(label);
                 }
-                if (IPS == "")
+                if (ISP == "")
                 {
 
                     return commonXml;
 
                 }
-                if (IPS.Contains("移动"))
+                if (ISP.Contains("移动"))
                 {
 
                     //服务类型
@@ -956,7 +956,7 @@ namespace NetConfClientSoftware
                     }
 
                 }
-                if (IPS.Contains("联通"))
+                if (ISP.Contains("联通"))
                 {
 
                     //服务类型
@@ -1171,7 +1171,7 @@ namespace NetConfClientSoftware
                     }
 
                 }
-                if (IPS.Contains("电信"))
+                if (ISP.Contains("电信"))
                 {
 
                     //服务类型
@@ -1428,7 +1428,7 @@ namespace NetConfClientSoftware
             return commonXml;
 
         }
-        public static XmlDocument Modify_Odu_Connection(string _odu__ctp_name, string _position, string _action, string _current_number_of_tributary_slots, string _ts_detail, string _timeout,string IPS)
+        public static XmlDocument Modify_Odu_Connection(string _odu__ctp_name, string _position, string _action, string _current_number_of_tributary_slots, string _ts_detail, string _timeout,string ISP)
         {
             XmlDocument commonXml = new XmlDocument();
             //  创建XML文档，存在就删除再生成
@@ -1445,7 +1445,7 @@ namespace NetConfClientSoftware
             XmlElement modify_odu_connection_capacity = commonXml.CreateElement("modify-odu-connection-capacity");
             modify_odu_connection_capacity.SetAttribute("xmlns", "urn:ccsa:yang:acc-otn");
             rpc.AppendChild(modify_odu_connection_capacity);
-            if (IPS.Contains("移动"))
+            if (ISP.Contains("移动"))
             {
 
                 //CTP端口
@@ -1483,7 +1483,7 @@ namespace NetConfClientSoftware
 
                
             }
-            if (IPS.Contains("联通"))
+            if (ISP.Contains("联通"))
             {
 
                 //CTP端口

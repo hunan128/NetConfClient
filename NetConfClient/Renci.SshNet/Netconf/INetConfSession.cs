@@ -25,5 +25,6 @@ namespace Renci.SshNet.NetConf
         bool Netconf_version(bool _netconf_version);
 
         void SendReceiveRpcKeepLive();
+        void HostInformation( string hostip, int port, string username, string password);
     }
 }

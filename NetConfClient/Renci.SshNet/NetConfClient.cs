@@ -74,8 +74,7 @@ namespace Renci.SshNet
         /// <exception cref="ArgumentException"><paramref name="host"/> is invalid, or <paramref name="username"/> is <c>null</c> or contains only whitespace characters.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="port"/> is not within <see cref="IPEndPoint.MinPort"/> and <see cref="IPEndPoint.MaxPort"/>.</exception>
         [SuppressMessage("Microsoft.Reliability", "CA2000:DisposeObjectsBeforeLosingScope", Justification = "Disposed in Dispose(bool) method.")]
-        public NetConfClient(string host, int port, string username, string password)
-            : this(new PasswordConnectionInfo(host, port, username, password), true)
+        public NetConfClient(string host, int port, string username, string password) : this(new PasswordConnectionInfo(host, port, username, password), true)
         {
         }
 
@@ -226,11 +225,23 @@ namespace Renci.SshNet
         /// Netconf版本设置
         /// </summary>
         /// <param name="_Netconf_version"></param>
-        /// <returns>FALSE为1。0旧版本，true为1.1新版本</returns>
+        /// <returns>FALSE为1.0旧版本，true为1.1新版本</returns>
 
         public  bool Netconf_version(bool _Netconf_version)
         {
             return _netConfSession.Netconf_version(_Netconf_version);
+        }
+
+        /// <summary>
+        /// 传入主机信息参入用于日志信息的打印
+        /// </summary>
+        /// <param name="hostip">服务器ip地址</param>
+        /// <param name="port">服务器端口</param>
+        /// <param name="username">用户名</param>
+        /// <param name="password">密码</param>
+        public void HostInformation(string hostip,int port,string username,string password)
+        {
+             _netConfSession.HostInformation(hostip,port,username,password);
         }
         /// <summary>
         /// Sends the receive RPC.

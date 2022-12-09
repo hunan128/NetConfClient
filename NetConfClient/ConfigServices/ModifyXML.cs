@@ -196,9 +196,9 @@ namespace NetConfClientSoftware
         /// <param name="_pir">PIR</param>
         /// <param name="_cbs">CBS</param>
         /// <param name="_pbs">PBS</param>
-        /// <param name="ips">运营商</param>
+        /// <param name="ISP">运营商</param>
         /// <returns></returns>
-        public static XmlDocument Connection_Rate(string _name, string _total_size,string _cir,string _pir ,string _cbs,string _pbs,string ips)
+        public static XmlDocument Connection_Rate(string _name, string _total_size,string _cir,string _pir ,string _cbs,string _pbs,string ISP)
         {
 
             XmlDocument commonXml = new XmlDocument();
@@ -275,9 +275,9 @@ namespace NetConfClientSoftware
         /// <param name="_threshold_type"></param>
         /// <param name="_object_type">对象名称</param>
         /// <param name="_threshold_value">值</param>
-        /// <param name="ips">运营商</param>
+        /// <param name="ISP">运营商</param>
         /// <returns></returns>
-        public static XmlDocument Tca_parameters(string _name, string _pm_parameter_name,string _granularity,string _threshold_type,string _object_type,string _threshold_value,string ips)
+        public static XmlDocument Tca_parameters(string _name, string _pm_parameter_name,string _granularity,string _threshold_type,string _object_type,string _threshold_value,string ISP)
         {
 
             XmlDocument commonXml = new XmlDocument();
@@ -349,9 +349,9 @@ namespace NetConfClientSoftware
         /// <param name="_sdh_protect_ftp_name">SDH-FTP保护</param>
         /// <param name="_mapping_path">主用映射时隙</param>
         /// <param name="_mapping_path_protected">备用映射时隙</param>
-        /// <param name="IPS">运营商</param>
+        /// <param name="ISP">运营商</param>
         /// <returns></returns>
-        public static XmlDocument Modify_vcg_connection_capacity(string _eth_ftp_name, string _sdh_ftp_name, string _sdh_protect_ftp_name, string _mapping_path, string _mapping_path_protected, string IPS)
+        public static XmlDocument Modify_vcg_connection_capacity(string _eth_ftp_name, string _sdh_ftp_name, string _sdh_protect_ftp_name, string _mapping_path, string _mapping_path_protected, string ISP)
         {
             XmlDocument commonXml = new XmlDocument();
             //  创建XML文档，存在就删除再生成
@@ -368,7 +368,7 @@ namespace NetConfClientSoftware
             XmlElement modify_vcg_connection_capacity = commonXml.CreateElement("modify-vcg-connection-capacity");
             modify_vcg_connection_capacity.SetAttribute("xmlns", "urn:ccsa:yang:acc-eos");
             rpc.AppendChild(modify_vcg_connection_capacity);
-            if (IPS.Contains("移动"))
+            if (ISP.Contains("移动"))
             {
 
                 //ETH FTP
@@ -396,7 +396,7 @@ namespace NetConfClientSoftware
                 }
 
             }
-            if (IPS.Contains("联通"))
+            if (ISP.Contains("联通"))
             {
 
                 //ETH FTP

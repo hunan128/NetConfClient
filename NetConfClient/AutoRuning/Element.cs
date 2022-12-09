@@ -12,7 +12,7 @@ namespace NetConfClientSoftware
     {
         public static bool _element_bool = false;
         public static bool _value_bool = false;
-        public static bool Element_Value(string  xml,string _element,string _vaule,string ips)
+        public static bool Element_Value(string  xml,string _element,string _vaule,string ISP)
         {
 
             bool _Element_Value = false;
@@ -28,7 +28,7 @@ namespace NetConfClientSoftware
                     {
                         continue;
                     }
-                    AddNode(node,_element,_vaule,ips);
+                    AddNode(node,_element,_vaule,ISP);
                     if (!string.IsNullOrEmpty(_vaule)) {
                         if (_element_bool == true && _value_bool == true) { _Element_Value = true; }
                     }
@@ -49,9 +49,8 @@ namespace NetConfClientSoftware
             return _Element_Value;
         }
 
-        public static void AddNode(XmlNode inXmlNode,string _element,string _value,string ips)
+        public static void AddNode(XmlNode inXmlNode,string _element,string _value,string ISP)
         {
-
 
             if (inXmlNode.HasChildNodes)
             {
@@ -101,7 +100,7 @@ namespace NetConfClientSoftware
                                     _element_bool = true;
                                     _value_bool = true;
                                     //if (value == _value) { _value_bool = true; }
-                                    if (ips.Contains("联通"))
+                                    if (ISP.Contains("联通"))
                                     {
                                         if (CUCC_Array.Count != 0)
                                         {
@@ -170,7 +169,7 @@ namespace NetConfClientSoftware
                                             _value_bool = true;
                                         }
                                     }
-                                    if (ips.Contains("电信"))
+                                    if (ISP.Contains("电信"))
                                     {
                                         if (CTCC_Array.Count != 0)
                                         {
@@ -211,7 +210,7 @@ namespace NetConfClientSoftware
                                             _value_bool = true;
                                         }
                                     }
-                                    if (ips.Contains("移动"))
+                                    if (ISP.Contains("移动"))
                                     {
                                         if (CMCC_Array.Count != 0)
                                         {
@@ -270,7 +269,7 @@ namespace NetConfClientSoftware
                            
                         //    _element_bool = true;
                         //    //if (value == _value) { _value_bool = true; }
-                        //    if (ips.Contains("联通")) {
+                        //    if (ISP.Contains("联通")) {
                         //        if (CUCC_Array.Count != 0)
                         //        {
                         //            for (int g = 0; g < CUCC_Array.Count; g++)
@@ -317,7 +316,7 @@ namespace NetConfClientSoftware
                         //            _value_bool = true;
                         //        }
                         //    }
-                        //    if (ips.Contains("电信"))
+                        //    if (ISP.Contains("电信"))
                         //    {
                         //        if (CTCC_Array.Count != 0)
                         //        {
@@ -346,7 +345,7 @@ namespace NetConfClientSoftware
                         //            _value_bool = true;
                         //        }
                         //    }
-                        //    if (ips.Contains("移动"))
+                        //    if (ISP.Contains("移动"))
                         //    {
                         //        if (CMCC_Array.Count != 0)
                         //        {
@@ -383,7 +382,7 @@ namespace NetConfClientSoftware
 
                     if (newNode != null)
                     {
-                        AddNode(xNode, _element, _value,ips);
+                        AddNode(xNode, _element, _value,ISP);
 
                     }
                 }
@@ -400,7 +399,7 @@ namespace NetConfClientSoftware
         public static List<string[]> CUCC_Array = new List<string[]>();
         public static List<string[]> CTCC_Array = new List<string[]>();
         public static List<string[]> CMCC_Array = new List<string[]>();
-        public void Element_Value_Find(XmlDocument xmlDoc,string ips)
+        public void Element_Value_Find(XmlDocument xmlDoc,string ISP)
         {
            
             try
@@ -431,16 +430,16 @@ namespace NetConfClientSoftware
                         }
                         enumname = string.Join(",", (string[])list.ToArray(typeof(string)));
                         string[] en = { typedefname, typename, enumname };
-                        if (ips.Contains("联通")) {
+                        if (ISP.Contains("联通")) {
                            // CUCC_Array.Clear();
                             CUCC_Array.Add(en);
                         }
-                        if (ips.Contains("移动"))
+                        if (ISP.Contains("移动"))
                         {
                            // CMCC_Array.Clear();
                             CMCC_Array.Add(en);
                         }
-                        if (ips.Contains("电信"))
+                        if (ISP.Contains("电信"))
                         {
                            // CTCC_Array.Clear();
                             CTCC_Array.Add(en);

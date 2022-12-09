@@ -8,7 +8,7 @@ namespace NetConfClientSoftware
 {
     class CreateSDH
     {
-        public static XmlDocument Common(string ips,string _label, string _service_type, string _layer_protoco_name, string _total_size, string _uni_protection_type, string _nni_protection_type, string _nni2_protection_type, string _service_mapping_mode,
+        public static XmlDocument Common(string ISP,string _label, string _service_type, string _layer_protoco_name, string _total_size, string _uni_protection_type, string _nni_protection_type, string _nni2_protection_type, string _service_mapping_mode,
                 string _uni_ptp_name,string _uni_vc_type,string _uni_mapping_path,
                 string _uni_ptp_name2, string _uni_vc_type2, string _uni_mapping_path2,
                 string _primary_nni_name, string _primary_ts, string _primary_ada, string _primary_odu, string _primary_switch,string _sdh_signal_type_A,string _vc_type_A,string _mapping_path_A,
@@ -19,7 +19,7 @@ namespace NetConfClientSoftware
         {
             _layer_protoco_name = "acc-sdh:" + _layer_protoco_name;
             string xmlns = "";
-            if (ips.Contains("联通"))
+            if (ISP.Contains("联通"))
             {
                 xmlns = "otn-types:";
                 _primary_odu = xmlns + _primary_odu;
@@ -30,7 +30,7 @@ namespace NetConfClientSoftware
                 _primary_switch2 = xmlns + _primary_switch2;
 
             }
-            if (ips.Contains("移动"))
+            if (ISP.Contains("移动"))
             {
                 xmlns = "acc-otn-types:";
                 _primary_ada = xmlns + _primary_ada;
@@ -56,7 +56,7 @@ namespace NetConfClientSoftware
                 _sdh_signal_type_B2 = xmlns + _sdh_signal_type_B2;
                 _vc_type_B2 = xmlns + _vc_type_B2;
             }
-            if (ips.Contains("电信"))
+            if (ISP.Contains("电信"))
             {
                 xmlns = "acc-enum:";
                 //_uni_protection_type = "acc-pg:" + _uni_protection_type;
@@ -109,7 +109,7 @@ namespace NetConfClientSoftware
             create_sdh_connection = commonXml.CreateElement("create-sdh-connection");
             create_sdh_connection.SetAttribute("xmlns", "urn:ccsa:yang:acc-sdh");
             rpc.AppendChild(create_sdh_connection);
-            if (ips.Contains("电信"))
+            if (ISP.Contains("电信"))
             {
                 //lable
                 XmlElement label = commonXml.CreateElement("label");
@@ -121,7 +121,7 @@ namespace NetConfClientSoftware
                 service_mapping_mode.InnerText = _service_mapping_mode;
                 create_sdh_connection.AppendChild(service_mapping_mode);
             }
-            if (ips.Contains("移动"))
+            if (ISP.Contains("移动"))
             {
                 //lable
                 XmlElement label = commonXml.CreateElement("label");
@@ -132,20 +132,20 @@ namespace NetConfClientSoftware
                 service_mapping_mode.InnerText = _service_mapping_mode;
                 create_sdh_connection.AppendChild(service_mapping_mode);
             }
-            if (ips.Contains("联通"))
+            if (ISP.Contains("联通"))
             {
                 //lable
                 XmlElement connection = commonXml.CreateElement("connection-name");
                 connection.InnerText = "CONNECTION=" + _label;
                 create_sdh_connection.AppendChild(connection);
             }
-            if (ips == "")
+            if (ISP == "")
             {
 
                 return commonXml;
 
             }
-            if (ips.Contains("移动")) {
+            if (ISP.Contains("移动")) {
                 //服务类型
                 XmlElement service_type = commonXml.CreateElement("service-type");
                 service_type.InnerText = _service_type;
@@ -504,7 +504,7 @@ namespace NetConfClientSoftware
 
 
             }
-            if (ips.Contains("联通"))
+            if (ISP.Contains("联通"))
             {
                 //服务类型
                 XmlElement service_type = commonXml.CreateElement("service-type");
@@ -853,7 +853,7 @@ namespace NetConfClientSoftware
 
 
             }
-            if (ips.Contains("电信"))
+            if (ISP.Contains("电信"))
             {
                 //服务类型
                 XmlElement service_type = commonXml.CreateElement("service-type");

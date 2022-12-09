@@ -29,7 +29,7 @@ namespace NetConfClientSoftware
                     pageHtml = encode.GetString(pageData);
                 }
             }
-            catch (Exception e)
+            catch 
             {
 
             }

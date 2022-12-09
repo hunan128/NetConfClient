@@ -20,7 +20,7 @@ namespace NetConfClientSoftware
         ///     构造函数
         /// </summary>
         /// <param name="ip">待修改的信息</param>
-        public From_Add_User(string ip,int port,string user,string passd,string version,string ips,string gpnname) : this()
+        public From_Add_User(string ip,int port,string user,string passd,string version,string ISP,string gpnname) : this()
         {
             // 在TextBox中显示信息初值  
             //textBoxInfo.Text = info;
@@ -33,7 +33,7 @@ namespace NetConfClientSoftware
                 TextUser.Text = user;
                 Textpasd.Text = passd;
                 ComVersion.Text = version;
-                Comips.Text = ips;
+                Comips.Text = ISP;
                 
 
 
@@ -62,7 +62,7 @@ namespace NetConfClientSoftware
         {
             get { return ComVersion.Text; }
         }
-        public string IPS
+        public string ISP
         {
             get { return Comips.Text; }
         }
