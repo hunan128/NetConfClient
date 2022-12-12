@@ -8,13 +8,15 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Netconf")]
 
 [assembly: AssemblyDescription("" +
-     "2022.12.08 解决自动化测试日志无法输出的问题" + "\r\n" +
+    "2022.12.09 修复订阅后提示未“声明”等错误" + "\r\n" +
+    "2022.12.08 修复日志信息的写入和读取" + "\r\n" +
+    "2022.12.08 解决自动化测试日志无法输出的问题" + "\r\n" +
     "2022.12.05 优化保存XML脚本流程" + "\r\n" +
     "2022.11.23 解决了XML脚本调试编写窗口卡死的问题" + "\r\n" +
     "2022.11.17 新增告警抑制功能，告警模块右键可找到" + "\r\n" +
-     "2022.11.02 新增pop_push的VLAN动作" + "\r\n" +
-     "2022.11.02 更新联通新的历史性能全量查询方式" + "\r\n" +
-     "2022.10.27 优化业务详细信息，增加环回配置" + "\r\n" +
+    "2022.11.02 新增pop_push的VLAN动作" + "\r\n" +
+    "2022.11.02 更新联通新的历史性能全量查询方式" + "\r\n" +
+    "2022.10.27 优化业务详细信息，增加环回配置" + "\r\n" +
     "2022.10.26 优化XML脚本调试返回显示双击支持查看对比原始XML数据" + "\r\n" +
     "2022.10.25 新增log查找功能" + "\r\n" +
     "2022.10.25 LLDP、Peer通知修改完成" + "\r\n" +
@@ -106,5 +108,5 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2022.5.7.41")]
-[assembly: AssemblyFileVersion("2022.5.7.41")]
+[assembly: AssemblyVersion("2022.5.7.44")]
+[assembly: AssemblyFileVersion("2022.5.7.44")]

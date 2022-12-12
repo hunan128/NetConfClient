@@ -251,7 +251,7 @@ namespace Renci.SshNet.NetConf
                     {
                         Directory.CreateDirectory(path);
                     }
-                    path = path + "\\" + _hostip + "-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+                    path = path + "\\" + _hostip + "-" + DateTime.Now.ToString("yyyyMMdd") + "netconf" +".txt";
                     if (!File.Exists(path))
                     {
                         FileStream fs = File.Create(path);
@@ -355,6 +355,7 @@ namespace Renci.SshNet.NetConf
                             _data.Append(Regex.Replace(s, @"\n*#([\d\n\#]*)", ""));
                         }
                     }
+                    return;
                 }
                 if (chunk.Contains("</notification>"))
                 {

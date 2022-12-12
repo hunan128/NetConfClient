@@ -196,7 +196,7 @@ namespace NetConfClientSoftware
                     {
                         Directory.CreateDirectory(path);
                     }
-                    path = path + "\\" + ipaddress + "-" + DateTime.Now.ToString("yyyyMMdd") + ".txt";
+                    path = path + "\\" + ipaddress + "-" + DateTime.Now.ToString("yyyyMMdd") +"telnet"+ ".txt";
                     if (!File.Exists(path))
                     {
                         FileStream fs = File.Create(path);

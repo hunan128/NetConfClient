@@ -606,7 +606,7 @@ namespace NetConfClientSoftware
             LLDP(rpcResponse, ip);
             Peer(rpcResponse, ip);
         }
-            private void Lognotification(string rpcResponse , string ip) {
+        private void Lognotification(string rpcResponse , string ip) {
             string nename = "";
             for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
             {
@@ -2143,28 +2143,28 @@ namespace NetConfClientSoftware
         {
             try
             {
-                textBox_me_name.Text = "";
-                textBox_me_status.Text = "";
-                textBox_me_product_name.Text = "";
-                textBox_me_device_type.Text = "";
-                textBox_me_uuid.Text = "";
-                textBox_me_manufacturer.Text = "";
-                textBox_me_hardware_version.Text = "";
-                textBox_me_software_version.Text = "";
-                textBox_me_protocol_name.Text = "";
-                textBox_me_eq.Text = "";
-                textBox_me_ip_address.Text = "";
-                textBox_me_mask.Text = "";
-                textBox_me_gate_way1.Text = "";
-                textBox_me_gate_way2.Text = "";
+                textBox_me_name.Clear();
+                textBox_me_status.Clear();
+                textBox_me_product_name.Clear();
+                textBox_me_device_type.Clear();
+                textBox_me_uuid.Clear();
+                textBox_me_manufacturer.Clear();
+                textBox_me_hardware_version.Clear();
+                textBox_me_software_version.Clear();
+                textBox_me_protocol_name.Clear();
+                textBox_me_eq.Clear();
+                textBox_me_ip_address.Clear();
+                textBox_me_mask.Clear();
+                textBox_me_gate_way1.Clear();
+                textBox_me_gate_way2.Clear();
                 textBox_me_ntp_enable.Text = "";
-                textBox_me_ntp_server_name.Text = "";
-                textBox_me_ntp_server_ipaddress.Text = "";
-                textBox_me_ntp_server_port.Text = "";
-                textBox_me_ntp_server_version.Text = "";
-                textBox_me_ntp_state.Text = "";
-                textBoxallslot.Text = "";
-                textBoxsn.Text = "";
+                textBox_me_ntp_server_name.Clear();
+                textBox_me_ntp_server_ipaddress.Clear();
+                textBox_me_ntp_server_port.Clear();
+                textBox_me_ntp_server_version.Clear();
+                textBox_me_ntp_state.Clear();
+                textBoxallslot.Clear();
+                textBoxsn.Clear();
                 comboBoxMcPort.Items.Clear();
                 //string filename = @"C:\netconf\" + gpnip + "_XmlAll.xml";
                 // XPathDocument doc = new XPathDocument(@"C:\netconf\" + gpnip + "_XmlAll.xml");
@@ -4645,17 +4645,8 @@ namespace NetConfClientSoftware
         /// 脚本业务的RPC函数，带返回提示
         /// </summary>
         /// <param name="rpc">发送的脚本XML</param>
-        private string CreatAuto(XmlDocument rpc, int id, string ip)
+        private string CreatAuto(XmlDocument rpc, int id, string ip ,string nename)
         {
-            string nename = "";
-            for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
-            {
-                if (dataGridViewNeInformation.Rows[i].Cells["网元ip"].Value.ToString() == ip) //keyword要查的关键字
-                {
-                    nename = dataGridViewNeInformation.Rows[i].Cells["网元名称"].Value.ToString();
-                    break;
-                }
-            }
             string Messg = "";
             try
             {
@@ -4685,23 +4676,28 @@ namespace NetConfClientSoftware
                     netConfClient[id].AutomaticMessageIdHandling = false;
                 }
                 rpc.LoadXml(rpcxml);
-                TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "请求：" + FenGeFu);
-                TextLog.AppendText(XmlFormat.Xml(rpc.OuterXml) + FenGeFu);
+                Thread req = new Thread(() => AutoRunningReq(rpc.OuterXml, nename,"请求："));
+                req.Start();
                 var rpcResponse = netConfClient[id].SendReceiveRpc(rpc);
-                TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "应答：" + FenGeFu);
-                Messg = XmlFormat.Xml(rpcResponse.OuterXml);
-                TextLog.AppendText(Messg + FenGeFu);
+                Messg = rpcResponse.OuterXml;
+                Thread res = new Thread(() => AutoRunningReq(rpcResponse.OuterXml, nename, "应答："));
+                res.Start();
             }
             catch (Exception ex)
             {
-                TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "应答：" + FenGeFu);
-                TextLog.AppendText(ex.Message + "\r\n");
+                TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + "应答：" + FenGeFu + ex.Message + "\r\n");
+
                 Messg = ex.ToString();
                 return Messg;
             }
             return Messg;
         }
+        private void AutoRunningReq(string rpcResponse, string nename ,string toDo)
+        {
+            rpcResponse = XmlFormat.Xml(rpcResponse);
+            TextLog.AppendText("网元：" + nename + " " + System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff") + toDo + FenGeFu + XmlFormat.Xml(rpcResponse) + FenGeFu);
 
+        }
         bool stop = false;
         bool on_off = false;
         ManualResetEvent ma;
@@ -4754,24 +4750,44 @@ namespace NetConfClientSoftware
                         {
                             try
                             {
+                                string nename = "";
+                                int id = 0;
+                                string ip = dataGridViewAuto.Rows[i].Cells["Autoip地址"].Value.ToString();
+                                if (File.Exists(neinfopath))
+                                {
+                                    try
+                                    {
+                                        XmlDocument xmlDoc1 = new XmlDocument();
+                                        xmlDoc1.Load(neinfopath);
+                                        XmlNamespaceManager root = new XmlNamespaceManager(xmlDoc1.NameTable);
+                                        XmlNodeList itemNodes = xmlDoc1.SelectNodes("//ipaddress");
+                                        foreach (XmlNode itemNode in itemNodes)
+                                        {
+                                            XmlNode neip = itemNode.SelectSingleNode("ip", root);
+                                            XmlNode user = itemNode.SelectSingleNode("user", root);
+                                            XmlNode password = itemNode.SelectSingleNode("password", root);
+                                            XmlNode neid = itemNode.SelectSingleNode("id", root);
+                                            XmlNode name = itemNode.SelectSingleNode("name", root);
+                                            XmlNode neisp = itemNode.SelectSingleNode("ISP", root);
+                                            XmlNode neips = itemNode.SelectSingleNode("ips", root);
+                                            if (neip != null) {
+                                                if (neip.InnerText == ip) {
+                                                    nename = name.InnerText;
+                                                    id = int.Parse(neid.InnerText);
+                                                }
+                                            }
+                                        }
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        TextLog.AppendText(ex.ToString() + FenGeFu );
+                                    }
+
+                                }
+                                string ISP = dataGridViewAuto.Rows[i].Cells["Auto运营商"].Value.ToString();
                                 XmlDocument xmlDoc = new XmlDocument();
                                 xmlDoc.LoadXml(dataGridViewAuto.Rows[i].Cells["Auto用例脚本"].Value.ToString());
-                                string ip = dataGridViewAuto.Rows[i].Cells["Autoip地址"].Value.ToString();
-                                int line = -1;
-                                for (int l = 0; l < dataGridViewNeInformation.Rows.Count; l++)
-                                {
-                                    if (dataGridViewNeInformation.Rows[l].Cells["网元ip"].Value.ToString() == ip) //keyword要查的关键字
-                                    {
-                                        line = l;
-                                        break;
-                                    }
-                                    if (line >= 0)
-                                        break;
-                                }
-                                int id = int.Parse(dataGridViewNeInformation.Rows[line].Cells["SSH_ID"].Value.ToString());
-                                // string ip = dataGridViewNeInformation.Rows[line].Cells["网元ip"].Value.ToString();
-                                string ISP = dataGridViewAuto.Rows[i].Cells["Auto运营商"].Value.ToString();
-                                var result = CreatAuto(xmlDoc, id, ip);
+                                var result = CreatAuto(xmlDoc, id, ip, nename);
                                 //var result = RPC.Send(xmlDoc, id, ip);
                                 dataGridViewAuto.Rows[i].Cells["Auto结束时间"].Value = DateTime.Now.ToString("HH:mm:ss");
                                 DateTime endTime = System.DateTime.Now;
@@ -7295,7 +7311,7 @@ namespace NetConfClientSoftware
                 ComSdhPro.Text = "无";
                 ComSdhUniPtp.Enabled = false;
                 ComSdhUniPtp_Secondary.Enabled = false;
-                //ComSdhPro.Text = "";
+                //ComSdhPro.Clear();
                 //TextSdhUniTs.Visible = false;
                 groupBoxODUprimary_nni2.Visible = true;
                 groupBoxsecondary_nni2.Visible = true;
@@ -8417,9 +8433,9 @@ namespace NetConfClientSoftware
         {
             try
             {
-                textBoxDownload_Bytes.Text = "";
-                textBoxGetDownloadStatus.Text = "";
-                textBoxFail_Reason.Text = "";
+                textBoxDownload_Bytes.Clear();
+                textBoxGetDownloadStatus.Clear();
+                textBoxFail_Reason.Clear();
                 int id = int.Parse(treeViewNEID.SelectedNode.Name);
                 int line = -1;
                 for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -8503,9 +8519,9 @@ namespace NetConfClientSoftware
             try
             {
                 comboBoxFileName.Text = "";
-                textBoxGetDownloadStatus.Text = "";
-                textBoxFail_Reason.Text = "";
-                textBoxActiveTime.Text = "";
+                textBoxGetDownloadStatus.Clear();
+                textBoxFail_Reason.Clear();
+                textBoxActiveTime.Clear();
                 int id = int.Parse(treeViewNEID.SelectedNode.Name);
                 int line = -1;
                 for (int i = 0; i < dataGridViewNeInformation.Rows.Count; i++)
@@ -8782,7 +8798,7 @@ namespace NetConfClientSoftware
 
         private void 查看交互日志ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("notepad.exe", @"C:\netconf\Log\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + gpnip + "-" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
+            System.Diagnostics.Process.Start("notepad.exe", @"C:\netconf\Logs\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + gpnip + "-" + DateTime.Now.ToString("yyyyMMdd") +"netconf"+ ".txt");
         }
 
         private void 更改为当前ip地址ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -8809,7 +8825,7 @@ namespace NetConfClientSoftware
             string dxcstr = "";
             string ID = "", Rate = "", Dir = "", Source = "", sink = "", P_Source = "", P_Sink = "", LPG = "";
             string ID_Stream = "", Rate_Stream = "", Dir_Stream = "", Source_Stream = "", sink_Stream = "", P_Source_Stream = "", P_Sink_Stream = "", LPG_Stream = "";
-            string connectstr = Connection_Arrange.Connect(TextIP.Text, "admin", "greenway");
+            string connectstr = Connection_Arrange.Connect(TextIP.Text, gpnuser, gpnpassword);
             //查询交叉ID和保护组
             textBoxTelnetLogs.AppendText(connectstr);
             textBoxTelnetLogs.AppendText("\r\n=========================================查询所在业务=========================================\r\n");
@@ -9255,7 +9271,7 @@ namespace NetConfClientSoftware
 
         private void 查看Telnet交互日志ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("notepad.exe", @"C:\netconf\Logs\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + TextIP.Text+"-" + DateTime.Now.ToString("yyyyMMdd") + ".txt");
+            System.Diagnostics.Process.Start("notepad.exe", @"C:\netconf\Logs\" + DateTime.Now.ToString("yyyyMMdd") + "\\" + gpnip +"-" + DateTime.Now.ToString("yyyyMMdd") +"telnet"+ ".txt");
         }
         private void DeleteConnectionAll()
         {
@@ -9268,7 +9284,7 @@ namespace NetConfClientSoftware
             string dxcstr = "";
             string ID = "", Rate = "", Dir = "", Source = "", sink = "", P_Source = "", P_Sink = "", LPG = "";
             string ID_Stream = "", Rate_Stream = "", Dir_Stream = "", Source_Stream = "", sink_Stream = "", P_Source_Stream = "", P_Sink_Stream = "", LPG_Stream = "";
-            string connectstr = Connection_Arrange.Connect(TextIP.Text, "admin", "greenway");
+            string connectstr = Connection_Arrange.Connect(TextIP.Text, gpnuser, gpnpassword);
             //查询交叉ID和保护组
             textBoxTelnetLogs.AppendText(connectstr);
             textBoxTelnetLogs.AppendText("\r\n=========================================删除UMS配置=========================================\r\n");
@@ -9596,7 +9612,7 @@ namespace NetConfClientSoftware
             textBoxConnections.Clear();
             textBoxTelnetLogs.Clear();
             string dxcstr = "";
-            string connectstr = Connection_Arrange.Connect(TextIP.Text, "admin", "greenway");
+            string connectstr = Connection_Arrange.Connect(TextIP.Text, gpnuser, gpnpassword);
             //查询交叉ID和保护组
             textBoxTelnetLogs.AppendText(connectstr);
             dxcstr = Connection_Arrange.Get_OTN();
@@ -10268,7 +10284,7 @@ namespace NetConfClientSoftware
         private void buttonLogClear_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("正在清空所有LOG日志，确认删除？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                TextLog.Text = "";
+                TextLog.Clear();
         }
 
         private void 帮助HToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10292,7 +10308,7 @@ namespace NetConfClientSoftware
         private void 清空ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("正在清空所有LOG日志，确认删除？", "提示", MessageBoxButtons.OKCancel) == DialogResult.OK)
-                TextLog.Text = "";
+                TextLog.Clear();
         }
 
         private void 告警抑制屏蔽ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -10362,7 +10378,7 @@ namespace NetConfClientSoftware
 
         private void 清空ToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            fastColoredTextBoxReq.Text = "";
+            fastColoredTextBoxReq.Clear();
         }
 
         private void 复制ToolStripMenuItem1_Click(object sender, EventArgs e)
