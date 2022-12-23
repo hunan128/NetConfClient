@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>NetConfClientSoftware</RootNamespace>
     <AssemblyName>NetConfClient</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -127,31 +127,31 @@
     <Compile Include="About\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="AutoClosingMessageBox.cs" />
+    <Compile Include="Other\AutoClosingMessageBox.cs" />
     <Compile Include="ConfigServices\FileManage.cs" />
-    <Compile Include="Connection_Arrange.cs" />
-    <Compile Include="FormSaveXML.cs">
+    <Compile Include="Other\Connection_Arrange.cs" />
+    <Compile Include="Other\FormSaveXML.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormSaveXML.Designer.cs">
+    <Compile Include="Other\FormSaveXML.Designer.cs">
       <DependentUpon>FormSaveXML.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_alarm_mask_states.cs">
+    <Compile Include="Other\Form_alarm_mask_states.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_alarm_mask_states.Designer.cs">
+    <Compile Include="Other\Form_alarm_mask_states.Designer.cs">
       <DependentUpon>Form_alarm_mask_states.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Rep_Reply.cs">
+    <Compile Include="Other\Form_Rep_Reply.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Rep_Reply.Designer.cs">
+    <Compile Include="Other\Form_Rep_Reply.Designer.cs">
       <DependentUpon>Form_Rep_Reply.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form_Connection_Info.cs">
+    <Compile Include="Other\Form_Connection_Info.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form_Connection_Info.Designer.cs">
+    <Compile Include="Other\Form_Connection_Info.Designer.cs">
       <DependentUpon>Form_Connection_Info.cs</DependentUpon>
     </Compile>
     <Compile Include="MenuForm\Form_Connection_Rate.cs">
@@ -269,24 +269,24 @@
     <Compile Include="AutoRuning\RPC.cs" />
     <Compile Include="Other\TSConversion.cs" />
     <Compile Include="Other\XmlFormat.cs" />
-    <Compile Include="Telnet.cs" />
+    <Compile Include="Other\Telnet.cs" />
     <EmbeddedResource Include="About\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="AutoRuning\Form_AutoRunningNetconf.resx">
       <DependentUpon>Form_AutoRunningNetconf.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormSaveXML.resx">
+    <EmbeddedResource Include="Other\FormSaveXML.resx">
       <DependentUpon>FormSaveXML.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_alarm_mask_states.resx">
+    <EmbeddedResource Include="Other\Form_alarm_mask_states.resx">
       <DependentUpon>Form_alarm_mask_states.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Rep_Reply.resx">
+    <EmbeddedResource Include="Other\Form_Rep_Reply.resx">
       <DependentUpon>Form_Rep_Reply.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form_Connection_Info.resx">
+    <EmbeddedResource Include="Other\Form_Connection_Info.resx">
       <DependentUpon>Form_Connection_Info.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MenuForm\Form_Create_Pg.resx">
@@ -345,11 +345,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <None Include="ClassDiagram.cd" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -359,11 +354,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="img\favicon-4.ico" />
