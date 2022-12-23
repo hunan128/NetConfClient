@@ -1,5 +1,7 @@
 # netconf client is a netconf test tool, it supports OTN equipment, supports the creation of ODU services, SDH services, and packet Ethernet services. It supports performance, TCA, protection groups, notifications, subscriptions, and automated testing.
 
+.NET framework 4.0 
+
 netconf Version record:
 
 2021.11.26 supports up to 32 network elements to go online at the same time
