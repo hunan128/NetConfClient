@@ -416,16 +416,18 @@ namespace NetConfClientSoftware
                     XmlNode itemNode = itemNodes[i];
                     if (itemNode != null)
                     {
-                        typedefname = itemNodes[i].Attributes["name"].Value;
-
-                        typename = itemNode.ChildNodes[0].Attributes["name"].Value;
+                        if (itemNode.Attributes["name"] != null)
+                            typedefname = itemNode.Attributes["name"].Value;
+                        if (itemNode.ChildNodes[0].Attributes["name"] != null)
+                            typename = itemNode.ChildNodes[0].Attributes["name"].Value;
                         XmlNodeList enum0 = itemNode.ChildNodes[0].ChildNodes;
                         for (int j = 0; j < enum0.Count; j++)
                         {
                             XmlNode itemNode1 = enum0[j];
                             if (itemNode1 != null)
                             {
-                                list.Add(enum0[j].Attributes["name"].Value);
+                                if (itemNode1.Attributes["name"] != null)
+                                    list.Add(itemNode1.Attributes["name"].Value);
                             }
                         }
                         enumname = string.Join(",", (string[])list.ToArray(typeof(string)));
